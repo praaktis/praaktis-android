@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_dashboard"
+        android:icon="@drawable/vector_dashboard"
+        android:title="@string/dashboard"
+    />
+    <item
+        android:id="@+id/menu_new_challenge"
+        android:icon="@drawable/ic_add"
+        android:title="@string/new_challenge"
+    />
+    <item
+        android:id="@+id/menu_timeline"
+        android:icon="@drawable/ic_timeline"
+        android:title="@string/timeline"
+    />
+    <item
+        android:id="@+id/menu_more"
+        android:icon="@drawable/ic_menu"
+        android:title="@string/more"
+    />
+</menu>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "825121478451",
+    "firebase_url": "https://bh-praaktis.firebaseio.com",
+    "project_id": "bh-praaktis",
+    "storage_bucket": "bh-praaktis.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825121478451:android:ce2551e62ccbc3888f9046",
+        "android_client_info": {
+          "package_name": "com.mobile.praaktishockey"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "825121478451-ms6gvuguu1jifpori0b6lqp3trl205v4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQ26mbwPLdK538otZcG2IX4MpBNK2Tg1s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "825121478451-ms6gvuguu1jifpori0b6lqp3trl205v4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

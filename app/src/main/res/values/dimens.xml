@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size_xs">12sp</dimen>
+    <dimen name="text_size_xs_plus">13sp</dimen>
+    <dimen name="text_size_s">14sp</dimen>
+    <dimen name="text_size_m">16sp</dimen>
+    <dimen name="text_size_l">18sp</dimen>
+    <dimen name="text_size_xl">20sp</dimen>
+    <dimen name="text_size_xxl">22sp</dimen>
+    <dimen name="text_size_3xl">24sp</dimen>
+    <dimen name="text_size_4xl">26sp</dimen>
+    <dimen name="text_size_5xl">28sp</dimen>
+    <dimen name="text_size_6xl">30sp</dimen>
+    <dimen name="text_size_7xl">32sp</dimen>
+    <dimen name="text_size_8xl">34sp</dimen>
+    <dimen name="text_size_8xl_plus">35sp</dimen>
+    <dimen name="text_size_9xl">36sp</dimen>
+</resources>
