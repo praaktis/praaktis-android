@@ -4,336 +4,435 @@
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/white"
+    android:clickable="true"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvMe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
             android:text="@string/me"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/black_text"
             android:textSize="22sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:id="@+id/llHighest"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="11dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/bg_rect_rounded_corner"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="19dp"
+            android:layout_marginRight="16dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp"
             app:layout_constraintEnd_toStartOf="@id/llAverage"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvMe">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:text="@string/highest"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                app:autoSizeMaxTextSize="20sp"
-                app:autoSizeTextType="uniform" />
+                android:orientation="vertical"
+                android:padding="19dp">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvMeHighest"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:text="-"
-                android:textColor="@android:color/white"
-                app:autoSizeMaxTextSize="35sp"
-                app:autoSizeTextType="uniform" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="@string/highest"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black_text"
+                    app:autoSizeMaxTextSize="20sp"
+                    app:autoSizeTextType="uniform" />
 
-        </LinearLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMeHighest"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/black_text"
+                    app:autoSizeMaxTextSize="35sp"
+                    app:autoSizeTextType="uniform" />
 
-        <LinearLayout
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/llAverage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/bg_rect_rounded_corner"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="19dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp"
             app:layout_constraintEnd_toStartOf="@id/llRank"
             app:layout_constraintStart_toEndOf="@id/llHighest"
             app:layout_constraintTop_toTopOf="@id/llHighest">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:text="@string/average"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                app:autoSizeMaxTextSize="20sp"
-                app:autoSizeTextType="uniform" />
+                android:orientation="vertical"
+                android:padding="19dp">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvMeAverage"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:text="-"
-                android:textColor="@android:color/white"
-                app:autoSizeMaxTextSize="35sp"
-                app:autoSizeTextType="uniform" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="@string/average"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black_text"
+                    app:autoSizeMaxTextSize="20sp"
+                    app:autoSizeTextType="uniform" />
 
-        </LinearLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMeAverage"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/black_text"
+                    app:autoSizeMaxTextSize="35sp"
+                    app:autoSizeTextType="uniform" />
 
-        <LinearLayout
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/llRank"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_rect_rounded_corner"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="19dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/llAverage"
             app:layout_constraintTop_toTopOf="@id/llAverage">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:text="@string/rank"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                app:autoSizeMaxTextSize="20sp"
-                app:autoSizeTextType="uniform" />
+                android:orientation="vertical"
+                android:padding="19dp">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvMeRank"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:text="-"
-                android:textColor="@android:color/white"
-                app:autoSizeMaxTextSize="35sp"
-                app:autoSizeTextType="uniform" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="@string/rank"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black_text"
+                    app:autoSizeMaxTextSize="20sp"
+                    app:autoSizeTextType="uniform" />
 
-        </LinearLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMeRank"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/black_text"
+                    app:autoSizeMaxTextSize="35sp"
+                    app:autoSizeTextType="uniform" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvFriends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="15dp"
             android:text="@string/friends"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/black_text"
             android:textSize="22sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/llAverage" />
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:id="@+id/llHighestFriends"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/bg_rect_rounded_corner"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="19dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp"
             app:layout_constraintEnd_toStartOf="@id/llAverageFriends"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvFriends">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:text="@string/highest"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                app:autoSizeMaxTextSize="20sp"
-                app:autoSizeTextType="uniform" />
+                android:orientation="vertical"
+                android:padding="19dp">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvHighestFriends"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:text="-"
-                android:textColor="@android:color/white"
-                app:autoSizeMaxTextSize="35sp"
-                app:autoSizeTextType="uniform" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="@string/highest"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black_text"
+                    app:autoSizeMaxTextSize="20sp"
+                    app:autoSizeTextType="uniform" />
 
-        </LinearLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvHighestFriends"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/black_text"
+                    app:autoSizeMaxTextSize="35sp"
+                    app:autoSizeTextType="uniform" />
 
-        <LinearLayout
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/llAverageFriends"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/bg_rect_rounded_corner"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="19dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp"
             app:layout_constraintEnd_toStartOf="@id/llLowest"
             app:layout_constraintStart_toEndOf="@id/llHighestFriends"
             app:layout_constraintTop_toTopOf="@id/llHighestFriends">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:text="@string/average"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                app:autoSizeMaxTextSize="20sp"
-                app:autoSizeTextType="uniform" />
+                android:orientation="vertical"
+                android:padding="19dp">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvAverageFriends"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:text="-"
-                android:textColor="@android:color/white"
-                app:autoSizeMaxTextSize="35sp"
-                app:autoSizeTextType="uniform" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="@string/average"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black_text"
+                    app:autoSizeMaxTextSize="20sp"
+                    app:autoSizeTextType="uniform" />
 
-        </LinearLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAverageFriends"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/black_text"
+                    app:autoSizeMaxTextSize="35sp"
+                    app:autoSizeTextType="uniform" />
 
-        <LinearLayout
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/llLowest"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_rect_rounded_corner"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="19dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/llAverageFriends"
             app:layout_constraintTop_toTopOf="@id/llAverageFriends">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:text="@string/lowest"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                app:autoSizeMaxTextSize="20sp"
-                app:autoSizeTextType="uniform" />
+                android:orientation="vertical"
+                android:padding="19dp">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvLowestFriends"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:text="-"
-                android:textColor="@android:color/white"
-                app:autoSizeMaxTextSize="35sp"
-                app:autoSizeTextType="uniform" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="@string/lowest"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black_text"
+                    app:autoSizeMaxTextSize="20sp"
+                    app:autoSizeTextType="uniform" />
 
-        </LinearLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvLowestFriends"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/black_text"
+                    app:autoSizeMaxTextSize="35sp"
+                    app:autoSizeTextType="uniform" />
 
-        <LinearLayout
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/llScores"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="18dp"
-            android:background="@drawable/bg_rect_rounded_corner"
-            android:orientation="horizontal"
-            android:padding="10dp"
+            android:layout_marginRight="16dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/llLowest">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="@string/scores"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                >
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/lineChart"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginLeft="10dp"
-                android:visibility="gone"
-                />
-
-            <TextView
-                android:id="@+id/tvNoLineChartDataAvailable"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/no_chart_data_available"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                />
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-        </FrameLayout>
-        </LinearLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/scores"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black_text"
+                    android:textSize="20sp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp">
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lineChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginLeft="10dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tvNoLineChartDataAvailable"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:text="@string/no_chart_data_available"
+                        android:textColor="@color/black_text"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:background="@drawable/bg_rect_rounded_corner"
             android:orientation="vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/llScores">
 
-            <include layout="@layout/item_friend_score" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_rect_rounded_corner"
+                android:backgroundTint="#6F515151"
+                android:padding="10dp"
+                >
+
+                <TextView
+                    android:id="@+id/tvPosition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pos"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:minWidth="50dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/score"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:minWidth="100dp"
+                    />
+
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    />
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvFriendsScore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/light_grey"
+                android:paddingTop="5dp"
                 tool:listitem="@layout/item_friend_score" />
 
         </LinearLayout>

@@ -47,8 +47,8 @@ class TimelineFragment constructor(override val layoutId: Int = R.layout.fragmen
                 when (i) {
                     0 -> {
                         tvTab?.text = context.getString(R.string.all)
-                        cvItem?.setCardBackgroundColor(ContextCompat.getColor(context!!, R.color.dark_grey))
-                        tvItemTxt?.setTextColor(ContextCompat.getColor(context!!, R.color.grey_900_alpha_70))
+                        cvItem?.setCardBackgroundColor(ContextCompat.getColor(context!!, R.color.grey_800))
+                        tvItemTxt?.setTextColor(ContextCompat.getColor(context!!, R.color.white))
                     }
                     1 -> tvTab?.text = getString(R.string.drag_flick)
                     2 -> tvTab?.text = getString(R.string.low_backhand)
@@ -67,14 +67,14 @@ class TimelineFragment constructor(override val layoutId: Int = R.layout.fragmen
                         cvItem?.setCardBackgroundColor(
                             ContextCompat.getColor(
                                 context!!,
-                                if (i == position) R.color.dark_grey else R.color.grey_800
+                                if (i == position) R.color.grey_800 else R.color.dark_grey
                             )
                         )
 
                         tvItemTxt?.setTextColor(
                             ContextCompat.getColor(
                                 context!!,
-                                if (i == position) R.color.grey_900_alpha_70 else R.color.white
+                                if (i == position) R.color.white else R.color.grey_900_alpha_70
                             )
                         )
                     }

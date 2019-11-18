@@ -4,13 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_margin="5dp"
     android:clickable="true"
     android:foreground="?selectableItemBackground"
-    android:theme="@style/WhiteHighlight"
-    app:cardBackgroundColor="@color/white_alpha_20"
     app:cardCornerRadius="8dp"
-    app:cardElevation="0dp"
+    app:cardElevation="3dp"
     app:contentPaddingBottom="15dp"
     app:contentPaddingLeft="10dp"
     app:contentPaddingRight="10dp"
@@ -28,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAllCaps="true"
-            android:textColor="@android:color/white"
+            android:textColor="@color/black_text"
             android:textSize="17sp"
             tools:text="drag/flick" />
 
@@ -37,7 +35,7 @@
             android:layout_height="wrap_content"
             android:rotation="180"
             android:src="@drawable/ic_left_arrow"
-            android:tint="@color/white" />
+            android:tint="@color/black_text" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

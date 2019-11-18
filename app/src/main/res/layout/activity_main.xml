@@ -4,27 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/white"
     tools:context=".ui.main.view.MainActivity">
 
     <FrameLayout
         android:id="@+id/topPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <View
-            android:layout_width="65dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/red" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/blue_gradient"
+        android:visibility="gone"
+        >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             app:navigationIcon="@drawable/ic_left_arrow"
-            tools:layout_marginTop="20dp" />
+            tools:layout_marginTop="20dp"
+            app:title=" "
+            />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_title"
@@ -71,11 +70,19 @@
     <!--app:itemIconTint="@drawable/bottom_background"-->
     <!--/>-->
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/shadow_line"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
+        />
+
     <com.mobile.praaktishockey.domain.common.HockeyBottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:theme="@style/WhiteHighlight"
         android:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         />

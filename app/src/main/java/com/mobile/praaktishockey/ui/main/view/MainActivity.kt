@@ -45,24 +45,24 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
         mViewModel?.getChallenges()
         mViewModel?.checkFcmToken()
 //        mViewModel?.
-        toolbar.setOnApplyWindowInsetsListener { v, insets ->
-            v.updateLayoutParams<FrameLayout.LayoutParams> {
-                topMargin = insets.systemWindowInsetTop
-            }
-            tv_title.updateLayoutParams<FrameLayout.LayoutParams> {
-                topMargin = insets.systemWindowInsetTop / 2
-            }
-            insets
-        }
+//        toolbar.setOnApplyWindowInsetsListener { v, insets ->
+//            v.updateLayoutParams<FrameLayout.LayoutParams> {
+//                topMargin = insets.systemWindowInsetTop
+//            }
+//            tv_title.updateLayoutParams<FrameLayout.LayoutParams> {
+//                topMargin = insets.systemWindowInsetTop / 2
+//            }
+//            insets
+//        }
 
         supportFragmentManager.addOnBackStackChangedListener(this)
-        setSupportActionBar(toolbar)
-        supportActionBar?.apply {
-            setHomeButtonEnabled(false)
-            setDisplayHomeAsUpEnabled(false)
-            setDisplayShowHomeEnabled(false)
-        }
-        toolbar.setNavigationOnClickListener { onBackPressed() }
+//        setSupportActionBar(toolbar)
+//        supportActionBar?.apply {
+//            setHomeButtonEnabled(false)
+//            setDisplayHomeAsUpEnabled(false)
+//            setDisplayShowHomeEnabled(false)
+//        }
+//        toolbar.setNavigationOnClickListener { onBackPressed() }
 
         mViewModel?.let {
             it.title.observe(this, Observer { title ->

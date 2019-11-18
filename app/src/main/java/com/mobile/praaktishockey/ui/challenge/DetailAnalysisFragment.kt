@@ -111,7 +111,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
         else tvDragFlick.text = challengeItem.label
         tvDragFlick.isAllCaps = true
         tvDragFlick.setTextSize(Dimension.SP, 17f)
-        tvDragFlick.setTextColor(ContextCompat.getColor(context!!, R.color.white_transparent))
+        tvDragFlick.setTextColor(ContextCompat.getColor(context!!, R.color.black_text))
         val lp = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         lp.gravity = Gravity.CENTER_HORIZONTAL
         lp.setMargins(0, context!!.dpToPx(5), 0, context!!.dpToPx(5))

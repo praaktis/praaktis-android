@@ -3,19 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/white"
     android:orientation="vertical"
-    android:paddingTop="20dp"
     android:clickable="true"
     >
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp"
         android:text="@string/settings"
+        android:paddingTop="10dp"
+        android:gravity="center"
         android:textAllCaps="true"
+        android:background="@drawable/blue_gradient"
         android:textColor="@color/white"
         android:textSize="22sp" />
 
@@ -26,9 +27,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="20dp"
-        app:cardBackgroundColor="@color/grey_800"
         app:cardCornerRadius="10dp"
-        app:cardElevation="0dp"
+        app:cardElevation="3dp"
         app:contentPadding="20dp">
 
         <LinearLayout
@@ -53,7 +53,7 @@
                     android:layout_weight="1"
                     android:text="@string/language"
                     android:textAllCaps="true"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black_text"
                     android:textSize="17sp" />
 
                 <TextView
@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:text="English"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black_text"
                     android:textSize="17sp" />
 
             </LinearLayout>
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/push_notification"
                 android:textSize="17sp"
-                android:textColor="@color/white"
+                android:textColor="@color/black_text"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:layout_marginRight="10dp"
@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="@color/light_transparent"
+                app:cardBackgroundColor="@color/blue_back"
                 app:cardCornerRadius="8dp"
                 app:contentPadding="20dp"
                 android:layout_marginTop="20dp"

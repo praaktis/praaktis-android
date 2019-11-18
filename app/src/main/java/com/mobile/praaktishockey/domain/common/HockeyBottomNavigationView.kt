@@ -39,6 +39,7 @@ class HockeyBottomNavigationView : LinearLayout {
         removeAllViews()
         orientation = HORIZONTAL
         gravity = Gravity.CENTER
+        elevation = context.dpToPx(3).toFloat()
         val padding = context.dpToPx(5)
         for(i in 0 until items.size) {
             val item = items[i]
@@ -49,15 +50,15 @@ class HockeyBottomNavigationView : LinearLayout {
             val ivMenu = ImageView(context)
             ivMenu.setImageResource(item.second)
             ivMenu.setColorFilter(
-                if (i == selectedItemPosition) ContextCompat.getColor(context!!, R.color.white)
-                else ContextCompat.getColor(context!!, R.color.grey_800)
+                if (i == selectedItemPosition) ContextCompat.getColor(context!!, R.color.blue_back)
+                else ContextCompat.getColor(context!!, R.color.blue_back)
             )
 
             val tvTitle = TextView(context)
             tvTitle.text = item.first
             tvTitle.setTextColor(
-                if (i == selectedItemPosition) ContextCompat.getColor(context!!, R.color.white)
-                else ContextCompat.getColor(context!!, R.color.grey_800)
+                if (i == selectedItemPosition) ContextCompat.getColor(context!!, R.color.blue_back)
+                else ContextCompat.getColor(context!!, R.color.blue_back)
             )
             tvTitle.gravity = Gravity.CENTER
 
@@ -73,7 +74,7 @@ class HockeyBottomNavigationView : LinearLayout {
             container.layoutParams = lp
             container.setPadding(padding, padding * 2, padding, padding * 2)
             if(i == selectedItemPosition) {
-                container.setBackgroundColor(ContextCompat.getColor(context!!, R.color.material_grey_900))
+                container.setBackgroundColor(ContextCompat.getColor(context!!, R.color.blue_back_transparent))
             }
             container.onClick {
                 if(selectedItemPosition == i && selectedItemPosition != 3) return@onClick

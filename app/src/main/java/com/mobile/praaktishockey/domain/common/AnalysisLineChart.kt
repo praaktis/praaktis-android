@@ -24,7 +24,7 @@ class AnalysisLineChart(context: Context, val value: Float, val title: String) :
         val tvTitle = AppCompatTextView(context)
         tvTitle.text = title
         tvTitle.setTextSize(Dimension.SP, 17f)
-        tvTitle.setTextColor(ContextCompat.getColor(context!!, R.color.white_transparent))
+        tvTitle.setTextColor(ContextCompat.getColor(context!!, R.color.black_text))
         tvTitle.setPadding(0, context.dpToPx(10), 0, 0)
         tvTitle.isAllCaps = true
         addView(tvTitle)

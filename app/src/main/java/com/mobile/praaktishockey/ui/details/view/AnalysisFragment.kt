@@ -254,7 +254,7 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
             val startColor5 = ContextCompat.getColor(context!!, android.R.color.holo_red_light)
 
             set1.colors = mutableListOf(startColor1, startColor2, startColor3, startColor4, startColor5)
-            set1.valueTextColor = Color.WHITE
+            set1.valueTextColor = Color.BLACK
 
             val dataSets = ArrayList<IBarDataSet>()
             dataSets.add(set1)

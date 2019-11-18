@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/white"
     android:clickable="true"
     >
 
@@ -13,6 +13,15 @@
         <!--app:realtimeBlurRadius="10dp"-->
         <!--app:realtimeOverlayColor="@color/grey_900_alpha_70" />-->
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="23dp"
+        android:background="@color/light_grey"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -21,7 +30,7 @@
         android:layout_marginTop="83dp"
         android:text="@string/menu"
         android:textAllCaps="true"
-        android:textColor="@android:color/white"
+        android:textColor="@color/black_text"
         android:textSize="36sp"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,7 +62,7 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="16dp"
                 app:srcCompat="@drawable/vector_avatar"
-                android:tint="@color/white"
+                android:tint="@color/black_text"
             />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -61,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/my_profile"
                 android:textAllCaps="true"
-                android:textColor="@android:color/white"
+                android:textColor="@color/black_text"
                 android:textSize="30sp" />
 
         </LinearLayout>
@@ -70,7 +79,7 @@
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="2dp"-->
             <!--android:layout_marginStart="62dp"-->
-            <!--android:background="@color/grey_700" />-->
+            <!--android:background="@color/grey_800" />-->
 
         <LinearLayout
             android:id="@+id/menu_friends"
@@ -91,14 +100,16 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="16dp"
-                app:srcCompat="@drawable/ic_friends" />
+                app:srcCompat="@drawable/ic_friends"
+                android:tint="@color/black_text"
+                />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/friends"
                 android:textAllCaps="true"
-                android:textColor="@android:color/white"
+                android:textColor="@color/black_text"
                 android:textSize="30sp"
                 />
 
@@ -124,7 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="62dp"
-            android:background="@color/grey_700" />
+            android:background="@color/grey_800" />
 
         <LinearLayout
             android:id="@+id/menu_settings"
@@ -144,14 +155,16 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="16dp"
-                app:srcCompat="@drawable/ic_outline_settings" />
+                app:srcCompat="@drawable/ic_outline_settings"
+                android:tint="@color/black_text"
+                />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/settings"
                 android:textAllCaps="true"
-                android:textColor="@android:color/white"
+                android:textColor="@color/black_text"
                 android:textSize="30sp" />
 
         </LinearLayout>
@@ -160,7 +173,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="62dp"
-            android:background="@color/grey_700" />
+            android:background="@color/grey_800" />
 
     </LinearLayout>
 
@@ -180,14 +193,16 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="16dp"
-            app:srcCompat="@drawable/ic_logout" />
+            app:srcCompat="@drawable/ic_logout"
+            android:tint="@color/black_text"
+            />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/log_out"
             android:textAllCaps="true"
-            android:textColor="@android:color/white"
+            android:textColor="@color/black_text"
             android:textSize="30sp" />
 
     </LinearLayout>

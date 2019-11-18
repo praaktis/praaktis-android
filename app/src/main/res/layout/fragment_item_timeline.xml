@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/white">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
+        android:background="@color/white"
         android:overScrollMode="never">
 
         <LinearLayout
@@ -25,7 +25,7 @@
                 android:visibility="gone"
                 app:cardBackgroundColor="@color/white_alpha_20"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="0dp"
+                app:cardElevation="2dp"
                 app:contentPadding="10dp">
 
                 <LinearLayout
@@ -40,7 +40,7 @@
                         android:layout_height="wrap_content"
                         android:text="May 11, 2019 - 12:15PM"
                         android:textAllCaps="true"
-                        android:textColor="@color/white_transparent"
+                        android:textColor="@color/black_text"
                         android:textSize="17sp" />
                     
                     <TextView
@@ -49,7 +49,7 @@
                         android:layout_height="wrap_content"
                         android:text="Drag flick"
                         android:textAllCaps="true"
-                        android:textColor="@color/white_transparent"
+                        android:textColor="@color/black_text"
                         android:textSize="17sp" />
 
                     <LinearLayout
@@ -70,7 +70,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/points"
                                 android:textAllCaps="true"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black_text"
                                 android:textSize="17sp" />
 
                             <TextView
@@ -79,7 +79,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="78"
                                 android:textAllCaps="true"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black_text"
                                 android:textSize="22sp" />
 
                         </LinearLayout>
@@ -96,7 +96,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/score"
                                 android:textAllCaps="true"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black_text"
                                 android:textSize="17sp" />
 
                             <TextView
@@ -105,7 +105,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="78%"
                                 android:textAllCaps="true"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black_text"
                                 android:textSize="22sp" />
 
                         </LinearLayout>
@@ -129,7 +129,7 @@
                             android:padding="10dp"
                             android:text="@string/details"
                             android:textAllCaps="true"
-                            android:textColor="@color/white_transparent"
+                            android:textColor="@color/black_text"
                             android:textSize="17sp"
                             />
 
@@ -153,7 +153,7 @@
                 android:visibility="gone"
                 app:cardBackgroundColor="@color/white_alpha_20"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="0dp"
+                app:cardElevation="2dp"
                 app:contentPadding="10dp">
 
                 <LinearLayout
@@ -168,7 +168,7 @@
                         android:layout_height="wrap_content"
                         android:text="May 11, 2019 - 12:15PM"
                         android:textAllCaps="true"
-                        android:textColor="@color/white_transparent"
+                        android:textColor="@color/black_text"
                         android:textSize="17sp" />
 
                     <TextView
@@ -177,7 +177,7 @@
                         android:layout_height="wrap_content"
                         android:text="Drag flick"
                         android:textAllCaps="true"
-                        android:textColor="@color/white_transparent"
+                        android:textColor="@color/black_text"
                         android:textSize="17sp" />
 
                     <LinearLayout
@@ -198,7 +198,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/points"
                                 android:textAllCaps="true"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black_text"
                                 android:textSize="17sp" />
 
                             <TextView
@@ -207,7 +207,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="78"
                                 android:textAllCaps="true"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black_text"
                                 android:textSize="22sp" />
 
                         </LinearLayout>
@@ -224,7 +224,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/score"
                                 android:textAllCaps="true"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black_text"
                                 android:textSize="17sp" />
 
                             <TextView
@@ -233,7 +233,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="78%"
                                 android:textAllCaps="true"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black_text"
                                 android:textSize="22sp" />
 
                         </LinearLayout>
@@ -256,7 +256,7 @@
                             android:padding="10dp"
                             android:text="@string/details"
                             android:textAllCaps="true"
-                            android:textColor="@color/white_transparent"
+                            android:textColor="@color/black_text"
                             android:textSize="17sp"
                             />
 
@@ -281,7 +281,7 @@
                 android:visibility="gone"
                 app:cardBackgroundColor="@color/white_alpha_20"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="0dp"
+                app:cardElevation="2dp"
                 app:contentPadding="10dp">
 
                 <LinearLayout
@@ -296,7 +296,7 @@
                         android:layout_height="wrap_content"
                         android:text="May 11, 2019 - 12:15PM"
                         android:textAllCaps="true"
-                        android:textColor="@color/white_transparent"
+                        android:textColor="@color/black_text"
                         android:textSize="17sp" />
 
                     <TextView
@@ -305,7 +305,7 @@
                         android:layout_height="wrap_content"
                         android:text="Drag flick"
                         android:textAllCaps="true"
-                        android:textColor="@color/white_transparent"
+                        android:textColor="@color/black_text"
                         android:textSize="17sp" />
 
                     <LinearLayout
@@ -326,7 +326,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/points"
                                 android:textAllCaps="true"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black_text"
                                 android:textSize="17sp" />
 
                             <TextView
@@ -335,7 +335,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="78"
                                 android:textAllCaps="true"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black_text"
                                 android:textSize="22sp" />
 
                         </LinearLayout>
@@ -352,7 +352,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/score"
                                 android:textAllCaps="true"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black_text"
                                 android:textSize="17sp" />
 
                             <TextView
@@ -361,7 +361,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="78%"
                                 android:textAllCaps="true"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black_text"
                                 android:textSize="22sp" />
 
                         </LinearLayout>
@@ -384,7 +384,7 @@
                             android:padding="10dp"
                             android:text="@string/details"
                             android:textAllCaps="true"
-                            android:textColor="@color/white_transparent"
+                            android:textColor="@color/black_text"
                             android:textSize="17sp"
                             />
 
@@ -411,7 +411,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="No data"
-        android:textColor="@color/white"
+        android:textColor="@color/black_text"
         android:textSize="20sp"
         android:visibility="gone"
         />

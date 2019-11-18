@@ -8,7 +8,7 @@
     android:layout_marginBottom="5dp"
     android:foreground="?selectableItemBackground"
     android:theme="@style/WhiteHighlight"
-    app:cardBackgroundColor="@color/grey_800"
+    app:cardBackgroundColor="@color/dark_grey"
     app:cardCornerRadius="8dp"
     app:cardElevation="0dp"
     app:contentPadding="8dp">
@@ -22,7 +22,7 @@
         android:maxLines="1"
         android:text="Drag / flick"
         android:textAllCaps="true"
-        android:textColor="@color/white"
+        android:textColor="@color/grey_900_alpha_70"
         app:autoSizeMaxTextSize="17sp"
         app:autoSizeTextType="uniform" />
 

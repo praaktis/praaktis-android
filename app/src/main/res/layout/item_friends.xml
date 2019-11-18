@@ -12,7 +12,7 @@
         android:id="@+id/tvPosition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/black_text"
         android:textSize="17sp"
         />
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textAllCaps="true"
-        android:textColor="@color/white"
+        android:textColor="@color/black_text"
         android:textSize="17sp"
         android:layout_marginLeft="15dp"
         android:maxLength="20"
@@ -39,6 +39,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_close_icon"
         android:padding="5dp"
+        android:tint="@color/black_text"
         />
 
 </LinearLayout>

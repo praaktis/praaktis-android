@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:text="@string/pos"
         android:textAllCaps="true"
-        android:textColor="@color/white"
+        android:textColor="@color/black_text"
         android:textSize="20sp"
         android:minWidth="50dp"
         />
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:text="@string/score"
         android:textAllCaps="true"
-        android:textColor="@color/white"
+        android:textColor="@color/black_text"
         android:textSize="20sp"
         android:minWidth="100dp"
         />
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:text="@string/name"
         android:textAllCaps="true"
-        android:textColor="@color/white"
+        android:textColor="@color/black_text"
         android:textSize="20sp"
         android:layout_weight="1"
         android:singleLine="true"

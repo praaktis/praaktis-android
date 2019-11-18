@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/black"
+    android:background="@color/white"
     android:padding="10dp"
     >
 
@@ -18,31 +18,29 @@
             android:id="@+id/rbEnglish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black_text"
             android:text="English"
             android:paddingLeft="19dp"
             android:textSize="17sp"
             android:layout_marginTop="5dp"
-            android:theme="@style/WhiteRadioButton"
             />
 
         <RadioButton
             android:id="@+id/rbFrance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black_text"
             android:text="French"
             android:paddingLeft="19dp"
             android:textSize="17sp"
             android:layout_marginTop="5dp"
-            android:theme="@style/WhiteRadioButton"
             />
 
         <RadioButton
             android:id="@+id/rbSpain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black_text"
             android:text="Spain"
             android:paddingLeft="19dp"
             android:textSize="17sp"
@@ -65,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
-            android:textColor="@color/white"
+            android:textColor="@color/black_text"
             android:textSize="17sp"
             android:padding="10dp"
             android:textAllCaps="true"
@@ -76,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ok"
-            android:textColor="@color/white"
+            android:textColor="@color/black_text"
             android:textSize="17sp"
             android:padding="10dp"
             android:textAllCaps="true"
