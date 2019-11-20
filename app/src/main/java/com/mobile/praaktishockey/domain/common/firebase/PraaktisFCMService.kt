@@ -16,7 +16,7 @@ import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.domain.common.pref.SettingsStorage
 import com.mobile.praaktishockey.ui.main.view.MainActivity
 
-class HockeyFCMService : FirebaseMessagingService() {
+class PraaktisFCMService : FirebaseMessagingService() {
 
     private val settingsStorage by lazy { SettingsStorage.instance }
 

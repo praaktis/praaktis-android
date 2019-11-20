@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.media.ExifInterface;
-import com.mobile.praaktishockey.HockeyApp;
+import com.mobile.praaktishockey.PraaktisApp;
 
 import java.io.*;
 
@@ -73,7 +73,7 @@ public class ImageUtils {
 
             // save image
             try {
-                File outputDir = HockeyApp.getApplication().getCacheDir(); // context being the Activity pointer
+                File outputDir = PraaktisApp.getApplication().getCacheDir(); // context being the Activity pointer
                 File outputFile = File.createTempFile(file.getName().substring(0, file.getName().lastIndexOf(".")), ".jpeg", outputDir);
                 FileOutputStream out = new FileOutputStream(outputFile, false);
                 resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);

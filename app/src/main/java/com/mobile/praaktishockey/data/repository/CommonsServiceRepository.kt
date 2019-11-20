@@ -22,7 +22,7 @@ interface CommonsServiceRepository {
         }
 
         var commonsService: CommonsService = createService()
-//        val database = HockeyDatabase.getDatabase(app)
+//        val database = PraaktisDatabase.getDatabase(app)
 
         override fun getCountries(): Single<List<CountryItemDTO>> {
             return commonsService.getCountries()

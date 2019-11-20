@@ -12,7 +12,7 @@ import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.domain.extension.dpToPx
 import com.mobile.praaktishockey.domain.extension.onClick
 
-class HockeyBottomNavigationView : LinearLayout {
+class PraaktisBottomNavigationView : LinearLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
         initUI()

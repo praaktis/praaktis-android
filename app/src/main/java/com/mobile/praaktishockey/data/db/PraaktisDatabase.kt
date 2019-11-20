@@ -13,20 +13,20 @@ import com.mobile.praaktishockey.domain.entities.CountryItemDTO
     version = DATABASE_HOCKEY_VERSION,
     exportSchema = false
 )
-abstract class HockeyDatabase : RoomDatabase() {
+abstract class PraaktisDatabase : RoomDatabase() {
     companion object {
-        private var INSTANCE: HockeyDatabase? = null
-        fun getDatabase(context: Context): HockeyDatabase {
+        private var INSTANCE: PraaktisDatabase? = null
+        fun getDatabase(context: Context): PraaktisDatabase {
             if (INSTANCE == null)
                 INSTANCE = Room.databaseBuilder(
                     context,
-                    HockeyDatabase::class.java, "hockey_db"
+                    PraaktisDatabase::class.java, "hockey_db"
                 ).build()
             return INSTANCE!!
         }
     }
 
-    abstract fun getHockeyDao(): HockeyDao
+    abstract fun getHockeyDao(): PraaktisDao
 
     abstract fun getCountriesDao(): CountriesDao
 }

@@ -17,6 +17,18 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:text="@string/timeline"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:background="@drawable/blue_gradient"
+                android:textAllCaps="true"
+                android:paddingTop="10dp"
+                />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv1"
                 android:layout_width="match_parent"

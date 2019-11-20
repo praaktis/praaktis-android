@@ -3,23 +3,19 @@ package com.mobile.praaktishockey.ui.main.view
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
-import android.widget.FrameLayout
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseActivity
-import com.mobile.praaktishockey.domain.common.HockeyBottomNavigationView
+import com.mobile.praaktishockey.domain.common.PraaktisBottomNavigationView
+import com.mobile.praaktishockey.domain.entities.TimelineDTO
 import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.friends.view.FriendsPagerFragment
 import com.mobile.praaktishockey.ui.main.vm.MainViewModel
 import com.mobile.praaktishockey.ui.settings.view.SettingsFragment
 import com.mobile.praaktishockey.ui.timeline.view.TimelineFragment
+import com.mobile.praaktishockey.ui.timeline.view.TimelineItemFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity constructor(override val layoutId: Int = R.layout.activity_main) : BaseActivity(),
@@ -83,7 +79,7 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
                 tag
             )
         }
-        bottomNavigation.setNavigationListener(object : HockeyBottomNavigationView.HockeyBottomNavigationListener {
+        bottomNavigation.setNavigationListener(object : PraaktisBottomNavigationView.HockeyBottomNavigationListener {
             override fun setOnNavigationItemSelected(itemPosition: Int) {
                 val currentFragment = getVisibleFragment()
                 when (itemPosition) {
@@ -133,18 +129,31 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
                         }
                     }
                     2 -> {
-                        if (currentFragment == null || currentFragment !is TimelineFragment) {
-                            val tag = TimelineFragment.TAG
+                        if (currentFragment == null || currentFragment !is TimelineItemFragment) {
+                            val tag = TimelineItemFragment.TAG
                             showOrReplace(tag, currentFragment) {
                                 replace(
                                     R.id.container,
-                                    TimelineFragment(),
+                                    TimelineItemFragment(),
                                     tag
                                 )
                             }
                             changeTitle(getString(R.string.timeline))
                         }
                     }
+//                    2 -> {
+//                        if (currentFragment == null || currentFragment !is TimelineFragment) {
+//                            val tag = TimelineFragment.TAG
+//                            showOrReplace(tag, currentFragment) {
+//                                replace(
+//                                    R.id.container,
+//                                    TimelineFragment(),
+//                                    tag
+//                                )
+//                            }
+//                            changeTitle(getString(R.string.timeline))
+//                        }
+//                    }
                 }
                 // close Menu after click
                 if (supportFragmentManager.findFragmentById(R.id.menu_container) != null) {

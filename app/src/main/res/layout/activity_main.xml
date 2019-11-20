@@ -79,7 +79,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
         />
 
-    <com.mobile.praaktishockey.domain.common.HockeyBottomNavigationView
+    <com.mobile.praaktishockey.domain.common.PraaktisBottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="60dp"

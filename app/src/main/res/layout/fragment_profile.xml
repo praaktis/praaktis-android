@@ -15,7 +15,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="90dp"
             android:background="@drawable/blue_gradient"
             android:gravity="center"
             android:paddingTop="20dp"

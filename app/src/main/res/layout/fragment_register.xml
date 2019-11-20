@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/blue_gradient"
     android:clickable="true">
 
     <ImageView
@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:paddingTop="110dp"
         android:scaleType="centerCrop"
+        android:visibility="gone"
         android:src="@drawable/boon_mobile_rx" />
 
     <ImageView
@@ -19,6 +20,7 @@
         android:layout_height="80dp"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="55dp"
+        android:visibility="gone"
         android:src="@drawable/logo" />
 
     <androidx.core.widget.NestedScrollView
@@ -55,7 +57,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="40dp"
-                    app:cardBackgroundColor="@color/light_transparent"
+                    app:cardBackgroundColor="@color/white_transparent"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -96,6 +98,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginRight="20dp"
                                 android:textColorHint="@color/dark_grey"
+                                android:theme="@style/AppTheme.LoadingWhite"
                                 app:errorEnabled="true">
 
                                 <com.google.android.material.textfield.TextInputEditText
@@ -108,6 +111,7 @@
                                     android:maxLength="40"
                                     android:maxLines="1"
                                     android:singleLine="true"
+                                    android:theme="@style/AppTheme.LoadingWhite"
                                     android:textColor="@color/white"
                                     android:textColorHint="@color/white"
                                     android:textSize="17sp" />
@@ -122,6 +126,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginRight="20dp"
                                 android:textColorHint="@color/dark_grey"
+                                android:theme="@style/AppTheme.LoadingWhite"
                                 app:errorEnabled="true"
                                 app:passwordToggleEnabled="true"
                                 app:passwordToggleTint="@color/dark_grey">
@@ -136,6 +141,7 @@
                                     android:inputType="textPassword"
                                     android:maxLength="20"
                                     android:maxLines="1"
+                                    android:theme="@style/AppTheme.LoadingWhite"
                                     android:singleLine="true"
                                     android:textColor="@color/white"
                                     android:textColorHint="@color/white"
@@ -153,6 +159,7 @@
                                 android:textColorHint="@color/dark_grey"
                                 app:errorEnabled="true"
                                 app:passwordToggleEnabled="true"
+                                android:theme="@style/AppTheme.LoadingWhite"
                                 app:passwordToggleTint="@color/dark_grey">
 
                                 <com.google.android.material.textfield.TextInputEditText
@@ -164,6 +171,7 @@
                                     android:gravity="center"
                                     android:hint="@string/re_password"
                                     android:inputType="textPassword"
+                                    android:theme="@style/AppTheme.LoadingWhite"
                                     android:maxLength="20"
                                     android:maxLines="1"
                                     android:singleLine="true"
@@ -177,7 +185,7 @@
                                 android:id="@+id/tvSendConfirmationLink"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/white_transparent"
+                                android:background="@color/light_grey"
                                 android:clickable="true"
                                 android:foreground="?selectableItemBackground"
                                 android:gravity="center"
@@ -185,7 +193,7 @@
                                 android:paddingBottom="16dp"
                                 android:text="@string/send_confirmation_link"
                                 android:textAllCaps="true"
-                                android:textColor="@color/white"
+                                android:textColor="@color/blue_text"
                                 android:textSize="20sp"
                                 android:theme="@style/WhiteHighlight" />
 
@@ -204,7 +212,7 @@
                     android:clickable="true"
                     android:foreground="?selectableItemBackground"
                     android:theme="@style/WhiteHighlight"
-                    app:cardBackgroundColor="@color/light_transparent"
+                    app:cardBackgroundColor="@color/light_grey"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="0dp"
                     app:contentPadding="15dp">
@@ -219,7 +227,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:src="@drawable/vector_avatar"
-                            android:tint="@color/white" />
+                            android:tint="@color/blue_text" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -227,7 +235,7 @@
                             android:layout_marginLeft="10dp"
                             android:text="@string/back_to_login"
                             android:textAllCaps="true"
-                            android:textColor="@color/white"
+                            android:textColor="@color/blue_text"
                             android:textSize="20sp" />
 
                     </LinearLayout>

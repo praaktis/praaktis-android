@@ -5,7 +5,7 @@ import com.mobile.praaktishockey.data.entities.UserData
 import io.reactivex.Single
 
 @Dao
-interface HockeyDao {
+interface PraaktisDao {
     @Query("SELECT * FROM users")
     fun getUsers(): Single<List<UserData>>
 

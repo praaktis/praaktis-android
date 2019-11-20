@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/blue_back</item>
-        <item name="colorPrimaryDark">@color/blue_back</item>
+        <item name="colorPrimaryDark">#5C459D</item>
         <item name="colorAccent">@color/black_text</item>
         <item name="android:windowTranslucentStatus">true</item>
 

@@ -12,7 +12,7 @@
     <FrameLayout
         android:id="@+id/topPanel"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="90dp"
         android:background="@drawable/blue_gradient"
         app:layout_constraintTop_toTopOf="parent">
 

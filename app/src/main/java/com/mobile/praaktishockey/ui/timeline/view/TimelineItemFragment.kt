@@ -2,6 +2,7 @@ package com.mobile.praaktishockey.ui.timeline.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseFragment
@@ -45,22 +46,37 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
 
     override fun initUI(savedInstanceState: Bundle?) {
         initClicks()
-        if (arguments!!.get(Constants.TIMELINE) != null) {
-            val timeline = arguments!!.getSerializable(Constants.TIMELINE) as TimelineDTO
-            val items = mutableListOf<ScoreDTO>()
-            for (challenge in timeline.challenges) {
-                if (challenge.latest.timePerformed != null && challenge.latest.timePerformed != "") {
-                    challenge.latest.name = challenge.name
-                    items.add(challenge.latest)
+        if (arguments != null) {
+            if (arguments?.get(Constants.TIMELINE) != null) {
+                val timeline = arguments!!.getSerializable(Constants.TIMELINE) as TimelineDTO
+                val items = mutableListOf<ScoreDTO>()
+                for (challenge in timeline.challenges) {
+                    if (challenge.latest.timePerformed != null && challenge.latest.timePerformed != "") {
+                        challenge.latest.name = challenge.name
+                        items.add(challenge.latest)
+                    }
                 }
+                setScoreData(items)
+            } else if (arguments?.getSerializable(Constants.TIMELINE_CHALLENGE_ITEM) != null) {
+                val challengeItem =
+                    arguments!!.getSerializable(Constants.TIMELINE_CHALLENGE_ITEM) as TimelineChallengeItem
+                challengeItem.scores.forEach {
+                    it.name = challengeItem.name
+                }
+                setScoreData(challengeItem.scores)
             }
-            setScoreData(items)
         } else {
-            val challengeItem = arguments!!.getSerializable(Constants.TIMELINE_CHALLENGE_ITEM) as TimelineChallengeItem
-            challengeItem.scores.forEach {
-                it.name = challengeItem.name
-            }
-            setScoreData(challengeItem.scores)
+            mViewModel.getTimelineData()
+            mViewModel.timelineDataEvent.observe(this, Observer {
+                val items = mutableListOf<ScoreDTO>()
+                for (challenge in it.challenges) {
+                    if (challenge.latest.timePerformed != null && challenge.latest.timePerformed != "") {
+                        challenge.latest.name = challenge.name
+                        items.add(challenge.latest)
+                    }
+                }
+                setScoreData(items)
+            })
         }
     }
 

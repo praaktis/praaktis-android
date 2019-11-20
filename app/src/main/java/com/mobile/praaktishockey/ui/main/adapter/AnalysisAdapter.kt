@@ -48,7 +48,7 @@ data class AnalysisItem(
 ) : Serializable
 
 val analysisList: List<AnalysisItem> = listOf(
-    AnalysisItem(R.string.drag_flick, "Drag / Flick"),
-    AnalysisItem(R.string.low_backhand,  "Low backhand"),
-    AnalysisItem(R.string.trap, "Trap")
+    AnalysisItem(R.string.stretching_arms_up, "Stretching Arms Up")
+//    AnalysisItem(R.string.low_backhand,  "Low backhand"),
+//    AnalysisItem(R.string.trap, "Trap")
 )

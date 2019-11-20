@@ -179,7 +179,7 @@ constructor(override val layoutId: Int = R.layout.fragment_register_user_detail)
         val levelToggleFoo: (active: CardView, inActiveFirst: CardView, inActiveSecond: CardView) -> Unit =
             { first, second, third ->
                 run {
-                    val activeColor = ContextCompat.getColor(context!!, R.color.white_transparent)
+                    val activeColor = ContextCompat.getColor(context!!, R.color.blue_back_transparent)
                     val inActiveColor = ContextCompat.getColor(context!!, R.color.light_transparent)
                     first.setCardBackgroundColor(activeColor)
                     second.setCardBackgroundColor(inActiveColor)

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/blue_gradient"
     android:clickable="true"
     android:focusable="true">
 
@@ -20,14 +20,18 @@
         android:layout_height="match_parent"
         android:paddingTop="110dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/boon_mobile_rx" />
+        android:src="@drawable/boon_mobile_rx"
+        android:visibility="gone"
+        />
 
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="55dp"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo"
+        android:visibility="gone"
+        />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -43,7 +47,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="20dp"
-            app:cardBackgroundColor="@color/light_transparent"
+            app:cardBackgroundColor="@color/white_transparent"
             app:cardCornerRadius="10dp"
             app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -122,7 +126,7 @@
                         android:clickable="true"
                         android:foreground="?selectableItemBackground"
                         android:theme="@style/WhiteHighlight"
-                        app:cardBackgroundColor="@color/light_transparent"
+                        app:cardBackgroundColor="@color/blue_back_transparent"
                         app:cardCornerRadius="8dp"
                         app:cardElevation="0dp">
 
@@ -145,7 +149,7 @@
                         android:clickable="true"
                         android:foreground="?selectableItemBackground"
                         android:theme="@style/WhiteHighlight"
-                        app:cardBackgroundColor="@color/light_transparent"
+                        app:cardBackgroundColor="@color/blue_back_transparent"
                         app:cardCornerRadius="8dp"
                         app:cardElevation="0dp">
 
@@ -179,6 +183,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilDateOfBirth"
                         style="@style/Widget.Design.TextInputLayout"
+                        android:theme="@style/AppTheme.LoadingWhite"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -197,6 +202,7 @@
                             android:gravity="center"
                             android:hint="@string/date_of_birth"
                             android:inputType="textEmailAddress"
+                            android:theme="@style/AppTheme.LoadingWhite"
                             android:maxLength="40"
                             android:maxLines="1"
                             android:singleLine="true"
@@ -251,6 +257,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:textColorHint=" @color/dark_grey"
+                    android:theme="@style/AppTheme.LoadingWhite"
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -261,6 +268,7 @@
                         android:hint="@string/first_name"
                         android:inputType="textEmailAddress"
                         android:maxLength="40"
+                        android:theme="@style/AppTheme.LoadingWhite"
                         android:maxLines="1"
                         android:singleLine="true"
                         android:textColor="@color/white"
@@ -275,6 +283,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
+                    android:theme="@style/AppTheme.LoadingWhite"
                     android:layout_marginRight="20dp"
                     android:textColorHint=" @color/dark_grey"
                     app:errorEnabled="true">
@@ -288,6 +297,7 @@
                         android:inputType="textEmailAddress"
                         android:maxLength="40"
                         android:maxLines="1"
+                        android:theme="@style/AppTheme.LoadingWhite"
                         android:singleLine="true"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white"
@@ -298,6 +308,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilUsername"
                     style="@style/Widget.Design.TextInputLayout"
+                    android:theme="@style/AppTheme.LoadingWhite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -314,6 +325,7 @@
                         android:inputType="textEmailAddress"
                         android:maxLength="40"
                         android:maxLines="1"
+                        android:theme="@style/AppTheme.LoadingWhite"
                         android:singleLine="true"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white"
@@ -330,6 +342,7 @@
                     android:layout_marginRight="20dp"
                     android:clickable="true"
                     android:hint="@string/country_cap"
+                    android:theme="@style/AppTheme.LoadingWhite"
                     android:textColorHint=" @color/dark_grey"
                     app:errorEnabled="true">
 
@@ -342,6 +355,7 @@
                         android:drawableEnd="@drawable/ic_arrow_drop_down"
                         android:editable="false"
                         android:focusable="false"
+                        android:theme="@style/AppTheme.LoadingWhite"
                         android:focusableInTouchMode="false"
                         android:gravity="center"
                         android:paddingStart="24dp"

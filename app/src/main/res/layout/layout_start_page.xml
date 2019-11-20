@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/blue_gradient"
     android:clickable="true">
 
     <ImageView
@@ -14,6 +14,7 @@
         android:paddingBottom="50dp"
         android:scaleType="centerCrop"
         android:src="@drawable/boon_mobile_rx"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -38,6 +39,7 @@
         android:layout_height="120dp"
         android:layout_marginTop="60dp"
         android:src="@drawable/logo"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,13 +55,16 @@
         android:textSize="50sp"
         app:layout_constraintBottom_toTopOf="@+id/vRedLine"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:lineHeight="73dp" />
+        app:lineHeight="73dp"
+        android:visibility="gone"
+        />
 
     <View
         android:id="@+id/vRedLine"
         android:layout_width="65dp"
         android:layout_height="150dp"
         android:background="@color/red"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -77,6 +82,7 @@
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="22sp"
+        android:visibility="gone"
         android:theme="@style/WhiteHighlight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />

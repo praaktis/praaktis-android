@@ -8,7 +8,7 @@ import com.mobile.praaktishockey.domain.common.pref.SettingsStorage
 import io.alterac.blurkit.BlurKit
 import io.fabric.sdk.android.Fabric
 
-class HockeyApp : Application() {
+class PraaktisApp : Application() {
 
     override fun onCreate() {
         super.onCreate()

@@ -23,7 +23,7 @@ import android.util.Log
 
 
 class SplashScreenActivity
-constructor(override val layoutId: Int = R.layout.activity_splash_screen) : BaseActivity() {
+constructor(override val layoutId: Int = R.layout.layout_start_page) : BaseActivity() {
 
     override fun initUI(savedInstanceState: Bundle?) {
         scheduleSplashScreen()
