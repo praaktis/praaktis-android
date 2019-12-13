@@ -70,9 +70,11 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
             mViewModel.timelineDataEvent.observe(this, Observer {
                 val items = mutableListOf<ScoreDTO>()
                 for (challenge in it.challenges) {
-                    if (challenge.latest.timePerformed != null && challenge.latest.timePerformed != "") {
+                    if (challenge.name == "Stretching Arms Up"
+                       /* && challenge.latest.timePerformed != null && challenge.latest.timePerformed != ""*/) {
                         challenge.latest.name = challenge.name
                         items.add(challenge.latest)
+                        break
                     }
                 }
                 setScoreData(items)

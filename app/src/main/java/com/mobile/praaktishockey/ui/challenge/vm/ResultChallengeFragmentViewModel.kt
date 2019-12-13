@@ -20,6 +20,7 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
                     detailResults: List<DetailResult>) {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
         val request = StoreResultDTO(
+            userProfileId = settingsStorage.getProfile()!!.id!!.toInt(),
             challengeId = challengeItem.id,
             timePerformed = simpleDateFormat.format(Calendar.getInstance().time),
 //            outcome = "No Goal",

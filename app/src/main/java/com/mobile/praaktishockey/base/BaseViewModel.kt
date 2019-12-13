@@ -9,6 +9,7 @@ import com.mobile.praaktishockey.data.repository.UserServiceRepository
 import com.mobile.praaktishockey.domain.common.AnyLV
 import com.mobile.praaktishockey.domain.common.BoolLV
 import com.mobile.praaktishockey.domain.common.LiveEvent
+import com.mobile.praaktishockey.domain.common.pref.SettingsStorage
 import com.mobile.praaktishockey.domain.entities.CountryItemDTO
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -28,6 +29,7 @@ open class BaseViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     val commonsRepo by lazy { CommonsServiceRepository.CommonsServiceRepositoryImpl.getInstance(app) }
+    val settingsStorage by lazy { SettingsStorage.instance }
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
