@@ -6,6 +6,8 @@ import com.google.gson.JsonParseException
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.data.repository.CommonsServiceRepository
 import com.mobile.praaktishockey.data.repository.UserServiceRepository
+import com.mobile.praaktishockey.domain.common.AnyLV
+import com.mobile.praaktishockey.domain.common.BoolLV
 import com.mobile.praaktishockey.domain.common.LiveEvent
 import com.mobile.praaktishockey.domain.entities.CountryItemDTO
 import io.reactivex.disposables.CompositeDisposable
@@ -16,9 +18,9 @@ import java.io.InterruptedIOException
 
 open class BaseViewModel(app: Application) : AndroidViewModel(app) {
 
-    val errorMessage: LiveEvent<Any> = LiveEvent()
-    val showHideEvent: LiveEvent<Boolean> = LiveEvent()
-    val logoutEvent: LiveEvent<Boolean> = LiveEvent()
+    val errorMessage = AnyLV()
+    val showHideEvent = BoolLV()
+    val logoutEvent = BoolLV()
 
     fun onLogoutSuccess() {
         UserServiceRepository.UserServiceRepositoryImpl.INSTANCE = null

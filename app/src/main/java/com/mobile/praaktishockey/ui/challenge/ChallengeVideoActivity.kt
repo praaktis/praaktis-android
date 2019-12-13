@@ -1,5 +1,6 @@
 package com.mobile.praaktishockey.ui.challenge
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
@@ -19,6 +20,7 @@ import com.mobile.praaktishockey.domain.extension.show
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.mobile.praaktishockey.ui.details.view.DetailsActivity
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
+import com.praaktis.exerciseengine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.activity_video_challenge.*
 
 /**
@@ -66,6 +68,7 @@ class ChallengeVideoActivity : AppCompatActivity() {
         }
         tvCancel.onClick { finish() }
         tvNext.onClick {
+            videoView.pause()
             val tag = ChallengeInstructionFragment.TAG
             replaceFragment(tag) {
                 add(
@@ -90,4 +93,5 @@ class ChallengeVideoActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 }

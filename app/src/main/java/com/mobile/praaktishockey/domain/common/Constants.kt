@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import com.google.gson.Gson
 import com.mobile.praaktishockey.domain.common.pref.SettingsStorage
 import io.reactivex.schedulers.Schedulers
@@ -53,12 +54,15 @@ object Constants {
         if (loginSettings.token.isNotBlank())
             builder.addInterceptor { chain ->
                 if (loginSettings.token.isNotBlank()) {
+                    Log.d("sssss", "" + chain.request().url().toString())
                     val newRequest = chain
                         .request()
                         .newBuilder()
                         .addHeader("Authorization", "Token ${loginSettings.token}")
                         .build()
-                    return@addInterceptor chain.proceed(newRequest)
+                    val r  = chain.proceed(newRequest)
+                    Log.d("sssss", "" + chain.request().url().toString())
+                    return@addInterceptor r
                 }
                 chain.proceed(chain.request())
             }
@@ -78,7 +82,7 @@ object Constants {
         return contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv)
     }
 
-    fun getImageUri(): Uri? {
+     fun getImageUri(): Uri? {
         var m_imgUri: Uri? = null
         try {
             val cacheDir = Environment.getExternalStorageDirectory()
@@ -91,3 +95,6 @@ object Constants {
     }
 
 }
+typealias BoolLV = LiveEvent<Boolean>
+typealias StringLV = LiveEvent<String>
+typealias AnyLV = LiveEvent<Any>

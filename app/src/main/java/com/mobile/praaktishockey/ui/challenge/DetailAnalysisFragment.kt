@@ -20,6 +20,7 @@ import com.mobile.praaktishockey.domain.entities.ScoreDTO
 import com.mobile.praaktishockey.domain.extension.dpToPx
 import com.mobile.praaktishockey.domain.extension.getViewModel
 import com.mobile.praaktishockey.ui.challenge.vm.DetailAnalysisFragmentViewModel
+import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
 import com.mobile.praaktishockey.ui.main.vm.MainViewModel
 import kotlinx.android.synthetic.main.fragment_detailed_analysis.*
@@ -60,6 +61,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
 
     private val scoreDTO by lazy { arguments?.getSerializable("score") as ScoreDTO }
     private val challengeItem by lazy { arguments?.getSerializable("challengeItem") as ChallengeItem }
+    private val result by lazy { activity.intent.getFloatArrayExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) }
 
     override fun initUI(savedInstanceState: Bundle?) {
         mainViewModel = ViewModelProviders.of(activity).get(MainViewModel::class.java)
@@ -73,9 +75,13 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
                     item.name.equals(challengeItem.label)
                 }
                 val detailScores = mutableListOf<DetailScoreDTO>()
+                var i = 0
                 for (detailPoint in challenge!!.detailPoints) {
                     val detailPoint = DetailPoint(0, detailPoint.label)
-                    detailScores.add(DetailScoreDTO(detailPoint, 0.0))
+                    if (result != null)
+                        detailScores.add(DetailScoreDTO(detailPoint, result[i++].toDouble()))
+                    else
+                        detailScores.add(DetailScoreDTO(detailPoint, 0.0))
                 }
                 setDetail(detailScores)
             }
@@ -112,7 +118,10 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
         tvDragFlick.isAllCaps = true
         tvDragFlick.setTextSize(Dimension.SP, 17f)
         tvDragFlick.setTextColor(ContextCompat.getColor(context!!, R.color.black_text))
-        val lp = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        val lp = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         lp.gravity = Gravity.CENTER_HORIZONTAL
         lp.setMargins(0, context!!.dpToPx(5), 0, context!!.dpToPx(5))
         tvDragFlick.layoutParams = lp

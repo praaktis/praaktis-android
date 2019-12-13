@@ -4,11 +4,13 @@ import android.media.PlaybackParams
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseFragment
 import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.challenge.vm.ResultChallengeFragmentViewModel
+import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
 
@@ -32,6 +34,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
         get() = getViewModel { ResultChallengeFragmentViewModel(activity.application) }
 
     private val challengeItem by lazy { arguments!!.getSerializable("challengeItem") as ChallengeItem}
+    private val result by lazy { activity.intent.getFloatArrayExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) }
 
     override fun initUI(savedInstanceState: Bundle?) {
         initToolbar()
@@ -57,19 +60,22 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             ivPlay.show()
             it.pause()
         }
-        videoView2.setVideoURI(Uri.parse("android.resource://" + context?.packageName + "/" + R.raw.vid_drag_flick))
-        videoView2.setOnPreparedListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                val playbackParams = PlaybackParams()
-                playbackParams.speed = 0.5f
-                it.playbackParams = playbackParams
-            }
-            ivPlay.show()
-            it.pause()
-        }
+//        videoView2.setVideoURI(Uri.parse("android.resource://" + context?.packageName + "/" + R.raw.vid_drag_flick))
+//        videoView2.setOnPreparedListener {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                val playbackParams = PlaybackParams()
+//                playbackParams.speed = 0.5f
+//                it.playbackParams = playbackParams
+//            }
+//            ivPlay.show()
+//            it.pause()
+//        }
 
         videoView1.setOnCompletionListener {
             ivPlay.show()
+        }
+        if (result != null) {
+            tvYourScore.text = "Your score: ${((result[0] + result[1] + result[2]) / 3).toInt()}"
         }
     }
 

@@ -3,7 +3,9 @@ package com.mobile.praaktishockey.ui.details.view
 
 import android.animation.Animator
 import android.animation.ValueAnimator
+import android.app.Activity
 import android.app.Application
+import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -11,8 +13,10 @@ import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseFragment
 import com.mobile.praaktishockey.base.BaseViewModel
 import com.mobile.praaktishockey.domain.extension.getViewModel
+import com.mobile.praaktishockey.domain.extension.replaceFragment
 import com.mobile.praaktishockey.ui.challenge.ChallengeActivity
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
+import com.praaktis.exerciseengine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_challenge_instruction.*
 
 class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragment_challenge_instruction) :
@@ -21,6 +25,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
     companion object {
         val TAG: String = ChallengeInstructionFragment::class.java.simpleName
         const val CHALLENGE_ITEM = "ANALYSIS_ITEM"
+        const val CHALLENGE_RESULT = "CHALLENGE_RESULT"
 
         fun getInstance(item: ChallengeItem) = ChallengeInstructionFragment().apply {
             arguments = Bundle().apply {
@@ -70,8 +75,10 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
 
     private fun startChallengeSteps() {
         if (getActivity() != null) {
-            getActivity()?.finish()
-            ChallengeActivity.start(getActivity()!!, challengeItem)
+//            ChallengeActivity.start(getActivity()!!, challengeItem)
+            val intent = Intent(context, ExerciseEngineActivity::class.java)
+            startActivityForResult(intent, 333)
+            
         }
     }
 
@@ -83,5 +90,15 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
     override fun onStop() {
         super.onStop()
         autoStartAnimator.pause()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 333) {
+            getActivity()?.finish()
+            if (resultCode == Activity.RESULT_OK) {
+                ChallengeActivity.start(getActivity()!!, challengeItem, data!!.getFloatArrayExtra("result"))
+            }
+        }
     }
 }

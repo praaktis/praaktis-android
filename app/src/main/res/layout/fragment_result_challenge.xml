@@ -61,6 +61,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvYourScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -79,21 +80,23 @@
                     <VideoView
                         android:id="@+id/videoView1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        />
 
                 </FrameLayout>
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1">
+                    >
 
                     <VideoView
                         android:id="@+id/videoView2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:visibility="gone"
                         android:layout_marginTop="2dp" />
 
                 </FrameLayout>

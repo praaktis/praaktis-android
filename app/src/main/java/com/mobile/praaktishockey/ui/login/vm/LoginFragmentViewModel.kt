@@ -10,6 +10,7 @@ import com.mobile.praaktishockey.domain.entities.LanguageItem
 import com.mobile.praaktishockey.domain.entities.UserDTO
 import org.json.JSONObject
 import retrofit2.HttpException
+import java.lang.Exception
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -28,9 +29,11 @@ class LoginFragmentViewModel(app: Application) : BaseViewModel(app) {
             .doAfterTerminate { showHideEvent.postValue(false) }
             .subscribe({
                 val temp = it.string()
-                val json = JSONObject(temp)
-                loginStorage.token = json.getString("token")
-                loadProfile()
+                try {
+                    val json = JSONObject(temp)
+                    loginStorage.token = json.getString("token")
+                    loadProfile()
+                } catch (e: Exception) {}
             }, ::onError)
     }
 

@@ -94,6 +94,7 @@ dependencies {
 
     // country picker
     implementation project(path: ':countrypicker')
+    implementation project(path: ':praaktic_sdk')
 //    implementation 'com.github.yesterselga:country-picker-android:1.0'
 //    implementation 'com.github.mukeshsolanki:country-picker-android:2.0.1'
 

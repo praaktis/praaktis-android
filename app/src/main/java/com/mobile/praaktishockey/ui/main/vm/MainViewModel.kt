@@ -40,14 +40,14 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
     }
 
     fun checkFcmToken() {
-        if (!settingsStorage.isSentFcmToken) {
+//        if (!settingsStorage.isSentFcmToken) {
             fcmDisposable = authRepository.registerDevice(settingsStorage.fcmToken)
                 .doOnSubscribe{showHideEvent.postValue(true)}
                 .doAfterTerminate{showHideEvent.postValue(false)}
                 .subscribe({
                     settingsStorage.isSentFcmToken = true
                 }, ::onError)
-        }
+//        }
     }
 
     override fun onError(throwable: Throwable) {
