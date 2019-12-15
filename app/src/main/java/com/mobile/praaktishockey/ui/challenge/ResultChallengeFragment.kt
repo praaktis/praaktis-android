@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseFragment
+import com.mobile.praaktishockey.domain.entities.DetailResult
 import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.challenge.vm.ResultChallengeFragmentViewModel
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
@@ -77,6 +78,11 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
         if (result != null) {
             tvYourScore.text = "Your score: ${((result[0] + result[1] + result[2]) / 3).toInt()}"
         }
+        mViewModel.storeResult(
+            challengeItem, 50, ((result[0] + result[1] + result[2]) / 3), 50f, mutableListOf(
+                DetailResult(20, result[0]), DetailResult(21, result[1]), DetailResult(22, result[2])
+            )
+        )
     }
 
     private fun initClicks() {

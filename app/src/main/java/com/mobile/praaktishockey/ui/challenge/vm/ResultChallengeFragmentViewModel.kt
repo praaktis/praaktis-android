@@ -1,6 +1,7 @@
 package com.mobile.praaktishockey.ui.challenge.vm
 
 import android.app.Application
+import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseViewModel
 import com.mobile.praaktishockey.data.repository.UserServiceRepository
 import com.mobile.praaktishockey.domain.entities.DetailResult
@@ -21,13 +22,12 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
         val request = StoreResultDTO(
             userProfileId = settingsStorage.getProfile()!!.id!!.toInt(),
-            challengeId = challengeItem.id,
             timePerformed = simpleDateFormat.format(Calendar.getInstance().time),
-//            outcome = "No Goal",
             success = true,
             points = points,
             score = score,
             credits = credits,
+            challengeId = challengeItem.id,
             detailResult = detailResults
         )
         userService.storeResult(request)
