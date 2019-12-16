@@ -46,7 +46,7 @@ class ChallengeVideoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_video_challenge)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.vid_drag_flick))
+        videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.challenge_video))
         videoView.setOnPreparedListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val playbackParams = PlaybackParams()

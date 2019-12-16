@@ -7,13 +7,27 @@
     android:clickable="true">
 
     <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/back_line"
+        android:scaleType="centerCrop"
+        android:alpha="0.2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="110dp"
         android:scaleType="centerCrop"
-        android:visibility="gone"
-        android:src="@drawable/boon_mobile_rx" />
+        android:src="@drawable/back"
+        android:alpha="0.1"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:layout_marginBottom="150dp"
+        />
 
     <ImageView
         android:layout_width="80dp"

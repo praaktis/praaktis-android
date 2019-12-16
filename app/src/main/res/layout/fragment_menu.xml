@@ -75,11 +75,11 @@
 
         </LinearLayout>
 
-        <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="2dp"-->
-            <!--android:layout_marginStart="62dp"-->
-            <!--android:background="@color/grey_800" />-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="62dp"
+            android:background="@color/grey_800" />
 
         <LinearLayout
             android:id="@+id/menu_friends"

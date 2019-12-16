@@ -19,7 +19,7 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
                     score: Float,
                     credits: Float,
                     detailResults: List<DetailResult>) {
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
         val request = StoreResultDTO(
             userProfileId = settingsStorage.getProfile()!!.id!!.toInt(),
             timePerformed = simpleDateFormat.format(Calendar.getInstance().time),

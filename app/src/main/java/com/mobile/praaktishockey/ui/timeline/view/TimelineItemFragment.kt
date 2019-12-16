@@ -17,8 +17,10 @@ import com.mobile.praaktishockey.domain.extension.show
 import com.mobile.praaktishockey.ui.challenge.ChallengeActivity
 import com.mobile.praaktishockey.ui.timeline.vm.TimelineFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_item_timeline.*
+import java.text.DecimalFormat
 
-class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fragment_item_timeline) : BaseFragment() {
+class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fragment_item_timeline) :
+    BaseFragment() {
 
     companion object {
         val TAG = TimelineItemFragment::class.java.simpleName
@@ -40,7 +42,9 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
     }
 
     override val mViewModel: TimelineFragmentViewModel
-        get() = getViewModel { ViewModelProviders.of(activity).get(TimelineFragmentViewModel::class.java) }
+        get() = getViewModel {
+            ViewModelProviders.of(activity).get(TimelineFragmentViewModel::class.java)
+        }
 
     private val scores = mutableListOf<ScoreDTO>()
 
@@ -70,8 +74,7 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
             mViewModel.timelineDataEvent.observe(this, Observer {
                 val items = mutableListOf<ScoreDTO>()
                 for (challenge in it.challenges) {
-                    if (challenge.name == "Stretching Arms Up"
-                       /* && challenge.latest.timePerformed != null && challenge.latest.timePerformed != ""*/) {
+                    if (challenge.name == "Stretching Arms Up" && challenge.latest.timePerformed != null /*&& challenge.latest.timePerformed != ""*/) {
                         challenge.latest.name = challenge.name
                         items.add(challenge.latest)
                         break
@@ -93,6 +96,8 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
             ChallengeActivity.start(activity, scores[2])
         }
     }
+
+    private val decimalFormat = DecimalFormat("##.##")
 
     private fun setScoreData(scores: List<ScoreDTO>) {
         this.scores.clear()
@@ -128,9 +133,9 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
             tvTimePerformed.text = scores[i].timePerformed
             tvChallengeName.text = scores[i].name
             tvPoints.text = "" + scores[i].points
-            tvScore.text = "" + scores[i].score
+            tvScore.text = "" + decimalFormat.format(scores[i].score)
         }
-        if(scores.isEmpty()) tvNoData.show()
+        if (scores.isEmpty()) tvNoData.show()
         else tvNoData.hide()
     }
 }

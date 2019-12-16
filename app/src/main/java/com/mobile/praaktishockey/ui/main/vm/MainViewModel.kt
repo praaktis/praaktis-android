@@ -15,7 +15,6 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
 
     private val userRepository by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
     private val authRepository by lazy { AuthSeriviceRepository.AuthServiceRepositoryImpl.getInstance() }
-    private val settingsStorage by lazy { SettingsStorage.instance }
 
     val challengesEvent: LiveEvent<List<ChallengeDTO>> = LiveEvent()
     private var challengesDisposable: Disposable? = null
@@ -40,14 +39,14 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
     }
 
     fun checkFcmToken() {
-//        if (!settingsStorage.isSentFcmToken) {
+        if (!settingsStorage.isSentFcmToken) {
             fcmDisposable = authRepository.registerDevice(settingsStorage.fcmToken)
                 .doOnSubscribe{showHideEvent.postValue(true)}
                 .doAfterTerminate{showHideEvent.postValue(false)}
                 .subscribe({
                     settingsStorage.isSentFcmToken = true
                 }, ::onError)
-//        }
+        }
     }
 
     override fun onError(throwable: Throwable) {

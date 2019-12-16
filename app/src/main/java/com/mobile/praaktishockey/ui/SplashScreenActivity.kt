@@ -72,9 +72,9 @@ constructor(override val layoutId: Int = R.layout.layout_start_page) : BaseActiv
             user == null -> LoginActivity.start(this)
             else -> {
                 mViewModel!!.getProfile()?.let {
-                    if (it.language != null)
+//                    if (it.language != null)
                         MainActivity.start(this)
-                    else LoginActivity.start(this)
+//                    else LoginActivity.start(this)
                 }
             }
         }

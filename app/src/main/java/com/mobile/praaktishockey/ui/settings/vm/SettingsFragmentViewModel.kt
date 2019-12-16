@@ -10,8 +10,6 @@ import org.json.JSONObject
 
 class SettingsFragmentViewModel(app: Application) : BaseViewModel(app) {
 
-    val settingsStorage by lazy { SettingsStorage.instance }
-
     private val repo by lazy { AuthSeriviceRepository.AuthServiceRepositoryImpl.getInstance() }
 
     fun getLanguage(): String = settingsStorage.getLanguage()

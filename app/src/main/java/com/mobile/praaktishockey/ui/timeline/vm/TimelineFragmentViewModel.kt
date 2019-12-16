@@ -11,7 +11,6 @@ import java.net.UnknownHostException
 
 class TimelineFragmentViewModel(app: Application) : BaseViewModel(app) {
 
-    val settingsStorage by lazy { SettingsStorage.instance }
     val userService by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
 
     val timelineDataEvent: LiveEvent<TimelineDTO> = LiveEvent()

@@ -11,7 +11,6 @@ import java.net.UnknownHostException
 
 class DetailAnalysisFragmentViewModel(application: Application) : BaseViewModel(application) {
 
-    val settingsStorage by lazy { SettingsStorage.instance }
     val userRepository by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
     val detailResultEvent: LiveEvent<List<DetailScoreDTO>> = LiveEvent()
 

@@ -10,7 +10,6 @@ import com.mobile.praaktishockey.domain.entities.DashboardDTO
 class DashboardViewModel(app: Application) : BaseViewModel(app) {
 
     val userService by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
-    private val settingsStorage by lazy { SettingsStorage.instance }
     val dashboardEvent: LiveEvent<DashboardDTO> = LiveEvent()
 
     fun getDashboardData() {

@@ -1,5 +1,6 @@
 package com.mobile.praaktishockey.ui.challenge
 
+import android.content.Intent
 import android.media.PlaybackParams
 import android.net.Uri
 import android.os.Build
@@ -13,14 +14,16 @@ import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.challenge.vm.ResultChallengeFragmentViewModel
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
+import com.praaktis.exerciseengine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
 
-class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_result_challenge)
-    : BaseFragment() {
+class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_result_challenge) :
+    BaseFragment() {
 
     companion object {
         @JvmField
         val TAG = ResultChallengeFragment::class.java.simpleName
+
         @JvmStatic
         fun getInstance(challengeItem: ChallengeItem): Fragment {
             val fragment = ResultChallengeFragment()
@@ -34,7 +37,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     override val mViewModel: ResultChallengeFragmentViewModel
         get() = getViewModel { ResultChallengeFragmentViewModel(activity.application) }
 
-    private val challengeItem by lazy { arguments!!.getSerializable("challengeItem") as ChallengeItem}
+    private val challengeItem by lazy { arguments!!.getSerializable("challengeItem") as ChallengeItem }
     private val result by lazy { activity.intent.getFloatArrayExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) }
 
     override fun initUI(savedInstanceState: Bundle?) {
@@ -51,7 +54,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     }
 
     private fun initVideoView() {
-        videoView1.setVideoURI(Uri.parse("android.resource://" + context?.packageName + "/" + R.raw.vid_drag_flick))
+        videoView1.setVideoURI(Uri.parse("android.resource://" + context?.packageName + "/" + R.raw.challenge_video))
         videoView1.setOnPreparedListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val playbackParams = PlaybackParams()
@@ -75,14 +78,19 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
         videoView1.setOnCompletionListener {
             ivPlay.show()
         }
+
         if (result != null) {
-            tvYourScore.text = "Your score: ${((result[0] + result[1] + result[2]) / 3).toInt()}"
-        }
-        mViewModel.storeResult(
-            challengeItem, 50, ((result[0] + result[1] + result[2]) / 3), 50f, mutableListOf(
-                DetailResult(20, result[0]), DetailResult(21, result[1]), DetailResult(22, result[2])
+            val scoreOverAll = (result[0] * 0.45f + result[1] * 0.2f + result[2] * 0.35f)
+            tvYourScore.text =
+                "Your score: ${scoreOverAll.toInt()}"
+            mViewModel.storeResult(
+                challengeItem, (scoreOverAll/10).toInt(), scoreOverAll, 0f, mutableListOf(
+                    DetailResult(20, result[0]),
+                    DetailResult(21, result[1]),
+                    DetailResult(22, result[2])
+                )
             )
-        )
+        }
     }
 
     private fun initClicks() {
@@ -102,5 +110,11 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
                     .addToBackStack(tag)
             }
         }
+        cvTryAgain.onClick {
+            val intent = Intent(context, ExerciseEngineActivity::class.java)
+            startActivityForResult(intent, 333)
+        }
     }
+
+
 }

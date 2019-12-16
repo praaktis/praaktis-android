@@ -11,7 +11,6 @@ import com.mobile.praaktishockey.domain.entities.ComparisonDTO
 
 class ComparisonViewModel(application: Application) : BaseViewModel(application) {
 
-    private val settingsStorage: LoginSettings by lazy { SettingsStorage.instance }
     private val userRepository : UserServiceRepository by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
     val meVsOthersEvent: LiveEvent<ComparisonDTO> = LiveEvent()
 
