@@ -14,6 +14,9 @@ import com.mobile.praaktishockey.ui.login.vm.RegisterUserDetailViewModel
 import kotlinx.android.synthetic.main.fragment_accept_terms.*
 import android.content.Intent
 import android.net.Uri
+import com.mobile.praaktishockey.domain.common.pref.SettingsStorage
+import com.mobile.praaktishockey.domain.entities.LanguageItem
+import com.mobile.praaktishockey.ui.main.view.MainActivity
 
 class AcceptTermsFragment @SuppressLint("ValidFragment")
 constructor(override val layoutId: Int = R.layout.fragment_accept_terms) : BaseFragment() {
@@ -40,14 +43,15 @@ constructor(override val layoutId: Int = R.layout.fragment_accept_terms) : BaseF
         }
 
         mViewModel.acceptTermsEvent.observe(this, Observer {
-            val tag = CalibrateFragment.TAG
-            activity.showOrReplace(tag) {
-                add(
-                    R.id.container,
-                    CalibrateFragment.getInstance(true),
-                    tag
-                ).addToBackStack(tag)
-            }
+//            val tag = CalibrateFragment.TAG
+//            activity.showOrReplace(tag) {
+//                add(
+//                    R.id.container,
+//                    CalibrateFragment.getInstance(true),
+//                    tag
+//                ).addToBackStack(tag)
+//            }
+            mViewModel.loadProfile()
         })
         mViewModel.getAcceptTermsEvent.observe(this, Observer {
             val url = it
@@ -55,6 +59,36 @@ constructor(override val layoutId: Int = R.layout.fragment_accept_terms) : BaseF
             activity.startActivity(browserIntent)
         })
 
+        mViewModel.profileInfoEvent.observe(this, Observer {
+            if (it.praaktisRegistered!!) {
+                if (it.language != null)
+                    setLanguageAccordingly(mViewModel.getLanguageObject()!!)
+                (activity as LoginActivity).isLoginProcessFinishSuccess = true
+                activity.finish()
+                MainActivity.start(activity)
+            } else {
+                val tag = ConfirmLoginFragment.TAG
+                activity.showOrReplace(tag) {
+                    add(
+                        R.id.container,
+                        ConfirmLoginFragment.getInstance(),
+                        tag
+                    )
+                        .addToBackStack(tag)
+                }
+            }
+        })
+
         tvBack.onClick { fragmentManager?.popBackStack() }
+    }
+
+
+    private fun setLanguageAccordingly(language: LanguageItem) {
+        val localeKey = when (language.key) {
+            1 -> "en"
+            2 -> "fr"
+            else -> "en"
+        }
+        SettingsStorage.instance.lang = localeKey
     }
 }

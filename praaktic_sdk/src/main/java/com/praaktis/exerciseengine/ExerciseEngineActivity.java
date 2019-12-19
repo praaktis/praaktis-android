@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.ImageFormat;
 import android.graphics.PixelFormat;
@@ -39,7 +38,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
-import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 import static android.content.ContentValues.TAG;
@@ -80,6 +78,10 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
     private static final int sPort = 9080;
 
     private static final int REQUEST_CAMERA_PERMISSION = 200;
+
+    static {
+        System.loadLibrary("native-lib");
+    }
 
     // Constructor
     //
@@ -170,11 +172,11 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
         };
     }
 
-
     // Activity lifecycle methods
     //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout);
 
@@ -192,6 +194,10 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
         mSurfaceHolder.addCallback(this);
         final Activity activity = this;
+
+
+
+
         mMsgHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -475,8 +481,13 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
     }
 
     private final ImageReader.OnImageAvailableListener mOnImageAvailableListener = new ImageReader.OnImageAvailableListener() {
-        byte[] mRowBytes = new byte[1920 * 1080];
+
+        byte[] mRowBytesY = new byte[1920 * 1080];
+        byte[] mRowBytesB = null;
+        byte[] mRowBytesR = null;
+
         int[] mPixels = new int[1920 * 1080];
+        private Bitmap mBmp1, mBmp2;
 
         @Override
         public void onImageAvailable(ImageReader reader) {
@@ -490,48 +501,49 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
                         image.close();
                         return;
                     }
-                    image.getPlanes()[0].getBuffer().get(mRowBytes);
+
+                    int uvSize = image.getPlanes()[1].getBuffer().limit();
+
+                    if(mRowBytesB == null){
+                        mRowBytesB = new byte[uvSize];
+                        mRowBytesR = new byte[uvSize];
+                    }
+
+                    image.getPlanes()[0].getBuffer().get(mRowBytesY);
+                    image.getPlanes()[1].getBuffer().get(mRowBytesB);
+                    image.getPlanes()[2].getBuffer().get(mRowBytesR);
+
+                    int yRowStride = image.getPlanes()[0].getRowStride();
+                    int uvRowStride = image.getPlanes()[1].getRowStride();
 
                     long start = currentTimeMillis();
 
-                    long sum = 0;
-
-                    for (int i = 0; i < n / 4; i++) {
-                        int y = mRowBytes[i * 4] & 255;
-                        mPixels[i * 4] = 0xFF000000 | (y << 16) | (y << 8) | y;
-                        y = mRowBytes[i * 4 + 1] & 255;
-                        mPixels[i * 4 + 1] = 0xFF000000 | (y << 16) | (y << 8) | y;
-                        y = mRowBytes[i * 4 + 2] & 255;
-                        mPixels[i * 4 + 2] = 0xFF000000 | (y << 16) | (y << 8) | y;
-                        y = mRowBytes[i * 4 + 3] & 255;
-                        mPixels[i * 4 + 3] = 0xFF000000 | (y << 16) | (y << 8) | y;
+                    if (mBmp1 == null) {
+                        mBmp1 = Bitmap.createBitmap(image.getWidth(), image.getHeight(), Bitmap.Config.ARGB_8888);
+                        mBmp2 = Bitmap.createBitmap(image.getWidth(), image.getHeight(), Bitmap.Config.ARGB_8888);
+                        Globals.textureBitmap = mBmp1;
                     }
 
+                    if (Globals.textureBitmap == mBmp1) {
+                        yuvToRGB(mRowBytesY, mRowBytesB, mRowBytesR, mBmp2, image.getWidth(), image.getHeight(), yRowStride, uvRowStride);
+                        Globals.textureBitmap = mBmp2;
+                    } else {
+                        yuvToRGB(mRowBytesY, mRowBytesB, mRowBytesR, mBmp1, image.getWidth(), image.getHeight(), yRowStride, uvRowStride);
+                        Globals.textureBitmap = mBmp1;
+                    }
 
-                    Log.d("TIMETOCOPY", currentTimeMillis() - start + "");
-
-                    long mid = currentTimeMillis();
-
-                    Globals.textureBitmap = Bitmap.createBitmap(
-                            mPixels, image.getWidth(), image.getHeight(),
-                            Bitmap.Config.ARGB_8888
-                    );
-
-                    Log.d("TIMETOCREATE", currentTimeMillis() - mid + " ");
+                    Log.d("TIMETOCREATE", currentTimeMillis() - start + " ");
                 }
                 if(image != null)
                 image.close();
             } catch (Exception e) {
                 e.printStackTrace();
-//                Log.w(LOG_TAG, e.getClass().toString());
             }
         }
-
-        Bitmap fromByteBuffer(ByteBuffer buffer) {
-            byte[] bytes = new byte[buffer.capacity()];
-            buffer.get(bytes, 0, bytes.length);
-            return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        }
     };
+
+    public native void yuvToRGBGrayscale(byte[] buf, int[] pixels, int n);
+
+    public native void yuvToRGB(byte[] bytesY, byte[] bytesB, byte[] bytesR, Bitmap bmp, int width, int height, int yRowStride, int uvRowstride);
 
 }

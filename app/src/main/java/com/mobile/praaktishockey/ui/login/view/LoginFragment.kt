@@ -84,7 +84,7 @@ constructor(override val layoutId: Int = R.layout.fragment_login) : BaseFragment
                 val fragment = when (tag) {
                     RegisterUserDetailFragment.TAG -> RegisterUserDetailFragment.getInstance()
                     AcceptTermsFragment.TAG -> AcceptTermsFragment.getInstance()
-                    CalibrateFragment.TAG -> CalibrateFragment.getInstance(true)
+//                    CalibrateFragment.TAG -> CalibrateFragment.getInstance(true)
                     ConfirmLoginFragment.TAG -> ConfirmLoginFragment.getInstance()
                     else -> null
                 }
