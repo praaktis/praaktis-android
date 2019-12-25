@@ -65,10 +65,11 @@ class NetworkThread extends Thread {
 
             Globals.state = EngineState.CALIBRATION;
 
+
             for (;;) {
                 if (!mRunning) {
                     mVideoEncoder.signalEndOfStream();
-                    mVideoEncoder.encodeAndSend(frameNumber++);
+                    mVideoEncoder.release();
                     break;
                 }
                 if (mVideoEncoder.encodeAndSend(frameNumber++))

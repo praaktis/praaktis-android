@@ -80,25 +80,27 @@
                     <VideoView
                         android:id="@+id/videoView1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        />
+                        android:visibility="visible"
+                        android:layout_marginTop="2dp" />
 
                 </FrameLayout>
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="3dp"
                     >
 
-                    <VideoView
+                    <TextureView
                         android:id="@+id/videoView2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:visibility="gone"
+                        android:rotation="90"
+                        android:visibility="visible"
                         android:layout_marginTop="2dp" />
 
                 </FrameLayout>

@@ -1,11 +1,15 @@
 package com.mobile.praaktishockey.ui.challenge
 
 import android.content.Intent
+import android.graphics.SurfaceTexture
+import android.media.MediaPlayer
 import android.media.PlaybackParams
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Surface
+import android.view.TextureView
 import androidx.fragment.app.Fragment
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseFragment
@@ -16,6 +20,7 @@ import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
 import com.praaktis.exerciseengine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
+import java.lang.Exception
 
 class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_result_challenge) :
     BaseFragment() {
@@ -39,6 +44,9 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
 
     private val challengeItem by lazy { arguments!!.getSerializable("challengeItem") as ChallengeItem }
     private val result by lazy { activity.intent.getFloatArrayExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) }
+    private val path by lazy { activity.intent.getStringExtra(ChallengeInstructionFragment.VIDEO_PATH) }
+
+    private var mediaPlayer: MediaPlayer? = MediaPlayer()
 
     override fun initUI(savedInstanceState: Bundle?) {
         initToolbar()
@@ -64,7 +72,43 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             ivPlay.show()
             it.pause()
         }
-//        videoView2.setVideoURI(Uri.parse("android.resource://" + context?.packageName + "/" + R.raw.vid_drag_flick))
+        videoView2.surfaceTextureListener = object : TextureView.SurfaceTextureListener {
+            override fun onSurfaceTextureSizeChanged(
+                surface: SurfaceTexture?,
+                width: Int,
+                height: Int
+            ) {
+
+            }
+
+            override fun onSurfaceTextureUpdated(surface: SurfaceTexture?) {
+            }
+
+            override fun onSurfaceTextureDestroyed(surface: SurfaceTexture?): Boolean {
+                return false
+            }
+
+            override fun onSurfaceTextureAvailable(
+                surface: SurfaceTexture?,
+                width: Int,
+                height: Int
+            ) {
+                val surface = Surface(surface)
+                mediaPlayer = MediaPlayer()
+                try {
+                    mediaPlayer?.setDataSource(path)
+                    mediaPlayer?.setSurface(surface)
+                    mediaPlayer?.setVolume(0f, 0f)
+//                    mediaPlayer?.isLooping = true
+                    mediaPlayer?.prepareAsync()
+//                    mediaPlayer?.setOnPreparedListener { mediaPlayer -> mediaPlayer.start() }
+                } catch (e: Exception) {
+
+                }
+            }
+
+        }
+//        videoView2.setVideoURI(Uri.parse(path))
 //        videoView2.setOnPreparedListener {
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //                val playbackParams = PlaybackParams()
@@ -84,7 +128,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             tvYourScore.text =
                 "Your score: ${scoreOverAll.toInt()}"
             mViewModel.storeResult(
-                challengeItem, (scoreOverAll/10).toInt(), scoreOverAll, 0f, mutableListOf(
+                challengeItem, (scoreOverAll / 10).toInt(), scoreOverAll, 0f, mutableListOf(
                     DetailResult(20, result[0]),
                     DetailResult(21, result[1]),
                     DetailResult(22, result[2])
@@ -96,12 +140,14 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     private fun initClicks() {
         ivPlay.onClick {
             videoView1.start()
-            videoView2.start()
+//            videoView2.start()
+            mediaPlayer?.start()
             it.hide()
         }
         cvDetailAnalysis.onClick {
             videoView1.pause()
-            videoView2.pause()
+//            videoView2.pause()
+            mediaPlayer?.pause()
             ivPlay.show()
 
             val tag = DetailAnalysisFragment.TAG
@@ -116,5 +162,13 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        if(mediaPlayer != null){
+            mediaPlayer?.stop()
+            mediaPlayer?.release()
+            mediaPlayer = null
+        }
+    }
 
 }

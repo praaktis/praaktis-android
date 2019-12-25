@@ -226,6 +226,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
                 } else if (msg.what == Globals.MSG_RESULT) {
                     final float[] scores = (float[]) msg.obj;
                     intent.putExtra("result", scores);
+                    intent.putExtra("VIDEO_PATH", Globals.videoPath);
                     activity.setResult(Activity.RESULT_OK, intent);
                     activity.finish();
                 } else if (msg.what == Globals.MSG_COPY_BITMAP) {

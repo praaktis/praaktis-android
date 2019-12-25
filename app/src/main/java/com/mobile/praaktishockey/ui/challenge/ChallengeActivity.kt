@@ -22,9 +22,10 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
             activity.startActivity(intent)
         }
 
-        fun start(activity: Activity, challengeItem: ChallengeItem, result: FloatArray) {
+        fun start(activity: Activity, challengeItem: ChallengeItem, result: FloatArray, path: String) {
             val intent = Intent(activity, ChallengeActivity::class.java)
             intent.putExtra("challengeItem", challengeItem)
+            intent.putExtra(ChallengeInstructionFragment.VIDEO_PATH, path)
             intent.putExtra(ChallengeInstructionFragment.CHALLENGE_RESULT, result)
             activity.startActivity(intent)
         }
@@ -72,7 +73,8 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
         if (requestCode == 333) {
             finish()
             if (resultCode == Activity.RESULT_OK) {
-                start(this, challengeItem, data!!.getFloatArrayExtra("result"))
+                start(this, challengeItem, data!!.getFloatArrayExtra("result"), data.getStringExtra(
+                    ChallengeInstructionFragment.VIDEO_PATH))
             }
         }
     }

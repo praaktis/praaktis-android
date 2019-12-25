@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.media.MediaCodec;
 import android.media.MediaCodecInfo;
 import android.media.MediaFormat;
+import android.media.MediaMuxer;
 import android.util.Log;
 import android.view.Surface;
 
@@ -37,9 +38,12 @@ class VideoEncoder {
     private OutputStream mOutputStream;
 
     private MediaCodec mCodec;
+    private MediaMuxer mMuxer;
     private MediaCodec.BufferInfo mBufferInfo;
     private final long TIMEOUT_USEC = 10000L;
     private VideoSurfaceRenderer mVideoSurfaceRenderer;
+    private int mMetadataTrackIndex;
+    private long start = -1;
 
     public VideoEncoder(OutputStream os, int w, int h) {
         mHeight = h;
@@ -60,37 +64,6 @@ class VideoEncoder {
         mContext = context;
     }
 
-    void signalEndOfStream() {
-        mCodec.signalEndOfInputStream();
-    }
-
-    boolean encodeAndSend(int frameNumber) throws IOException {
-        int index = mCodec.dequeueOutputBuffer(mBufferInfo, TIMEOUT_USEC);
-        if (index == MediaCodec.INFO_TRY_AGAIN_LATER) {
-            return false;
-        } else if (index >= 0) {
-            ByteBuffer outputBuffer = mCodec.getOutputBuffer(index);
-            if (outputBuffer != null) {
-                // EOF not reached
-                boolean eofStream = (mBufferInfo.flags & MediaCodec.BUFFER_FLAG_END_OF_STREAM) != 0;
-                if (!eofStream) {
-                    byte[] buf = new byte[mBufferInfo.size + 8];
-                    outputBuffer.position(mBufferInfo.offset);
-                    outputBuffer.limit(mBufferInfo.offset + mBufferInfo.size);
-                    outputBuffer.get(buf, 8, mBufferInfo.size);
-                    long dataLen = mBufferInfo.size;
-                    Bytes.setUInt32At(buf, 0, frameNumber | 0x80000000);
-                    Bytes.setUInt32At(buf, 4, dataLen);
-                    NetworkIO.sendPacket(mOutputStream, (byte) NetworkIOConstants.MSG_FRAME_DATA, buf);
-                }
-                mCodec.releaseOutputBuffer(index, false);
-                if (eofStream)
-                    return true;
-            }
-        }
-        return false;
-    }
-
     private void init() throws IOException {
         MediaFormat mediaFormat = MediaFormat.createVideoFormat(VIDEO_FORMAT, 640, 360);
         mediaFormat.setInteger(MediaFormat.KEY_COLOR_FORMAT, MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface);
@@ -103,15 +76,73 @@ class VideoEncoder {
         mCodec = MediaCodec.createEncoderByType(VIDEO_FORMAT);
         mCodec.configure(mediaFormat, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE);
 
+//        String videoPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath()
+//                + "/test.mp4";
+
+        String videoPath = Globals.mainActivity.getCacheDir().getPath() + "/test.mp4";
+        System.out.println(videoPath);
+
+        Log.d("CACHEDIR", videoPath);
+
+        Globals.videoPath = videoPath;
+
+        mMuxer = new MediaMuxer(videoPath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
+        mMetadataTrackIndex = mMuxer.addTrack(mediaFormat);
+
         Globals.mainActivity.setSurface(mCodec.createInputSurface());
 
         mVideoSurfaceRenderer = new VideoSurfaceRenderer(Globals.mainActivity.getSurface());
         mVideoSurfaceRenderer.start();
 
         mCodec.start();
+        mMuxer.start();
     }
 
-    private void release() {
+    void signalEndOfStream() {
+        mCodec.signalEndOfInputStream();
+    }
+
+    boolean encodeAndSend(int frameNumber) throws IOException {
+        int index = mCodec.dequeueOutputBuffer(mBufferInfo, TIMEOUT_USEC);
+        if (index == MediaCodec.INFO_TRY_AGAIN_LATER) {
+            return false;
+        } else if (index >= 0) {
+            ByteBuffer outputBuffer = mCodec.getOutputBuffer(index);
+            if (outputBuffer != null) {
+                if(start == -1) start = currentTimeMillis();
+                // EOF not reached
+                boolean eofStream = (mBufferInfo.flags & MediaCodec.BUFFER_FLAG_END_OF_STREAM) != 0;
+                if (!eofStream) {
+                    byte[] buf = new byte[mBufferInfo.size + 8];
+                    outputBuffer.position(mBufferInfo.offset);
+                    outputBuffer.limit(mBufferInfo.offset + mBufferInfo.size);
+                    outputBuffer.get(buf, 8, mBufferInfo.size);
+                    long dataLen = mBufferInfo.size;
+                    Bytes.setUInt32At(buf, 0, frameNumber | 0x80000000);
+                    Bytes.setUInt32At(buf, 4, dataLen);
+                    NetworkIO.sendPacket(mOutputStream, (byte) NetworkIOConstants.MSG_FRAME_DATA, buf);
+
+//                    //TODO add presentationTimeUs
+//                    ByteBuffer meteData = ByteBuffer.allocate(mBufferInfo.size);
+
+                    mBufferInfo.presentationTimeUs = Math.round(computePresentationTime(frameNumber) / 2.6);
+                    mMuxer.writeSampleData(mMetadataTrackIndex, outputBuffer, mBufferInfo);
+                } else {
+                    Log.d("SENTVIDEO", currentTimeMillis() - start + "");
+
+                }
+                mCodec.releaseOutputBuffer(index, false);
+                if (eofStream)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+
+    public void release() {
+        mMuxer.stop();
+        mMuxer.release();
         mCodec.stop();
         mCodec.release();
         Globals.mainActivity.getSurface().release();
@@ -212,5 +243,9 @@ class VideoEncoder {
                 }
             }
         }
+    }
+
+    private long computePresentationTime(int frameIndex) {
+        return 132 + frameIndex * 1000000 / VIDEO_FRAME_PER_SECOND;
     }
 }

@@ -26,4 +26,6 @@ class Globals {
 
     public static volatile Bitmap textureBitmap;
 
+    public static String videoPath;
+
 }

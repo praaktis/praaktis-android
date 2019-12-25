@@ -26,6 +26,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         val TAG: String = ChallengeInstructionFragment::class.java.simpleName
         const val CHALLENGE_ITEM = "ANALYSIS_ITEM"
         const val CHALLENGE_RESULT = "CHALLENGE_RESULT"
+        const val VIDEO_PATH = "VIDEO_PATH"
 
         fun getInstance(item: ChallengeItem) = ChallengeInstructionFragment().apply {
             arguments = Bundle().apply {
@@ -97,7 +98,8 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         if (requestCode == 333) {
             getActivity()?.finish()
             if (resultCode == Activity.RESULT_OK) {
-                ChallengeActivity.start(getActivity()!!, challengeItem, data!!.getFloatArrayExtra("result"))
+                ChallengeActivity.start(getActivity()!!, challengeItem, data!!.getFloatArrayExtra("result"), data.getStringExtra(
+                    VIDEO_PATH))
             }
         }
     }
