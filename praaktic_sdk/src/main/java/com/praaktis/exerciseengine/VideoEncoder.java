@@ -9,13 +9,20 @@ import android.media.MediaCodec;
 import android.media.MediaCodecInfo;
 import android.media.MediaFormat;
 import android.media.MediaMuxer;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Surface;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.util.Random;
+import java.util.zip.CRC32;
 
+import static java.lang.System.console;
 import static java.lang.System.currentTimeMillis;
 
 
@@ -44,6 +51,7 @@ class VideoEncoder {
     private VideoSurfaceRenderer mVideoSurfaceRenderer;
     private int mMetadataTrackIndex;
     private long start = -1;
+
 
     public VideoEncoder(OutputStream os, int w, int h) {
         mHeight = h;
@@ -87,7 +95,7 @@ class VideoEncoder {
         Globals.videoPath = videoPath;
 
         mMuxer = new MediaMuxer(videoPath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
-        mMetadataTrackIndex = mMuxer.addTrack(mediaFormat);
+
 
         Globals.mainActivity.setSurface(mCodec.createInputSurface());
 
@@ -95,7 +103,7 @@ class VideoEncoder {
         mVideoSurfaceRenderer.start();
 
         mCodec.start();
-        mMuxer.start();
+
     }
 
     void signalEndOfStream() {
@@ -103,13 +111,18 @@ class VideoEncoder {
     }
 
     boolean encodeAndSend(int frameNumber) throws IOException {
+
         int index = mCodec.dequeueOutputBuffer(mBufferInfo, TIMEOUT_USEC);
         if (index == MediaCodec.INFO_TRY_AGAIN_LATER) {
             return false;
+        } else if (index == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
+            Log.d("INFO_CODEC", "OUTPUT FORMAT CHANGED");
+            mMetadataTrackIndex = mMuxer.addTrack(mCodec.getOutputFormat());
+            mMuxer.start();
         } else if (index >= 0) {
             ByteBuffer outputBuffer = mCodec.getOutputBuffer(index);
             if (outputBuffer != null) {
-                if(start == -1) start = currentTimeMillis();
+                if (start == -1) start = currentTimeMillis();
                 // EOF not reached
                 boolean eofStream = (mBufferInfo.flags & MediaCodec.BUFFER_FLAG_END_OF_STREAM) != 0;
                 if (!eofStream) {
@@ -122,11 +135,11 @@ class VideoEncoder {
                     Bytes.setUInt32At(buf, 4, dataLen);
                     NetworkIO.sendPacket(mOutputStream, (byte) NetworkIOConstants.MSG_FRAME_DATA, buf);
 
-//                    //TODO add presentationTimeUs
-//                    ByteBuffer meteData = ByteBuffer.allocate(mBufferInfo.size);
+                    //TODO add presentationTimeUs
 
-                    mBufferInfo.presentationTimeUs = Math.round(computePresentationTime(frameNumber) / 2.6);
+                    mBufferInfo.presentationTimeUs = (long) (computePresentationTime(frameNumber) / 2.7);
                     mMuxer.writeSampleData(mMetadataTrackIndex, outputBuffer, mBufferInfo);
+
                 } else {
                     Log.d("SENTVIDEO", currentTimeMillis() - start + "");
 
@@ -230,7 +243,9 @@ class VideoEncoder {
                         else continue;
 
                         try {
-                            onDraw(canvas);
+                            synchronized(mSurface) {
+                                onDraw(canvas);
+                            }
                         } finally {
                             if (mSurface.isValid() && mRunning)
                                 mSurface.unlockCanvasAndPost(canvas);

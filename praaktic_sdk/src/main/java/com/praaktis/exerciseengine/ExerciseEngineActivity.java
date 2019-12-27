@@ -1,7 +1,6 @@
 package com.praaktis.exerciseengine;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,6 +29,7 @@ import android.os.Message;
 import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
+import android.app.Activity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.TextureView;
@@ -38,6 +38,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
+import java.io.File;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 import static android.content.ContentValues.TAG;
@@ -197,6 +199,10 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
 
 
+        File file = new File(getCacheDir().getPath() + "/test.mp4");
+        if(file.isFile()){
+            file.delete();
+        }
 
         mMsgHandler = new Handler() {
             @Override
@@ -216,7 +222,8 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
                                 public void onClick(DialogInterface dialog,
                                                     int which) {
                                     Intent intent = new Intent();
-                                    activity.setResult(Activity.RESULT_CANCELED, intent);
+                                    intent.putExtra("VIDEO_PATH", Globals.videoPath);
+                                    activity.setResult(Activity.RESULT_OK, intent);
                                     activity.finish();
                                 }
                             });
@@ -536,7 +543,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
                     Log.d("TIMETOCREATE", currentTimeMillis() - start + " ");
                 }
                 if(image != null)
-                image.close();
+                    image.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }

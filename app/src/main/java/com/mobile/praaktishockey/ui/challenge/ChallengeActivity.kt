@@ -22,10 +22,11 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
             activity.startActivity(intent)
         }
 
-        fun start(activity: Activity, challengeItem: ChallengeItem, result: FloatArray, path: String) {
+        fun start(activity: Activity, challengeItem: ChallengeItem, result: FloatArray?, path: String) {
             val intent = Intent(activity, ChallengeActivity::class.java)
             intent.putExtra("challengeItem", challengeItem)
             intent.putExtra(ChallengeInstructionFragment.VIDEO_PATH, path)
+            if (result != null)
             intent.putExtra(ChallengeInstructionFragment.CHALLENGE_RESULT, result)
             activity.startActivity(intent)
         }

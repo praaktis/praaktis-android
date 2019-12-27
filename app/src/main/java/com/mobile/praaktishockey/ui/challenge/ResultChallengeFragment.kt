@@ -7,7 +7,6 @@ import android.media.PlaybackParams
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Surface
 import android.view.TextureView
 import androidx.fragment.app.Fragment
@@ -21,6 +20,7 @@ import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
 import com.praaktis.exerciseengine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
 import java.lang.Exception
+import java.util.*
 
 class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_result_challenge) :
     BaseFragment() {
@@ -46,7 +46,9 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     private val result by lazy { activity.intent.getFloatArrayExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) }
     private val path by lazy { activity.intent.getStringExtra(ChallengeInstructionFragment.VIDEO_PATH) }
 
-    private var mediaPlayer: MediaPlayer? = MediaPlayer()
+    private var mediaPlayer1: MediaPlayer? = MediaPlayer()
+    private var mediaPlayer2: MediaPlayer? = MediaPlayer()
+    private var timer: Timer? = null
 
     override fun initUI(savedInstanceState: Bundle?) {
         initToolbar()
@@ -62,15 +64,58 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     }
 
     private fun initVideoView() {
-        videoView1.setVideoURI(Uri.parse("android.resource://" + context?.packageName + "/" + R.raw.challenge_video))
-        videoView1.setOnPreparedListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                val playbackParams = PlaybackParams()
-                playbackParams.speed = 0.5f
-                it.playbackParams = playbackParams
+//        videoView1.setVideoURI(Uri.parse("android.resource://" + context?.packageName + "/" + R.raw.challenge_video))
+//        videoView1.setOnPreparedListener {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                val playbackParams = PlaybackParams()
+//                playbackParams.speed = 0.5f
+//                it.playbackParams = playbackParams
+//            }
+//            ivPlay.show()
+//            it.pause()
+//        }
+        videoView1.surfaceTextureListener = object : TextureView.SurfaceTextureListener {
+            override fun onSurfaceTextureSizeChanged(
+                surface: SurfaceTexture?,
+                width: Int,
+                height: Int
+            ) {
+
             }
-            ivPlay.show()
-            it.pause()
+
+            override fun onSurfaceTextureUpdated(surface: SurfaceTexture?) {
+            }
+
+            override fun onSurfaceTextureDestroyed(surface: SurfaceTexture?): Boolean {
+                return false
+            }
+
+            override fun onSurfaceTextureAvailable(
+                surface: SurfaceTexture?,
+                width: Int,
+                height: Int
+            ) {
+                val surface = Surface(surface)
+                mediaPlayer1 = MediaPlayer()
+                try {
+                    mediaPlayer1?.setDataSource(
+                        context, Uri.parse(
+                            "android.resource://" +
+                                    context?.packageName + "/" + R.raw.challenge_video
+                        )
+                    )
+                    mediaPlayer1?.setSurface(surface)
+                    mediaPlayer1?.setVolume(0f, 0f)
+//                    mediaPlayer2?.isLooping = true
+                    mediaPlayer1?.prepareAsync()
+                    mediaPlayer1?.setOnPreparedListener { m ->
+                        mediaPlayer1?.seekTo(100)
+                        ivPlay.show()
+                    }
+                } catch (e: Exception) {
+
+                }
+            }
         }
         videoView2.surfaceTextureListener = object : TextureView.SurfaceTextureListener {
             override fun onSurfaceTextureSizeChanged(
@@ -94,20 +139,25 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
                 height: Int
             ) {
                 val surface = Surface(surface)
-                mediaPlayer = MediaPlayer()
+                mediaPlayer2 = MediaPlayer()
                 try {
-                    mediaPlayer?.setDataSource(path)
-                    mediaPlayer?.setSurface(surface)
-                    mediaPlayer?.setVolume(0f, 0f)
-//                    mediaPlayer?.isLooping = true
-                    mediaPlayer?.prepareAsync()
-//                    mediaPlayer?.setOnPreparedListener { mediaPlayer -> mediaPlayer.start() }
+                    mediaPlayer2?.setDataSource(path)
+                    mediaPlayer2?.setSurface(surface)
+                    mediaPlayer2?.setVolume(0f, 0f)
+//                    mediaPlayer2?.isLooping = true
+                    mediaPlayer2?.prepareAsync()
+                    mediaPlayer2?.setOnPreparedListener { m ->
+                        mediaPlayer2?.seekTo(6000)
+                    }
                 } catch (e: Exception) {
 
                 }
             }
-
         }
+
+//        mediaPlayer2?.setOnCompletionListener {
+//            ivPlay.show()
+//        }
 //        videoView2.setVideoURI(Uri.parse(path))
 //        videoView2.setOnPreparedListener {
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -119,9 +169,9 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
 //            it.pause()
 //        }
 
-        videoView1.setOnCompletionListener {
-            ivPlay.show()
-        }
+//        videoView1.setOnCompletionListener {
+//            ivPlay.show()
+//        }
 
         if (result != null) {
             val scoreOverAll = (result[0] * 0.45f + result[1] * 0.2f + result[2] * 0.35f)
@@ -134,26 +184,50 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
                     DetailResult(22, result[2])
                 )
             )
+        } else {
+            tvYourScore.text = "Your score: 0"
         }
+
+        timer?.cancel()
+        timer = Timer()
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                if (mediaPlayer2?.isPlaying == false) {
+                    activity.runOnUiThread { ivPlay.show() }
+                } else {
+                    activity.runOnUiThread { ivPlay.hide() }
+                }
+            }
+        }, 1000, 1000)
     }
 
     private fun initClicks() {
         ivPlay.onClick {
-            videoView1.start()
+            //            videoView1.start()
 //            videoView2.start()
-            mediaPlayer?.start()
+//            if (videoView1.currentPosition == 0)
+            mediaPlayer1?.seekTo(0)
+            mediaPlayer1?.start()
+
+//            val oneSec = mediaPlayer2?.duration!! / 2
+            mediaPlayer2?.seekTo(6000)
+            mediaPlayer2?.start()
             it.hide()
         }
         cvDetailAnalysis.onClick {
-            videoView1.pause()
+            //            videoView1.pause()
 //            videoView2.pause()
-            mediaPlayer?.pause()
-            ivPlay.show()
-
-            val tag = DetailAnalysisFragment.TAG
-            activity.showOrReplace(tag) {
-                add(R.id.container, DetailAnalysisFragment.getInstance(challengeItem), tag)
-                    .addToBackStack(tag)
+            if (result != null) {
+                mediaPlayer1?.pause()
+                mediaPlayer2?.pause()
+                ivPlay.show()
+                val tag = DetailAnalysisFragment.TAG
+                activity.showOrReplace(tag) {
+                    add(R.id.container, DetailAnalysisFragment.getInstance(challengeItem), tag)
+                        .addToBackStack(tag)
+                }
+            } else {
+                activity.makeToast("Failed exercise")
             }
         }
         cvTryAgain.onClick {
@@ -164,11 +238,18 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
 
     override fun onDestroy() {
         super.onDestroy()
-        if(mediaPlayer != null){
-            mediaPlayer?.stop()
-            mediaPlayer?.release()
-            mediaPlayer = null
+        if (mediaPlayer1 != null) {
+            mediaPlayer1?.stop()
+            mediaPlayer1?.release()
+            mediaPlayer1 = null
         }
+        if (mediaPlayer2 != null) {
+            mediaPlayer2?.stop()
+            mediaPlayer2?.release()
+            mediaPlayer2 = null
+        }
+        timer?.cancel()
+        timer = null
     }
 
 }
