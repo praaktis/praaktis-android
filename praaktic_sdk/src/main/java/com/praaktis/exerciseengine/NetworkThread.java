@@ -4,10 +4,25 @@ import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManagerFactory;
 
 class NetworkThread extends Thread {
 
@@ -42,7 +57,38 @@ class NetworkThread extends Thread {
     }
 
     private void connect() throws IOException {
-        mSocket = new Socket(mHost,mPort);
+//        InputStream fis = Globals.mainActivity.getAssets().open("cert.pem");
+//        BufferedInputStream bis = new BufferedInputStream(fis);
+//        Certificate certificate;
+//        try {
+//            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+//            certificate = cf.generateCertificate(bis);
+//        } catch (CertificateException cex) {
+//            return;
+//        } finally {
+//            bis.close();
+//        }
+//        KeyStore keyStore;
+//        try {
+//            keyStore = KeyStore.getInstance("BKS");
+//            keyStore.load(null, null);
+//            keyStore.setCertificateEntry("certAlias", certificate);
+//            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+//            trustManagerFactory.init(keyStore);
+//            SSLContext sslctx = SSLContext.getInstance("TLS");
+//            sslctx.init(null, trustManagerFactory.getTrustManagers(), new SecureRandom());
+//            SSLSocketFactory factory = sslctx.getSocketFactory();
+
+        mSocket = new Socket(mHost, mPort);
+//        } catch (CertificateException e) {
+//            e.printStackTrace();
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//        } catch (KeyStoreException e) {
+//            e.printStackTrace();
+//        } catch (KeyManagementException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
@@ -55,8 +101,8 @@ class NetworkThread extends Thread {
             mReceiver = new Receiver(inputStream);
 
             mReceiver.setCanvasSize(mWidth, mHeight,
-                                    mBoundingBoxX, mBoundingBoxY,
-                                    mBoundingBoxW, mBoundingBoxH);
+                    mBoundingBoxX, mBoundingBoxY,
+                    mBoundingBoxW, mBoundingBoxH);
             mRunning = true;
             mReceiver.setRunning(true);
             mReceiver.start();
@@ -66,7 +112,7 @@ class NetworkThread extends Thread {
             Globals.state = EngineState.CALIBRATION;
 
 
-            for (;;) {
+            for (; ; ) {
                 if (!mRunning) {
                     mVideoEncoder.signalEndOfStream();
                     mVideoEncoder.release();
@@ -76,7 +122,7 @@ class NetworkThread extends Thread {
                     break;
                 if (Globals.state == EngineState.CALIBRATION_FAILED ||
                         Globals.state == EngineState.EXERCISE_FAILED ||
-                        Globals.state == EngineState.EXERCISE_COMPLETED) {
+                        Globals.state == EngineState.EXERCISE_COMPLETED || !Globals.mainActivity.getSurface().isValid()) {
                     mVideoEncoder.stopRendered();
                     mRunning = false;
                     continue;
@@ -85,21 +131,23 @@ class NetworkThread extends Thread {
             mReceiver.setRunning(false);
         } catch (IOException exc) {
             Message msg = mMessageHandler.obtainMessage(Globals.MSG_ERROR);
-            msg.obj = (Object)"Connection to the server has failed. Please try again later.";
+            msg.obj = (Object) "Connection to the server has failed. Please try again later.";
             mMessageHandler.sendMessage(msg);
         } finally {
             if (mReceiver != null)
                 try {
                     mReceiver.join();
-                } catch (InterruptedException ex) {}
+                } catch (InterruptedException ex) {
+                }
             if (mSocket != null)
                 try {
                     mSocket.close();
-                } catch (IOException exc) {}
+                } catch (IOException exc) {
+                }
         }
     }
 
-   public void setRunning(boolean running) {
+    public void setRunning(boolean running) {
         mRunning = running;
-   }
+    }
 }

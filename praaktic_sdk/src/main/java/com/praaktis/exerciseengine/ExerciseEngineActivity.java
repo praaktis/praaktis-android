@@ -523,6 +523,9 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
                     int yRowStride = image.getPlanes()[0].getRowStride();
                     int uvRowStride = image.getPlanes()[1].getRowStride();
+                    int pixelStride = image.getPlanes()[1].getPixelStride();
+
+                    Log.d("PIXELSTRIDE", image.getPlanes()[1].getPixelStride() + "");
 
                     long start = currentTimeMillis();
 
@@ -533,10 +536,15 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
                     }
 
                     if (Globals.textureBitmap == mBmp1) {
-                        yuvToRGB(mRowBytesY, mRowBytesB, mRowBytesR, mBmp2, image.getWidth(), image.getHeight(), yRowStride, uvRowStride);
+                        yuvToRGB(mRowBytesY, mRowBytesB, mRowBytesR, mBmp2, image.getWidth(), image.getHeight(), yRowStride, uvRowStride, pixelStride);
+
+                        if(mRowBytesB == mRowBytesR){
+
+                        }
+
                         Globals.textureBitmap = mBmp2;
                     } else {
-                        yuvToRGB(mRowBytesY, mRowBytesB, mRowBytesR, mBmp1, image.getWidth(), image.getHeight(), yRowStride, uvRowStride);
+                        yuvToRGB(mRowBytesY, mRowBytesB, mRowBytesR, mBmp1, image.getWidth(), image.getHeight(), yRowStride, uvRowStride, pixelStride);
                         Globals.textureBitmap = mBmp1;
                     }
 
@@ -552,6 +560,8 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
     public native void yuvToRGBGrayscale(byte[] buf, int[] pixels, int n);
 
-    public native void yuvToRGB(byte[] bytesY, byte[] bytesB, byte[] bytesR, Bitmap bmp, int width, int height, int yRowStride, int uvRowstride);
+    public native void yuvToRGB(byte[] bytesY, byte[] bytesB, byte[] bytesR, Bitmap bmp, int width, int height, int yRowStride, int uvRowstride, int pixelStride);
+
+    public native void yuvPlanarToRGB(byte[] bytesY, byte[] bytesB, byte[] bytesR, Bitmap bmp, int width, int height, int yRowStride, int uvRowstride);
 
 }

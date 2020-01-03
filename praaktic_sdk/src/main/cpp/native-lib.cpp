@@ -46,7 +46,8 @@ Java_com_praaktis_exerciseengine_ExerciseEngineActivity_yuvToRGB(JNIEnv *env, jo
                                                                  jint width,
                                                                  jint height,
                                                                  jint y_row_stride,
-                                                                 jint uv_row_stride
+                                                                 jint uv_row_stride,
+                                                                 jint pixel_stride
 ) {
     // TODO: implement yuvToRGB()
 
@@ -69,8 +70,8 @@ Java_com_praaktis_exerciseengine_ExerciseEngineActivity_yuvToRGB(JNIEnv *env, jo
     for (int y = 0; y < height; y++) {
         int y2 = y >> 1;
         int idxRowRB = y2 * uv_row_stride;
-
         int uvoffset = idxRowRB;
+
         for (int x = 0; x < width; x++) {
 
             int yc = 255 & ybytes[idx_row_y + x];
@@ -89,7 +90,7 @@ Java_com_praaktis_exerciseengine_ExerciseEngineActivity_yuvToRGB(JNIEnv *env, jo
             if (g > 255) g = 255;
 
             dest_pixels[ind++] = 0xFF000000 | (b << 16) | (g << 8) | r;
-            uvoffset += 2 * (x & 1);
+            uvoffset += (x & 1) ? pixel_stride : 0;
         }
         idx_row_y += y_row_stride;
     }
@@ -99,4 +100,17 @@ Java_com_praaktis_exerciseengine_ExerciseEngineActivity_yuvToRGB(JNIEnv *env, jo
     env->ReleaseByteArrayElements(bytes_r, rbytes, 0);
 
     AndroidBitmap_unlockPixels(env, bmp);
+}extern "C"
+JNIEXPORT void JNICALL
+Java_com_praaktis_exerciseengine_ExerciseEngineActivity_yuvPlanarToRGB(JNIEnv *env, jobject thiz,
+                                                                       jbyteArray bytes_y,
+                                                                       jbyteArray bytes_b,
+                                                                       jbyteArray bytes_r,
+                                                                       jobject bmp, jint width,
+                                                                       jint height,
+                                                                       jint y_row_stride,
+                                                                       jint uv_rowstride) {
+    // TODO: implement yuvPlanarToRGB()
+
+
 }

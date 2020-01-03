@@ -235,23 +235,22 @@ class VideoEncoder {
                     }
 
                     try {
-                        Long start = currentTimeMillis();
-                        Canvas canvas;
 
-                        if (mRunning)
-                            canvas = mSurface.lockCanvas(null);
-                        else continue;
+                        Canvas canvas = null;
 
                         try {
-                            synchronized(mSurface) {
-                                onDraw(canvas);
-                            }
+                            if (mRunning && mSurface.isValid())
+                                canvas = mSurface.lockCanvas(null);
+                            else continue;
+                            onDraw(canvas);
+
+                        } catch (IllegalStateException e) {
+                            e.printStackTrace();
                         } finally {
                             if (mSurface.isValid() && mRunning)
                                 mSurface.unlockCanvasAndPost(canvas);
                         }
-                        Long end = currentTimeMillis();
-                        Log.d("TIMETODRAWCANVAS", end - start + "");
+
                     } catch (IllegalArgumentException e) {
                         e.printStackTrace();
                     }
