@@ -232,6 +232,8 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
         }
         cvTryAgain.onClick {
             val intent = Intent(context, ExerciseEngineActivity::class.java)
+            intent.putExtra("LOGIN", mViewModel.getLogin())
+            intent.putExtra("PASSWORD", mViewModel.getPassword())
             startActivityForResult(intent, 333)
         }
     }

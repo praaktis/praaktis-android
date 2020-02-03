@@ -44,9 +44,9 @@ class RendererThread extends Thread {
     private Handler mMessageHandler;
 
     private int rescale(int param) {
-        double p = (double)param;
+        double p = (double) param;
         // 1280px is the height of our test/developmnent phone's screen (Samsung J5).
-        return (int)(mHeight * (param / 1280.0));
+        return (int) (mHeight * (param / 1280.0));
     }
 
     RendererThread(Handler msgHandler, SurfaceHolder holder, int width, int height, Rect boundingBox) {
@@ -99,12 +99,12 @@ class RendererThread extends Thread {
                 mBoundingBoxX + mBoundingBoxW, mBoundingBoxY + 50, paint);
 
         canvas.drawLine(mBoundingBoxX, mBoundingBoxY + mBoundingBoxH,
-                mBoundingBoxX, mBoundingBoxY + mBoundingBoxH - 50 , paint);
+                mBoundingBoxX, mBoundingBoxY + mBoundingBoxH - 50, paint);
         canvas.drawLine(mBoundingBoxX, mBoundingBoxY + mBoundingBoxH,
                 mBoundingBoxX + 50, mBoundingBoxY + mBoundingBoxH, paint);
 
         canvas.drawLine(mBoundingBoxX + mBoundingBoxW, mBoundingBoxY + mBoundingBoxH,
-                mBoundingBoxX + mBoundingBoxW, mBoundingBoxY + mBoundingBoxH - 50 , paint);
+                mBoundingBoxX + mBoundingBoxW, mBoundingBoxY + mBoundingBoxH - 50, paint);
         canvas.drawLine(mBoundingBoxX + mBoundingBoxW, mBoundingBoxY + mBoundingBoxH,
                 mBoundingBoxX + mBoundingBoxW - 50, mBoundingBoxY + mBoundingBoxH, paint);
 
@@ -145,24 +145,30 @@ class RendererThread extends Thread {
                     text = "exercise";
                     break;
                 case CALIBRATION_FAILED: {
-                    Message msg = mMessageHandler.obtainMessage(Globals.MSG_ERROR);
-                    msg.obj = (Object) "Calibration failed. \nPlease start again";
-                    mMessageHandler.sendMessage(msg);
+                    if (!Globals.isErr) {
+                        Message msg = mMessageHandler.obtainMessage(Globals.MSG_ERROR);
+                        msg.obj = (Object) "Calibration failed. \nPlease start again";
+                        mMessageHandler.sendMessage(msg);
+                    }
                     mRunning = false;
                     break;
                 }
                 case EXERCISE_FAILED: {
-                    Message msg = mMessageHandler.obtainMessage(Globals.MSG_ERROR);
-                    msg.obj = (Object) "No person in the area.\n Exercise failed";
-                    mMessageHandler.sendMessage(msg);
+                    if (!Globals.isErr) {
+                        Message msg = mMessageHandler.obtainMessage(Globals.MSG_ERROR);
+                        msg.obj = (Object) "No person in the area.\n Exercise failed";
+                        mMessageHandler.sendMessage(msg);
+                    }
                     mRunning = false;
                     break;
                 }
                 case SCORING: {
-                    Message msg = mMessageHandler.obtainMessage(Globals.MSG_RESULT);
-                    float [] scores = {Globals.score1, Globals.score2, Globals.score3};
-                    msg.obj = (Object) scores;
-                    mMessageHandler.sendMessage(msg);
+                    if (!Globals.isErr) {
+                        Message msg = mMessageHandler.obtainMessage(Globals.MSG_RESULT);
+                        float[] scores = {Globals.score1, Globals.score2, Globals.score3};
+                        msg.obj = (Object) scores;
+                        mMessageHandler.sendMessage(msg);
+                    }
                     mRunning = false;
                     break;
                 }

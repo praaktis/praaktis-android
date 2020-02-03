@@ -40,6 +40,8 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
     var isSentFcmToken by prefBoolean()
     var showedIntroPage by prefBoolean()
     var lang by prefString()
+    var login by prefString()
+    var password by prefString()
 
     private companion object {
         const val SORTING = "App_Sorting_"
@@ -150,4 +152,5 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
         }
         return null
     }
+
 }

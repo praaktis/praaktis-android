@@ -5,6 +5,7 @@ import android.util.Log;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import static com.praaktis.exerciseengine.NetworkIOConstants.MSG_ERROR;
 import static com.praaktis.exerciseengine.NetworkIOConstants.MSG_FRAME_POINTS;
 import static com.praaktis.exerciseengine.NetworkIOConstants.MSG_OK;
 
@@ -77,24 +78,29 @@ class Receiver extends Thread {
 
     }
 
-
     private void processStateMachine(ExerciseAnalyser exerciseAnalyser,
                                      ArrayList<float[]> scene,
                                      int person) {
+
         switch (Globals.state) {
 
             case CALIBRATION: {
                 if (!mPoints.isEmpty())
                     mPoints.clear();
+
+                if(person == -127){
+                    Globals.state = EngineState.CALIBRATION_FAILED;
+                }
+
                 break;
             }
 
-            case CALIBRATION_FAILED:
+            case CALIBRATION_FAILED: {
                 Globals.inBoundingBox = false;
                 green = false;
                 mRunning = false;
                 break;
-
+            }
 
             case EXERCISE_COMPLETED: {
                 float[] scores = exerciseAnalyser.analyzeExcercise(mPoints);
@@ -146,10 +152,28 @@ class Receiver extends Thread {
                     break;
                 }
 
+                Log.d("MESSAGETYPE", rpResult.packetType + "");
+
                 switch (rpResult.packetType) {
 
-                    case MSG_OK:
+                    case MSG_OK: {
                         break;
+                    }
+
+                    case MSG_ERROR: {
+                        Globals.isErr = true;
+                        Log.d("ERRORMSG", "ENTER");
+                        StringBuilder buf = new StringBuilder();
+
+                        for (byte c : rpResult.packetData)
+                            buf.appendCodePoint(c);
+                        Globals.message = buf.substring(0);
+                        processStateMachine(exerciseAnalyser, null, -127);
+
+                        Log.d("ERRORMSG", Globals.message);
+
+                        break;
+                    }
 
                     case MSG_FRAME_POINTS: {
 
@@ -209,6 +233,7 @@ class Receiver extends Thread {
                         //  debugUpdateArmsAngle(data, excerciseAnalyser, person, numPointsPerPerson);
 
                         processStateMachine(exerciseAnalyser, scene, personIdx);
+                        break;
                     }
 
                     default:

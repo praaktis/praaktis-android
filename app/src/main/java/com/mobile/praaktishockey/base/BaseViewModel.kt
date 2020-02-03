@@ -23,6 +23,9 @@ open class BaseViewModel(app: Application) : AndroidViewModel(app) {
     val showHideEvent = BoolLV()
     val logoutEvent = BoolLV()
 
+    fun getLogin() : String = settingsStorage.login
+    fun getPassword() : String = settingsStorage.password
+
     fun onLogoutSuccess() {
         UserServiceRepository.UserServiceRepositoryImpl.INSTANCE = null
         logoutEvent.postValue(false)

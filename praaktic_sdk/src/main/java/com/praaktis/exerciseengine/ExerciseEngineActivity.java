@@ -1,6 +1,7 @@
 package com.praaktis.exerciseengine;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -29,7 +30,6 @@ import android.os.Message;
 import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
-import android.app.Activity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.TextureView;
@@ -39,7 +39,6 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
 import java.io.File;
-import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 import static android.content.ContentValues.TAG;
@@ -197,7 +196,8 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
         mSurfaceHolder.addCallback(this);
         final Activity activity = this;
 
-
+        Globals.LOGIN = getIntent().getStringExtra("LOGIN");
+        Globals.PASSWORD = getIntent().getStringExtra("PASSWORD");
 
         File file = new File(getCacheDir().getPath() + "/test.mp4");
         if(file.isFile()){
@@ -205,13 +205,15 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
         }
 
         mMsgHandler = new Handler() {
+            private boolean mMsgShown = false;
+
             @Override
             public void handleMessage(Message msg) {
-
                 String s = "";
                 Intent intent = new Intent();
 
                 if (msg.what == Globals.MSG_ERROR) {
+                    mMsgShown = true;
                     s = (String) msg.obj;
 
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
@@ -227,7 +229,6 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
                                     activity.finish();
                                 }
                             });
-
                     alertDialogBuilder.show();
 
                 } else if (msg.what == Globals.MSG_RESULT) {
@@ -243,6 +244,8 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
             }
         };
     }
+
+
 
     public Handler getMsgHandler() {
         return mMsgHandler;
@@ -551,7 +554,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
                     Log.d("TIMETOCREATE", currentTimeMillis() - start + " ");
                 }
                 if(image != null)
-                    image.close();
+                image.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }

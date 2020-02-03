@@ -12,8 +12,8 @@ import static com.praaktis.exerciseengine.NetworkIOConstants.POS_HEADER_CRC32;
 final class NetworkIO {
     private static CRC32 sCrc32In = new CRC32();
     private static CRC32 sCrc32Out = new CRC32();
-    private static byte [] sHeaderOut = new byte[NetworkIOConstants.HEADER_SIZE];
-    private static byte [] sHeaderIn = new byte[NetworkIOConstants.HEADER_SIZE];
+    private static byte[] sHeaderOut = new byte[NetworkIOConstants.HEADER_SIZE];
+    private static byte[] sHeaderIn = new byte[NetworkIOConstants.HEADER_SIZE];
 
     private static void sendHeader(OutputStream output, byte packetType, int dataSize, long dataCrc32)
             throws IOException {
@@ -28,37 +28,42 @@ final class NetworkIO {
         output.flush();
     }
 
-    public static void sendPacket(OutputStream output, byte packetType, byte [] data)
-        throws IOException {
+    public static void sendPacket(OutputStream output, byte packetType, byte[] data)
+            throws IOException {
+//        if (Globals.state == EngineState.EXERCISE) {
+//            packetType = 12;
+//        }
         sCrc32Out.reset();
         sCrc32Out.update(data);
         long dataCrc32 = sCrc32Out.getValue();
         sendHeader(output, packetType, data.length, dataCrc32);
+
+
         output.write(data);
         output.flush();
     }
 
-    public static boolean readAll(InputStream input, byte [] buf) {
+    public static boolean readAll(InputStream input, byte[] buf) {
         int pos = 0;
         int toRead = buf.length;
         while (toRead > 0) {
-           int bytesRead;
-           try {
-               bytesRead = input.read(buf, pos, toRead);
-               if (bytesRead == -1)
-                   return false;
-               toRead -= bytesRead;
-               pos += bytesRead;
-           } catch (IOException ex ) {
-               return false;
-           }
+            int bytesRead;
+            try {
+                bytesRead = input.read(buf, pos, toRead);
+                if (bytesRead == -1)
+                    return false;
+                toRead -= bytesRead;
+                pos += bytesRead;
+            } catch (IOException ex) {
+                return false;
+            }
         }
         return true;
     }
 
     public static class ReceivePacketResult {
         byte packetType;
-        byte [] packetData;
+        byte[] packetData;
     }
 
     public static boolean receivePacket(InputStream input, ReceivePacketResult rpResult) {
@@ -72,7 +77,7 @@ final class NetworkIO {
         rpResult.packetType = sHeaderIn[0];
         int dataSize = Bytes.getIntAt(sHeaderIn, 1);
         long dataCrc32 = Bytes.getUInt32At(sHeaderIn, POS_DATA_CRC32);
-        byte [] buf = new byte[dataSize];
+        byte[] buf = new byte[dataSize];
         if (!readAll(input, buf))
             return false;
         sCrc32In.reset();
@@ -80,6 +85,6 @@ final class NetworkIO {
         if (false && sCrc32In.getValue() != dataCrc32)
             return false;
         rpResult.packetData = buf;
-        return  true;
+        return true;
     }
 }

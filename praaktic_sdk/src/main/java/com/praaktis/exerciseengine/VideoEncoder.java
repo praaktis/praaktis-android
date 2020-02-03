@@ -9,20 +9,13 @@ import android.media.MediaCodec;
 import android.media.MediaCodecInfo;
 import android.media.MediaFormat;
 import android.media.MediaMuxer;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.Surface;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.util.Random;
-import java.util.zip.CRC32;
 
-import static java.lang.System.console;
 import static java.lang.System.currentTimeMillis;
 
 
@@ -235,22 +228,21 @@ class VideoEncoder {
                     }
 
                     try {
+                        Long start = currentTimeMillis();
+                        Canvas canvas;
 
-                        Canvas canvas = null;
+                        if (mRunning)
+                            canvas = mSurface.lockCanvas(null);
+                        else continue;
 
                         try {
-                            if (mRunning && mSurface.isValid())
-                                canvas = mSurface.lockCanvas(null);
-                            else continue;
                             onDraw(canvas);
-
-                        } catch (IllegalStateException e) {
-                            e.printStackTrace();
                         } finally {
                             if (mSurface.isValid() && mRunning)
                                 mSurface.unlockCanvasAndPost(canvas);
                         }
-
+                        Long end = currentTimeMillis();
+                        Log.d("TIMETODRAWCANVAS", end - start + "");
                     } catch (IllegalArgumentException e) {
                         e.printStackTrace();
                     }

@@ -32,6 +32,8 @@ class LoginFragmentViewModel(app: Application) : BaseViewModel(app) {
                 try {
                     val json = JSONObject(temp)
                     loginStorage.token = json.getString("token")
+                    loginStorage.login = userName
+                    loginStorage.password = password
                     loadProfile()
                 } catch (e: Exception) {}
             }, ::onError)

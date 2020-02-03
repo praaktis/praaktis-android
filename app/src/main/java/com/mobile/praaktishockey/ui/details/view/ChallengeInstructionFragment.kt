@@ -78,6 +78,8 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         if (getActivity() != null) {
 //            ChallengeActivity.start(getActivity()!!, challengeItem)
             val intent = Intent(context, ExerciseEngineActivity::class.java)
+            intent.putExtra("LOGIN", mViewModel.getLogin())
+            intent.putExtra("PASSWORD", mViewModel.getPassword())
             startActivityForResult(intent, 333)
             
         }

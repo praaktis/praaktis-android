@@ -28,4 +28,11 @@ class Globals {
 
     public static String videoPath;
 
+    public static String message = null;
+
+    public static boolean isErr = false;
+
+    public static String LOGIN;
+
+    public static String PASSWORD;
 }
