@@ -71,11 +71,15 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        Log.d("_RESULT", "REQUEST: " + requestCode)
         if (requestCode == 333) {
             finish()
             if (resultCode == Activity.RESULT_OK) {
+                Log.d("_RESULT", "RESULT_OK")
                 start(this, challengeItem, data!!.getFloatArrayExtra("result"), data.getStringExtra(
                     ChallengeInstructionFragment.VIDEO_PATH))
+            } else {
+                Log.d("_RESULT", "RESULT_NOT_OK")
             }
         }
     }

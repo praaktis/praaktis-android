@@ -224,8 +224,8 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
                                 public void onClick(DialogInterface dialog,
                                                     int which) {
                                     Intent intent = new Intent();
-                                    intent.putExtra("VIDEO_PATH", Globals.videoPath);
-                                    activity.setResult(Activity.RESULT_OK, intent);
+//                                    intent.putExtra("VIDEO_PATH", Globals.videoPath);
+                                    activity.setResult(Activity.RESULT_CANCELED, intent);
                                     activity.finish();
                                 }
                             });

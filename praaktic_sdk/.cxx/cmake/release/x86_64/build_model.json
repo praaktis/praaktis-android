@@ -1,0 +1,72 @@
+{
+  "variant": {
+    "module": {
+      "rootBuildGradleFolder": "/Users/user/AndroidProjects/praaktis-android",
+      "sdkFolder": "/Users/user/Library/Android/sdk",
+      "isNativeCompilerSettingsCacheEnabled": false,
+      "isBuildOnlyTargetAbiEnabled": true,
+      "splitsAbiFilterSet": [],
+      "intermediatesFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates",
+      "gradleModulePathName": ":praaktic_sdk",
+      "moduleRootFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk",
+      "makeFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/src/main/cpp/CMakeLists.txt",
+      "buildSystem": "CMAKE",
+      "compilerSettingsCacheFolder": "/Users/user/AndroidProjects/praaktis-android/.cxx",
+      "cxxFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx",
+      "ndkFolder": "/Users/user/Library/Android/sdk/ndk/20.1.5948944",
+      "ndkVersion": "20.1.5948944",
+      "ndkSupportedAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkDefaultAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "cmakeToolchainFile": "."
+    },
+    "buildSystemArgumentList": [],
+    "cFlagList": [],
+    "cppFlagsList": [
+      "-std\u003dc++14"
+    ],
+    "variantName": "release",
+    "soFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/release/lib",
+    "objFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/release/obj",
+    "jsonFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release",
+    "gradleBuildOutputFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cxx/release",
+    "isDebuggableEnabled": true,
+    "validAbiList": [
+      "ARMEABI_V7A",
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
+    ],
+    "buildTargetSet": []
+  },
+  "abi": "X86_64",
+  "abiPlatformVersion": 21,
+  "cxxBuildFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86_64",
+  "jsonFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86_64/android_gradle_build.json",
+  "gradleBuildOutputFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cxx/release/x86_64",
+  "objFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/release/obj/x86_64",
+  "buildCommandFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86_64/build_command.txt",
+  "buildOutputFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86_64/build_output.txt",
+  "modelOutputFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86_64/build_model.json",
+  "cmake": {
+    "cmakeListsWrapperFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cxx/release/x86_64/CMakeLists.txt",
+    "toolchainWrapperFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cxx/release/x86_64/android_gradle_build.toolchain.cmake",
+    "buildGenerationStateFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cxx/release/x86_64/build_generation_state.json",
+    "cacheKeyFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cxx/release/x86_64/compiler_cache_key.json",
+    "compilerCacheUseFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cxx/release/x86_64/compiler_cache_use.json",
+    "compilerCacheWriteFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cxx/release/x86_64/compiler_cache_write.json",
+    "toolchainSettingsFromCacheFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cxx/release/x86_64/compiler_settings_cache.cmake",
+    "cmakeWrappingBaseFolder": "."
+  },
+  "jsonGenerationLoggingRecordFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86_64/json_generation_record.json",
+  "compileCommandsJsonFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86_64/compile_commands.json"
+}

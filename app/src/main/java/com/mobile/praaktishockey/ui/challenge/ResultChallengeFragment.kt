@@ -192,11 +192,12 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
         timer = Timer()
         timer?.schedule(object : TimerTask() {
             override fun run() {
-                if (mediaPlayer2?.isPlaying == false) {
-                    activity.runOnUiThread { ivPlay.show() }
-                } else {
-                    activity.runOnUiThread { ivPlay.hide() }
-                }
+                if (ivPlay != null)
+                    if (mediaPlayer2?.isPlaying == false) {
+                        activity.runOnUiThread { ivPlay.show() }
+                    } else {
+                        activity.runOnUiThread { ivPlay.hide() }
+                    }
             }
         }, 1000, 1000)
     }
@@ -234,7 +235,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             val intent = Intent(context, ExerciseEngineActivity::class.java)
             intent.putExtra("LOGIN", mViewModel.getLogin())
             intent.putExtra("PASSWORD", mViewModel.getPassword())
-            startActivityForResult(intent, 333)
+            getActivity()!!.startActivityForResult(intent, 333)
         }
     }
 

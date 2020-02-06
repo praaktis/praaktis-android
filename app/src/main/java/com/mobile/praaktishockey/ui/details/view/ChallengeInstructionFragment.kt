@@ -7,6 +7,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.mobile.praaktishockey.R
@@ -97,6 +98,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        Log.d("__RESULT", "Request: " + requestCode)
         if (requestCode == 333) {
             getActivity()?.finish()
             if (resultCode == Activity.RESULT_OK) {

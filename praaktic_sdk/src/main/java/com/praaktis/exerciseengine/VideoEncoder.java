@@ -45,6 +45,8 @@ class VideoEncoder {
     private int mMetadataTrackIndex;
     private long start = -1;
 
+    private boolean codec_started = false;
+    private boolean muxer_sarted = false;
 
     public VideoEncoder(OutputStream os, int w, int h) {
         mHeight = h;
@@ -89,14 +91,13 @@ class VideoEncoder {
 
         mMuxer = new MediaMuxer(videoPath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
 
-
         Globals.mainActivity.setSurface(mCodec.createInputSurface());
 
         mVideoSurfaceRenderer = new VideoSurfaceRenderer(Globals.mainActivity.getSurface());
         mVideoSurfaceRenderer.start();
 
         mCodec.start();
-
+        codec_started = true;
     }
 
     void signalEndOfStream() {
@@ -112,6 +113,7 @@ class VideoEncoder {
             Log.d("INFO_CODEC", "OUTPUT FORMAT CHANGED");
             mMetadataTrackIndex = mMuxer.addTrack(mCodec.getOutputFormat());
             mMuxer.start();
+            muxer_sarted = true;
         } else if (index >= 0) {
             ByteBuffer outputBuffer = mCodec.getOutputBuffer(index);
             if (outputBuffer != null) {
@@ -147,10 +149,14 @@ class VideoEncoder {
 
 
     public void release() {
-        mMuxer.stop();
-        mMuxer.release();
-        mCodec.stop();
-        mCodec.release();
+        if (muxer_sarted) {
+            mMuxer.stop();
+            mMuxer.release();
+        }
+        if (codec_started) {
+            mCodec.stop();
+            mCodec.release();
+        }
         Globals.mainActivity.getSurface().release();
     }
 

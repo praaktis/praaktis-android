@@ -27,7 +27,7 @@ object Constants {
     var retrofit: Retrofit? = null
 
     inline fun <reified S> createService(): S {
-        return getRetrofit(true, "http://api.praaktis.fuzzydigital.com/api/").create(S::class.java)
+        return getRetrofit(true, "https://api.praaktis.fuzzydigital.com/api/").create(S::class.java)
     }
 
     fun clearClientData() {

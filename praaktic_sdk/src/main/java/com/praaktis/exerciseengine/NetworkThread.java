@@ -120,6 +120,7 @@ class NetworkThread extends Thread {
             for (; ; ) {
                 if (!mRunning) {
                     mVideoEncoder.signalEndOfStream();
+
                     mVideoEncoder.release();
                     break;
                 }

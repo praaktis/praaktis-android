@@ -1,0 +1,4 @@
+# ninja log v5
+0	13	0	clean	8e2862c74b75a955
+0	1049	1580809622	CMakeFiles/native-lib.dir/native-lib.cpp.o	ec9691dc3e35c4ba
+1050	1126	1580809623	/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/release/obj/x86_64/libnative-lib.so	e40953cba3b68d37
