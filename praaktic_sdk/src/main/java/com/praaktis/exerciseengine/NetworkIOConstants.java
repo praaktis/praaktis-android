@@ -11,4 +11,5 @@ interface NetworkIOConstants {
     int MSG_LOGIN_PASSWD = 2;
     int MSG_FRAME_DATA = 3;
     int MSG_FRAME_POINTS = 4;
+    int MSG_CLOSE_CONNECTION = 5;
 }
