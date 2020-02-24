@@ -13,12 +13,9 @@ class Receiver extends Thread {
     private volatile boolean mRunning = false;
 
     private final int[] mImportantPoints = {
-            JointsMap.RHIP,
-            JointsMap.LHIP,
-            JointsMap.RSHOULDER,
-            JointsMap.LSHOULDER,
-            JointsMap.RKNEE,
-            JointsMap.LKNEE
+            JointsMap.RHIP, JointsMap.LHIP,
+            JointsMap.RSHOULDER, JointsMap.LSHOULDER,
+            JointsMap.RKNEE, JointsMap.LKNEE
     };
 
     public static volatile boolean sizePassed = false;
@@ -34,6 +31,7 @@ class Receiver extends Thread {
     private InputStream mInputStream;
 
     private ArrayList<float[]> mPoints;
+
 
     Receiver(InputStream inputStream) {
         mPoints = new ArrayList<>();
@@ -105,15 +103,14 @@ class Receiver extends Thread {
             }
 
             case EXERCISE_COMPLETED: {
-                float height = 1;//((SquatExerciseAnalyzer)exerciseAnalyser).isAFullCycle(mPoints);
-
-                if (height <= 0)
+                float[] scores = exerciseAnalyser.analyzeExcercise(mPoints);
+                if (scores == null)
                     Globals.state = EngineState.EXERCISE_FAILED;
                 else {
                     synchronized (Globals.globalLock) {
-                        Globals.score1 = height;
-                        Globals.score2 = 0;
-                        Globals.score3 = 0;
+                        Globals.score1 = scores[0];
+                        Globals.score2 = scores[1];
+                        Globals.score3 = scores[2];
                     }
                     Globals.state = EngineState.SCORING;
                 }
@@ -125,20 +122,12 @@ class Receiver extends Thread {
 
             case EXERCISE: {
                 if (person < 0) {
-//                    ((SquatExerciseAnalyzer) exerciseAnalyser).print();
                     Globals.state = EngineState.EXERCISE_FAILED;
                     Globals.inBoundingBox = false;
                     green = false;
                     mRunning = false;
                     break;
                 }
-
-                boolean isMin = ((SquatExerciseAnalyzer)exerciseAnalyser).isAFullCycle(scene.get(person));
-
-                if(isMin) Globals.count ++;
-
-                Log.d("HEIGHT: ", "-----> " + (isMin ? "Min":"NoMin") + "----");
-
                 mPoints.add(scene.get(person));
                 break;
             }
@@ -147,8 +136,7 @@ class Receiver extends Thread {
 
     @Override
     public void run() {
-        ExerciseAnalyser exerciseAnalyser = new SquatExerciseAnalyzer();
-        long start = System.currentTimeMillis();
+        ExerciseAnalyser exerciseAnalyser = new ExerciseAnalyser();
         while (mRunning) {
             try {
                 Thread.sleep(5);
@@ -191,11 +179,6 @@ class Receiver extends Thread {
 
                         byte[] data = rpResult.packetData;
                         int frameNum = Bytes.getIntAt(data, 0);
-//                        if(frameNum % 10 == 0) {
-                            long now = System.currentTimeMillis();
-                            Log.d("FRAME_NUMBER: ", frameNum + "->" + (now));
-                            start = now;
-//                        }
                         int numPersons = Bytes.getIntAt(data, 4);
                         int numPointsPerPerson = data[8];
                         int n = numPersons * numPointsPerPerson;
@@ -250,7 +233,6 @@ class Receiver extends Thread {
                         //  debugUpdateArmsAngle(data, excerciseAnalyser, person, numPointsPerPerson);
 
                         processStateMachine(exerciseAnalyser, scene, personIdx);
-
                         break;
                     }
 

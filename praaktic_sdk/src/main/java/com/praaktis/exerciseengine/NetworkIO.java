@@ -38,6 +38,7 @@ final class NetworkIO {
         long dataCrc32 = sCrc32Out.getValue();
         sendHeader(output, packetType, data.length, dataCrc32);
 
+
         output.write(data);
         output.flush();
     }

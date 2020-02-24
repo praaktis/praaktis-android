@@ -11,6 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="true"
-        ></application>
+        >
+        <activity android:name=".ExerciseEngineActivity"
+            android:screenOrientation="portrait">
+        </activity>
+    </application>
 
 </manifest>
