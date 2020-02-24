@@ -8,6 +8,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 import static com.praaktis.exerciseengine.EngineState.CALIBRATION_FAILED;
@@ -15,17 +16,17 @@ import static com.praaktis.exerciseengine.EngineState.EXERCISE;
 import static com.praaktis.exerciseengine.EngineState.EXERCISE_COMPLETED;
 import static java.lang.System.currentTimeMillis;
 
-
 class RendererThread extends Thread {
 
     private final int CALIBRATION_TIME_IN_SEC = 6;
-    private final int EXCERCISE_TIME_IN_SEC = 6;
+    private final int EXCERCISE_TIME_IN_SEC = 1 << 20;
     private boolean mRunning = false;
 
     private Paint mGreenPaint;
     private Paint mRedPaint;
     private Paint mTrPaint;
     private Paint mDigitPaint;
+    private Paint mAnglesPait;
     private Paint mDynamicPaint;
 
     private boolean mCounterSet = false;
@@ -78,6 +79,9 @@ class RendererThread extends Thread {
         mDigitPaint.setTextSize(rescale(60));
         mDigitPaint.setTextAlign(Paint.Align.CENTER);
 
+        mAnglesPait = new Paint(mDigitPaint);
+        mAnglesPait.setTextSize(40);
+
         mTrPaint = new Paint();
         mTrPaint.setColor(Color.TRANSPARENT);
         mTrPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
@@ -90,6 +94,7 @@ class RendererThread extends Thread {
     }
 
     void drawBoundingBox(Canvas canvas, Paint paint) {
+        Log.d("RENDERER", "BOUNDING BOX");
         canvas.drawLine(mBoundingBoxX, mBoundingBoxY, mBoundingBoxX + 50, mBoundingBoxY, paint);
         canvas.drawLine(mBoundingBoxX, mBoundingBoxY, mBoundingBoxX, mBoundingBoxY + 50, paint);
 
@@ -121,6 +126,7 @@ class RendererThread extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            Log.d("RENDERER", "VXOD");
             Canvas canvas = mSurfaceHolder.lockCanvas(null);
             if (canvas == null)
                 continue;
@@ -130,7 +136,9 @@ class RendererThread extends Thread {
             if (mCounterSet) {
                 long cur = System.currentTimeMillis();
                 mCounter = (int) ((mCounterEnd - cur) / 1000);
-                canvas.drawText(mCounter + "", canvas.getWidth() / 2, rescale(150), mDigitPaint);
+                canvas.drawText("back/shin diff: " + Globals.ANGLE_BACK_SHIN, canvas.getWidth() / 2, rescale(70), mAnglesPait);
+                canvas.drawText("knee angle : \t" + Globals.ANGLE_HIP_KNEE, canvas.getWidth() / 2, rescale(150), mAnglesPait);
+                canvas.drawText(Globals.count + "", canvas.getWidth() - 100, canvas.getHeight() - 70, mRedPaint);
             }
 
             drawBoundingBox(canvas, Globals.inBoundingBox ? mGreenPaint : mRedPaint);

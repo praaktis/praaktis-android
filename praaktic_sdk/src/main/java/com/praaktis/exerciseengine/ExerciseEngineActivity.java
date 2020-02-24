@@ -39,6 +39,9 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.util.Arrays;
 
 import static android.content.ContentValues.TAG;
@@ -76,6 +79,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
     private RendererThread mRendererThread;
 
     private static final String sHost = "gauss.site.uz";
+//    private static final String sHost = "10.10.1.24";
     private static final int sPort = 9080;
 
     private static final int REQUEST_CAMERA_PERMISSION = 200;
@@ -200,7 +204,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
         Globals.PASSWORD = getIntent().getStringExtra("PASSWORD");
 
         File file = new File(getCacheDir().getPath() + "/test.mp4");
-        if(file.isFile()){
+        if (file.isFile()) {
             file.delete();
         }
 
@@ -243,8 +247,8 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
                 }
             }
         };
+        Globals.init();
     }
-
 
 
     public Handler getMsgHandler() {
@@ -372,11 +376,22 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
             //
             mCameraId = manager.getCameraIdList()[0];
             CameraCharacteristics characteristics = manager.getCameraCharacteristics(mCameraId);
+
+//
+//            int[] available = characteristics.get(CameraCharacteristics.REQUEST_AVAILABLE_CAPABILITIES);
+//
+//            for(int mFrameNum : available){
+//                if(mFrameNum == CameraCharacteristics.REQUEST_AVAILABLE_CAPABILITIES_MANUAL_SENSOR){
+//                    Log.d("MANUALSENSOR", "MANUALSENSOR");
+//                }
+//            }
+//            Log.d("MANUALSENSOR", "MANUALSENSORFINISHED");
+
             StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
 
             // TODO: it might be better to select some lower resolution
             for (Size sz : map.getOutputSizes(SurfaceTexture.class)) {
-                //(sz.getHeight() >= 1080)
+                //(sz.isAFullCycle() >= 1080)
                 if (sz.getHeight() <= 1080 && sz.getWidth() * 9 == sz.getHeight() * 16) {
                     mImageDimension = sz;
                     break;
@@ -417,8 +432,6 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
     // SurfaceHolder.Callback methods
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-
-
         Canvas canvas = holder.lockCanvas();
         int width;
         int height;
@@ -491,31 +504,59 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
     }
 
+    private static void sendByteArrayTcp(byte [] arr, String host, int port) {
+        Socket skt = null;
+        try {
+            skt = new Socket(host, port);
+            OutputStream os = skt.getOutputStream();
+            int sent = 0;
+            //do {
+               os.write(arr, sent, arr.length - sent);
+            //} while (sent < arr.length);
+        } catch (IOException ex) {
+            Log.e("SENDBYTEARRAYTCP", "Cannot connect.");
+        } finally {
+            if (skt != null)
+                try {skt.close();} catch (IOException ex2) {};
+        }
+    }
+
     private final ImageReader.OnImageAvailableListener mOnImageAvailableListener = new ImageReader.OnImageAvailableListener() {
 
+        private final int SCALE_FACTOR = 3;
+        private int mFrameNumber = 0;
         byte[] mRowBytesY = new byte[1920 * 1080];
         byte[] mRowBytesB = null;
         byte[] mRowBytesR = null;
 
-        int[] mPixels = new int[1920 * 1080];
-        private Bitmap mBmp1, mBmp2;
+        boolean ok = true;
+
 
         @Override
         public void onImageAvailable(ImageReader reader) {
             Image image = null;
             try {
+
                 image = reader.acquireLatestImage();
+
+                ok = !ok;
+
+                if(ok){
+                    image.close();
+                    return;
+                }
 
                 if (image != null) {
                     int n = image.getHeight() * image.getWidth();
-                    if(image.getPlanes() == null) {
+                    if (image.getPlanes() == null) {
                         image.close();
                         return;
                     }
 
+                    byte [] resizedYUV = new byte[(n / (SCALE_FACTOR * SCALE_FACTOR)) * 3 / 2];
                     int uvSize = image.getPlanes()[1].getBuffer().limit();
 
-                    if(mRowBytesB == null){
+                    if (mRowBytesB == null) {
                         mRowBytesB = new byte[uvSize];
                         mRowBytesR = new byte[uvSize];
                     }
@@ -528,43 +569,37 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
                     int uvRowStride = image.getPlanes()[1].getRowStride();
                     int pixelStride = image.getPlanes()[1].getPixelStride();
 
-                    Log.d("PIXELSTRIDE", image.getPlanes()[1].getPixelStride() + "");
-
                     long start = currentTimeMillis();
+                    resizeYUV3(resizedYUV, mRowBytesY, mRowBytesR, mRowBytesB, yRowStride, uvRowStride, pixelStride);
+//                    if (mFrameNumber++ == 10) {
+//                        sendByteArrayTcp(resizedYUV, "gauss", 9999);
+//                        //sendByteArrayTcp(mRowBytesR, "gauss", 9999);
+//                    }
+                    Log.d("TIMETORESIZE", currentTimeMillis() - start + " ");
 
-                    if (mBmp1 == null) {
-                        mBmp1 = Bitmap.createBitmap(image.getWidth(), image.getHeight(), Bitmap.Config.ARGB_8888);
-                        mBmp2 = Bitmap.createBitmap(image.getWidth(), image.getHeight(), Bitmap.Config.ARGB_8888);
-                        Globals.textureBitmap = mBmp1;
-                    }
-
-                    if (Globals.textureBitmap == mBmp1) {
-                        yuvToRGB(mRowBytesY, mRowBytesB, mRowBytesR, mBmp2, image.getWidth(), image.getHeight(), yRowStride, uvRowStride, pixelStride);
-
-                        if(mRowBytesB == mRowBytesR){
-
+                    synchronized (Globals.capturedFrames) {
+                        if (Globals.capturedFrames.size() < 10) {
+                            Globals.capturedFrames.add(resizedYUV);
                         }
-
-                        Globals.textureBitmap = mBmp2;
-                    } else {
-                        yuvToRGB(mRowBytesY, mRowBytesB, mRowBytesR, mBmp1, image.getWidth(), image.getHeight(), yRowStride, uvRowStride, pixelStride);
-                        Globals.textureBitmap = mBmp1;
                     }
 
-                    Log.d("TIMETOCREATE", currentTimeMillis() - start + " ");
                 }
-                if(image != null)
-                image.close();
+                if (image != null)
+                    image.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     };
 
+    public native void resizeYUV3(byte [] outBuf,byte[] bytesY, byte[] bytesB, byte[] bytesR,
+                                   int yRowStride, int uvRowstride, int pixelStride);
+
     public native void yuvToRGBGrayscale(byte[] buf, int[] pixels, int n);
 
-    public native void yuvToRGB(byte[] bytesY, byte[] bytesB, byte[] bytesR, Bitmap bmp, int width, int height, int yRowStride, int uvRowstride, int pixelStride);
+    public native void yuvToRGB(byte[] bytesY, byte[] bytesB, byte[] bytesR, Bitmap bmp, int width, int height,
+                                int yRowStride, int uvRowstride, int pixelStride);
 
-    public native void yuvPlanarToRGB(byte[] bytesY, byte[] bytesB, byte[] bytesR, Bitmap bmp, int width, int height, int yRowStride, int uvRowstride);
+//    public native void yuvPlanarToRGB(byte[] bytesY, byte[] bytesB, byte[] bytesR, Bitmap bmp, int width, int height, int yRowStride, int uvRowstride);
 
 }

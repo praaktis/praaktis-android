@@ -13,7 +13,7 @@
         android:paddingTop="110dp"
         android:scaleType="centerCrop"
         android:visibility="gone"
-        android:src="@drawable/boon_mobile_rx" />
+        android:src="@drawable/sporty" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,13 +24,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="55dp"
-                android:visibility="gone"
-                android:src="@drawable/logo" />
+<!--            <ImageView-->
+<!--                android:layout_width="80dp"-->
+<!--                android:layout_height="80dp"-->
+<!--                android:layout_marginLeft="35dp"-->
+<!--                android:layout_marginTop="55dp"-->
+<!--                android:visibility="gone"-->
+<!--                android:src="@drawable/logo" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"

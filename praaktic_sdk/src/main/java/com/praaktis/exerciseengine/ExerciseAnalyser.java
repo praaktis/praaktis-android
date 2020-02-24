@@ -10,12 +10,12 @@ class ExerciseAnalyser {
     public static final int LEFT_ARM = 0;
     public static final int RIGHT_ARM = 1;
 
-    private float getLinesLength(float x0, float y0,
+    protected float getLinesLength(float x0, float y0,
                                  float x1, float y1) {
         return (float) Math.sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0));
     }
 
-    private float getLinesAngle(float x1, float y1,
+    protected float getLinesAngle(float x1, float y1,
                                 float x0, float y0,
                                 float x2, float y2) {
         double vx1 = x1 - x0;
@@ -123,7 +123,7 @@ class ExerciseAnalyser {
 
     // Find the point in time when the excercise starts
     //
-    private int findStartOfExercise(ArrayList<float[]> poses) {
+    protected int findStartOfExercise(ArrayList<float[]> poses) {
         int numPoses = poses.size();
         int maxPose = numPoses - 1;
         final int THRESHOLD = 5; // 5 deg/second
