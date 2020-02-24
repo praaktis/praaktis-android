@@ -2,3 +2,5 @@
 0	15	0	clean	8e2862c74b75a955
 1	1195	1580809620	CMakeFiles/native-lib.dir/native-lib.cpp.o	20560413c4f6dada
 1196	1280	1580809620	/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so	26670b2fe504cf3c
+1	1365	1582543503	CMakeFiles/native-lib.dir/native-lib.cpp.o	20560413c4f6dada
+1365	1469	1582543503	/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so	26670b2fe504cf3c

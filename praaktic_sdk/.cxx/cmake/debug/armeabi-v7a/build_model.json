@@ -5,7 +5,6 @@
       "sdkFolder": "/Users/user/Library/Android/sdk",
       "isNativeCompilerSettingsCacheEnabled": false,
       "isBuildOnlyTargetAbiEnabled": true,
-      "ideBuildTargetAbi": "armeabi-v7a,armeabi",
       "splitsAbiFilterSet": [],
       "intermediatesFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates",
       "gradleModulePathName": ":praaktic_sdk",
@@ -42,7 +41,10 @@
     "gradleBuildOutputFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cxx/debug",
     "isDebuggableEnabled": true,
     "validAbiList": [
-      "ARMEABI_V7A"
+      "ARMEABI_V7A",
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
     ],
     "buildTargetSet": []
   },

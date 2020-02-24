@@ -1,8 +1,10 @@
 package com.praaktis.exerciseengine;
 
 import android.graphics.Rect;
+import android.media.MediaCodec;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -40,6 +42,7 @@ class NetworkThread extends Thread {
     private int mPort;
     private int mHeight;
     private int mWidth;
+    private int FLAG = 0;
 
     NetworkThread(Handler msgHandler, String host, int port,
                   int w, int h,
@@ -79,6 +82,7 @@ class NetworkThread extends Thread {
             SSLSocketFactory factory = sslctx.getSocketFactory();
 
             mSocket = (SSLSocket) factory.createSocket(mHost, mPort);
+            mSocket.setTcpNoDelay(true);
 
         } catch (CertificateException e) {
             e.printStackTrace();
@@ -118,18 +122,26 @@ class NetworkThread extends Thread {
 
 
             for (; ; ) {
-                if (!mRunning) {
-                    mVideoEncoder.signalEndOfStream();
 
-                    mVideoEncoder.release();
+                try {
+                    sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                Log.d("INFO_", "");
+                if (!mRunning) {
+                    FLAG = MediaCodec.BUFFER_FLAG_END_OF_STREAM;
                     break;
                 }
-                if (mVideoEncoder.encodeAndSend(frameNumber++))
+
+                mVideoEncoder.encode(FLAG);
+
+                if (mVideoEncoder.getAndSend(frameNumber++))
                     break;
                 if (Globals.state == EngineState.CALIBRATION_FAILED ||
                         Globals.state == EngineState.EXERCISE_FAILED ||
                         Globals.state == EngineState.EXERCISE_COMPLETED) {
-                    mVideoEncoder.stopRendered();
                     mRunning = false;
                     continue;
                 }

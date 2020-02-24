@@ -53,6 +53,7 @@
         <activity android:name="com.mobile.praaktishockey.ui.details.view.DetailsActivity"/>
         <activity android:name="com.mobile.praaktishockey.ui.challenge.ChallengeActivity"/>
         <activity android:name="com.mobile.praaktishockey.ui.friends.view.InviteFriendsActivity"/>
+        <activity android:name="com.praaktis.exerciseengine.ExerciseEngineActivity"/>
         <activity
             android:name="com.mobile.praaktishockey.ui.challenge.ChallengeVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

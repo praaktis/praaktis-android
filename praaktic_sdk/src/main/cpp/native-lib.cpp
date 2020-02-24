@@ -100,7 +100,8 @@ Java_com_praaktis_exerciseengine_ExerciseEngineActivity_yuvToRGB(JNIEnv *env, jo
     env->ReleaseByteArrayElements(bytes_r, rbytes, 0);
 
     AndroidBitmap_unlockPixels(env, bmp);
-}extern "C"
+}
+extern "C"
 JNIEXPORT void JNICALL
 Java_com_praaktis_exerciseengine_ExerciseEngineActivity_yuvPlanarToRGB(JNIEnv *env, jobject thiz,
                                                                        jbyteArray bytes_y,
@@ -113,4 +114,76 @@ Java_com_praaktis_exerciseengine_ExerciseEngineActivity_yuvPlanarToRGB(JNIEnv *e
     // TODO: implement yuvPlanarToRGB()
 
 
+}
+#define Y_HEIGHT 1080
+#define Y_WIDTH  1920
+#define UV_HEIGHT (Y_HEIGHT / 2)
+#define UV_WIDTH  (Y_WIDTH / 2)
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_praaktis_exerciseengine_ExerciseEngineActivity_resizeYUV3(JNIEnv *env, jobject thiz,
+                                                                   jbyteArray out_arr,
+                                                                   jbyteArray bytes_y,
+                                                                   jbyteArray bytes_b,
+                                                                   jbyteArray bytes_r,
+                                                                   jint y_row_stride,
+                                                                   jint uv_row_stride,
+                                                                   jint pixel_stride) {
+    // TODO: implement resizeYUV3()
+    jbyte *yBytes0 = env->GetByteArrayElements(bytes_y, 0);
+    jbyte *bBytes0 = env->GetByteArrayElements(bytes_b, 0);
+    jbyte *rBytes0 = env->GetByteArrayElements(bytes_r, 0);
+    jbyte *outBytes0 = env->GetByteArrayElements(out_arr, 0);
+
+    uint8_t *yBytes = (uint8_t *)yBytes0;
+    uint8_t *bBytes = (uint8_t *)bBytes0;
+    uint8_t *rBytes = (uint8_t *)rBytes0;
+    uint8_t *outBytes = (uint8_t *)outBytes0;
+
+    int inPos = 0;
+    int outPos = 0;
+
+    // Y channel
+    for (int y = 0; y < Y_HEIGHT; y += 3) {
+        for (int x = 0; x < Y_WIDTH; x += 3) {
+            int s = yBytes[inPos] + yBytes[inPos + 1] + yBytes[inPos + 2] +
+                    yBytes[Y_WIDTH + inPos] + yBytes[Y_WIDTH + inPos + 1] + yBytes[Y_WIDTH + inPos + 2] +
+                    yBytes[Y_WIDTH * 2 + inPos] + yBytes[Y_WIDTH * 2 + inPos + 1] + yBytes[Y_WIDTH * 2 + inPos + 2];
+            inPos += 3;
+            outBytes[outPos] = s / 9;
+            outPos++;
+        }
+        inPos = y * y_row_stride;
+    }
+    // U channel1
+    inPos = 0;
+    int rowDelta = uv_row_stride;//UV_WIDTH * pixel_stride;
+    for (int y = 0; y < UV_HEIGHT; y += 3) {
+        for (int x = 0; x < UV_WIDTH; x += 3) {
+            int s = rBytes[inPos] + rBytes[inPos + pixel_stride] + rBytes[inPos + 2 * pixel_stride] +
+                    rBytes[rowDelta + inPos] + rBytes[rowDelta + inPos + pixel_stride] + rBytes[rowDelta + inPos + 2 * pixel_stride] +
+                    rBytes[rowDelta * 2 + inPos] + rBytes[rowDelta * 2 + inPos + pixel_stride] + rBytes[rowDelta * 2 + inPos + pixel_stride * 2];
+            inPos += 3 * pixel_stride;
+            outBytes[outPos] = s / 9;
+            outPos++;
+        }
+        inPos = y * uv_row_stride;
+    }
+    inPos = 0;
+    for (int y = 0; y < UV_HEIGHT; y += 3) {
+        for (int x = 0; x < UV_WIDTH; x += 3) {
+            int s = bBytes[inPos] + bBytes[inPos + pixel_stride] + bBytes[inPos + 2 * pixel_stride] +
+                    bBytes[rowDelta + inPos] + bBytes[rowDelta + inPos + pixel_stride] + bBytes[rowDelta + inPos + 2 * pixel_stride] +
+                    bBytes[rowDelta * 2 + inPos] + bBytes[rowDelta * 2 + inPos + pixel_stride] + bBytes[rowDelta * 2 + inPos + pixel_stride * 2];
+            inPos += 3 * pixel_stride;
+            outBytes[outPos] = s / 9;
+            outPos++;
+        }
+        inPos = y * uv_row_stride;
+    }
+    env->ReleaseByteArrayElements(bytes_y, yBytes0, 0);
+    env->ReleaseByteArrayElements(bytes_b, bBytes0, 0);
+    env->ReleaseByteArrayElements(bytes_r, rBytes0, 0);
+    env->ReleaseByteArrayElements(out_arr, outBytes0, 0);
 }
