@@ -1,8 +1,3 @@
 # ninja log v5
-0	16	0	clean	8e2862c74b75a955
-0	1680	1580807400	CMakeFiles/native-lib.dir/native-lib.cpp.o	56c23c0c5dea8a31
-1681	1783	1580807400	/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	dad5aedb4d8fabdc
-0	1288	1582541896	CMakeFiles/native-lib.dir/native-lib.cpp.o	56c23c0c5dea8a31
-1288	1397	1582541896	/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	dad5aedb4d8fabdc
-1	1005	1582543140	CMakeFiles/native-lib.dir/native-lib.cpp.o	56c23c0c5dea8a31
-1005	1100	1582543140	/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	dad5aedb4d8fabdc
+0	2315	1582716423	CMakeFiles/native-lib.dir/native-lib.cpp.o	56c23c0c5dea8a31
+2316	2421	1582716423	/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	dad5aedb4d8fabdc

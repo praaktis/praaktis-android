@@ -1,7 +1,7 @@
 {
   "stringTable": {
     "0": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86",
-    "1": "--target=i686-none-linux-android21 --gcc-toolchain=/Users/user/Library/Android/sdk/ndk/20.1.5948944/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/user/Library/Android/sdk/ndk/20.1.5948944/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Dnative_lib_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security -std=c++14 -O0 -fno-limit-debug-info -fPIC -O3"
+    "1": "--target=i686-none-linux-android21 --gcc-toolchain=/Users/user/Library/Android/sdk/ndk/20.1.5948944/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/user/Library/Android/sdk/ndk/20.1.5948944/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Dnative_lib_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security -std=c++14 -O2 -DNDEBUG -fPIC -O3"
   },
   "buildFiles": [
     "/Users/user/Library/Android/sdk/ndk/20.1.5948944/build/cmake/android.toolchain.cmake",
@@ -11,9 +11,9 @@
   "cleanCommands": [
     "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86\" clean"
   ],
-  "buildTargetsCommand": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86\" {LIST_OF_TARGETS_TO_BUILD}",
+  "buildTargetsCommand": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86\" {LIST_OF_TARGETS_TO_BUILD}",
   "libraries": {
-    "native-lib-Debug-x86": {
+    "native-lib-Release-x86": {
       "buildCommand": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86\" native-lib",
       "buildType": "debug",
       "toolchain": "1018273024",

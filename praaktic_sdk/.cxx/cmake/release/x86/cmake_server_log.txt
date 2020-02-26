@@ -37,20 +37,19 @@ CMAKE SERVER: {
   "type": "configure",
   "cacheArguments": [
     "",
-    "-DANDROID_ABI\u003dx86",
-    "-DANDROID_PLATFORM\u003dandroid-21",
-    "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/release/obj/x86",
-    "-DCMAKE_BUILD_TYPE\u003dDebug",
-    "-DANDROID_NDK\u003d/Users/user/Library/Android/sdk/ndk/20.1.5948944",
     "-DCMAKE_CXX_FLAGS\u003d-std\u003dc++14",
-    "-DCMAKE_SYSTEM_NAME\u003dAndroid",
-    "-DCMAKE_ANDROID_ARCH_ABI\u003dx86",
-    "-DCMAKE_SYSTEM_VERSION\u003d21",
-    "-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON",
-    "-DCMAKE_ANDROID_NDK\u003d/Users/user/Library/Android/sdk/ndk/20.1.5948944",
+    "-DCMAKE_BUILD_TYPE\u003dRelease",
     "-DCMAKE_TOOLCHAIN_FILE\u003d/Users/user/Library/Android/sdk/ndk/20.1.5948944/build/cmake/android.toolchain.cmake",
-    "-G Ninja",
-    "-DCMAKE_MAKE_PROGRAM\u003d/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja"
+    "-DANDROID_ABI\u003dx86",
+    "-DANDROID_NDK\u003d/Users/user/Library/Android/sdk/ndk/20.1.5948944",
+    "-DANDROID_PLATFORM\u003dandroid-21",
+    "-DCMAKE_ANDROID_ARCH_ABI\u003dx86",
+    "-DCMAKE_ANDROID_NDK\u003d/Users/user/Library/Android/sdk/ndk/20.1.5948944",
+    "-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON",
+    "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/release/obj/x86",
+    "-DCMAKE_MAKE_PROGRAM\u003d/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja",
+    "-DCMAKE_SYSTEM_NAME\u003dAndroid",
+    "-DCMAKE_SYSTEM_VERSION\u003d21"
   ]
 }
 
@@ -345,7 +344,7 @@ CMAKE SERVER:
 
 CMAKE SERVER: [== "CMake Server" ==[
 
-CMAKE SERVER: {"configurations":[{"name":"Debug","projects":[{"buildDirectory":"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86","name":"Project","sourceDirectory":"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/src/main/cpp","targets":[{"artifacts":["/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/release/obj/x86/libnative-lib.so"],"buildDirectory":"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86","fileGroups":[{"compileFlags":"-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++14 -O0 -fno-limit-debug-info  -fPIC   -O3","defines":["native_lib_EXPORTS"],"isGenerated":false,"language":"CXX","sources":["native-lib.cpp"]}],"fullName":"libnative-lib.so","linkFlags":"-Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments -Wl,-z,noexecstack","linkLibraries":"-ljnigraphics -llog -latomic -lm","linkerLanguage":"CXX","name":"native-lib","sourceDirectory":"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/src/main/cpp","sysroot":"/Users/user/Library/Android/sdk/ndk/20.1.5948944/toolchains/llvm/prebuilt/darwin-x86_64/sysroot","type":"SHARED_LIBRARY"}]}]}],"cookie":"","inReplyTo":"codemodel","type":"reply"}
+CMAKE SERVER: {"configurations":[{"name":"Release","projects":[{"buildDirectory":"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86","name":"Project","sourceDirectory":"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/src/main/cpp","targets":[{"artifacts":["/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/release/obj/x86/libnative-lib.so"],"buildDirectory":"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86","fileGroups":[{"compileFlags":"-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++14 -O2 -DNDEBUG  -fPIC   -O3","defines":["native_lib_EXPORTS"],"isGenerated":false,"language":"CXX","sources":["native-lib.cpp"]}],"fullName":"libnative-lib.so","linkFlags":"-Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments -Wl,-z,noexecstack","linkLibraries":"-ljnigraphics -llog -latomic -lm","linkerLanguage":"CXX","name":"native-lib","sourceDirectory":"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/src/main/cpp","sysroot":"/Users/user/Library/Android/sdk/ndk/20.1.5948944/toolchains/llvm/prebuilt/darwin-x86_64/sysroot","type":"SHARED_LIBRARY"}]}]}],"cookie":"","inReplyTo":"codemodel","type":"reply"}
 
 CMAKE SERVER: ]== "CMake Server" ==]
 

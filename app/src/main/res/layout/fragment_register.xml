@@ -29,13 +29,6 @@
         android:layout_marginBottom="150dp"
         />
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="55dp"
-        android:visibility="gone"
-        android:src="@drawable/logo" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

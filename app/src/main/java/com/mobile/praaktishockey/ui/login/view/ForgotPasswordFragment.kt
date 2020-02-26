@@ -2,6 +2,7 @@ package com.mobile.praaktishockey.ui.login.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import com.afollestad.vvalidator.form
 import com.mobile.praaktishockey.R
@@ -25,7 +26,6 @@ constructor(override val layoutId: Int = R.layout.fragment_forgot_password) : Ba
         get() = getViewModel { ForgotPasswordViewModel(activity.application!!) }
 
     override fun initUI(savedInstanceState: Bundle?) {
-
         cvBackToLogin.onClick {
             activity.currentFocus?.let {
                 activity.hideKeyboard(it)

@@ -7,9 +7,9 @@
   "cleanCommands": [
     "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/armeabi-v7a\" clean"
   ],
-  "buildTargetsCommand": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/armeabi-v7a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "buildTargetsCommand": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/armeabi-v7a\" {LIST_OF_TARGETS_TO_BUILD}",
   "libraries": {
-    "native-lib-Debug-armeabi-v7a": {
+    "native-lib-Release-armeabi-v7a": {
       "artifactName": "native-lib",
       "buildCommand": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/armeabi-v7a\" native-lib",
       "abi": "armeabi-v7a",

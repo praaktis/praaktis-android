@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: Project
-# Configuration: Debug
+# Configuration: Release
 # =============================================================================
 
 #############################################
@@ -59,7 +59,7 @@ build cmake_object_order_depends_target_native-lib: phony
 build CMakeFiles/native-lib.dir/native-lib.cpp.o: CXX_COMPILER__native-lib /Users/user/AndroidProjects/praaktis-android/praaktic_sdk/src/main/cpp/native-lib.cpp || cmake_object_order_depends_target_native-lib
   DEFINES = -Dnative_lib_EXPORTS
   DEP_FILE = CMakeFiles/native-lib.dir/native-lib.cpp.o.d
-  FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++14 -O0 -fno-limit-debug-info -fno-experimental-isel  -fPIC   -O3
+  FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++14 -O2 -DNDEBUG  -fPIC   -O3
   OBJECT_DIR = CMakeFiles/native-lib.dir
   OBJECT_FILE_DIR = CMakeFiles/native-lib.dir
 
@@ -71,7 +71,7 @@ build CMakeFiles/native-lib.dir/native-lib.cpp.o: CXX_COMPILER__native-lib /User
 # Link the shared library /Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so
 
 build /Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so: CXX_SHARED_LIBRARY_LINKER__native-lib CMakeFiles/native-lib.dir/native-lib.cpp.o | /Users/user/Library/Android/sdk/ndk/20.1.5948944/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/liblog.so
-  LANGUAGE_COMPILE_FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++14 -O0 -fno-limit-debug-info -fno-experimental-isel
+  LANGUAGE_COMPILE_FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++14 -O2 -DNDEBUG
   LINK_FLAGS = -Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments -Wl,-z,noexecstack
   LINK_LIBRARIES = -ljnigraphics -llog -latomic -lm
   OBJECT_DIR = CMakeFiles/native-lib.dir

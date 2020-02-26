@@ -37,20 +37,19 @@ CMAKE SERVER: {
   "type": "configure",
   "cacheArguments": [
     "",
-    "-DANDROID_ABI\u003darmeabi-v7a",
-    "-DANDROID_PLATFORM\u003dandroid-21",
-    "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/debug/obj/armeabi-v7a",
-    "-DCMAKE_BUILD_TYPE\u003dDebug",
-    "-DANDROID_NDK\u003d/Users/user/Library/Android/sdk/ndk/20.1.5948944",
     "-DCMAKE_CXX_FLAGS\u003d-std\u003dc++14",
-    "-DCMAKE_SYSTEM_NAME\u003dAndroid",
-    "-DCMAKE_ANDROID_ARCH_ABI\u003darmeabi-v7a",
-    "-DCMAKE_SYSTEM_VERSION\u003d21",
-    "-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON",
-    "-DCMAKE_ANDROID_NDK\u003d/Users/user/Library/Android/sdk/ndk/20.1.5948944",
+    "-DCMAKE_BUILD_TYPE\u003dDebug",
     "-DCMAKE_TOOLCHAIN_FILE\u003d/Users/user/Library/Android/sdk/ndk/20.1.5948944/build/cmake/android.toolchain.cmake",
-    "-G Ninja",
-    "-DCMAKE_MAKE_PROGRAM\u003d/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja"
+    "-DANDROID_ABI\u003darmeabi-v7a",
+    "-DANDROID_NDK\u003d/Users/user/Library/Android/sdk/ndk/20.1.5948944",
+    "-DANDROID_PLATFORM\u003dandroid-21",
+    "-DCMAKE_ANDROID_ARCH_ABI\u003darmeabi-v7a",
+    "-DCMAKE_ANDROID_NDK\u003d/Users/user/Library/Android/sdk/ndk/20.1.5948944",
+    "-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON",
+    "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/debug/obj/armeabi-v7a",
+    "-DCMAKE_MAKE_PROGRAM\u003d/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja",
+    "-DCMAKE_SYSTEM_NAME\u003dAndroid",
+    "-DCMAKE_SYSTEM_VERSION\u003d21"
   ]
 }
 

@@ -3,7 +3,7 @@
   "messages": [
     {
       "level": "INFO",
-      "message": "android.ndkVersion from module build.gradle is not set"
+      "message": "android.ndkVersion from module build.gradle is 20.1.5948944"
     },
     {
       "level": "INFO",
@@ -27,7 +27,11 @@
     },
     {
       "level": "INFO",
-      "message": "No user requested version, choosing /Users/user/Library/Android/sdk/ndk/20.1.5948944 which is version 20.1.5948944"
+      "message": "Considering /Users/user/Library/Android/sdk/ndk/20.0.5594570 in SDK ndk folder"
+    },
+    {
+      "level": "INFO",
+      "message": "Found requested NDK version 20.1.5948944 at /Users/user/Library/Android/sdk/ndk/20.1.5948944"
     }
   ]
 }
