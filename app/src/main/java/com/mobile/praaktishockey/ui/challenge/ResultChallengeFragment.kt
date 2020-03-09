@@ -17,6 +17,7 @@ import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.challenge.vm.ResultChallengeFragmentViewModel
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
+import com.praaktis.exerciseengine.Exercise
 import com.praaktis.exerciseengine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
 import java.lang.Exception
@@ -43,7 +44,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
         get() = getViewModel { ResultChallengeFragmentViewModel(activity.application) }
 
     private val challengeItem by lazy { arguments!!.getSerializable("challengeItem") as ChallengeItem }
-    private val result by lazy { activity.intent.getFloatArrayExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) }
+    private val result by lazy { activity.intent.getSerializableExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) }
     private val path by lazy { activity.intent.getStringExtra(ChallengeInstructionFragment.VIDEO_PATH) }
 
     private var mediaPlayer1: MediaPlayer? = MediaPlayer()
@@ -174,14 +175,14 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
 //        }
 
         if (result != null) {
-            val scoreOverAll = (result[0] * 0.45f + result[1] * 0.2f + result[2] * 0.35f)
+            val scoreOverAll = 0.0f//(result[0] * 0.45f + result[1] * 0.2f + result[2] * 0.35f)
             tvYourScore.text =
                 "Your score: ${scoreOverAll.toInt()}"
             mViewModel.storeResult(
                 challengeItem, (scoreOverAll / 10).toInt(), scoreOverAll, 0f, mutableListOf(
-                    DetailResult(20, result[0]),
-                    DetailResult(21, result[1]),
-                    DetailResult(22, result[2])
+                    DetailResult(20, 0f), //result[0]),
+                    DetailResult(21, 0f), //result[1]),
+                    DetailResult(22, 0f)  //result[2]),
                 )
             )
         } else {
@@ -228,13 +229,15 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
                         .addToBackStack(tag)
                 }
             } else {
-                activity.makeToast("Failed exercise")
+                activity.makeToast("Couldn't get results")
             }
         }
         cvTryAgain.onClick {
             val intent = Intent(context, ExerciseEngineActivity::class.java)
             intent.putExtra("LOGIN", mViewModel.getLogin())
             intent.putExtra("PASSWORD", mViewModel.getPassword())
+//            if(challengeItem.label)
+            intent.putExtra("EXERCISE", Exercise.STRETCHING_ARMS_UP.ordinal)
             getActivity()!!.startActivityForResult(intent, 333)
         }
     }

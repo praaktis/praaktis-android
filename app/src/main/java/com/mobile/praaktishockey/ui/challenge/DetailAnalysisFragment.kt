@@ -1,6 +1,7 @@
 package com.mobile.praaktishockey.ui.challenge
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -61,7 +62,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
 
     private val scoreDTO by lazy { arguments?.getSerializable("score") as ScoreDTO }
     private val challengeItem by lazy { arguments?.getSerializable("challengeItem") as ChallengeItem }
-    private val result by lazy { activity.intent.getFloatArrayExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) }
+    private val result by lazy { activity.intent.getSerializableExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) as HashMap<String, Any>}
 
     override fun initUI(savedInstanceState: Bundle?) {
         mainViewModel = ViewModelProviders.of(activity).get(MainViewModel::class.java)
@@ -75,11 +76,26 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
                     item.name.equals(challengeItem.label)
                 }
                 val detailScores = mutableListOf<DetailScoreDTO>()
-                var i = 0
+//                var i = 0
+                var iter = result.iterator()
+
+//                if(challenge == null)
+//                    Log.d("CHALLENGEFFFFFF", "CHALLENGE is NULL")
+//
+//                if(challenge!!.detailPoints == null)
+//                    Log.d("CHALLENGEFFFFFF", "detail points is NULL")
+
                 for (detailPoint in challenge!!.detailPoints) {
+                    if(!iter.hasNext())
+                        break;
+                    val entry = iter.next()
+                    var s = entry.key
+                    val value = entry.value
+
                     val detailPoint = DetailPoint(0, detailPoint.label)
-                    if (result != null)
-                        detailScores.add(DetailScoreDTO(detailPoint, result[i++].toDouble()))
+
+                    if (result != null && !(value is ArrayList<*>))
+                        detailScores.add(DetailScoreDTO(detailPoint, value as Double))
                     else
                         detailScores.add(DetailScoreDTO(detailPoint, 0.0))
                 }

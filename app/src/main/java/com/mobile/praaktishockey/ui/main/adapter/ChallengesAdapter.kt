@@ -86,6 +86,7 @@ data class ChallengeItem(@StringRes val name: Int,
 
 val challengesList: List<ChallengeItem> = listOf(
         ChallengeItem(R.string.stretching_arms_up, R.drawable.challenge, "Stretching Arms Up", 4)
+//        ChallengeItem(R.string.squats, R.drawable.challenge, "Squats", 5)
 //        ChallengeItem(R.string.low_backhand, R.drawable.img_low_backhand,  "Low backhand", 2),
 //        ChallengeItem(R.string.trap, R.drawable.img_trap, "Trap",3)
 )

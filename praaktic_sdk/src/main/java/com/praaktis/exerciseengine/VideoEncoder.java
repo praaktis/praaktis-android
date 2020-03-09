@@ -47,7 +47,7 @@ class VideoEncoder {
 
 
 
-    public VideoEncoder(OutputStream os, int w, int h) {
+    public VideoEncoder(OutputStream os, int w, int h) throws IOException{
         mHeight = h;
         mWidth = w;
         mOutputStream = os;
@@ -175,7 +175,6 @@ class VideoEncoder {
             mCodec.stop();
             mCodec.release();
         }
-        Globals.mainActivity.getSurface().release();
     }
 
     private long prevOutputPTSUs = 0;
@@ -193,6 +192,4 @@ class VideoEncoder {
             result = (prevOutputPTSUs - result) + result;
         return result;
     }
-
-
 }

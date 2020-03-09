@@ -142,6 +142,7 @@ class NetworkThread extends Thread {
                 if (Globals.state == EngineState.CALIBRATION_FAILED ||
                         Globals.state == EngineState.EXERCISE_FAILED ||
                         Globals.state == EngineState.EXERCISE_COMPLETED) {
+                    mVideoEncoder.release();
                     mRunning = false;
                     continue;
                 }
