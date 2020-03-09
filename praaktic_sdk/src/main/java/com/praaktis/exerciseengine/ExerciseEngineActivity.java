@@ -43,11 +43,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Arrays;
-import java.util.HashMap;
 
 import static android.content.ContentValues.TAG;
-import static com.praaktis.exerciseengine.Exercise.SQUATS;
-import static com.praaktis.exerciseengine.Exercise.STRETCHING_ARMS_UP;
 import static java.lang.System.currentTimeMillis;
 
 
@@ -64,6 +61,8 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
     private int mBoundingBoxW = 0;
     private int mCounterSize = 10;
 
+    private VideoEncoder mEncoder;
+    private Surface mSurface;
     private TextureView mTextureView;
     private CameraDevice mCameraDevice;
     private SurfaceHolder mSurfaceHolder;
@@ -97,6 +96,14 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
     // Getters and setters
     //
+    void setSurface(Surface surface) {
+        mSurface = surface;
+    }
+
+    Surface getSurface() {
+        return mSurface;
+    }
+
     public SurfaceHolder getSurfaceHolder() {
         return mSurfaceHolder;
     }
@@ -118,20 +125,29 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
             @Override
             public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture,
                                                   int width, int height) {
+                mSurface = new Surface(surfaceTexture);
                 openCamera();
+
             }
 
             @Override
             public void onSurfaceTextureSizeChanged(SurfaceTexture surfaceTexture,
-                                                    int width, int height) {}
+                                                    int width, int height) {
+                mSurface = new Surface(surfaceTexture);
+            }
 
             @Override
             public boolean onSurfaceTextureDestroyed(SurfaceTexture surfaceTexture) {
+//                mSurface = new Surface(surfaceTexture);
+//                mEncoder.stop();
                 return false;
             }
 
             @Override
-            public void onSurfaceTextureUpdated(SurfaceTexture surfaceTexture) {}
+            public void onSurfaceTextureUpdated(SurfaceTexture surfaceTexture) {
+//                mSurface = new Surface(surfaceTexture);
+//                Globals.textureBitmap = mTextureView.getBitmap();
+            }
         };
     }
 
@@ -143,6 +159,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
                 Log.e(TAG, "onOpened");
                 mCameraDevice = cameraDevice;
                 createCameraPreview();
+                // mEncoder.start();
 
                 mNetworkThread.start();
             }
@@ -168,6 +185,9 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout);
 
+       /* mEncoder = new MyEncoder();
+        mEncoder.setContext(this);*/
+
         mTextureView = findViewById(R.id.texture);
         mTextureView.setSurfaceTextureListener(mTextureListener);
         SurfaceView surfaceView = findViewById(R.id.surface_view);
@@ -182,7 +202,6 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
         Globals.LOGIN = getIntent().getStringExtra("LOGIN");
         Globals.PASSWORD = getIntent().getStringExtra("PASSWORD");
-        Globals.EXERCISE = Exercise.values()[getIntent().getIntExtra("EXERCISE", STRETCHING_ARMS_UP.ordinal())];
 
         File file = new File(getCacheDir().getPath() + "/test.mp4");
         if (file.isFile()) {
@@ -205,21 +224,26 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
                     alertDialogBuilder.setMessage(s)
                             .setCancelable(false)
-                            .setPositiveButton("Ok", (dialog, which) -> {
-                                Intent intent1 = new Intent();
-                                activity.setResult(Activity.RESULT_CANCELED, intent1);
-                                activity.finish();
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    Intent intent = new Intent();
+//                                    intent.putExtra("VIDEO_PATH", Globals.videoPath);
+                                    activity.setResult(Activity.RESULT_CANCELED, intent);
+                                    activity.finish();
+                                }
                             });
                     alertDialogBuilder.show();
 
                 } else if (msg.what == Globals.MSG_RESULT) {
-                    final HashMap<String, Object> scores = (HashMap<String, Object>) msg.obj;
+                    final float[] scores = (float[]) msg.obj;
                     intent.putExtra("result", scores);
                     intent.putExtra("VIDEO_PATH", Globals.videoPath);
                     activity.setResult(Activity.RESULT_OK, intent);
                     activity.finish();
                 } else if (msg.what == Globals.MSG_COPY_BITMAP) {
                     Globals.textureBitmap = mTextureView.getBitmap();
+                    Log.d("CHECKFORBITMAP", "hjftytfiuyfgiuyguyguoyguolu");
                 }
             }
         };
@@ -442,6 +466,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
         mRendererThread.start();
 
         holder.unlockCanvasAndPost(canvas);
+
     }
 
     @Override
@@ -465,6 +490,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
         }
         mRendererThread = null;
     }
+
 
     private int rescale(int param) {
         double p = (double) param;
@@ -498,6 +524,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
     private final ImageReader.OnImageAvailableListener mOnImageAvailableListener = new ImageReader.OnImageAvailableListener() {
 
         private final int SCALE_FACTOR = 3;
+        private int mFrameNumber = 0;
         byte[] mRowBytesY = new byte[1920 * 1080];
         byte[] mRowBytesB = null;
         byte[] mRowBytesR = null;
@@ -507,7 +534,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
         @Override
         public void onImageAvailable(ImageReader reader) {
-            Image image;
+            Image image = null;
             try {
 
                 image = reader.acquireLatestImage();
@@ -544,6 +571,10 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
                     long start = currentTimeMillis();
                     resizeYUV3(resizedYUV, mRowBytesY, mRowBytesR, mRowBytesB, yRowStride, uvRowStride, pixelStride);
+//                    if (mFrameNumber++ == 10) {
+//                        sendByteArrayTcp(resizedYUV, "gauss", 9999);
+//                        //sendByteArrayTcp(mRowBytesR, "gauss", 9999);
+//                    }
                     Log.d("TIMETORESIZE", currentTimeMillis() - start + " ");
 
                     synchronized (Globals.capturedFrames) {

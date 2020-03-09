@@ -3,10 +3,8 @@ package com.praaktis.exerciseengine;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 class Globals {
-    public static Exercise EXERCISE;
     public static ExerciseEngineActivity mainActivity;
 
     public static final int MSG_ERROR = 0;
@@ -15,8 +13,6 @@ class Globals {
     public static final int VIDEO_FRAME_PER_SECOND = 15;
 
     public static final Object globalLock = new Object();
-
-    public static ArrayList<Float> scores = new ArrayList<>();
 
     public static float score1 = 0.0f;
     public static float score2 = 0.0f;
@@ -40,34 +36,17 @@ class Globals {
     public static String LOGIN;
     public static String PASSWORD;
 
-    public static final HashMap<String, Object> EXERCISE_CRITERIA = new HashMap<>();
-    public static final HashMap<String, int[]>  CRITERIA_POSITION = new HashMap<>();
-    public static final HashMap<String, Object> EXERCISE_SCORES   = new HashMap<>();
+    public static int count = 0;
+
+    public static int ANGLE_BACK_SHIN = 0;
+    public static int ANGLE_HIP_KNEE = 0;
 
     public static ArrayList<byte []> capturedFrames = new ArrayList<>();
 
     public static void init(){
-        EXERCISE_CRITERIA.clear();
-        CRITERIA_POSITION.clear();
-        EXERCISE_SCORES  .clear();
-
-        switch (EXERCISE){
-            case SQUATS:{
-                CRITERIA_POSITION.put("back/shin diff", new int[]{50, 50});
-                CRITERIA_POSITION.put("knee/hip angle", new int[]{50, 130});
-                break;
-            }
-            case CURL:{
-                CRITERIA_POSITION.put("α knee", new int[]{50, 50});
-                CRITERIA_POSITION.put("α elbow", new int[]{50, 130});
-                CRITERIA_POSITION.put("α back mn-mx", new int[]{0, 50});
-                CRITERIA_POSITION.put("hip sway(%)", new int[]{0, 130});
-                break;
-            }
-            default:{
-
-            }
-        }
-    }
+        count = 0;
+        ANGLE_HIP_KNEE = 0;
+        ANGLE_BACK_SHIN = 0;
+    };
 
 }

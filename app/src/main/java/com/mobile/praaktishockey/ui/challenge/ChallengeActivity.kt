@@ -11,8 +11,6 @@ import com.mobile.praaktishockey.domain.extension.showOrReplace
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.mobile.praaktishockey.ui.login.view.CalibrateFragment
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
-import java.util.*
-import java.util.HashMap
 
 class ChallengeActivity constructor(override val layoutId: Int = R.layout.activity_challenge)
     : BaseActivity() {
@@ -24,7 +22,7 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
             activity.startActivity(intent)
         }
 
-        fun start(activity: Activity, challengeItem: ChallengeItem, result: HashMap<String, Any>?, path: String) {
+        fun start(activity: Activity, challengeItem: ChallengeItem, result: FloatArray?, path: String) {
             val intent = Intent(activity, ChallengeActivity::class.java)
             intent.putExtra("challengeItem", challengeItem)
             intent.putExtra(ChallengeInstructionFragment.VIDEO_PATH, path)
@@ -78,8 +76,7 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
             finish()
             if (resultCode == Activity.RESULT_OK) {
                 Log.d("_RESULT", "RESULT_OK")
-                val scores = data!!.getSerializableExtra("result") as HashMap<String, Any>
-                start(this, challengeItem, scores, data.getStringExtra(
+                start(this, challengeItem, data!!.getFloatArrayExtra("result"), data.getStringExtra(
                     ChallengeInstructionFragment.VIDEO_PATH))
             } else {
                 Log.d("_RESULT", "RESULT_NOT_OK")

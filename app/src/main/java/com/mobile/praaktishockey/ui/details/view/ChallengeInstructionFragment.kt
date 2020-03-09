@@ -17,7 +17,6 @@ import com.mobile.praaktishockey.domain.extension.getViewModel
 import com.mobile.praaktishockey.domain.extension.replaceFragment
 import com.mobile.praaktishockey.ui.challenge.ChallengeActivity
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
-import com.praaktis.exerciseengine.Exercise
 import com.praaktis.exerciseengine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_challenge_instruction.*
 
@@ -82,8 +81,8 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
             val intent = Intent(context, ExerciseEngineActivity::class.java)
             intent.putExtra("LOGIN", mViewModel.getLogin())
             intent.putExtra("PASSWORD", mViewModel.getPassword())
-            intent.putExtra("EXERCISE", Exercise.STRETCHING_ARMS_UP.ordinal)
             startActivityForResult(intent, 333)
+            
         }
     }
 
@@ -103,8 +102,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         if (requestCode == 333) {
             getActivity()?.finish()
             if (resultCode == Activity.RESULT_OK) {
-                val scores = data!!.getSerializableExtra("result") as HashMap<String, Any>
-                ChallengeActivity.start(getActivity()!!, challengeItem, scores, data.getStringExtra(
+                ChallengeActivity.start(getActivity()!!, challengeItem, data!!.getFloatArrayExtra("result"), data.getStringExtra(
                     VIDEO_PATH))
             }
         }
