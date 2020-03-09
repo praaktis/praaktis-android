@@ -163,9 +163,14 @@ class RendererThread extends Thread {
                 }
                 case EXERCISE_FAILED: {
                     if (!Globals.isErr) {
-                        Message msg = mMessageHandler.obtainMessage(Globals.MSG_ERROR);
-                        msg.obj = (Object) "No person in the area.\n Exercise failed";
+//                        Message msg = mMessageHandler.obtainMessage(Globals.MSG_ERROR);
+//                        msg.obj = (Object) "No person in the area.\n Exercise failed";
+//                        mMessageHandler.sendMessage(msg);
+                        Message msg = mMessageHandler.obtainMessage(Globals.MSG_RESULT);
+                        float[] scores = {Globals.score1, Globals.score2, Globals.score3};
+                        msg.obj = (Object) scores;
                         mMessageHandler.sendMessage(msg);
+
                     }
                     mRunning = false;
                     break;

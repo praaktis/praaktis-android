@@ -1,0 +1,7 @@
+Executable : /Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja
+arguments : 
+-C
+/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86_64
+native-lib
+jvmArgs : 
+
