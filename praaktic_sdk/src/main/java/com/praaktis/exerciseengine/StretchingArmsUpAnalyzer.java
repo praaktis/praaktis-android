@@ -70,6 +70,7 @@ public class StretchingArmsUpAnalyzer extends ExerciseAnalyser {
             Globals.EXERCISE_SCORES.put("S1", res[0]);
             Globals.EXERCISE_SCORES.put("S2",  res[1]);
             Globals.EXERCISE_SCORES.put("S",    res[2]);
+            Globals.EXERCISE_SCORES.put("OVERALL", res[0] * 0.45 + res[1] * 0.2 + res[2] * 0.35);
         }
     }
 }
