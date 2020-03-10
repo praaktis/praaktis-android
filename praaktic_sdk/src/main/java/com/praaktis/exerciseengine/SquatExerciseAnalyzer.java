@@ -19,12 +19,12 @@ public class SquatExerciseAnalyzer extends ExerciseAnalyser {
     private int ALPHA;
     private int BETA;
 
-    private ArrayList<Integer> mS1 = new ArrayList<>();
-    private ArrayList<Integer> mS2 = new ArrayList<>();
-    private ArrayList<Integer> mS  = new ArrayList<>();
-    private Integer mMeanS1 = 0;
-    private Integer mMeanS2 = 0;
-    private Integer mMeanS = 0;
+    private ArrayList<Float> mS1 = new ArrayList<>();
+    private ArrayList<Float> mS2 = new ArrayList<>();
+    private ArrayList<Float> mS  = new ArrayList<>();
+    private Float mMeanS1 = 0f;
+    private Float mMeanS2 = 0f;
+    private Float mMeanS = 0f;
     int count = 0;
     int mFrameNum = 0;
 
@@ -49,9 +49,9 @@ public class SquatExerciseAnalyzer extends ExerciseAnalyser {
                 if (BETA > 90)  BETA -= 180;
                 if (BETA < -10) BETA = -10;
 
-                int S1 = 80  - (2 * BETA);
-                int S2 = 100 - (2 * ALPHA);
-                int  S = (int) (S1 * 0.6f + S2 * 0.4f);
+                Float S1 = 80f  - (2 * BETA);
+                Float S2 = 100f - (2 * ALPHA);
+                Float  S = (S1 * 0.6f + S2 * 0.4f);
 
                 mS1.add(S1);
                 mS2.add(S2);
@@ -61,7 +61,7 @@ public class SquatExerciseAnalyzer extends ExerciseAnalyser {
                 mMeanS2 += S2;
                 mMeanS  +=  S;
 
-                int[] scoresArr = new int[]{S1, S2, S};
+                Float[] scoresArr = new Float[]{S1, S2, S};
 
                 synchronized (Globals.EXERCISE_CRITERIA) {
                     Globals.EXERCISE_CRITERIA.put("back/shin diff", ALPHA);
@@ -93,9 +93,9 @@ public class SquatExerciseAnalyzer extends ExerciseAnalyser {
         if(mS.isEmpty()) return;
         synchronized (Globals.EXERCISE_SCORES){
             int n = mS.size();
-            Globals.EXERCISE_SCORES.put("meanS1", mMeanS1 / n);
-            Globals.EXERCISE_SCORES.put("meanS2", mMeanS2 / n);
-            Globals.EXERCISE_SCORES.put("meanS" ,  mMeanS / n);
+            Globals.EXERCISE_SCORES.put("S1", mMeanS1 / n);
+            Globals.EXERCISE_SCORES.put("S2", mMeanS2 / n);
+            Globals.EXERCISE_SCORES.put("S" ,  mMeanS / n);
             Globals.EXERCISE_SCORES.put("allS1" ,   mS1);
             Globals.EXERCISE_SCORES.put("allS2" ,   mS2);
             Globals.EXERCISE_SCORES.put("allS"  ,    mS);

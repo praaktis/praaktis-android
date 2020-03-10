@@ -40,6 +40,9 @@ class Globals {
     static String LOGIN;
     static String PASSWORD;
 
+    static int CALIBRATION_TIME_IN_SEC = 6;
+    static int EXCERCISE_TIME_IN_SEC = 6;
+
     static final HashMap<String, Object> EXERCISE_CRITERIA = new HashMap<>();
     static final HashMap<String, int[]>  CRITERIA_POSITION = new HashMap<>();
     static final HashMap<String, Object> EXERCISE_SCORES   = new HashMap<>();

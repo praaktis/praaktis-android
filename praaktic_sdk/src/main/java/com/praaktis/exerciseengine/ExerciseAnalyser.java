@@ -16,11 +16,21 @@ abstract class ExerciseAnalyser {
 
         switch (exercise){
             case SQUATS:{
+                Globals.CALIBRATION_TIME_IN_SEC = 6;
+                Globals.EXCERCISE_TIME_IN_SEC = 60 * 2;
                 return new SquatExerciseAnalyzer();
             }
 
             case CURL: {
+                Globals.CALIBRATION_TIME_IN_SEC = 6;
+                Globals.EXCERCISE_TIME_IN_SEC = 60 * 2;
                 return new CurlExerciseAnalyzer();
+            }
+
+            case STRETCHING_ARMS_UP:{
+                Globals.CALIBRATION_TIME_IN_SEC = 6;
+                Globals.EXCERCISE_TIME_IN_SEC = 6;
+                return new StretchingArmsUpAnalyzer();
             }
 
             default:

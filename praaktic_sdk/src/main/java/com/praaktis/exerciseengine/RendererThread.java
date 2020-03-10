@@ -21,8 +21,6 @@ import static java.lang.System.currentTimeMillis;
 
 class RendererThread extends Thread {
 
-    private final int CALIBRATION_TIME_IN_SEC = 6;
-    private final int EXCERCISE_TIME_IN_SEC = 1 << 20;
     private boolean mRunning = false;
 
     private Paint mGreenPaint;
@@ -121,7 +119,7 @@ class RendererThread extends Thread {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void run() {
-        mCounterEnd = System.currentTimeMillis() + 1000 * CALIBRATION_TIME_IN_SEC;
+        mCounterEnd = System.currentTimeMillis() + 1000 * Globals.CALIBRATION_TIME_IN_SEC;
         mCounterSet = false;
         mCounter = 1;
         Globals.state = EngineState.CONNECTION_FAILED;
@@ -190,7 +188,6 @@ class RendererThread extends Thread {
 //                        Message msg = mMessageHandler.obtainMessage(Globals.MSG_ERROR);
                         Message msg = mMessageHandler.obtainMessage(Globals.MSG_RESULT);
                         msg.obj = Globals.EXERCISE_SCORES.clone();
-
                         mMessageHandler.sendMessage(msg);
                     }
                     mRunning = false;
@@ -222,7 +219,7 @@ class RendererThread extends Thread {
                     case CALIBRATION:
                         if (Globals.inBoundingBox) {
                             Globals.state = EXERCISE;
-                            mCounterEnd = currentTimeMillis() + EXCERCISE_TIME_IN_SEC * 1000;
+                            mCounterEnd = currentTimeMillis() + Globals.EXCERCISE_TIME_IN_SEC * 1000;
                             mCounterSet = true;
                         } else {
                             Globals.state = CALIBRATION_FAILED;
