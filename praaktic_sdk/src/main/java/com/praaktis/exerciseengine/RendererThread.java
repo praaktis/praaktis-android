@@ -6,10 +6,13 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.SurfaceHolder;
+
+import androidx.annotation.RequiresApi;
 
 import static com.praaktis.exerciseengine.EngineState.CALIBRATION_FAILED;
 import static com.praaktis.exerciseengine.EngineState.EXERCISE;
@@ -26,7 +29,7 @@ class RendererThread extends Thread {
     private Paint mRedPaint;
     private Paint mTrPaint;
     private Paint mDigitPaint;
-    private Paint mAnglesPait;
+    private Paint mAnglesPaint;
     private Paint mDynamicPaint;
 
     private boolean mCounterSet = false;
@@ -45,7 +48,7 @@ class RendererThread extends Thread {
     private Handler mMessageHandler;
 
     private int rescale(int param) {
-        double p = (double) param;
+//        double p = (double) param;
         // 1280px is the height of our test/developmnent phone's screen (Samsung J5).
         return (int) (mHeight * (param / 1280.0));
     }
@@ -79,8 +82,9 @@ class RendererThread extends Thread {
         mDigitPaint.setTextSize(rescale(60));
         mDigitPaint.setTextAlign(Paint.Align.CENTER);
 
-        mAnglesPait = new Paint(mDigitPaint);
-        mAnglesPait.setTextSize(40);
+        mAnglesPaint = new Paint(mDigitPaint);
+        mAnglesPaint.setTextSize(40);
+        mAnglesPaint.setTextAlign(Paint.Align.LEFT);
 
         mTrPaint = new Paint();
         mTrPaint.setColor(Color.TRANSPARENT);
@@ -93,7 +97,7 @@ class RendererThread extends Thread {
         mRunning = running;
     }
 
-    void drawBoundingBox(Canvas canvas, Paint paint) {
+    private void drawBoundingBox(Canvas canvas, Paint paint) {
         Log.d("RENDERER", "BOUNDING BOX");
         canvas.drawLine(mBoundingBoxX, mBoundingBoxY, mBoundingBoxX + 50, mBoundingBoxY, paint);
         canvas.drawLine(mBoundingBoxX, mBoundingBoxY, mBoundingBoxX, mBoundingBoxY + 50, paint);
@@ -115,6 +119,7 @@ class RendererThread extends Thread {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void run() {
         mCounterEnd = System.currentTimeMillis() + 1000 * CALIBRATION_TIME_IN_SEC;
         mCounterSet = false;
@@ -126,19 +131,38 @@ class RendererThread extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            Log.d("RENDERER", "VXOD");
+
             Canvas canvas = mSurfaceHolder.lockCanvas(null);
             if (canvas == null)
                 continue;
+            int W = canvas.getWidth();
+            int H = canvas.getHeight();
 
             canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mTrPaint);
 
             if (mCounterSet) {
                 long cur = System.currentTimeMillis();
                 mCounter = (int) ((mCounterEnd - cur) / 1000);
-                canvas.drawText("back/shin diff: " + Globals.ANGLE_BACK_SHIN, canvas.getWidth() / 2, rescale(70), mAnglesPait);
-                canvas.drawText("knee angle : \t" + Globals.ANGLE_HIP_KNEE, canvas.getWidth() / 2, rescale(150), mAnglesPait);
-                canvas.drawText(Globals.count + "", canvas.getWidth() - 100, canvas.getHeight() - 70, mRedPaint);
+
+                Globals.CRITERIA_POSITION.forEach((s, u) -> {
+                    if (u[0] <= 0) u[0] = W / 2 - u[0] - 5;
+                    Object val = Globals.EXERCISE_CRITERIA.getOrDefault(s, 0);
+                    if (val instanceof Float || (int) val < 10000)
+                        canvas.drawText(s + ": " + val, u[0], rescale(u[1]), mAnglesPaint);
+                    else {
+                        int fr = (int) val % 10000;
+                        int sc = (int) val / 10000;
+
+                        //Zig-zag logic
+                        //positive numbers are doubled (n) n -> 2*n and negatives (n) n -> -2*n-1
+                        if(fr % 2 == 0) fr >>= 1;
+                        else fr = -(fr + 1) >> 1;
+                        if(sc % 2 == 0) sc >>= 1;
+                        else sc = -(sc + 1) >> 1;
+                        canvas.drawText(s + ": " + fr + ":" + sc, u[0], rescale(u[1]), mAnglesPaint);
+                    }
+                });
+                canvas.drawText(Globals.EXERCISE_CRITERIA.getOrDefault("COUNT", 0) + "", canvas.getWidth() - 100, canvas.getHeight() - 70, mRedPaint);
             }
 
             drawBoundingBox(canvas, Globals.inBoundingBox ? mGreenPaint : mRedPaint);
@@ -155,7 +179,7 @@ class RendererThread extends Thread {
                 case CALIBRATION_FAILED: {
                     if (!Globals.isErr) {
                         Message msg = mMessageHandler.obtainMessage(Globals.MSG_ERROR);
-                        msg.obj = (Object) "Calibration failed. \nPlease start again";
+                        msg.obj = "Calibration failed. \nPlease start again";
                         mMessageHandler.sendMessage(msg);
                     }
                     mRunning = false;
@@ -164,13 +188,10 @@ class RendererThread extends Thread {
                 case EXERCISE_FAILED: {
                     if (!Globals.isErr) {
 //                        Message msg = mMessageHandler.obtainMessage(Globals.MSG_ERROR);
-//                        msg.obj = (Object) "No person in the area.\n Exercise failed";
-//                        mMessageHandler.sendMessage(msg);
                         Message msg = mMessageHandler.obtainMessage(Globals.MSG_RESULT);
-                        float[] scores = {Globals.score1, Globals.score2, Globals.score3};
-                        msg.obj = (Object) scores;
-                        mMessageHandler.sendMessage(msg);
+                        msg.obj = Globals.EXERCISE_SCORES.clone();
 
+                        mMessageHandler.sendMessage(msg);
                     }
                     mRunning = false;
                     break;
@@ -178,8 +199,7 @@ class RendererThread extends Thread {
                 case SCORING: {
                     if (!Globals.isErr) {
                         Message msg = mMessageHandler.obtainMessage(Globals.MSG_RESULT);
-                        float[] scores = {Globals.score1, Globals.score2, Globals.score3};
-                        msg.obj = (Object) scores;
+                        msg.obj = Globals.EXERCISE_SCORES.clone();
                         mMessageHandler.sendMessage(msg);
                     }
                     mRunning = false;
@@ -194,9 +214,8 @@ class RendererThread extends Thread {
                 mSurfaceHolder.unlockCanvasAndPost(canvas);
                 break;
             }
-
             if (text != null)
-                canvas.drawText(text, canvas.getWidth() / 2, canvas.getHeight() - rescale(70), mDigitPaint);
+                canvas.drawText(text, canvas.getWidth() >> 1, canvas.getHeight() - rescale(70), mDigitPaint);
 
             if (mCounter <= 0) {
                 switch (Globals.state) {

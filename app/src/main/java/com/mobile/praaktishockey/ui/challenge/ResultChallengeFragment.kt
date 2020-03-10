@@ -235,6 +235,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             val intent = Intent(context, ExerciseEngineActivity::class.java)
             intent.putExtra("LOGIN", mViewModel.getLogin())
             intent.putExtra("PASSWORD", mViewModel.getPassword())
+            intent.putExtra("EXERCISE", challengeItem.id)
             getActivity()!!.startActivityForResult(intent, 333)
         }
     }

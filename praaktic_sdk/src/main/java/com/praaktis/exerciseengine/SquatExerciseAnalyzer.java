@@ -1,23 +1,16 @@
 package com.praaktis.exerciseengine;
 
-import android.util.Log;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import java.util.ArrayList;
 
 public class SquatExerciseAnalyzer extends ExerciseAnalyser {
-
-//    private ArrayList<Float> mHeights;
-//    private ArrayList<Float> mWindows;
-//    private ArrayList<Integer> mAngles;
-//    private final static int WINDOW_SIZE = 10;
-//    private int mSteps = 0;
-//    private int mLastWindowSize = 0;
-//    private float mLastWindowMin = 10000;
-//    private int mLastWindowAlphaMin = 180;
-//    private int mNumOfWindows = 0;
 
     private final int UP = 1;
     private final int DOWN = 0;
     private int state = DOWN;
-
 
     private int upThresh = 160;
     private int downThresh = 120;
@@ -26,151 +19,87 @@ public class SquatExerciseAnalyzer extends ExerciseAnalyser {
     private int ALPHA;
     private int BETA;
 
+    private ArrayList<Integer> mS1 = new ArrayList<>();
+    private ArrayList<Integer> mS2 = new ArrayList<>();
+    private ArrayList<Integer> mS  = new ArrayList<>();
+    private Integer mMeanS1 = 0;
+    private Integer mMeanS2 = 0;
+    private Integer mMeanS = 0;
+    int count = 0;
+    int mFrameNum = 0;
+
     SquatExerciseAnalyzer() {
-//        mHeights = new ArrayList<>();
-//        mWindows = new ArrayList<>();
-//        mAngles = new ArrayList<>();
     }
 
-    public boolean isAFullCycle(float[] mPoints) {
-//        float mn = mPoints[JointsMap.RSHOULDER * 3 + 1];
-//        float mx = mPoints[JointsMap.RHEEL * 3 + 1];
-//
-//        float t = mx - mn;
-//        float curHeight = t;
-//
-//        int u = 100;
-//        for (int i = 1; i <= u - 1; i++) {
-//            if (mSteps - i < 0) {
-//                curHeight += t;
-//            } else curHeight += mHeights.get(mSteps - i);
-//        }
-//
-//        curHeight /= u;
-//
-//        mHeights.add(curHeight);
-//        mSteps++;
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void analyze(float[] mPoints) {
+        int alpha = getAngleAtBackAndShin(mPoints, LEFT_ARM);
+        int beta = getAngleAtHip(mPoints, LEFT_ARM);
+        int gamma = getAngleAtKnee(mPoints, LEFT_ARM);
 
-        int alpha = checkBackAndShin(mPoints, LEFT_ARM);
-        int beta = checkHipAngle(mPoints, LEFT_ARM);
-        int gamma = checkGamma(mPoints, LEFT_ARM);
-
-        Log.d("UUUUP", alpha+ " \t\t" + beta + "\t\t" + gamma);
-
-        boolean ok = false;
-
-        if(state == UP){
-            if(gamma < downThresh){
+        if (state == UP) {
+            if (gamma < downThresh) {
                 state = DOWN;
             }
         } else {
-            if(gamma > upThresh && minY < 0 && ALPHA < 60 && BETA < 50) {
+            if (gamma > upThresh && minY < 0 && ALPHA < 60 && BETA < 40) {
                 state = UP;
-                ok = true;
-                Log.d("UUUUP----------->", minY + "\t\t" + ALPHA + "\t\t" + BETA);
                 minY = 1000;
-                if(BETA > 90) BETA -= 180;
-                Globals.ANGLE_BACK_SHIN = ALPHA;
-                Globals.ANGLE_HIP_KNEE = BETA;
+                if (BETA > 90)  BETA -= 180;
+                if (BETA < -10) BETA = -10;
+
+                int S1 = 80  - (2 * BETA);
+                int S2 = 100 - (2 * ALPHA);
+                int  S = (int) (S1 * 0.6f + S2 * 0.4f);
+
+                mS1.add(S1);
+                mS2.add(S2);
+                mS .add(S );
+
+                mMeanS1 += S1;
+                mMeanS2 += S2;
+                mMeanS  +=  S;
+
+                int[] scoresArr = new int[]{S1, S2, S};
+
+                synchronized (Globals.EXERCISE_CRITERIA) {
+                    Globals.EXERCISE_CRITERIA.put("back/shin diff", ALPHA);
+                    Globals.EXERCISE_CRITERIA.put("knee/hip angle", BETA);
+
+                    Globals.EXERCISE_SCORES.put(((Integer)mFrameNum).toString(), scoresArr);
+
+                    if(BETA < 30 && ALPHA < 40) {
+                        count ++;
+                        Globals.EXERCISE_CRITERIA.put("COUNT", count);
+                    }
+                }
             }
         }
 
-        if(state == DOWN){
+        if (state == DOWN) {
             float y = -mPoints[JointsMap.RSHOULDER * 2 + 1];
-            if(y < minY){
-                minY = y;
+            if (y < minY) {
+                minY  = y;
                 ALPHA = alpha;
-                BETA = beta;
+                BETA  = beta;
             }
         }
-//        Log.d("HIP_ANGLE", beta + " ");
-//
-//        if (mLastWindowSize < WINDOW_SIZE) {
-//            mLastWindowMin = Math.min(curHeight, mLastWindowMin);
-//            mLastWindowAlphaMin = Math.min(alpha, mLastWindowAlphaMin);
-//            mLastWindowSize++;
-//            return false;
-//        }
-//        mWindows.add(mLastWindowMin);
-//        mAngles.add(mLastWindowAlphaMin);
-//        mNumOfWindows++;
-//
-//        boolean e = (mWindows.size() > 2) && (mWindows.get(mNumOfWindows - 3) > mWindows.get(mNumOfWindows - 2)) && (mWindows.get(mNumOfWindows - 2) < mLastWindowMin);
-////        boolean f = mNumOfWindows <= 3 || mWindows.get(mNumOfWindows - 3) > mWindows.get(mNumOfWindows - 2);
-//        Log.d("PARALLEL: ", mLastWindowMin + " --- " + mLastWindowAlphaMin + " -> " + (e ? "true" : "false"));
-//
-//        mLastWindowSize = 0;
-//        mLastWindowMin = 10000;
-//        mLastWindowAlphaMin = 180;
-        return ok;
+        mFrameNum ++;
     }
 
-    private int checkBackAndShin(float[] mPoints, int side) {
-        float rShouldX = mPoints[3 * (side == LEFT_ARM ? JointsMap.LSHOULDER : JointsMap.RSHOULDER)];
-        float rShouldY = mPoints[3 * (side == LEFT_ARM ? JointsMap.LSHOULDER : JointsMap.RSHOULDER) + 1];
-
-        float rHipX = mPoints[3 * (side == LEFT_ARM ? JointsMap.LHIP : JointsMap.RHIP)];
-        float rHipY = mPoints[3 * (side == LEFT_ARM ? JointsMap.LHIP : JointsMap.RHIP) + 1];
-
-        float rKneeX = mPoints[3 * (side == LEFT_ARM ? JointsMap.LKNEE : JointsMap.RKNEE)];
-        float rKneeY = mPoints[3 * (side == LEFT_ARM ? JointsMap.LKNEE : JointsMap.RKNEE) + 1];
-
-        float rAnkleX = mPoints[3 * (side == LEFT_ARM ? JointsMap.LANKLE : JointsMap.RANKLE)];
-        float rAnkleY = mPoints[3 * (side == LEFT_ARM ? JointsMap.LANKLE : JointsMap.RANKLE) + 1];
-
-        float v1x = rShouldX - rHipX;
-        float v1y = rShouldY - rHipY;
-
-        float v2x = rKneeX - rAnkleX;
-        float v2y = rKneeY - rAnkleY;
-        int alpha = (int) (Math.acos((v1x * v2x + v1y * v2y) / Math.sqrt(v1x * v1x + v1y * v1y) / Math.sqrt(v2x * v2x + v2y * v2y)) / Math.PI * 180);
-
-        Log.d("PARALLEL: ", alpha + "");
-//        float rShouldX = mPoints[3 * JointsMap.RSHOULDER];
-//        float rShouldY = mPoints[3 * JointsMap.RSHOULDER + 1];
-        return alpha;
+    @Override
+    public void loadScores() {
+        if(mS.isEmpty()) return;
+        synchronized (Globals.EXERCISE_SCORES){
+            int n = mS.size();
+            Globals.EXERCISE_SCORES.put("meanS1", mMeanS1 / n);
+            Globals.EXERCISE_SCORES.put("meanS2", mMeanS2 / n);
+            Globals.EXERCISE_SCORES.put("meanS" ,  mMeanS / n);
+            Globals.EXERCISE_SCORES.put("allS1" ,   mS1);
+            Globals.EXERCISE_SCORES.put("allS2" ,   mS2);
+            Globals.EXERCISE_SCORES.put("allS"  ,    mS);
+            Globals.EXERCISE_SCORES.put("count" , count);
+        }
     }
-
-    private int checkGamma(float[] mPoints, int side) {
-        float hipX = mPoints[3 * (side == LEFT_ARM ? JointsMap.LHIP : JointsMap.RHIP)];
-        float hipY = mPoints[3 * (side == LEFT_ARM ? JointsMap.LHIP : JointsMap.RHIP) + 1];
-
-        float kneeX = mPoints[3 * (side == LEFT_ARM ? JointsMap.LKNEE : JointsMap.RKNEE)];
-        float kneeY = mPoints[3 * (side == LEFT_ARM ? JointsMap.LKNEE : JointsMap.RKNEE) + 1];
-
-        float ankleX = mPoints[3 * (side == LEFT_ARM ? JointsMap.LANKLE : JointsMap.RANKLE)];
-        float ankleY = mPoints[3 * (side == LEFT_ARM ? JointsMap.LANKLE : JointsMap.RANKLE) + 1];
-
-        float v1x = ankleX - kneeX;
-        float v1y = ankleY - kneeY;
-
-        float v2x = hipX - kneeX;
-        float v2y = hipY - kneeY;
-
-        int gamma = (int) (Math.acos((v1x * v2x + v1y * v2y) / Math.sqrt(v1x * v1x + v1y * v1y) / Math.sqrt(v2x * v2x + v2y * v2y)) / Math.PI * 180);
-
-        return gamma;
-    }
-
-    private int checkHipAngle(float[] mPoints, int side) {
-        float hipX = mPoints[3 * (side == LEFT_ARM ? JointsMap.LHIP : JointsMap.RHIP)];
-        float hipY = mPoints[3 * (side == LEFT_ARM ? JointsMap.LHIP : JointsMap.RHIP) + 1];
-
-        float kneeX = mPoints[3 * (side == LEFT_ARM ? JointsMap.LKNEE : JointsMap.RKNEE)];
-        float kneeY = mPoints[3 * (side == LEFT_ARM ? JointsMap.LKNEE : JointsMap.RKNEE) + 1];
-
-        float v1x = 100;
-        float v1y = 0;
-
-        float v2x = hipX - kneeX;
-        float v2y = hipY - kneeY;
-
-        int beta = (int) (Math.acos((v1x * v2x + v1y * v2y) / Math.sqrt(v1x * v1x + v1y * v1y) / Math.sqrt(v2x * v2x + v2y * v2y)) / Math.PI * 180);
-        if(beta > 90) beta = 180 - beta;
-
-        if(hipY > kneeY) beta = -beta;
-
-        return beta;
-    }
-
 }

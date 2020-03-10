@@ -1,6 +1,9 @@
 package com.praaktis.exerciseengine;
 
+import android.os.Build;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -80,6 +83,7 @@ class Receiver extends Thread {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void processStateMachine(ExerciseAnalyser exerciseAnalyser,
                                      ArrayList<float[]> scene,
                                      int person) {
@@ -105,7 +109,7 @@ class Receiver extends Thread {
             }
 
             case EXERCISE_COMPLETED: {
-                float height = 1;//((SquatExerciseAnalyzer)exerciseAnalyser).isAFullCycle(mPoints);
+                float height = 1;
 
                 if (height <= 0)
                     Globals.state = EngineState.EXERCISE_FAILED;
@@ -125,7 +129,7 @@ class Receiver extends Thread {
 
             case EXERCISE: {
                 if (person < 0) {
-//                    ((SquatExerciseAnalyzer) exerciseAnalyser).print();
+                    exerciseAnalyser.loadScores();
                     Globals.state = EngineState.EXERCISE_FAILED;
                     Globals.inBoundingBox = false;
                     green = false;
@@ -133,11 +137,7 @@ class Receiver extends Thread {
                     break;
                 }
 
-                boolean isMin = ((SquatExerciseAnalyzer)exerciseAnalyser).isAFullCycle(scene.get(person));
-
-                if(isMin) Globals.count ++;
-
-                Log.d("HEIGHT: ", "-----> " + (isMin ? "Min":"NoMin") + "----");
+                exerciseAnalyser.analyze(scene.get(person));
 
                 mPoints.add(scene.get(person));
                 break;
@@ -145,10 +145,10 @@ class Receiver extends Thread {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void run() {
-        ExerciseAnalyser exerciseAnalyser = new SquatExerciseAnalyzer();
-        long start = System.currentTimeMillis();
+        ExerciseAnalyser exerciseAnalyser = ExerciseAnalyser.createAnalyzer(Globals.EXERCISE);
         while (mRunning) {
             try {
                 Thread.sleep(5);
@@ -191,18 +191,14 @@ class Receiver extends Thread {
 
                         byte[] data = rpResult.packetData;
                         int frameNum = Bytes.getIntAt(data, 0);
-//                        if(frameNum % 10 == 0) {
-                            long now = System.currentTimeMillis();
-                            Log.d("FRAME_NUMBER: ", frameNum + "->" + (now));
-                            start = now;
-//                        }
+
                         int numPersons = Bytes.getIntAt(data, 4);
                         int numPointsPerPerson = data[8];
                         int n = numPersons * numPointsPerPerson;
                         float scaleX = mWidth / 360.0f;
                         float scaleY = mHeight / 640.0f;
                         ArrayList<float[]> scene = new ArrayList<>();
-                        Log.d("NUMBER OF PEOPLE", String.valueOf(numPersons) + " " + frameNum);
+
                         // Collect points into a ArrayList<float[]>
                         //
                         int pos = 9;

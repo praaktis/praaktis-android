@@ -10,6 +10,7 @@ import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.domain.extension.onClick
+import com.praaktis.exerciseengine.Exercise
 import kotlinx.android.synthetic.main.item_challenge.view.*
 import java.io.Serializable
 
@@ -85,7 +86,8 @@ data class ChallengeItem(@StringRes val name: Int,
                          val id: Int) : Serializable
 
 val challengesList: List<ChallengeItem> = listOf(
-        ChallengeItem(R.string.stretching_arms_up, R.drawable.challenge, "Stretching Arms Up", 4)
+        ChallengeItem(R.string.stretching_arms_up, R.drawable.challenge, "Stretching Arms Up", Exercise.SQUATS.ordinal)
+//        ChallengeItem(R.string.stretching_arms_up, R.drawable.challenge, "Stretching Arms Up", Exercise.SQUATS.ordinal)
 //        ChallengeItem(R.string.low_backhand, R.drawable.img_low_backhand,  "Low backhand", 2),
 //        ChallengeItem(R.string.trap, R.drawable.img_trap, "Trap",3)
 )

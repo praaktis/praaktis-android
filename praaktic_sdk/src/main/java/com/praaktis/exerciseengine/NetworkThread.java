@@ -142,6 +142,7 @@ class NetworkThread extends Thread {
                 if (Globals.state == EngineState.CALIBRATION_FAILED ||
                         Globals.state == EngineState.EXERCISE_FAILED ||
                         Globals.state == EngineState.EXERCISE_COMPLETED) {
+                    mVideoEncoder.release();
                     mRunning = false;
                     continue;
                 }
@@ -159,7 +160,7 @@ class NetworkThread extends Thread {
                 }
             if (mSocket != null)
                 try {
-                    NetworkIO.sendPacket(mSocket.getOutputStream(), (byte)NetworkIOConstants.MSG_CLOSE_CONNECTION, new byte[0]);
+                    NetworkIO.sendPacket(mSocket.getOutputStream(), (byte) NetworkIOConstants.MSG_CLOSE_CONNECTION, new byte[0]);
                     mSocket.close();
                 } catch (IOException exc) {
                 }

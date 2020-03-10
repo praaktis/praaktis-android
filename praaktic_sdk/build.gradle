@@ -37,6 +37,12 @@ android {
         }
     }
     ndkVersion = '20.1.5948944'
+    android {
+        compileOptions {
+            targetCompatibility = "8"
+            sourceCompatibility = "8"
+        }
+    }
 }
 
 dependencies {
