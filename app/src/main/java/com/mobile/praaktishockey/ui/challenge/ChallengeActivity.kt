@@ -22,7 +22,7 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
             activity.startActivity(intent)
         }
 
-        fun start(activity: Activity, challengeItem: ChallengeItem, result: FloatArray?, path: String) {
+        fun start(activity: Activity, challengeItem: ChallengeItem, result: HashMap<String, Any>?, path: String) {
             val intent = Intent(activity, ChallengeActivity::class.java)
             intent.putExtra("challengeItem", challengeItem)
             intent.putExtra(ChallengeInstructionFragment.VIDEO_PATH, path)
@@ -76,7 +76,8 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
             finish()
             if (resultCode == Activity.RESULT_OK) {
                 Log.d("_RESULT", "RESULT_OK")
-                start(this, challengeItem, data!!.getFloatArrayExtra("result"), data.getStringExtra(
+                @Suppress("UNCHECKED_CAST")
+                start(this, challengeItem, data!!.getSerializableExtra("result") as HashMap<String, Any>?, data.getStringExtra(
                     ChallengeInstructionFragment.VIDEO_PATH))
             } else {
                 Log.d("_RESULT", "RESULT_NOT_OK")

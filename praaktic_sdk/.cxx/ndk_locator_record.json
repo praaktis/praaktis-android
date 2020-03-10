@@ -1,9 +1,9 @@
 {
-  "ndkFolder": "/Users/user/Library/Android/sdk/ndk/20.1.5948944",
+  "ndkFolder": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669",
   "messages": [
     {
       "level": "INFO",
-      "message": "android.ndkVersion from module build.gradle is 20.1.5948944"
+      "message": "android.ndkVersion from module build.gradle is 21.0.6113669"
     },
     {
       "level": "INFO",
@@ -15,23 +15,31 @@
     },
     {
       "level": "INFO",
-      "message": "sdkFolder is /Users/user/Library/Android/sdk"
+      "message": "sdkFolder is C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk"
     },
     {
       "level": "INFO",
-      "message": "Considering /Users/user/Library/Android/sdk/ndk-bundle in SDK ndk-bundle folder"
+      "message": "Considering C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk-bundle in SDK ndk-bundle folder"
     },
     {
       "level": "INFO",
-      "message": "Considering /Users/user/Library/Android/sdk/ndk/20.1.5948944 in SDK ndk folder"
+      "message": "Considering C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\20.0.5594570 in SDK ndk folder"
     },
     {
       "level": "INFO",
-      "message": "Considering /Users/user/Library/Android/sdk/ndk/20.0.5594570 in SDK ndk folder"
+      "message": "Considering C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\20.1.5948944 in SDK ndk folder"
     },
     {
       "level": "INFO",
-      "message": "Found requested NDK version 20.1.5948944 at /Users/user/Library/Android/sdk/ndk/20.1.5948944"
+      "message": "Considering C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669 in SDK ndk folder"
+    },
+    {
+      "level": "INFO",
+      "message": "Rejected C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk-bundle in SDK ndk-bundle folder because that location has no source.properties"
+    },
+    {
+      "level": "INFO",
+      "message": "Found requested NDK version 21.0.6113669 at C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669"
     }
   ]
 }

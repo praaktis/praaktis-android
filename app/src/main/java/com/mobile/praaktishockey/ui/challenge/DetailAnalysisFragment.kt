@@ -61,7 +61,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
 
     private val scoreDTO by lazy { arguments?.getSerializable("score") as ScoreDTO }
     private val challengeItem by lazy { arguments?.getSerializable("challengeItem") as ChallengeItem }
-    private val result by lazy { activity.intent.getFloatArrayExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) }
+    private val result by lazy { activity.intent.getSerializableExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) as HashMap<String, Any>? }
 
     override fun initUI(savedInstanceState: Bundle?) {
         mainViewModel = ViewModelProviders.of(activity).get(MainViewModel::class.java)
@@ -75,6 +75,8 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
                     item.name.equals(challengeItem.label)
                 }
                 val detailScores = mutableListOf<DetailScoreDTO>()
+
+                /* // old solution
                 var i = 0
                 for (detailPoint in challenge!!.detailPoints) {
                     val detailPoint = DetailPoint(0, detailPoint.label)
@@ -82,6 +84,16 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
                         detailScores.add(DetailScoreDTO(detailPoint, result[i++].toDouble()))
                     else
                         detailScores.add(DetailScoreDTO(detailPoint, 0.0))
+                }*/
+
+                // new one
+                collectDetailScores().forEach { detailScore ->
+                    detailScores.add(
+                        DetailScoreDTO(
+                            DetailPoint(0, detailScore.first),
+                            detailScore.second.toDouble()
+                        )
+                    )
                 }
                 setDetail(detailScores)
             }
@@ -98,6 +110,20 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
         mViewModel.detailResultEvent.observe(this, Observer {
             setDetail(it)
         })
+    }
+
+    private fun collectDetailScores(): MutableList<Pair<String, Float>> {
+        val detailScores: MutableList<Pair<String, Float>> = mutableListOf()
+        result?.forEach { (key, value) ->
+            when (value) {
+                is Float -> {
+                    if (key != "OVERALL") {
+                        detailScores.add(Pair(key, value)) // key = label, value = score
+                    }
+                }
+            }
+        }
+        return detailScores
     }
 
     private fun initToolbar() {

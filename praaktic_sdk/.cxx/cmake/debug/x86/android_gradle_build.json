@@ -1,38 +1,38 @@
 {
   "stringTable": {
-    "0": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/debug/x86",
-    "1": "--target=i686-none-linux-android21 --gcc-toolchain=/Users/user/Library/Android/sdk/ndk/20.1.5948944/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/user/Library/Android/sdk/ndk/20.1.5948944/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Dnative_lib_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security -std=c++14 -O0 -fno-limit-debug-info -fPIC -O3"
+    "0": "C:/Users/Saidjamol/AndroidStudioProjects/praaktis-android/praaktic_sdk/.cxx/cmake/debug/x86",
+    "1": "--target=i686-none-linux-android21 --gcc-toolchain=C:/Users/Saidjamol/AppData/Local/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/Saidjamol/AppData/Local/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dnative_lib_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -std=c++14 -O0 -fno-limit-debug-info -fPIC -O3"
   },
   "buildFiles": [
-    "/Users/user/Library/Android/sdk/ndk/20.1.5948944/build/cmake/android.toolchain.cmake",
-    "/Users/user/Library/Android/sdk/ndk/20.1.5948944/build/cmake/platforms.cmake",
-    "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/src/main/cpp/CMakeLists.txt"
+    "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\build\\cmake\\platforms.cmake",
+    "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\src\\main\\cpp\\CMakeLists.txt",
+    "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\build\\cmake\\android.toolchain.cmake"
   ],
   "cleanCommands": [
-    "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/debug/x86\" clean"
+    "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cmake\\debug\\x86\" clean"
   ],
-  "buildTargetsCommand": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/debug/x86\" {LIST_OF_TARGETS_TO_BUILD}",
+  "buildTargetsCommand": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cmake\\debug\\x86\" {LIST_OF_TARGETS_TO_BUILD}",
   "libraries": {
     "native-lib-Debug-x86": {
-      "buildCommand": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/debug/x86\" native-lib",
+      "buildCommand": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cmake\\debug\\x86\" native-lib",
       "buildType": "debug",
-      "toolchain": "1018273024",
+      "toolchain": "3951512167",
       "abi": "x86",
       "artifactName": "native-lib",
       "files": [
         {
-          "src": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/src/main/cpp/native-lib.cpp",
+          "src": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\src\\main\\cpp\\native-lib.cpp",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         }
       ],
       "headers": [],
-      "output": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/debug/obj/x86/libnative-lib.so"
+      "output": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\build\\intermediates\\cmake\\debug\\obj\\x86\\libnative-lib.so"
     }
   },
   "toolchains": {
-    "1018273024": {
-      "cppCompilerExecutable": "/Users/user/Library/Android/sdk/ndk/20.1.5948944/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
+    "3951512167": {
+      "cppCompilerExecutable": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
     }
   },
   "cFileExtensions": [],

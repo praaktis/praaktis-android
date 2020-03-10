@@ -86,7 +86,7 @@ data class ChallengeItem(@StringRes val name: Int,
                          val id: Int) : Serializable
 
 val challengesList: List<ChallengeItem> = listOf(
-        ChallengeItem(R.string.stretching_arms_up, R.drawable.challenge, "Stretching Arms Up", Exercise.SQUATS.ordinal)
+        ChallengeItem(R.string.stretching_arms_up, R.drawable.stretching_arms_up_card, "Stretching Arms Up", Exercise.SQUATS.ordinal)
 //        ChallengeItem(R.string.stretching_arms_up, R.drawable.challenge, "Stretching Arms Up", Exercise.SQUATS.ordinal)
 //        ChallengeItem(R.string.low_backhand, R.drawable.img_low_backhand,  "Low backhand", 2),
 //        ChallengeItem(R.string.trap, R.drawable.img_trap, "Trap",3)

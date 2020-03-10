@@ -14,7 +14,6 @@ import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseFragment
 import com.mobile.praaktishockey.base.BaseViewModel
 import com.mobile.praaktishockey.domain.extension.getViewModel
-import com.mobile.praaktishockey.domain.extension.replaceFragment
 import com.mobile.praaktishockey.ui.challenge.ChallengeActivity
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
 import com.praaktis.exerciseengine.ExerciseEngineActivity
@@ -83,7 +82,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
             intent.putExtra("PASSWORD", mViewModel.getPassword())
             intent.putExtra("EXERCISE", challengeItem.id)
             startActivityForResult(intent, 333)
-            
+
         }
     }
 
@@ -99,11 +98,14 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d("__RESULT", "Request: " + requestCode)
+        Log.d("__RESULT", "Request: $requestCode")
         if (requestCode == 333) {
             getActivity()?.finish()
             if (resultCode == Activity.RESULT_OK) {
-                ChallengeActivity.start(getActivity()!!, challengeItem, data!!.getFloatArrayExtra("result"), data.getStringExtra(
+                val result = data!!.getSerializableExtra("result") as HashMap<String, Any>?
+                Log.d("__RESULT", "Result: $result")
+                @Suppress("UNCHECKED_CAST")
+                ChallengeActivity.start(getActivity()!!, challengeItem, result, data.getStringExtra(
                     VIDEO_PATH))
             }
         }

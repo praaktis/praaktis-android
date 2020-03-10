@@ -3,9 +3,7 @@ package com.mobile.praaktishockey.ui.challenge
 import android.content.Intent
 import android.graphics.SurfaceTexture
 import android.media.MediaPlayer
-import android.media.PlaybackParams
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.Surface
 import android.view.TextureView
@@ -19,7 +17,6 @@ import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
 import com.praaktis.exerciseengine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
-import java.lang.Exception
 import java.util.*
 
 class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_result_challenge) :
@@ -43,7 +40,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
         get() = getViewModel { ResultChallengeFragmentViewModel(activity.application) }
 
     private val challengeItem by lazy { arguments!!.getSerializable("challengeItem") as ChallengeItem }
-    private val result by lazy { activity.intent.getFloatArrayExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) }
+    private val result by lazy { activity.intent.getSerializableExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) as HashMap<String, Any>? }
     private val path by lazy { activity.intent.getStringExtra(ChallengeInstructionFragment.VIDEO_PATH) }
 
     private var mediaPlayer1: MediaPlayer? = MediaPlayer()
@@ -174,15 +171,19 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
 //        }
 
         if (result != null) {
-            val scoreOverAll = (result[0] * 0.45f + result[1] * 0.2f + result[2] * 0.35f)
+
+            val detailResults = collectDetailResults()
+            val scoreOverAll =
+                getOverallScore()/*(result[0] * 0.45f + result[1] * 0.2f + result[2] * 0.35f)*/
             tvYourScore.text =
                 "Your score: ${scoreOverAll.toInt()}"
             mViewModel.storeResult(
-                challengeItem, (scoreOverAll / 10).toInt(), scoreOverAll, 0f, mutableListOf(
+                challengeItem, (scoreOverAll / 10).toInt(), scoreOverAll, 0f, detailResults
+                /*mutableListOf(
                     DetailResult(20, result[0]),
                     DetailResult(21, result[1]),
                     DetailResult(22, result[2])
-                )
+                )*/
             )
         } else {
             tvYourScore.text = "Your score: 0"
@@ -200,6 +201,34 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
                     }
             }
         }, 1000, 1000)
+    }
+
+    private fun getOverallScore(): Float {
+        return result?.get("OVERALL") as Float? ?: 0f
+    }
+
+    private fun collectDetailResults(): MutableList<DetailResult> {
+        val detailResults: MutableList<DetailResult> = mutableListOf()
+        result?.forEach { (key, value) ->
+            when (value) {
+                is List<*> -> {
+                    if (value.firstOrNull() is Float) {
+                        @Suppress("UNCHECKED_CAST")
+                        value as List<Float>
+                        value.forEach { result ->
+                            // todo:: send results to backend, @param(DetailResult.detailPointId) not receiving
+                            detailResults.add(
+                                DetailResult(
+                                    11,
+                                    result
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+        }
+        return detailResults
     }
 
     private fun initClicks() {
