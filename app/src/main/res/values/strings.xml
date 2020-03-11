@@ -141,4 +141,6 @@
     <string name="at_least_8_characters">At least 8 characters</string>
     <string name="password_donot_match">Passwords do not match</string>
     <string name="no_chart_data_available">No chart data available</string>
+    <string name="squats">SQUATS</string>
+    <string name="curl">BICEP CURL</string>
 </resources>

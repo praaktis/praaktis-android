@@ -181,7 +181,8 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
         Globals.LOGIN = getIntent().getStringExtra("LOGIN");
         Globals.PASSWORD = getIntent().getStringExtra("PASSWORD");
-        Globals.EXERCISE = Exercise.values()[getIntent().getIntExtra("EXERCISE", SQUATS.ordinal())];
+//        Globals.EXERCISE = Exercise.values()[getIntent().getIntExtra("EXERCISE", SQUATS.ordinal())];
+        Globals.EXERCISE = Exercise.values()[SQUATS.ordinal()];
 
         File file = new File(getCacheDir().getPath() + "/test.mp4");
         if (file.isFile()) {

@@ -100,7 +100,7 @@ public class SquatExerciseAnalyzer extends ExerciseAnalyser {
             Globals.EXERCISE_SCORES.put("allS2" ,   mS2);
             Globals.EXERCISE_SCORES.put("allS"  ,    mS);
             Globals.EXERCISE_SCORES.put("count" , count);
-            Globals.EXERCISE_SCORES.put("OVERALL", mMeanS);
+            Globals.EXERCISE_SCORES.put("OVERALL", mMeanS / n);
         }
     }
 }
