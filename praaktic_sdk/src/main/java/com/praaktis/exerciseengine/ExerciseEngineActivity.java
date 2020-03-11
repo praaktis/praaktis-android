@@ -33,6 +33,7 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.TextureView;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -227,6 +228,8 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
             }
         };
         Globals.init();
+
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
 
