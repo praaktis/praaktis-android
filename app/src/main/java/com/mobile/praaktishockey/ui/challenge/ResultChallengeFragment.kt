@@ -15,6 +15,7 @@ import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.challenge.vm.ResultChallengeFragmentViewModel
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
+import com.praaktis.exerciseengine.Exercise
 import com.praaktis.exerciseengine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
 import java.util.*
@@ -264,7 +265,20 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             val intent = Intent(context, ExerciseEngineActivity::class.java)
             intent.putExtra("LOGIN", mViewModel.getLogin())
             intent.putExtra("PASSWORD", mViewModel.getPassword())
-            intent.putExtra("EXERCISE", challengeItem.id)
+
+            when(challengeItem.name){
+                R.string.stretching_arms_up -> {
+                    intent.putExtra("EXERCISE", Exercise.STRETCHING_ARMS_UP.ordinal)
+                }
+
+                R.string.squats -> {
+                    intent.putExtra("EXERCISE", Exercise.SQUATS.ordinal)
+                }
+
+                R.string.curl -> {
+                    intent.putExtra("EXERCISE", Exercise.CURL.ordinal)
+                }
+            }
             getActivity()!!.startActivityForResult(intent, 333)
         }
     }

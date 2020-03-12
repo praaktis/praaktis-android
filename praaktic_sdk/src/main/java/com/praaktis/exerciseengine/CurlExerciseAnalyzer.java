@@ -5,15 +5,44 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import java.util.ArrayList;
+
 class CurlExerciseAnalyzer extends ExerciseAnalyser {
 
     /**
-     *
      * 1. al->the minimum angle at the elbow i.e. when the upward movement of the curl stops and reverses
      * 2. bet->the smallest angle at the knee at any point in the exercise
      * 3. [gamma,delta]->the maximum angles from the vertical of the head compared with the feet (or if that is not practical the maximu angle of the back from the vertical (both leaning forward and back - so two measurements
      * 4. the maximum movement of the hips 9they tend to sway in some of the videos
-     *
+     * <p>
+     * <p>
+     * Score A - Knee bend
+     * <p>
+     * = 100 - ((180 - result)/2)
+     * so if the result is 160 then the Score A is 100-(20/2) = 90
+     * <p>
+     * Score B - Elbow angle
+     * <p>
+     * = 100 - (result - 35)
+     * so if the result is 55 then the Score B is 100-(20) = 80
+     * Have a Minimum Bound of 35 below which is a fail
+     * <p>
+     * Score C - Back bend (Min/Max)
+     * <p>
+     * calculate the Difference between Min and Max  so 4:11 = 7; -4:23 = 27
+     * <p>
+     * = 100 - (3 * Difference)
+     * so if the result is 3:19 then the Difference is 16 and the Score C is 100-(3*16) = 52
+     * Have a Minimum Bound of 35 below which is a fail
+     * <p>
+     * Score D - Hip Motion
+     * <p>
+     * = 100 - (5 * result)
+     * so if the result is 7.28 then the Score D is 100 - 5* 7.28) = 63.6
+     * <p>
+     * The the Overall Score is
+     * <p>
+     * (10% Score A) + (20% Score B) + (40% Score C) + (30% Score D)
      */
 
     private final int UP = 1;
@@ -30,12 +59,17 @@ class CurlExerciseAnalyzer extends ExerciseAnalyser {
     private float EPSILON = Float.MAX_VALUE;
     private float ZETA = Float.MIN_VALUE;
 
+    private Float mA, mB, mC, mD;
+    private Float mMeanA = 0f, mMeanB = 0f, mMeanC = 0f, mMeanD = 0f;
+    private Float mOverall = 0f;
+    private Float mMeanOverall = 0f;
+
     int count = 0;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void analyze(float[] points){
+    public void analyze(float[] points) {
         int angleAtKnee = getAngleAtKnee(points, RIGHT_ARM);
         int angleAtElbow = getAngleAtElbow(points, RIGHT_ARM);
         int angleAtBack = -getAngleAtBack(points, RIGHT_ARM);
@@ -54,51 +88,63 @@ class CurlExerciseAnalyzer extends ExerciseAnalyser {
 
         Log.d("UUUUP", angleAtKnee + "\t\t" + angleAtElbow);
 
-        if(ALPHA > angleAtKnee && angleAtKnee > 0)
+        if (ALPHA > angleAtKnee && angleAtKnee > 0)
             ALPHA = angleAtKnee;
 
-        if(GAMMA > angleAtBack)
+        if (GAMMA > angleAtBack)
             GAMMA = angleAtBack;
         Log.d("GAMMA", "ANGLE at back" + angleAtBack);
 
-        if(DELTA < angleAtBack)
+        if (DELTA < angleAtBack)
             DELTA = angleAtBack;
 
-        if(EPSILON > epszet)
+        if (EPSILON > epszet)
             EPSILON = epszet;
 
-        if(ZETA < epszet)
+        if (ZETA < epszet)
             ZETA = epszet;
 
-        if(state == UP){
-            if(angleAtElbow < downThresh){
+        if (state == UP) {
+            if (angleAtElbow < downThresh) {
                 state = DOWN;
             }
         } else {
-            if(angleAtElbow > upThresh) {
+            if (angleAtElbow > upThresh) {
                 state = UP;
-                Log.d("UUUUP----------->",  + ALPHA + "\t\t" + BETA);
+                Log.d("UUUUP----------->", +ALPHA + "\t\t" + BETA);
 //                if(BETA > 90) BETA -= 180;
                 float x = points[3 * JointsMap.RANKLE] - points[3 * JointsMap.RKNEE];
                 float y = points[3 * JointsMap.RANKLE + 1] - points[3 * JointsMap.RKNEE + 1];
 
                 float hip_rat = (float) ((ZETA - EPSILON) / Math.sqrt(x * x + y * y));
-                hip_rat = (int)(5000 * hip_rat);
+                hip_rat = (int) (5000 * hip_rat);
                 hip_rat /= 50;
 
-                if(GAMMA < 0) GAMMA = -GAMMA * 2 + 1;
+                mA = 100 - (180 - ALPHA) / 2f;
+                mB = 100 - (BETA - 35f); if(mB > 100) mB = 100f;
+                mC = 100 - 3f * (DELTA - GAMMA);
+                mD = 100 - 5 * hip_rat;
+                mOverall = (0.1f * mA + 0.2f * mB + 0.4f * mC + 0.3f * mD);
+
+                if (GAMMA < 0) GAMMA = -GAMMA * 2 + 1;
                 else GAMMA <<= 1;
 
-                if(DELTA < 0) DELTA = -DELTA * 2 + 1;
+                if (DELTA < 0) DELTA = -DELTA * 2 + 1;
                 else DELTA <<= 1;
-
 
                 synchronized (Globals.EXERCISE_CRITERIA) {
                     Globals.EXERCISE_CRITERIA.put("α knee", ALPHA);
                     Globals.EXERCISE_CRITERIA.put("α elbow", BETA);
                     Globals.EXERCISE_CRITERIA.put("α back mn-mx", GAMMA + 10000 * DELTA);
                     Globals.EXERCISE_CRITERIA.put("hip sway(%)", hip_rat);
-                    count ++;
+                    if (mC > 35 && mB > 35) {
+                        count++;
+                        mMeanOverall += mOverall;
+                        mMeanA += mA;
+                        mMeanB += mB;
+                        mMeanC += mC;
+                        mMeanD += mD;
+                    }
                     Globals.EXERCISE_CRITERIA.put("COUNT", count);
                 }
 
@@ -111,14 +157,21 @@ class CurlExerciseAnalyzer extends ExerciseAnalyser {
             }
         }
 
-        if(state == DOWN){
-            if(BETA > angleAtElbow)
+        if (state == DOWN) {
+            if (BETA > angleAtElbow)
                 BETA = angleAtElbow;
         }
     }
 
     @Override
     public void loadScores() {
-
+        if(count > 0){
+            Globals.EXERCISE_SCORES.put("Knee bend", mMeanA / count);
+            Globals.EXERCISE_SCORES.put("Elbow angle", mMeanB / count);
+            Globals.EXERCISE_SCORES.put("Back bend", mMeanC / count);
+            Globals.EXERCISE_SCORES.put("Hip motion", mMeanD / count);
+            Globals.EXERCISE_SCORES.put("OVERALL", mMeanOverall / count);
+            Globals.EXERCISE_SCORES.put("Count", count + 0.f);
+        }
     }
 }

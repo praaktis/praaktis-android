@@ -1,19 +1,19 @@
 {
   "buildFiles": [
-    "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\build\\cmake\\platforms.cmake",
-    "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\src\\main\\cpp\\CMakeLists.txt",
-    "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\build\\cmake\\android.toolchain.cmake"
+    "/Users/user/Library/Android/sdk/ndk-bundle/build/cmake/android.toolchain.cmake",
+    "/Users/user/Library/Android/sdk/ndk-bundle/build/cmake/platforms.cmake",
+    "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/src/main/cpp/CMakeLists.txt"
   ],
   "cleanCommands": [
-    "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cmake\\release\\x86\" clean"
+    "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86\" clean"
   ],
-  "buildTargetsCommand": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cmake\\release\\x86\" {LIST_OF_TARGETS_TO_BUILD}",
+  "buildTargetsCommand": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86\" {LIST_OF_TARGETS_TO_BUILD}",
   "libraries": {
     "native-lib-Release-x86": {
       "artifactName": "native-lib",
-      "buildCommand": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cmake\\release\\x86\" native-lib",
+      "buildCommand": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/x86\" native-lib",
       "abi": "x86",
-      "output": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\build\\intermediates\\cmake\\release\\obj\\x86\\libnative-lib.so"
+      "output": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/release/obj/x86/libnative-lib.so"
     }
   }
 }
