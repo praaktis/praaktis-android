@@ -143,4 +143,9 @@
     <string name="no_chart_data_available">No chart data available</string>
     <string name="squats">SQUATS</string>
     <string name="curl">BICEP CURL</string>
+    <string name="best_results_need_2_people_one_to_perform_the_challenge_one_to_record_video">BEST RESULTS NEED 2 PEOPLE – ONE TO PERFORM THE CHALLENGE; ONE TO RECORD VIDEO</string>
+    <string name="performer_should_stand_approx_4_metres_from_the_camera_performer_should_have_right_side_facing_camera_arms_in_front_horizontal_and_level_with_the_shoulder">PERFORMER SHOULD STAND APPROX 4 METRES FROM THE CAMERA. PERFORMER SHOULD HAVE RIGHT SIDE FACING CAMERA ARMS IN FRONT, HORIZONTAL AND LEVEL WITH THE SHOULDER</string>
+    <string name="recorder_should_line_up_camera_so_that_performer_is_entirely_within_the_four_corners_identified_with_4_red_corner_markers">RECORDER SHOULD LINE UP CAMERA SO THAT PERFORMER IS ENTIRELY WITHIN THE FOUR CORNERS IDENTIFIED WITH 4 RED CORNER MARKERS</string>
+    <string name="within_5_seconds_the_red_markers_will_turn_green_recorder_should_then_tell_the_performer_to_begin_the_challenge">WITHIN 5 SECONDS THE RED MARKERS WILL TURN GREEN. RECORDER SHOULD THEN TELL THE PERFORMER TO BEGIN THE CHALLENGE</string>
+    <string name="in_order_to_get_most_accurate_results_it_is_recommended_that_the_performer_completes_5_10_repetitions_of_the_challenge_before_stopping_the_video">IN ORDER TO GET MOST ACCURATE RESULTS IT IS RECOMMENDED THAT THE PERFORMER COMPLETES 5 - 10 REPETITIONS OF THE CHALLENGE BEFORE STOPPING THE VIDEO</string>
 </resources>

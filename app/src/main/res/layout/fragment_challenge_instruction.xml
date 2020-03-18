@@ -21,8 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:layout_marginTop="20dp"
-            app:title=" "
-            app:navigationIcon="@drawable/ic_left_arrow" />
+            app:navigationIcon="@drawable/ic_left_arrow"
+            app:title=" " />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvtitle"
@@ -42,8 +42,7 @@
         android:layout_height="match_parent"
         android:layout_margin="16dp"
         app:cardCornerRadius="10dp"
-        app:cardElevation="3dp"
-        >
+        app:cardElevation="3dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,7 +53,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="@string/let_s_set_you_up_nicely"
                 android:textAllCaps="true"
@@ -71,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:padding="4dp">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_two"
@@ -80,7 +79,7 @@
                         android:layout_gravity="center"
                         android:text="1"
                         android:textColor="@color/black_text"
-                        android:textSize="35sp" />
+                        android:textSize="25sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_two_summary"
@@ -88,10 +87,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@string/place_your_camera_on_your_chest_level"
+                        android:text="@string/best_results_need_2_people_one_to_perform_the_challenge_one_to_record_video"
                         android:textAllCaps="true"
                         android:textColor="@color/black_text"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -100,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:padding="4dp">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_three"
@@ -109,7 +108,7 @@
                         android:layout_gravity="center"
                         android:text="2"
                         android:textColor="@color/black_text"
-                        android:textSize="35sp" />
+                        android:textSize="25sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_three_summary"
@@ -119,40 +118,107 @@
                         android:gravity="center"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:text="@string/make_sure_you_are_10_feet_away_from_your_camera"
+                        android:text="@string/performer_should_stand_approx_4_metres_from_the_camera_performer_should_have_right_side_facing_camera_arms_in_front_horizontal_and_level_with_the_shoulder"
                         android:textAllCaps="true"
                         android:textColor="@color/black_text"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="4dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_four"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="3"
+                        android:textColor="@color/black_text"
+                        android:textSize="25sp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_four_summary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/recorder_should_line_up_camera_so_that_performer_is_entirely_within_the_four_corners_identified_with_4_red_corner_markers"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black_text"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="4dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_five"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="4"
+                        android:textColor="@color/black_text"
+                        android:textSize="25sp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_five_summary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/within_5_seconds_the_red_markers_will_turn_green_recorder_should_then_tell_the_performer_to_begin_the_challenge"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black_text"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="4dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_six"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="5"
+                        android:textColor="@color/black_text"
+                        android:textSize="25sp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_six_summary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/in_order_to_get_most_accurate_results_it_is_recommended_that_the_performer_completes_5_10_repetitions_of_the_challenge_before_stopping_the_video"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black_text"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+
             </LinearLayout>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_four"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="3"
-                android:textColor="@color/black_text"
-                android:textSize="35sp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_four_summary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/make_sure_the_ball_and_the_goal_are_in_camera_view"
-                android:textAllCaps="true"
-                android:textColor="@color/black_text"
-                android:textSize="14sp" />
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                />
+                android:layout_weight="1" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_start_challenge"
