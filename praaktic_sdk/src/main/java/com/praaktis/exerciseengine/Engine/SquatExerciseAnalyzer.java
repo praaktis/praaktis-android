@@ -97,14 +97,10 @@ public class SquatExerciseAnalyzer extends ExerciseAnalyser {
         if(mS.isEmpty()) return;
         synchronized (Globals.EXERCISE_SCORES){
             int n = mS.size();
-            Globals.EXERCISE_SCORES.put("S1", mMeanS1 / n);
-            Globals.EXERCISE_SCORES.put("S2", mMeanS2 / n);
-            Globals.EXERCISE_SCORES.put("S" ,  mMeanS / n);
-            Globals.EXERCISE_SCORES.put("allS1" ,   mS1);
-            Globals.EXERCISE_SCORES.put("allS2" ,   mS2);
-            Globals.EXERCISE_SCORES.put("allS"  ,    mS);
-            Globals.EXERCISE_SCORES.put("count" , count + 0f);
-            Globals.EXERCISE_SCORES.put("OVERALL", mMeanS / n);
+            Globals.EXERCISE_SCORES.put("Count" , new DetailPoint(count, 23));
+            Globals.EXERCISE_SCORES.put("Angle of thigh", new DetailPoint(mMeanS1 / n, 24));
+            Globals.EXERCISE_SCORES.put("Back / shin angle", new DetailPoint(mMeanS2 / n, 25));
+            Globals.EXERCISE_SCORES.put("Overall", new DetailPoint(mMeanS / n, 26));
             Globals.EXERCISE_SCORES.put("NAMES", new String[]{"S1", "S2", "S"});
             Globals.EXERCISE_SCORES.put("CAPTION_VALS", mCaptionVals);
             Globals.EXERCISE_SCORES.put("CAPTION_FRAMES", mCaptionFrames);

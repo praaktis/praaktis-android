@@ -173,12 +173,12 @@ class CurlExerciseAnalyzer extends ExerciseAnalyser {
     @Override
     public void loadScores() {
         if(count > 0){
-            Globals.EXERCISE_SCORES.put("Knee bend", mMeanA / count);
-            Globals.EXERCISE_SCORES.put("Elbow angle", mMeanB / count);
-            Globals.EXERCISE_SCORES.put("Back bend", mMeanC / count);
-            Globals.EXERCISE_SCORES.put("Hip motion", mMeanD / count);
-            Globals.EXERCISE_SCORES.put("OVERALL", mMeanOverall / count);
-            Globals.EXERCISE_SCORES.put("Count", count + 0.f);
+            Globals.EXERCISE_SCORES.put("Count", new DetailPoint(count + 0.f, 27));
+            Globals.EXERCISE_SCORES.put("Angle at knee", new DetailPoint(mMeanA / count, 28));
+            Globals.EXERCISE_SCORES.put("Angle of back", new DetailPoint(mMeanC / count, 29));
+            Globals.EXERCISE_SCORES.put("Hip motion", new DetailPoint(mMeanD / count, 30));
+            Globals.EXERCISE_SCORES.put("Angle at elbow", new DetailPoint(mMeanB / count, 31));
+            Globals.EXERCISE_SCORES.put("Overall", new DetailPoint(mMeanOverall / count, 32));
         }
     }
 }
