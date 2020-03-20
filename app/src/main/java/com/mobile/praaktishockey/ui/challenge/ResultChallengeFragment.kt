@@ -15,8 +15,8 @@ import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.challenge.vm.ResultChallengeFragmentViewModel
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
-import com.praaktis.exerciseengine.Exercise
-import com.praaktis.exerciseengine.ExerciseEngineActivity
+import com.praaktis.exerciseengine.Engine.Exercise
+import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
 import java.util.*
 

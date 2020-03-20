@@ -1,6 +1,9 @@
-package com.praaktis.exerciseengine;
+package com.praaktis.exerciseengine.Engine;
 
-interface JointsMap {
+/**
+ * Key points map, should correspond with the map of pose-estimation server
+ */
+public interface JointsMap {
     int NUM_JOINTS = 25;
     int RANKLE = 0;
     int RKNEE = 1;

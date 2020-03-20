@@ -20,7 +20,6 @@ import com.mobile.praaktishockey.domain.extension.show
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.mobile.praaktishockey.ui.details.view.DetailsActivity
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
-import com.praaktis.exerciseengine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.activity_video_challenge.*
 
 /**

@@ -1,4 +1,4 @@
-package com.praaktis.exerciseengine;
+package com.praaktis.exerciseengine.Engine;
 
 interface NetworkIOConstants {
     int HEADER_SIZE = 13;

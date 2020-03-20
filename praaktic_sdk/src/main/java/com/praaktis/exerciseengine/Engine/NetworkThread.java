@@ -1,4 +1,4 @@
-package com.praaktis.exerciseengine;
+package com.praaktis.exerciseengine.Engine;
 
 import android.graphics.Rect;
 import android.media.MediaCodec;
@@ -25,6 +25,12 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 
+/**
+ *  Class for background networking during a exercise
+ *  Responsibilities:
+ *  1. Establish and maintain connection with the pose-estimation server
+ *  2. Send data returned from {@link VideoEncoder} to the pose-estimation server
+ */
 class NetworkThread extends Thread {
 
     private SSLSocket mSocket;

@@ -1,5 +1,8 @@
-package com.praaktis.exerciseengine;
+package com.praaktis.exerciseengine.Engine;
 
+/**
+ * Enumerator for the states of engine
+ */
 enum EngineState {
     CONNECTION_FAILED,
     CALIBRATION,

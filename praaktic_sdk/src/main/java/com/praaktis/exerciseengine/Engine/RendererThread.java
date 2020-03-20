@@ -1,4 +1,4 @@
-package com.praaktis.exerciseengine;
+package com.praaktis.exerciseengine.Engine;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -14,11 +15,20 @@ import android.view.SurfaceHolder;
 
 import androidx.annotation.RequiresApi;
 
-import static com.praaktis.exerciseengine.EngineState.CALIBRATION_FAILED;
-import static com.praaktis.exerciseengine.EngineState.EXERCISE;
-import static com.praaktis.exerciseengine.EngineState.EXERCISE_COMPLETED;
+import com.praaktis.exerciseengine.R;
+
+import static com.praaktis.exerciseengine.Engine.EngineState.CALIBRATION_FAILED;
+import static com.praaktis.exerciseengine.Engine.EngineState.EXERCISE;
+import static com.praaktis.exerciseengine.Engine.EngineState.EXERCISE_COMPLETED;
 import static java.lang.System.currentTimeMillis;
 
+/**
+ *  Class for displaying progress during a single exercise
+ *  Responsibilities:
+ *  1. Draw bounding box, exercise counter, timer and scoring.
+ *  2. Notify user about failures, status changes
+ *  3. Switch engine state if timer is up
+ */
 class RendererThread extends Thread {
 
     private boolean mRunning = false;
@@ -176,6 +186,8 @@ class RendererThread extends Thread {
                     break;
                 case CALIBRATION_FAILED: {
                     if (!Globals.isErr) {
+                        MediaPlayer mediaPlayer = MediaPlayer.create(Globals.mainActivity, R.raw.error);
+                        mediaPlayer.start();
                         Message msg = mMessageHandler.obtainMessage(Globals.MSG_ERROR);
                         msg.obj = "Calibration failed. \nPlease start again";
                         mMessageHandler.sendMessage(msg);
@@ -185,6 +197,8 @@ class RendererThread extends Thread {
                 }
                 case EXERCISE_FAILED: {
                     if (!Globals.isErr) {
+                        MediaPlayer mediaPlayer = MediaPlayer.create(Globals.mainActivity, R.raw.error);
+                        mediaPlayer.start();
 //                        Message msg = mMessageHandler.obtainMessage(Globals.MSG_ERROR);
                         Message msg = mMessageHandler.obtainMessage(Globals.MSG_RESULT);
                         msg.obj = Globals.EXERCISE_SCORES.clone();
@@ -218,8 +232,10 @@ class RendererThread extends Thread {
                 switch (Globals.state) {
                     case CALIBRATION:
                         if (Globals.inBoundingBox) {
+                            MediaPlayer mediaPlayer = MediaPlayer.create(Globals.mainActivity, R.raw.sharp);
+                            mediaPlayer.start();
                             Globals.state = EXERCISE;
-                            mCounterEnd = currentTimeMillis() + Globals.EXCERCISE_TIME_IN_SEC * 1000;
+                            mCounterEnd = currentTimeMillis() + Globals.EXERCISE_TIME_IN_SEC * 1000;
                             mCounterSet = true;
                         } else {
                             Globals.state = CALIBRATION_FAILED;

@@ -16,8 +16,8 @@ import com.mobile.praaktishockey.base.BaseViewModel
 import com.mobile.praaktishockey.domain.extension.getViewModel
 import com.mobile.praaktishockey.ui.challenge.ChallengeActivity
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
-import com.praaktis.exerciseengine.Exercise
-import com.praaktis.exerciseengine.ExerciseEngineActivity
+import com.praaktis.exerciseengine.Engine.Exercise
+import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_challenge_instruction.*
 
 class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragment_challenge_instruction) :

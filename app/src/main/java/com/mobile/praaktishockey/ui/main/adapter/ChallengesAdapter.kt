@@ -10,7 +10,6 @@ import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.domain.extension.onClick
-import com.praaktis.exerciseengine.Exercise
 import kotlinx.android.synthetic.main.item_challenge.view.*
 import java.io.Serializable
 

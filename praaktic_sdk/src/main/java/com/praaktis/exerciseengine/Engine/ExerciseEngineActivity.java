@@ -1,4 +1,4 @@
-package com.praaktis.exerciseengine;
+package com.praaktis.exerciseengine.Engine;
 
 import android.Manifest;
 import android.app.Activity;
@@ -39,6 +39,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
+import com.praaktis.exerciseengine.R;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -47,7 +49,7 @@ import java.net.Socket;
 import java.util.Arrays;
 
 import static android.content.ContentValues.TAG;
-import static com.praaktis.exerciseengine.Exercise.SQUATS;
+import static com.praaktis.exerciseengine.Engine.Exercise.SQUATS;
 import static java.lang.System.currentTimeMillis;
 
 
@@ -89,14 +91,13 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
         System.loadLibrary("native-lib");
     }
 
-    // Constructor
-    //
+    /**
+     * Constructor
+     */
     public ExerciseEngineActivity() {
         Globals.mainActivity = this;
     }
 
-    // Getters and setters
-    //
     public SurfaceHolder getSurfaceHolder() {
         return mSurfaceHolder;
     }
@@ -105,14 +106,10 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
         return mTextureView;
     }
 
-    // Other methods
-    //
-    void notifyConnectionFailed() {
-        Globals.state = EngineState.CONNECTION_FAILED;
-    }
-
-    // Listeners and callbacks
-    //
+    /**
+     * Method to create TextureListener
+     * @return android.view.TextureView.SurfaceTextureListener
+     */
     private final TextureView.SurfaceTextureListener createTextureListener() {
         return new TextureView.SurfaceTextureListener() {
             @Override
@@ -135,6 +132,10 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
         };
     }
 
+    /**
+     * Method to create CameraCallback
+     * @return android.hardware.camera2.CameraDevice.StateCallback
+     */
     private CameraDevice.StateCallback createCameraCallback() {
         return new CameraDevice.StateCallback() {
             @Override
@@ -197,6 +198,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
             public void handleMessage(Message msg) {
                 String s = "";
                 Intent intent = new Intent();
+                intent.putExtra("RAW_VIDEO_PATH", Globals.rawVideoPath);
 
                 if (msg.what == Globals.MSG_ERROR) {
                     mMsgShown = true;
@@ -222,8 +224,8 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
                     intent.putExtra("VIDEO_PATH", Globals.videoPath);
                     activity.setResult(Activity.RESULT_OK, intent);
                     activity.finish();
-                } else if (msg.what == Globals.MSG_COPY_BITMAP) {
-                    Globals.textureBitmap = mTextureView.getBitmap();
+//                } else if (msg.what == Globals.MSG_COPY_BITMAP) {
+//                    Globals.textureBitmap = mTextureView.getBitmap();
                 }
             }
         };
@@ -279,14 +281,18 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
         super.onDestroy();
     }
 
-    // Camera handling
-    //
+    /**
+     * Camera handling
+     */
     protected void startBackgroundThread() {
         mBackgroundThread = new HandlerThread("Camera Background");
         mBackgroundThread.start();
         mBackgroundHandler = new Handler(mBackgroundThread.getLooper());
     }
 
+    /**
+     * Stop background thread which handles camera
+     */
     protected void stopBackgroundThread() {
         mBackgroundThread.quitSafely();
         try {
@@ -484,6 +490,13 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
     }
 
+    /**
+     * This method used only for testing
+     * send arr through the Socket at host with port
+     * @param arr byte arr
+     * @param host host
+     * @param port port
+     */
     private static void sendByteArrayTcp(byte [] arr, String host, int port) {
         Socket skt = null;
         try {
@@ -501,6 +514,9 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
         }
     }
 
+    /**
+     * mOnImageAvailableListener listens on camera device for every new frame, resize YUV frame and adds to the queue for the codec
+     */
     private final ImageReader.OnImageAvailableListener mOnImageAvailableListener = new ImageReader.OnImageAvailableListener() {
 
         private final int SCALE_FACTOR = 3;
@@ -509,7 +525,6 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
         byte[] mRowBytesR = null;
 
         boolean ok = true;
-
 
         @Override
         public void onImageAvailable(ImageReader reader) {
@@ -567,11 +582,39 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
         }
     };
 
+    /**
+     * Native method for resizing a YUV420_888 frame
+     * @param outBuf buffer for result
+     * @param bytesY Y channel
+     * @param bytesB U channel
+     * @param bytesR V channel
+     * @param yRowStride Y channel row stride
+     * @param uvRowstride U channel row stride
+     * @param pixelStride pixel stride
+     */
     public native void resizeYUV3(byte [] outBuf,byte[] bytesY, byte[] bytesB, byte[] bytesR,
                                    int yRowStride, int uvRowstride, int pixelStride);
 
+    /**
+     * Native method for converting YUV420_888 to grayscale RGB
+     * @param buf buffer for result
+     * @param pixels yuv frame to be converted
+     * @param n number of bytes
+     */
     public native void yuvToRGBGrayscale(byte[] buf, int[] pixels, int n);
 
+    /**
+     * Native method for converting YUV420_888 to RGB
+     * @param bytesY Y channel
+     * @param bytesB U channel
+     * @param bytesR V channel
+     * @param bmp    bitmap for result
+     * @param width  Width of the frame
+     * @param height height of the frame
+     * @param yRowStride Y channel row stride
+     * @param uvRowstride U channel row stride
+     * @param pixelStride pixel stride
+     */
     public native void yuvToRGB(byte[] bytesY, byte[] bytesB, byte[] bytesR, Bitmap bmp, int width, int height,
                                 int yRowStride, int uvRowstride, int pixelStride);
 

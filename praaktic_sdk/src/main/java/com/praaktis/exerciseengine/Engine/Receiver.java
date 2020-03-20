@@ -1,4 +1,4 @@
-package com.praaktis.exerciseengine;
+package com.praaktis.exerciseengine.Engine;
 
 import android.os.Build;
 import android.util.Log;
@@ -8,11 +8,17 @@ import androidx.annotation.RequiresApi;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import static com.praaktis.exerciseengine.NetworkIOConstants.MSG_ERROR;
-import static com.praaktis.exerciseengine.NetworkIOConstants.MSG_FRAME_POINTS;
-import static com.praaktis.exerciseengine.NetworkIOConstants.MSG_OK;
+import static com.praaktis.exerciseengine.Engine.NetworkIOConstants.MSG_ERROR;
+import static com.praaktis.exerciseengine.Engine.NetworkIOConstants.MSG_FRAME_POINTS;
+import static com.praaktis.exerciseengine.Engine.NetworkIOConstants.MSG_OK;
 
-class Receiver extends Thread {
+/**
+ *  Class for receiving results from pose-estimation server
+ *  Responsibilities:
+ *  1. Check if a pose inside bounding box
+ *  2. Switch Engine state
+ */
+class Receiver extends Thread{
     private volatile boolean mRunning = false;
 
     private final int[] mImportantPoints = {
@@ -44,6 +50,15 @@ class Receiver extends Thread {
     }
 
 
+    /**
+     * Setting necessary parameters for canvas and bounding box
+     * @param width
+     * @param height
+     * @param boundingBoxX
+     * @param boundingBoxY
+     * @param boundingBoxW
+     * @param boundingBoxH
+     */
     public void setCanvasSize(int width, int height,
                               int boundingBoxX, int boundingBoxY,
                               int boundingBoxW, int boundingBoxH) {
@@ -73,20 +88,11 @@ class Receiver extends Thread {
         return true;
     }
 
-    private void debugUpdateArmsAngle(ExerciseAnalyser exerciseAnalyser, float[] points) {
-        synchronized (Globals.globalLock) {
-            Globals.leftShoulderAngle = exerciseAnalyser.getArmAngle(points, ExerciseAnalyser.LEFT_ARM);
-            Globals.rightShoulderAngle = exerciseAnalyser.getArmAngle(points, ExerciseAnalyser.RIGHT_ARM);
-            Globals.leftElbowAngle = exerciseAnalyser.getElbowAngle(points, ExerciseAnalyser.LEFT_ARM);
-            Globals.rightElbowAngle = exerciseAnalyser.getElbowAngle(points, ExerciseAnalyser.RIGHT_ARM);
-        }
-
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void processStateMachine(ExerciseAnalyser exerciseAnalyser,
                                      ArrayList<float[]> scene,
-                                     int person) {
+                                     int person,
+                                     int frameNum) {
 
         switch (Globals.state) {
 
@@ -114,11 +120,6 @@ class Receiver extends Thread {
                 if (height <= 0)
                     Globals.state = EngineState.EXERCISE_FAILED;
                 else {
-                    synchronized (Globals.globalLock) {
-                        Globals.score1 = height;
-                        Globals.score2 = 0;
-                        Globals.score3 = 0;
-                    }
                     Globals.state = EngineState.SCORING;
                 }
                 green = false;
@@ -137,13 +138,14 @@ class Receiver extends Thread {
                     break;
                 }
 
-                exerciseAnalyser.analyze(scene.get(person));
+                exerciseAnalyser.analyze(scene.get(person), frameNum);
 
                 mPoints.add(scene.get(person));
                 break;
             }
         }
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -180,7 +182,7 @@ class Receiver extends Thread {
                         for (byte c : rpResult.packetData)
                             buf.appendCodePoint(c);
                         Globals.message = buf.substring(0);
-                        processStateMachine(exerciseAnalyser, null, -127);
+                        processStateMachine(exerciseAnalyser, null, -127, 0);
 
                         Log.d("ERRORMSG", Globals.message);
 
@@ -245,7 +247,7 @@ class Receiver extends Thread {
                         //if (false && person >= 0)
                         //  debugUpdateArmsAngle(data, excerciseAnalyser, person, numPointsPerPerson);
 
-                        processStateMachine(exerciseAnalyser, scene, personIdx);
+                        processStateMachine(exerciseAnalyser, scene, personIdx, frameNum);
 
                         break;
                     }

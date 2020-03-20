@@ -1,4 +1,4 @@
-package com.praaktis.exerciseengine;
+package com.praaktis.exerciseengine.Engine;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,6 +8,7 @@ import android.media.MediaFormat;
 import android.media.MediaMuxer;
 import android.util.Log;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
@@ -44,6 +45,8 @@ class VideoEncoder {
     private MediaCodec.BufferInfo mBufferInfo;
     private final long TIMEOUT_USEC = 10000L;
     private long start = -1;
+
+    private FileOutputStream mH264VideoFileStream;
 
 
 
@@ -91,6 +94,11 @@ class VideoEncoder {
         Globals.videoPath = videoPath;
 
         mMuxer = new MediaMuxer(videoPath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
+        String rawVideoPath = Globals.mainActivity.getCacheDir().getPath() + "/test.h264";
+//        String rawVideoPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/test.h264";
+        Globals.rawVideoPath = rawVideoPath;
+
+        mH264VideoFileStream = new FileOutputStream(rawVideoPath);
         mCodec.start();
     }
 
@@ -128,6 +136,7 @@ class VideoEncoder {
                     NetworkIO.sendPacket(mOutputStream, (byte) NetworkIOConstants.MSG_FRAME_DATA, buf);
 
                     mMuxer.writeSampleData(mMetadataTrackIndex, outputBuffer, mBufferInfo);
+                    mH264VideoFileStream.write(buf, 8, mBufferInfo.size);
 
                 } else {
                     Log.d("SENTVIDEO", currentTimeMillis() - start + "");
@@ -170,6 +179,11 @@ class VideoEncoder {
         if (muxer_sarted) {
             mMuxer.stop();
             mMuxer.release();
+            try {
+                mH264VideoFileStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         if (codec_started) {
             mCodec.stop();

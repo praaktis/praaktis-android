@@ -1,49 +1,56 @@
-package com.praaktis.exerciseengine;
+package com.praaktis.exerciseengine.Engine;
 
 import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-import java.util.ArrayList;
-
+/**
+ * Analyzer class for Bicep Curls
+ * <p>
+ * Criteria:
+ * <p>
+ * 1. al->the minimum angle at the elbow i.e. when the upward movement of the curl stops and reverses
+ * <p>
+ * 2. bet->the smallest angle at the knee at any point in the exercise
+ * <p>
+ * 3. [gamma,delta]->the maximum angles from the vertical of the head compared with the feet (or if that is not practical the maximu angle of the back from the vertical (both leaning forward and back - so two measurements
+ * <p>
+ * 4. the maximum movement of the hips 9they tend to sway in some of the videos
+ * <p>
+ * <p>
+ * Score A - Knee bend
+ * <p>
+ * = 100 - ((180 - result)/2)
+ * so if the result is 160 then the Score A is 100-(20/2) = 90
+ * <p>
+ * Score B - Elbow angle
+ * <p>
+ * = 100 - (result - 35)
+ * so if the result is 55 then the Score B is 100-(20) = 80
+ * <p>
+ * Have a Minimum Bound of 35 below which is a fail
+ * <p>
+ * Score C - Back bend (Min/Max)
+ * <p>
+ * calculate the Difference between Min and Max  so 4:11 = 7; -4:23 = 27
+ * <p>
+ * = 100 - (3 * Difference)
+ * so if the result is 3:19 then the Difference is 16 and the Score C is 100-(3*16) = 52
+ * <p>
+ * Have a Minimum Bound of 35 below which is a fail
+ * <p>
+ * Score D - Hip Motion
+ * <p>
+ * = 100 - (5 * result)
+ * <p>
+ * so if the result is 7.28 then the Score D is 100 - 5* 7.28) = 63.6
+ * <p>
+ * The the Overall Score is
+ * <p>
+ * (10% Score A) + (20% Score B) + (40% Score C) + (30% Score D)
+ */
 class CurlExerciseAnalyzer extends ExerciseAnalyser {
-
-    /**
-     * 1. al->the minimum angle at the elbow i.e. when the upward movement of the curl stops and reverses
-     * 2. bet->the smallest angle at the knee at any point in the exercise
-     * 3. [gamma,delta]->the maximum angles from the vertical of the head compared with the feet (or if that is not practical the maximu angle of the back from the vertical (both leaning forward and back - so two measurements
-     * 4. the maximum movement of the hips 9they tend to sway in some of the videos
-     * <p>
-     * <p>
-     * Score A - Knee bend
-     * <p>
-     * = 100 - ((180 - result)/2)
-     * so if the result is 160 then the Score A is 100-(20/2) = 90
-     * <p>
-     * Score B - Elbow angle
-     * <p>
-     * = 100 - (result - 35)
-     * so if the result is 55 then the Score B is 100-(20) = 80
-     * Have a Minimum Bound of 35 below which is a fail
-     * <p>
-     * Score C - Back bend (Min/Max)
-     * <p>
-     * calculate the Difference between Min and Max  so 4:11 = 7; -4:23 = 27
-     * <p>
-     * = 100 - (3 * Difference)
-     * so if the result is 3:19 then the Difference is 16 and the Score C is 100-(3*16) = 52
-     * Have a Minimum Bound of 35 below which is a fail
-     * <p>
-     * Score D - Hip Motion
-     * <p>
-     * = 100 - (5 * result)
-     * so if the result is 7.28 then the Score D is 100 - 5* 7.28) = 63.6
-     * <p>
-     * The the Overall Score is
-     * <p>
-     * (10% Score A) + (20% Score B) + (40% Score C) + (30% Score D)
-     */
 
     private final int UP = 1;
     private final int DOWN = 0;
@@ -69,19 +76,19 @@ class CurlExerciseAnalyzer extends ExerciseAnalyser {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void analyze(float[] points) {
-        int angleAtKnee = getAngleAtKnee(points, RIGHT_ARM);
-        int angleAtElbow = getAngleAtElbow(points, RIGHT_ARM);
-        int angleAtBack = -getAngleAtBack(points, RIGHT_ARM);
+    public void analyze(float[] pose, int frameNum) {
+        int angleAtKnee = getAngleAtKnee(pose, RIGHT_ARM);
+        int angleAtElbow = getAngleAtElbow(pose, RIGHT_ARM);
+        int angleAtBack = -getAngleAtBack(pose, RIGHT_ARM);
 
-        float x0 = (points[3 * JointsMap.RANKLE] + points[3 * JointsMap.LANKLE]) / 2;
-        float y0 = (points[3 * JointsMap.RANKLE + 1] + points[3 * JointsMap.LANKLE + 1]) / 2;
+        float x0 = (pose[3 * JointsMap.RANKLE] + pose[3 * JointsMap.LANKLE]) / 2;
+        float y0 = (pose[3 * JointsMap.RANKLE + 1] + pose[3 * JointsMap.LANKLE + 1]) / 2;
 
-        float xp = points[3 * JointsMap.PELV];
-        float yp = points[3 * JointsMap.PELV + 1];
+        float xp = pose[3 * JointsMap.PELV];
+        float yp = pose[3 * JointsMap.PELV + 1];
 
-        float xn = points[3 * JointsMap.NECK];
-        float yn = points[3 * JointsMap.NECK + 1];
+        float xn = pose[3 * JointsMap.NECK];
+        float yn = pose[3 * JointsMap.NECK + 1];
 
         float S = (x0 * yn + xn * yp + xp * y0 - y0 * xn - yn * xp - yp * x0) / 2;
         float epszet = (float) (S / (2 * Math.sqrt((x0 - xn) * (x0 - xn) + (y0 - yn) * (y0 - yn))));
@@ -113,8 +120,8 @@ class CurlExerciseAnalyzer extends ExerciseAnalyser {
                 state = UP;
                 Log.d("UUUUP----------->", +ALPHA + "\t\t" + BETA);
 //                if(BETA > 90) BETA -= 180;
-                float x = points[3 * JointsMap.RANKLE] - points[3 * JointsMap.RKNEE];
-                float y = points[3 * JointsMap.RANKLE + 1] - points[3 * JointsMap.RKNEE + 1];
+                float x = pose[3 * JointsMap.RANKLE] - pose[3 * JointsMap.RKNEE];
+                float y = pose[3 * JointsMap.RANKLE + 1] - pose[3 * JointsMap.RKNEE + 1];
 
                 float hip_rat = (float) ((ZETA - EPSILON) / Math.sqrt(x * x + y * y));
                 hip_rat = (int) (5000 * hip_rat);

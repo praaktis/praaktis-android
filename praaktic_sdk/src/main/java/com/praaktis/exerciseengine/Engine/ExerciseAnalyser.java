@@ -1,35 +1,34 @@
-package com.praaktis.exerciseengine;
+package com.praaktis.exerciseengine.Engine;
 
-import java.util.ArrayList;
-
-
+/**
+ * Abstract Exercise Analyzer class, encapsulates algorithm of analyzing.
+ *
+ */
 abstract class ExerciseAnalyser {
 
     protected Integer mFrameNum = 0;
 
-    // private ArrayList<ArrayList<float []>> mPoses;
 
     protected static final int LEFT_ARM = 0;
     protected static final int RIGHT_ARM = 1;
 
+    /**
+     *
+     * @param exercise Exercise
+     * @return ExerciseAnalyzer object
+     */
     public static ExerciseAnalyser createAnalyzer(Exercise exercise) {
 
         switch (exercise){
             case SQUATS:{
-                Globals.CALIBRATION_TIME_IN_SEC = 6;
-                Globals.EXCERCISE_TIME_IN_SEC = 60 * 2;
                 return new SquatExerciseAnalyzer();
             }
 
             case CURL: {
-                Globals.CALIBRATION_TIME_IN_SEC = 6;
-                Globals.EXCERCISE_TIME_IN_SEC = 60 * 2;
                 return new CurlExerciseAnalyzer();
             }
 
             case STRETCHING_ARMS_UP:{
-                Globals.CALIBRATION_TIME_IN_SEC = 6;
-                Globals.EXCERCISE_TIME_IN_SEC = 6;
                 return new StretchingArmsUpAnalyzer();
             }
 
@@ -38,11 +37,29 @@ abstract class ExerciseAnalyser {
         }
     }
 
+    /**
+     * This method is used to calculate distance betweem two points
+     * @param x0 abscissa of the first point
+     * @param y0 ordinate of the first point
+     * @param x1 abscissa of the second point
+     * @param y1 ordinate of the second point
+     * @return float
+     */
     protected float getLinesLength(float x0, float y0,
                                    float x1, float y1) {
         return (float) Math.sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0));
     }
 
+    /**
+     * Find angle between vectors AB, AC, where
+     * @param x1 abscissa of B
+     * @param y1 ordinate of B
+     * @param x0 abscissa of A
+     * @param y0 ordinate of A
+     * @param x2 abscissa of C
+     * @param y2 ordinate of C
+     * @return float
+     */
     protected float getLinesAngle(float x1, float y1,
                                   float x0, float y0,
                                   float x2, float y2) {
@@ -58,9 +75,9 @@ abstract class ExerciseAnalyser {
 
     /**
      * Compute and return angle between back and vertical
-     * @param person -- joint points of a person WRNCH map
-     * @param side -- which side(LEFT or RIGHT)
-     * @return -- angle
+     * @param person joint points of a person WRNCH map
+     * @param side which side(LEFT or RIGHT)
+     * @return angle
      */
     protected int getAngleAtBack(float[] person, int side) {
         float neckX = person[3 * (side == LEFT_ARM ? JointsMap.NECK : JointsMap.NECK)];
@@ -83,9 +100,9 @@ abstract class ExerciseAnalyser {
 
     /**
      * Compute and return angle at elbow
-     * @param pose -- joint points of a person WRNCH map
-     * @param arm -- which side(LEFT or RIGHT)
-     * @return -- angle
+     * @param pose joint points of a person WRNCH map
+     * @param arm which side(LEFT or RIGHT)
+     * @return angle
      */
     protected float getElbowAngle(float[] pose, int arm) {
         float point1x, point1y;
@@ -132,9 +149,9 @@ abstract class ExerciseAnalyser {
 
     /**
      * Compute and return angle at elbow
-     * @param person -- joint points of a person WRNCH map
-     * @param side -- which side(LEFT or RIGHT)
-     * @return -- angle
+     * @param person joint points of a person WRNCH map
+     * @param side which side(LEFT or RIGHT)
+     * @return angle
      */
     protected int getAngleAtElbow(float[] person, int side) {
         float shoulderX = person[3 * (side == LEFT_ARM ? JointsMap.LSHOULDER : JointsMap.RSHOULDER)];
@@ -157,9 +174,9 @@ abstract class ExerciseAnalyser {
 
     /**
      * Compute and return angle at armpit
-     * @param pose -- joint points of a person WRNCH map
-     * @param arm -- which side(LEFT or RIGHT)
-     * @return -- angle
+     * @param pose joint points of a person WRNCH map
+     * @param arm which side(LEFT or RIGHT)
+     * @return angle
      */
     protected float getArmAngle(float[] pose, int arm) {
         float point1x, point1y;
@@ -205,9 +222,9 @@ abstract class ExerciseAnalyser {
 
     /**
      * Compute and return angle between back and shin
-     * @param person -- joint points of a person WRNCH map
-     * @param side -- which side(LEFT or RIGHT)
-     * @return -- angle
+     * @param person joint points of a person WRNCH map
+     * @param side which side(LEFT or RIGHT)
+     * @return angle
      */
     protected int getAngleAtBackAndShin(float[] person, int side) {
         float rShouldX = person[3 * (side == LEFT_ARM ? JointsMap.LSHOULDER : JointsMap.RSHOULDER)];
@@ -233,9 +250,9 @@ abstract class ExerciseAnalyser {
 
     /**
      * Compute and return angle at knee
-     * @param person -- joint points of a person WRNCH map
-     * @param side -- which side(LEFT or RIGHT)
-     * @return -- angle
+     * @param person joint points of a person WRNCH map
+     * @param side which side(LEFT or RIGHT)
+     * @return angle
      */
     public int getAngleAtKnee(float[] person, int side) {
         float hipX = person[3 * (side == LEFT_ARM ? JointsMap.LHIP : JointsMap.RHIP)];
@@ -258,9 +275,9 @@ abstract class ExerciseAnalyser {
 
     /**
      * Compute and return angle between vertical and segment connecting hip and knee
-     * @param person -- joint points of a person WRNCH map
-     * @param side -- which side(LEFT or RIGHT)
-     * @return -- angle
+     * @param person joint points of a person WRNCH map
+     * @param side which side(LEFT or RIGHT)
+     * @return angle
      */
     protected int getAngleAtHip(float[] person, int side) {
         float hipX = person[3 * (side == LEFT_ARM ? JointsMap.LHIP : JointsMap.RHIP)];
@@ -283,96 +300,28 @@ abstract class ExerciseAnalyser {
         return beta;
     }
 
-    // Returns angular speed of an arm in degrees per second
-    //
+    /**
+     * Returns angular speed of an arm in degrees per second
+     * @param pose1 coordinates of key points of the first pose
+     * @param pose2 coordinates of key points of the second pose
+     * @param arm Indicator of from which side we should calculate the result
+     * @return float
+     */
     protected float getArmAngularSpeed(float[] pose1, float[] pose2, int arm) {
         float angle1 = getArmAngle(pose1, arm);
         float angle2 = getArmAngle(pose2, arm);
         return (angle2 - angle1) * Globals.VIDEO_FRAME_PER_SECOND;
     }
 
-    // Find the point in time when the excercise starts
-    //
-    protected int findStartOfExercise(ArrayList<float[]> poses) {
-        int numPoses = poses.size();
-        int maxPose = numPoses - 1;
-        final int THRESHOLD = 5; // 5 deg/second
+    /**
+     *  Analyze a frame.
+     * @param pose coordinates of key points
+     * @param frameNum order number of the frame to be analyzed
+     */
+    public abstract void analyze(float[] pose, int frameNum);
 
-        for (int i = 0; i < maxPose; i++) {
-            float angSpeedLeft = getArmAngularSpeed(poses.get(i), poses.get(i + 1), LEFT_ARM);
-            float angSpeedRight = getArmAngularSpeed(poses.get(i), poses.get(i + 1), RIGHT_ARM);
-            if (angSpeedLeft >= THRESHOLD || angSpeedRight >= THRESHOLD)
-                return i;
-        }
-        return 0;
-        //return -1;
-    }
-
-    // Find the point in time when the excercise ends
-    // if excercise was in process after the expected time period
-    // for completion, -1 is returned
-    //
-    private int findEndOfExercise(ArrayList<float[]> poses) {
-        int numPoses = poses.size();
-        int maxPose = numPoses - 1;
-        return maxPose - 1;
-//        final int THRESHOLD = 5; // 5 deg/second
-//        for (int i = 0; i < maxPose; i++) {
-//            float angSpeedLeft = getArmAngularSpeed(poses.get(i), poses.get(i + 1), LEFT_ARM);
-//            float angSpeedRight = getArmAngularSpeed(poses.get(i), poses.get(i + 1), RIGHT_ARM);
-//            if (angSpeedLeft < THRESHOLD && angSpeedRight < THRESHOLD)
-//                return i;
-//        }
-        //return -1;
-    }
-
-    // Returns an array of 3 floats (score 1, score 2, score 3)
-    //
-    public float[] analyzeExcercise(ArrayList<float[]> poses) {
-        int startOfExcercise = findStartOfExercise(poses);
-        if (startOfExcercise == -1)
-            return null;
-        int endOfExcercise = findEndOfExercise(poses);
-        if (endOfExcercise == -1)
-            return null;
-        float[] res = new float[3];
-
-        float maxArmAngle = 0;
-        float maxElbowAngle = 0;
-        double sumElbowAngleLeft = 0.0;
-        double sumElbowAngleRight = 0.0;
-
-        for (int i = startOfExcercise; i < endOfExcercise; i++) {
-            float armAngleLeft;
-            float armAngleRight;
-
-            armAngleLeft = getArmAngle(poses.get(i), LEFT_ARM);
-            armAngleRight = getArmAngle(poses.get(i), RIGHT_ARM);
-            maxArmAngle = Math.max(Math.min(armAngleLeft, armAngleRight), maxArmAngle);
-
-            float elbowAngleLeft;
-            float elbowAngleRight;
-
-            elbowAngleLeft = getElbowAngle(poses.get(i), LEFT_ARM);
-            elbowAngleRight = getElbowAngle(poses.get(i), RIGHT_ARM);
-            maxElbowAngle = Math.max(Math.min(elbowAngleLeft, elbowAngleRight), maxElbowAngle);
-
-            sumElbowAngleLeft += elbowAngleLeft;
-            sumElbowAngleRight += elbowAngleRight;
-
-        }
-
-        float avgElbowAngleLeft = (float) (sumElbowAngleLeft / (endOfExcercise - startOfExcercise));
-        float avgElbowAngleRight = (float) (sumElbowAngleRight / (endOfExcercise - startOfExcercise));
-        float avgElbowAngle = (float) ((avgElbowAngleLeft + avgElbowAngleRight) / 2.0);
-
-        res[0] = (maxArmAngle < 90) ? 0 : (maxArmAngle - 80);
-        res[1] = (maxElbowAngle < 90) ? 0 : (maxElbowAngle - 80);
-        res[2] = (avgElbowAngle < 90) ? 0 : (avgElbowAngle - 80);
-        return res;
-    }
-
-    public abstract void analyze(float[] person);
-
+    /**
+     * After analyzing all frames this method should be called in order to fill the scores HashMap.
+     */
     public abstract void loadScores();
 }

@@ -12,8 +12,6 @@ import com.mobile.praaktishockey.ui.challenge.ChallengeVideoActivity
 import com.mobile.praaktishockey.ui.main.adapter.ChallengesAdapter
 import com.mobile.praaktishockey.ui.main.vm.MainViewModel
 import com.mobile.praaktishockey.ui.main.vm.NewChallengeViewModel
-import com.praaktis.exerciseengine.ExerciseEngine
-import com.praaktis.exerciseengine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_new_challenge.*
 
 class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_new_challenge) :

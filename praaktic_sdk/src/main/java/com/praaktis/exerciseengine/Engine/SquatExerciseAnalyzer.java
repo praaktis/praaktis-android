@@ -1,4 +1,4 @@
-package com.praaktis.exerciseengine;
+package com.praaktis.exerciseengine.Engine;
 
 import android.os.Build;
 
@@ -6,6 +6,9 @@ import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 
+/**
+ *  Analyzer class for Squats
+ */
 public class SquatExerciseAnalyzer extends ExerciseAnalyser {
 
     private final int UP = 1;
@@ -26,17 +29,19 @@ public class SquatExerciseAnalyzer extends ExerciseAnalyser {
     private Float mMeanS2 = 0f;
     private Float mMeanS = 0f;
     int count = 0;
-    int mFrameNum = 0;
+
+    private ArrayList<Float[]> mCaptionVals = new ArrayList<>();
+    private ArrayList<Integer> mCaptionFrames = new ArrayList<>();
 
     SquatExerciseAnalyzer() {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void analyze(float[] mPoints) {
-        int alpha = getAngleAtBackAndShin(mPoints, LEFT_ARM);
-        int beta = getAngleAtHip(mPoints, LEFT_ARM);
-        int gamma = getAngleAtKnee(mPoints, LEFT_ARM);
+    public void analyze(float[] pose, int frameNum) {
+        int alpha = getAngleAtBackAndShin(pose, LEFT_ARM);
+        int beta = getAngleAtHip(pose, LEFT_ARM);
+        int gamma = getAngleAtKnee(pose, LEFT_ARM);
 
         if (state == UP) {
             if (gamma < downThresh) {
@@ -62,12 +67,12 @@ public class SquatExerciseAnalyzer extends ExerciseAnalyser {
                 mMeanS  +=  S;
 
                 Float[] scoresArr = new Float[]{S1, S2, S};
+                mCaptionVals.add(scoresArr);
+                mCaptionFrames.add(mFrameNum + frameNum);
 
                 synchronized (Globals.EXERCISE_CRITERIA) {
                     Globals.EXERCISE_CRITERIA.put("back/shin diff", ALPHA);
                     Globals.EXERCISE_CRITERIA.put("knee/hip angle", BETA);
-
-                    Globals.EXERCISE_SCORES.put(((Integer)mFrameNum).toString(), scoresArr);
 
                     if(BETA < 30 && ALPHA < 40) {
                         count ++;
@@ -78,14 +83,13 @@ public class SquatExerciseAnalyzer extends ExerciseAnalyser {
         }
 
         if (state == DOWN) {
-            float y = -mPoints[JointsMap.RSHOULDER * 2 + 1];
+            float y = -pose[JointsMap.RSHOULDER * 2 + 1];
             if (y < minY) {
                 minY  = y;
                 ALPHA = alpha;
                 BETA  = beta;
             }
         }
-        mFrameNum ++;
     }
 
     @Override
@@ -101,6 +105,9 @@ public class SquatExerciseAnalyzer extends ExerciseAnalyser {
             Globals.EXERCISE_SCORES.put("allS"  ,    mS);
             Globals.EXERCISE_SCORES.put("count" , count + 0f);
             Globals.EXERCISE_SCORES.put("OVERALL", mMeanS / n);
+            Globals.EXERCISE_SCORES.put("NAMES", new String[]{"S1", "S2", "S"});
+            Globals.EXERCISE_SCORES.put("CAPTION_VALS", mCaptionVals);
+            Globals.EXERCISE_SCORES.put("CAPTION_FRAMES", mCaptionFrames);
         }
     }
 }

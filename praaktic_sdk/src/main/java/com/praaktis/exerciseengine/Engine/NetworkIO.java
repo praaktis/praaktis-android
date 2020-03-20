@@ -1,20 +1,31 @@
-package com.praaktis.exerciseengine;
+package com.praaktis.exerciseengine.Engine;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.zip.CRC32;
 
-import static com.praaktis.exerciseengine.NetworkIOConstants.POS_DATA_CRC32;
-import static com.praaktis.exerciseengine.NetworkIOConstants.POS_DATA_SIZE;
-import static com.praaktis.exerciseengine.NetworkIOConstants.POS_HEADER_CRC32;
+import static com.praaktis.exerciseengine.Engine.NetworkIOConstants.POS_DATA_CRC32;
+import static com.praaktis.exerciseengine.Engine.NetworkIOConstants.POS_DATA_SIZE;
+import static com.praaktis.exerciseengine.Engine.NetworkIOConstants.POS_HEADER_CRC32;
 
+/**
+ * Networking instructions and protocols are implemented here
+ */
 final class NetworkIO {
     private static CRC32 sCrc32In = new CRC32();
     private static CRC32 sCrc32Out = new CRC32();
     private static byte[] sHeaderOut = new byte[NetworkIOConstants.HEADER_SIZE];
     private static byte[] sHeaderIn = new byte[NetworkIOConstants.HEADER_SIZE];
 
+    /**
+     * A method for sending header of a package
+     * @param output output stream for the header to be sent
+     * @param packetType type of the package, can take values defined at {@link NetworkIOConstants}
+     * @param dataSize size of the package to be sent
+     * @param dataCrc32 Crc32 of the package
+     * @throws IOException
+     */
     private static void sendHeader(OutputStream output, byte packetType, int dataSize, long dataCrc32)
             throws IOException {
         sCrc32Out.reset();
@@ -28,7 +39,14 @@ final class NetworkIO {
         output.flush();
     }
 
-    public static void sendPacket(OutputStream output, byte packetType, byte[] data)
+    /**
+     * A method for sending a package
+     * @param output {@link OutputStream} for the package to be sent
+     * @param packetType type of the package, can take values defined at {@link NetworkIOConstants}
+     * @param data byte array to be sent
+     * @throws IOException
+     */
+    static void sendPacket(OutputStream output, byte packetType, byte[] data)
             throws IOException {
 //        if (Globals.state == EngineState.EXERCISE) {
 //            packetType = 12;
@@ -42,7 +60,13 @@ final class NetworkIO {
         output.flush();
     }
 
-    public static boolean readAll(InputStream input, byte[] buf) {
+    /**
+     * A method to fully read a buffer from input
+     * @param input {@link InputStream} for the data to be read
+     * @param buf buffer for data
+     * @return true if the date is read fully, false otherwise
+     */
+    private static boolean readAll(InputStream input, byte[] buf) {
         int pos = 0;
         int toRead = buf.length;
         while (toRead > 0) {
@@ -60,12 +84,22 @@ final class NetworkIO {
         return true;
     }
 
+    /**
+     * Data structure describing a packet received from pose-estimation server,
+     * contains type of the packet and the packet itself
+     */
     public static class ReceivePacketResult {
         byte packetType;
         byte[] packetData;
     }
 
-    public static boolean receivePacket(InputStream input, ReceivePacketResult rpResult) {
+    /**
+     * A method to receive bytes from pose-estimation server
+     * @param input {@link InputStream}
+     * @param rpResult {@link ReceivePacketResult} instance
+     * @return true if data is read successfully, false otherwise
+     */
+    static boolean receivePacket(InputStream input, ReceivePacketResult rpResult) {
         sCrc32In.reset();
         if (!readAll(input, sHeaderIn))
             return false;

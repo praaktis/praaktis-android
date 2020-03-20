@@ -1,5 +1,9 @@
-package com.praaktis.exerciseengine;
+package com.praaktis.exerciseengine.Engine;
 
+
+/**
+ *  Analyzer class for Stretching Arms up exercise
+ */
 public class StretchingArmsUpAnalyzer extends ExerciseAnalyser {
     final int THRESHOLD = 5; // 5 deg/second
     float[] mPrewPerson = null;
@@ -11,14 +15,14 @@ public class StretchingArmsUpAnalyzer extends ExerciseAnalyser {
     private int mMaxElbowAngle = 0;
 
     @Override
-    public void analyze(float[] person) {
+    public void analyze(float[] pose, int frameNum) {
         if (mPrewPerson == null) {
-            mPrewPerson = person;
+            mPrewPerson = pose;
             return;
         }
 
-        float angSpeedLeft = getArmAngularSpeed(mPrewPerson, person, LEFT_ARM);
-        float angSpeedRight = getArmAngularSpeed(mPrewPerson, person, RIGHT_ARM);
+        float angSpeedLeft = getArmAngularSpeed(mPrewPerson, pose, LEFT_ARM);
+        float angSpeedRight = getArmAngularSpeed(mPrewPerson, pose, RIGHT_ARM);
         if (angSpeedLeft >= THRESHOLD || angSpeedRight >= THRESHOLD)
             mStarted = true;
 
@@ -35,15 +39,15 @@ public class StretchingArmsUpAnalyzer extends ExerciseAnalyser {
         float armAngleLeft;
         float armAngleRight;
 
-        armAngleLeft = getArmAngle(person, LEFT_ARM);
-        armAngleRight = getArmAngle(person, RIGHT_ARM);
+        armAngleLeft = getArmAngle(pose, LEFT_ARM);
+        armAngleRight = getArmAngle(pose, RIGHT_ARM);
         maxArmAngle = Math.max(Math.min(armAngleLeft, armAngleRight), maxArmAngle);
 
         float elbowAngleLeft;
         float elbowAngleRight;
 
-        elbowAngleLeft = getElbowAngle(person, LEFT_ARM);
-        elbowAngleRight = getElbowAngle(person, RIGHT_ARM);
+        elbowAngleLeft = getElbowAngle(pose, LEFT_ARM);
+        elbowAngleRight = getElbowAngle(pose, RIGHT_ARM);
         maxElbowAngle = Math.max(Math.min(elbowAngleLeft, elbowAngleRight), maxElbowAngle);
 
         sumElbowAngleLeft += elbowAngleLeft;
