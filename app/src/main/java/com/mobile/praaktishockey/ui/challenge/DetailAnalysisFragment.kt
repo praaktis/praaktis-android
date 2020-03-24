@@ -116,9 +116,9 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
         val detailScores: MutableList<Pair<String, Float>> = mutableListOf()
         result?.forEach { (key, value) ->
             when (value) {
-                is Float -> {
-                    if (key != "OVERALL") {
-                        detailScores.add(Pair(key, value)) // key = label, value = score
+                is com.praaktis.exerciseengine.Engine.DetailPoint -> {
+                    if (key != "Overall") {
+                        detailScores.add(Pair(key, value.value)) // key = label, value = score
                     }
                 }
             }

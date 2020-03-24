@@ -111,6 +111,8 @@ dependencies {
     implementation 'com.github.drawers:SpinnerDatePicker:2.0.1'
 
     implementation 'com.google.firebase:firebase-messaging:20.0.0'
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 }
 // Add the following line to the bottom of the file:
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin

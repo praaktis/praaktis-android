@@ -5,9 +5,9 @@
     "environmentVariables": []
   },
   "cmake": {
-    "cmakeArtifactsBaseFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/debug/arm64-v8a",
-    "cmakeServerLogFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/debug/arm64-v8a/cmake_server_log.txt",
-    "cmakeWrappingBaseFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cxx/debug/arm64-v8a",
+    "cmakeArtifactsBaseFolder": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cmake\\debug\\arm64-v8a",
+    "cmakeServerLogFile": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cmake\\debug\\arm64-v8a\\cmake_server_log.txt",
+    "cmakeWrappingBaseFolder": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cxx\\debug\\arm64-v8a",
     "effectiveConfiguration": {
       "name": "traditional-android-studio-cmake-environment",
       "description": "Composite reified CMakeSettings configuration",
@@ -15,9 +15,9 @@
       "inheritEnvironments": [
         "ndk"
       ],
-      "buildRoot": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/debug/arm64-v8a",
-      "cmakeToolchain": "/Users/user/Library/Android/sdk/ndk-bundle/build/cmake/android.toolchain.cmake",
-      "cmakeExecutable": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/cmake",
+      "buildRoot": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cmake\\debug\\arm64-v8a",
+      "cmakeToolchain": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\build\\cmake\\android.toolchain.cmake",
+      "cmakeExecutable": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\cmake.exe",
       "variables": [
         {
           "name": "CMAKE_CXX_FLAGS",
@@ -29,7 +29,7 @@
         },
         {
           "name": "CMAKE_TOOLCHAIN_FILE",
-          "value": "/Users/user/Library/Android/sdk/ndk-bundle/build/cmake/android.toolchain.cmake"
+          "value": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\build\\cmake\\android.toolchain.cmake"
         },
         {
           "name": "ANDROID_ABI",
@@ -37,7 +37,7 @@
         },
         {
           "name": "ANDROID_NDK",
-          "value": "/Users/user/Library/Android/sdk/ndk-bundle"
+          "value": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669"
         },
         {
           "name": "ANDROID_PLATFORM",
@@ -49,7 +49,7 @@
         },
         {
           "name": "CMAKE_ANDROID_NDK",
-          "value": "/Users/user/Library/Android/sdk/ndk-bundle"
+          "value": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669"
         },
         {
           "name": "CMAKE_EXPORT_COMPILE_COMMANDS",
@@ -57,11 +57,11 @@
         },
         {
           "name": "CMAKE_LIBRARY_OUTPUT_DIRECTORY",
-          "value": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/debug/obj/arm64-v8a"
+          "value": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a"
         },
         {
           "name": "CMAKE_MAKE_PROGRAM",
-          "value": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja"
+          "value": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe"
         },
         {
           "name": "CMAKE_SYSTEM_NAME",
@@ -74,14 +74,14 @@
       ]
     }
   },
-  "cxxBuildFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/debug/arm64-v8a",
+  "cxxBuildFolder": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cmake\\debug\\arm64-v8a",
   "info": {
     "abi": "ARM64_V8A",
     "bitness": 64,
     "deprecated": false,
     "default": true
   },
-  "originalCxxBuildFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/debug/arm64-v8a",
+  "originalCxxBuildFolder": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cmake\\debug\\arm64-v8a",
   "variant": {
     "buildSystemArgumentList": [],
     "buildTargetSet": [],
@@ -94,24 +94,24 @@
     "module": {
       "buildSystem": "CMAKE",
       "cmake": {
-        "cmakeExe": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/cmake",
+        "cmakeExe": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\cmake.exe",
         "minimumCmakeVersion": "3.10.2",
-        "ninjaExe": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja"
+        "ninjaExe": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe"
       },
-      "cmakeToolchainFile": "/Users/user/Library/Android/sdk/ndk-bundle/build/cmake/android.toolchain.cmake",
-      "cxxFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx",
+      "cmakeToolchainFile": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\build\\cmake\\android.toolchain.cmake",
+      "cxxFolder": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx",
       "gradleModulePathName": ":praaktic_sdk",
-      "intermediatesFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates",
-      "makeFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/src/main/cpp/CMakeLists.txt",
-      "moduleBuildFile": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build.gradle",
-      "moduleRootFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk",
+      "intermediatesFolder": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\build\\intermediates",
+      "makeFile": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\src\\main\\cpp\\CMakeLists.txt",
+      "moduleBuildFile": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\build.gradle",
+      "moduleRootFolder": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk",
       "ndkDefaultAbiList": [
         "ARMEABI_V7A",
         "ARM64_V8A",
         "X86",
         "X86_64"
       ],
-      "ndkFolder": "/Users/user/Library/Android/sdk/ndk-bundle",
+      "ndkFolder": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669",
       "ndkMetaAbiList": [
         {
           "abi": "ARMEABI_V7A",
@@ -167,28 +167,28 @@
       ],
       "ndkVersion": "21.0.6113669",
       "project": {
-        "compilerSettingsCacheFolder": "/Users/user/AndroidProjects/praaktis-android/.cxx",
-        "cxxFolder": "/Users/user/AndroidProjects/praaktis-android/.cxx",
+        "compilerSettingsCacheFolder": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\.cxx",
+        "cxxFolder": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\.cxx",
         "isBuildOnlyTargetAbiEnabled": true,
         "isCmakeBuildCohabitationEnabled": false,
         "isNativeCompilerSettingsCacheEnabled": false,
-        "rootBuildGradleFolder": "/Users/user/AndroidProjects/praaktis-android",
-        "sdkFolder": "/Users/user/Library/Android/sdk"
+        "rootBuildGradleFolder": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android",
+        "sdkFolder": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk"
       },
       "splitsAbiFilterSet": [],
       "stlSharedObjectMap": {
         "LIBCXX_SHARED": {
-          "ARMEABI_V7A": "/Users/user/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/arm-linux-androideabi/libc++_shared.so",
-          "ARM64_V8A": "/Users/user/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/libc++_shared.so",
-          "X86": "/Users/user/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/i686-linux-android/libc++_shared.so",
-          "X86_64": "/Users/user/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/x86_64-linux-android/libc++_shared.so"
+          "ARMEABI_V7A": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\arm-linux-androideabi\\libc++_shared.so",
+          "ARM64_V8A": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\aarch64-linux-android\\libc++_shared.so",
+          "X86": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\i686-linux-android\\libc++_shared.so",
+          "X86_64": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\x86_64-linux-android\\libc++_shared.so"
         },
         "LIBCXX_STATIC": {},
         "NONE": {},
         "SYSTEM": {}
       }
     },
-    "objFolder": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/debug/obj",
+    "objFolder": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\build\\intermediates\\cmake\\debug\\obj",
     "variantName": "debug",
     "validAbiList": [
       "ARMEABI_V7A",

@@ -1,6 +1,8 @@
 package com.praaktis.exerciseengine.Engine;
 
-public class DetailPoint {
+import java.io.Serializable;
+
+public class DetailPoint implements Serializable {
     public float value;
     public int id;
 

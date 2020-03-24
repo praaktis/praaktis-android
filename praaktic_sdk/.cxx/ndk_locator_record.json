@@ -1,5 +1,5 @@
 {
-  "ndkFolder": "/Users/user/Library/Android/sdk/ndk-bundle",
+  "ndkFolder": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669",
   "messages": [
     {
       "level": "INFO",
@@ -15,23 +15,31 @@
     },
     {
       "level": "INFO",
-      "message": "sdkFolder is /Users/user/Library/Android/sdk"
+      "message": "sdkFolder is C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk"
     },
     {
       "level": "INFO",
-      "message": "Considering /Users/user/Library/Android/sdk/ndk-bundle in SDK ndk-bundle folder"
+      "message": "Considering C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk-bundle in SDK ndk-bundle folder"
     },
     {
       "level": "INFO",
-      "message": "Considering /Users/user/Library/Android/sdk/ndk/20.1.5948944 in SDK ndk folder"
+      "message": "Considering C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\20.0.5594570 in SDK ndk folder"
     },
     {
       "level": "INFO",
-      "message": "Considering /Users/user/Library/Android/sdk/ndk/20.0.5594570 in SDK ndk folder"
+      "message": "Considering C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\20.1.5948944 in SDK ndk folder"
     },
     {
       "level": "INFO",
-      "message": "Found requested NDK version 21.0.6113669 at /Users/user/Library/Android/sdk/ndk-bundle"
+      "message": "Considering C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669 in SDK ndk folder"
+    },
+    {
+      "level": "INFO",
+      "message": "Rejected C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk-bundle in SDK ndk-bundle folder because that location has no source.properties"
+    },
+    {
+      "level": "INFO",
+      "message": "Found requested NDK version 21.0.6113669 at C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669"
     }
   ]
 }

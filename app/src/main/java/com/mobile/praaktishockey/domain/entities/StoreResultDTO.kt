@@ -15,11 +15,11 @@ data class StoreResultDTO(
     @SerializedName("success")
     val success: Boolean,
     @SerializedName("points")
-    val points: Int,
+    val points: Int? = null,
     @SerializedName("score")
     val score: Float,
     @SerializedName("credits")
-    val credits: Float,
+    val credits: Float? = null,
     @SerializedName("detail_result")
     val detailResult: List<DetailResult>
 ): Serializable

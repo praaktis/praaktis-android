@@ -1,19 +1,19 @@
 {
   "buildFiles": [
-    "/Users/user/Library/Android/sdk/ndk-bundle/build/cmake/android.toolchain.cmake",
-    "/Users/user/Library/Android/sdk/ndk-bundle/build/cmake/platforms.cmake",
-    "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/src/main/cpp/CMakeLists.txt"
+    "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\build\\cmake\\platforms.cmake",
+    "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\src\\main\\cpp\\CMakeLists.txt",
+    "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\build\\cmake\\android.toolchain.cmake"
   ],
   "cleanCommands": [
-    "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/arm64-v8a\" clean"
+    "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cmake\\release\\arm64-v8a\" clean"
   ],
-  "buildTargetsCommand": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/arm64-v8a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "buildTargetsCommand": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cmake\\release\\arm64-v8a\" {LIST_OF_TARGETS_TO_BUILD}",
   "libraries": {
     "native-lib-Release-arm64-v8a": {
       "artifactName": "native-lib",
-      "buildCommand": "/Users/user/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/.cxx/cmake/release/arm64-v8a\" native-lib",
+      "buildCommand": "C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cmake\\release\\arm64-v8a\" native-lib",
       "abi": "arm64-v8a",
-      "output": "/Users/user/AndroidProjects/praaktis-android/praaktic_sdk/build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so"
+      "output": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\build\\intermediates\\cmake\\release\\obj\\arm64-v8a\\libnative-lib.so"
     }
   }
 }

@@ -114,11 +114,10 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         if (requestCode == 333) {
             getActivity()?.finish()
             if (resultCode == Activity.RESULT_OK) {
+                @Suppress("UNCHECKED_CAST")
                 val result = data!!.getSerializableExtra("result") as HashMap<String, Any>?
                 Log.d("__RESULT", "Result: $result")
-                @Suppress("UNCHECKED_CAST")
-                ChallengeActivity.start(getActivity()!!, challengeItem, result, data.getStringExtra(
-                    VIDEO_PATH))
+                ChallengeActivity.start(getActivity()!!, challengeItem, result, data.getStringExtra(VIDEO_PATH))
             }
         }
     }

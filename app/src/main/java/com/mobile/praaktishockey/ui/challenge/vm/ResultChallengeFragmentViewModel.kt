@@ -15,9 +15,9 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
     private val userService by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
 
     fun storeResult(challengeItem: ChallengeItem,
-                    points: Int,
+                    points: Int? = null,
                     score: Float,
-                    credits: Float,
+                    credits: Float? = null,
                     detailResults: List<DetailResult>) {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
         val request = StoreResultDTO(

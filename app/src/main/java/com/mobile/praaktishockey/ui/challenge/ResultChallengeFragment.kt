@@ -15,6 +15,7 @@ import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.challenge.vm.ResultChallengeFragmentViewModel
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
+import com.praaktis.exerciseengine.Engine.DetailPoint
 import com.praaktis.exerciseengine.Engine.Exercise
 import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
@@ -175,16 +176,13 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
 
             val detailResults = collectDetailResults()
             val scoreOverAll =
-                getOverallScore()/*(result[0] * 0.45f + result[1] * 0.2f + result[2] * 0.35f)*/
+                getOverallScore()
             tvYourScore.text =
                 "Your score: ${scoreOverAll.toInt()}"
             mViewModel.storeResult(
-                challengeItem, (scoreOverAll / 10).toInt(), scoreOverAll, 0f, detailResults
-                /*mutableListOf(
-                    DetailResult(20, result[0]),
-                    DetailResult(21, result[1]),
-                    DetailResult(22, result[2])
-                )*/
+                challengeItem,
+                score = scoreOverAll,
+                detailResults = detailResults
             )
         } else {
             tvYourScore.text = "Your score: 0"
@@ -205,27 +203,22 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     }
 
     private fun getOverallScore(): Float {
-        return result?.get("OVERALL") as Float? ?: 0f
+        val overall = result?.get("Overall") as DetailPoint?
+        return overall?.value ?: 0f
     }
 
     private fun collectDetailResults(): MutableList<DetailResult> {
         val detailResults: MutableList<DetailResult> = mutableListOf()
         result?.forEach { (key, value) ->
             when (value) {
-                is List<*> -> {
-                    if (value.firstOrNull() is Float) {
-                        @Suppress("UNCHECKED_CAST")
-                        value as List<Float>
-                        value.forEach { result ->
-                            // todo:: send results to backend, @param(DetailResult.detailPointId) not receiving
-                            detailResults.add(
-                                DetailResult(
-                                    11,
-                                    result
-                                )
-                            )
-                        }
-                    }
+                is DetailPoint -> {
+                    // todo:: send results to backend, @param(DetailResult.detailPointId) not receiving
+                    detailResults.add(
+                        DetailResult(
+                            value.id,
+                            value.value
+                        )
+                    )
                 }
             }
         }
@@ -266,7 +259,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             intent.putExtra("LOGIN", mViewModel.getLogin())
             intent.putExtra("PASSWORD", mViewModel.getPassword())
 
-            when(challengeItem.name){
+            when (challengeItem.name) {
                 R.string.stretching_arms_up -> {
                     intent.putExtra("EXERCISE", Exercise.STRETCHING_ARMS_UP.ordinal)
                 }
