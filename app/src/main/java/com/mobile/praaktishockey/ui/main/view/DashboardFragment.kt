@@ -6,14 +6,13 @@ import android.os.Bundle
 import android.view.animation.LinearInterpolator
 import android.widget.LinearLayout
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseFragment
 import com.mobile.praaktishockey.domain.entities.DashboardDTO
 import com.mobile.praaktishockey.domain.extension.getViewModel
-import com.mobile.praaktishockey.domain.extension.makeToast
-import com.mobile.praaktishockey.ui.details.view.DetailsActivity
 import com.mobile.praaktishockey.ui.details.view.AnalysisFragment
+import com.mobile.praaktishockey.ui.details.view.DetailsActivity
 import com.mobile.praaktishockey.ui.main.adapter.AnalysisAdapter
 import com.mobile.praaktishockey.ui.main.vm.DashboardViewModel
 import com.mobile.praaktishockey.ui.main.vm.MainViewModel
@@ -30,14 +29,15 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
 
     private lateinit var mainViewModel: MainViewModel
     private var dashboardData: DashboardDTO? = null
+    private lateinit var analysisAdapter: AnalysisAdapter
 
     override fun initUI(savedInstanceState: Bundle?) {
-        mainViewModel = ViewModelProviders.of(activity).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(activity).get(MainViewModel::class.java)
         mainViewModel.changeTitle(getString(R.string.dashboard))
         mViewModel.getDashboardData()
         initEvents()
 
-        rv_analysis.adapter = AnalysisAdapter {
+        analysisAdapter = AnalysisAdapter {
             if (dashboardData != null)
                 startActivity(
                         DetailsActivity.start(activity, AnalysisFragment.TAG)
@@ -45,6 +45,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
                                 .putExtra(AnalysisFragment.CHALLENGES, dashboardData)
                 )
         }
+        rv_analysis.adapter = analysisAdapter
     }
 
     private fun initEvents() {
@@ -56,6 +57,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
     private fun setDashboardData(dashboardData: DashboardDTO) {
         this.dashboardData = dashboardData
         with(dashboardData) {
+            analysisAdapter.submitList(dashboardData.challenges.toList())
             tv_level.text = "$level"
             tv_points.text = "$totalPoints"
             tv_credits.text = "$totalCredits"

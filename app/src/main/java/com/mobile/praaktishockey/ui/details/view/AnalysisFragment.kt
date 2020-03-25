@@ -2,7 +2,6 @@ package com.mobile.praaktishockey.ui.details.view
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProviders
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition
 import com.github.mikephil.charting.data.Entry
@@ -19,6 +18,7 @@ import java.util.*
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
@@ -35,7 +35,7 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
         const val ANALYSIS_ITEM = "ANALYSIS_ITEM"
         const val CHALLENGES = "CHALLENGES"
 
-        fun getInstance(item: AnalysisItem, challenges: DashboardDTO) = AnalysisFragment().apply {
+        fun getInstance(item: AnalysisDTO, challenges: DashboardDTO) = AnalysisFragment().apply {
             arguments = Bundle().apply {
                 putSerializable(ANALYSIS_ITEM, item)
                 putSerializable(CHALLENGES, challenges)
@@ -47,16 +47,13 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
         get() = getViewModel { AnalysisViewModel(activity.application) }
 
     private lateinit var detailsViewModel: DetailsViewModel
-    private val analysisItem : AnalysisItem by lazy { arguments?.getSerializable(ANALYSIS_ITEM) as AnalysisItem }
     private val analysisData : AnalysisDTO by lazy {
-        val challenges = arguments?.getSerializable(CHALLENGES) as DashboardDTO
-        return@lazy challenges.challenges.find { it.name.equals(analysisItem.name)}!!
+        return@lazy arguments?.getSerializable(ANALYSIS_ITEM) as AnalysisDTO
     }
 
     override fun initUI(savedInstanceState: Bundle?) {
-        detailsViewModel = ViewModelProviders.of(activity).get(DetailsViewModel::class.java)
-        val analysisItem: AnalysisItem = arguments?.getSerializable(ANALYSIS_ITEM) as AnalysisItem
-        detailsViewModel.changeTitle(getString(analysisItem.title))
+        detailsViewModel = ViewModelProvider(activity).get(DetailsViewModel::class.java)
+        detailsViewModel.changeTitle(analysisData.name)
 
         initInfoChallenge()
         initClicks()

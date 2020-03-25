@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.mobile.praaktishockey.base.BaseViewModelFactory
 
 fun AppCompatActivity.hideKeyboard(view: View) {
@@ -111,12 +111,12 @@ fun AppCompatActivity.getVisibleFragment(): Fragment? {
 }
 
 
-inline fun <reified T : ViewModel> androidx.fragment.app.Fragment.getViewModel(noinline creator: (() -> T)? = null): T {
-    return if (creator == null) ViewModelProviders.of(this).get(T::class.java)
-    else ViewModelProviders.of(this, BaseViewModelFactory(activity?.application!!, creator)).get(T::class.java)
+inline fun <reified T : ViewModel> Fragment.getViewModel(noinline creator: (() -> T)? = null): T {
+    return if (creator == null) ViewModelProvider(this).get(T::class.java)
+    else ViewModelProvider(this, BaseViewModelFactory(activity?.application!!, creator)).get(T::class.java)
 }
 
 inline fun <reified T : ViewModel> AppCompatActivity.getViewModel(noinline creator: (() -> T)? = null): T {
-    return if (creator == null) ViewModelProviders.of(this).get(T::class.java)
-    else ViewModelProviders.of(this, BaseViewModelFactory(application, creator)).get(T::class.java)
+    return if (creator == null) ViewModelProvider(this).get(T::class.java)
+    else ViewModelProvider(this, BaseViewModelFactory(application, creator)).get(T::class.java)
 }

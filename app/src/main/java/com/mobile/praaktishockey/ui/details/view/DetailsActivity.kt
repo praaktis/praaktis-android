@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseActivity
+import com.mobile.praaktishockey.domain.entities.AnalysisDTO
 import com.mobile.praaktishockey.domain.entities.DashboardDTO
 import com.mobile.praaktishockey.domain.extension.getViewModel
 import com.mobile.praaktishockey.domain.extension.replaceFragment
@@ -78,7 +79,7 @@ class DetailsActivity constructor(override val layoutId: Int = R.layout.activity
                             AnalysisFragment.getInstance(
                                     intent.getSerializableExtra(
                                             AnalysisFragment.TAG
-                                    ) as AnalysisItem,
+                                    ) as AnalysisDTO,
                                     intent.getSerializableExtra(
                                             AnalysisFragment.CHALLENGES
                                     ) as DashboardDTO

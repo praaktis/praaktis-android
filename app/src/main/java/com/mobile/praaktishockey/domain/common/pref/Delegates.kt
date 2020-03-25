@@ -5,7 +5,7 @@ import kotlin.reflect.KProperty
 
 class PrefStringDelegate(val preferences: SharedPreferences) {
     operator fun getValue(thisRef: Any?, property: KProperty<*>): String {
-        return preferences.getString(property.name, "")
+        return preferences.getString(property.name, "")!!
     }
 
     operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {

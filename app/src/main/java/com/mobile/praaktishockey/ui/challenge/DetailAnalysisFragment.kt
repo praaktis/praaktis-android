@@ -8,12 +8,12 @@ import androidx.annotation.Dimension
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseFragment
 import com.mobile.praaktishockey.domain.common.AnalysisLineChart
-import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.entities.DetailPoint
 import com.mobile.praaktishockey.domain.entities.DetailScoreDTO
 import com.mobile.praaktishockey.domain.entities.ScoreDTO
@@ -57,68 +57,34 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
     override val mViewModel: DetailAnalysisFragmentViewModel
         get() = getViewModel { DetailAnalysisFragmentViewModel(activity.application) }
 
-    private lateinit var mainViewModel: MainViewModel
-
     private val scoreDTO by lazy { arguments?.getSerializable("score") as ScoreDTO }
     private val challengeItem by lazy { arguments?.getSerializable("challengeItem") as ChallengeItem }
     private val result by lazy { activity.intent.getSerializableExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) as HashMap<String, Any>? }
 
     override fun initUI(savedInstanceState: Bundle?) {
-        mainViewModel = ViewModelProviders.of(activity).get(MainViewModel::class.java)
-
         initToolbar()
         if (arguments?.get("score") != null) {
-            mViewModel.getDetailResult(scoreDTO.attemptId)
+            mViewModel.getDetailResult(scoreDTO.attemptId) // from remote
         } else {
-            val transformData: (challenges: List<ChallengeDTO>) -> Unit = {
-                val challenge = it.find { item ->
-                    item.name.equals(challengeItem.label)
-                }
-                val detailScores = mutableListOf<DetailScoreDTO>()
-
-                /* // old solution
-                var i = 0
-                for (detailPoint in challenge!!.detailPoints) {
-                    val detailPoint = DetailPoint(0, detailPoint.label)
-                    if (result != null)
-                        detailScores.add(DetailScoreDTO(detailPoint, result[i++].toDouble()))
-                    else
-                        detailScores.add(DetailScoreDTO(detailPoint, 0.0))
-                }*/
-
-                // new one
-                collectDetailScores().forEach { detailScore ->
-                    detailScores.add(
-                        DetailScoreDTO(
-                            DetailPoint(0, detailScore.first),
-                            detailScore.second.toDouble()
-                        )
-                    )
-                }
-                setDetail(detailScores)
-            }
-
-            if (mainViewModel.challengesEvent.value != null) {
-                transformData(mainViewModel.challengesEvent.value!!)
-            } else {
-                mainViewModel.getChallenges()
-                mainViewModel.challengesEvent.observe(this, Observer {
-                    transformData(it)
-                })
-            }
+            setDetail(collectDetailScores()) // from praaktis_sdk
         }
         mViewModel.detailResultEvent.observe(this, Observer {
             setDetail(it)
         })
     }
 
-    private fun collectDetailScores(): MutableList<Pair<String, Float>> {
-        val detailScores: MutableList<Pair<String, Float>> = mutableListOf()
+    private fun collectDetailScores(): MutableList<DetailScoreDTO> {
+        val detailScores: MutableList<DetailScoreDTO> = mutableListOf()
         result?.forEach { (key, value) ->
             when (value) {
                 is com.praaktis.exerciseengine.Engine.DetailPoint -> {
                     if (key != "Overall") {
-                        detailScores.add(Pair(key, value.value)) // key = label, value = score
+                        detailScores.add(
+                            DetailScoreDTO(
+                                DetailPoint(value.id, key),
+                                value.value.toDouble()
+                            )
+                        )
                     }
                 }
             }

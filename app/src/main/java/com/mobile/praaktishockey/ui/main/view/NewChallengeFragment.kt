@@ -3,7 +3,7 @@ package com.mobile.praaktishockey.ui.main.view
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseFragment
 import com.mobile.praaktishockey.domain.common.Constants
@@ -31,7 +31,7 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
     private var mainViewModel: MainViewModel? = null
 
     override fun initUI(savedInstanceState: Bundle?) {
-        mainViewModel = ViewModelProviders.of(activity).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(activity).get(MainViewModel::class.java)
         mainViewModel?.changeTitle(getString(R.string.new_challenge))
 
         rv_challenges.adapter = ChallengesAdapter {

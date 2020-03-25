@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseFragment
@@ -21,7 +20,8 @@ import com.mobile.praaktishockey.ui.friends.vm.FriendsFragmentViewModel
 import com.mobile.praaktishockey.ui.friends.vm.FriendsRequestFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_friends.*
 
-class FriendsRequestFragment constructor(override val layoutId: Int = R.layout.fragment_friends) : BaseFragment(),
+class FriendsRequestFragment constructor(override val layoutId: Int = R.layout.fragment_friends) :
+    BaseFragment(),
     FriendsRequestItemListener {
 
     companion object {
@@ -35,11 +35,7 @@ class FriendsRequestFragment constructor(override val layoutId: Int = R.layout.f
     override val mViewModel: FriendsRequestFragmentViewModel
         get() = getViewModel { FriendsRequestFragmentViewModel(activity.application) }
 
-    private lateinit var friendsViewModel: FriendsFragmentViewModel
-
     override fun initUI(savedInstanceState: Bundle?) {
-        friendsViewModel = ViewModelProviders.of(activity).get(FriendsFragmentViewModel::class.java)
-
         mViewModel.getFriendRequests()
         rvFriends.layoutManager = LinearLayoutManager(context!!)
         initEvents()

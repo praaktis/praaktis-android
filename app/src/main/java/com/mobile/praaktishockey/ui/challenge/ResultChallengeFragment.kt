@@ -98,7 +98,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
                 mediaPlayer1 = MediaPlayer()
                 try {
                     mediaPlayer1?.setDataSource(
-                        context, Uri.parse(
+                        context!!, Uri.parse(
                             "android.resource://" +
                                     context?.packageName + "/" + R.raw.challenge_video
                         )
