@@ -1,12 +1,11 @@
 package com.mobile.praaktishockey.ui.challenge.vm
 
 import android.app.Application
-import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseViewModel
 import com.mobile.praaktishockey.data.repository.UserServiceRepository
+import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.entities.DetailResult
 import com.mobile.praaktishockey.domain.entities.StoreResultDTO
-import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -14,11 +13,13 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
 
     private val userService by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
 
-    fun storeResult(challengeItem: ChallengeItem,
-                    points: Int? = null,
-                    score: Float,
-                    credits: Float? = null,
-                    detailResults: List<DetailResult>) {
+    fun storeResult(
+        challengeItem: ChallengeDTO,
+        points: Int? = null,
+        score: Float,
+        credits: Float? = null,
+        detailResults: List<DetailResult>
+    ) {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
         val request = StoreResultDTO(
             userProfileId = settingsStorage.getProfile()!!.id!!.toInt(),
@@ -32,7 +33,7 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
         )
         userService.storeResult(request)
             .doOnSubscribe { showHideEvent.postValue(true) }
-            .doAfterTerminate { showHideEvent.postValue(false)}
+            .doAfterTerminate { showHideEvent.postValue(false) }
             .subscribe({
 
             }, ::onError)

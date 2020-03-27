@@ -6,14 +6,14 @@ import android.os.Bundle
 import android.util.Log
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseActivity
+import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.entities.ScoreDTO
 import com.mobile.praaktishockey.domain.extension.showOrReplace
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.mobile.praaktishockey.ui.login.view.CalibrateFragment
-import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
 
-class ChallengeActivity constructor(override val layoutId: Int = R.layout.activity_challenge)
-    : BaseActivity() {
+class ChallengeActivity constructor(override val layoutId: Int = R.layout.activity_challenge) :
+    BaseActivity() {
 
     companion object {
         fun start(activity: Activity) {
@@ -22,12 +22,17 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
             activity.startActivity(intent)
         }
 
-        fun start(activity: Activity, challengeItem: ChallengeItem, result: HashMap<String, Any>?, path: String) {
+        fun start(
+            activity: Activity,
+            challengeItem: ChallengeDTO,
+            result: HashMap<String, Any>?,
+            path: String
+        ) {
             val intent = Intent(activity, ChallengeActivity::class.java)
             intent.putExtra("challengeItem", challengeItem)
             intent.putExtra(ChallengeInstructionFragment.VIDEO_PATH, path)
             if (result != null)
-            intent.putExtra(ChallengeInstructionFragment.CHALLENGE_RESULT, result)
+                intent.putExtra(ChallengeInstructionFragment.CHALLENGE_RESULT, result)
             activity.startActivity(intent)
         }
 
@@ -38,20 +43,26 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
         }
     }
 
-    private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as ChallengeItem }
+    private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as ChallengeDTO }
 
     override fun initUI(savedInstanceState: Bundle?) {
         if (intent.hasExtra("score")) {
             val tag = DetailAnalysisFragment.TAG
             showOrReplace(tag) {
-                add(R.id.container, DetailAnalysisFragment.getInstance(intent.getSerializableExtra("score") as ScoreDTO), tag)
+                add(
+                    R.id.container,
+                    DetailAnalysisFragment.getInstance(intent.getSerializableExtra("score") as ScoreDTO),
+                    tag
+                )
             }
-        } else if(intent.hasExtra("challengeItem")){
+        } else if (intent.hasExtra("challengeItem")) {
 //            val tag = CalculateChallengeFragment.TAG
             val tag = ResultChallengeFragment.TAG
             showOrReplace(tag) {
-                replace(R.id.container,
-                    ResultChallengeFragment.getInstance(challengeItem), tag)
+                replace(
+                    R.id.container,
+                    ResultChallengeFragment.getInstance(challengeItem), tag
+                )
             }
 
 //            showOrReplace(tag) {
@@ -77,8 +88,14 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
             if (resultCode == Activity.RESULT_OK) {
                 Log.d("_RESULT", "RESULT_OK")
                 @Suppress("UNCHECKED_CAST")
-                start(this, challengeItem, data!!.getSerializableExtra("result") as HashMap<String, Any>?, data.getStringExtra(
-                    ChallengeInstructionFragment.VIDEO_PATH))
+                start(
+                    this,
+                    challengeItem,
+                    data!!.getSerializableExtra("result") as HashMap<String, Any>?,
+                    data.getStringExtra(
+                        ChallengeInstructionFragment.VIDEO_PATH
+                    )
+                )
             } else {
                 Log.d("_RESULT", "RESULT_NOT_OK")
             }

@@ -8,12 +8,11 @@ import androidx.annotation.Dimension
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseFragment
 import com.mobile.praaktishockey.domain.common.AnalysisLineChart
+import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.entities.DetailPoint
 import com.mobile.praaktishockey.domain.entities.DetailScoreDTO
 import com.mobile.praaktishockey.domain.entities.ScoreDTO
@@ -21,8 +20,6 @@ import com.mobile.praaktishockey.domain.extension.dpToPx
 import com.mobile.praaktishockey.domain.extension.getViewModel
 import com.mobile.praaktishockey.ui.challenge.vm.DetailAnalysisFragmentViewModel
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
-import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
-import com.mobile.praaktishockey.ui.main.vm.MainViewModel
 import kotlinx.android.synthetic.main.fragment_detailed_analysis.*
 
 class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.fragment_detailed_analysis) :
@@ -45,7 +42,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
         }
 
         @JvmStatic
-        fun getInstance(challengeItem: ChallengeItem): Fragment {
+        fun getInstance(challengeItem: ChallengeDTO): Fragment {
             val fragment = DetailAnalysisFragment()
             val bundle = Bundle()
             bundle.putSerializable("challengeItem", challengeItem)
@@ -58,7 +55,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
         get() = getViewModel { DetailAnalysisFragmentViewModel(activity.application) }
 
     private val scoreDTO by lazy { arguments?.getSerializable("score") as ScoreDTO }
-    private val challengeItem by lazy { arguments?.getSerializable("challengeItem") as ChallengeItem }
+    private val challengeItem by lazy { arguments?.getSerializable("challengeItem") as ChallengeDTO }
     private val result by lazy { activity.intent.getSerializableExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) as HashMap<String, Any>? }
 
     override fun initUI(savedInstanceState: Bundle?) {
@@ -106,7 +103,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
     private fun setDetail(detailScores: List<DetailScoreDTO>) {
         val tvDragFlick = AppCompatTextView(context)
         if (arguments?.getSerializable("score") != null) tvDragFlick.text = scoreDTO.name
-        else tvDragFlick.text = challengeItem.label
+        else tvDragFlick.text = challengeItem.name
         tvDragFlick.isAllCaps = true
         tvDragFlick.setTextSize(Dimension.SP, 17f)
         tvDragFlick.setTextColor(ContextCompat.getColor(context!!, R.color.black_text))

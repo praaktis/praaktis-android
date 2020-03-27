@@ -9,25 +9,25 @@ import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseActivity
 import com.mobile.praaktishockey.domain.entities.AnalysisDTO
+import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.entities.DashboardDTO
 import com.mobile.praaktishockey.domain.extension.getViewModel
 import com.mobile.praaktishockey.domain.extension.replaceFragment
 import com.mobile.praaktishockey.domain.extension.updateLayoutParams
 import com.mobile.praaktishockey.ui.details.vm.DetailsViewModel
-import com.mobile.praaktishockey.ui.main.adapter.AnalysisItem
-import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
 import kotlinx.android.synthetic.main.activity_details.*
 
-class DetailsActivity constructor(override val layoutId: Int = R.layout.activity_details) : BaseActivity() {
+class DetailsActivity constructor(override val layoutId: Int = R.layout.activity_details) :
+    BaseActivity() {
 
     companion object {
 
         const val INITIAL_FRAGMENT_TAG = "initialFragment"
 
         fun start(activity: AppCompatActivity, initialFragmentTag: String) =
-                Intent(activity, DetailsActivity::class.java).apply {
-                    putExtra(INITIAL_FRAGMENT_TAG, initialFragmentTag)
-                }
+            Intent(activity, DetailsActivity::class.java).apply {
+                putExtra(INITIAL_FRAGMENT_TAG, initialFragmentTag)
+            }
     }
 
     override val mViewModel: DetailsViewModel? get() = getViewModel { DetailsViewModel(application) }
@@ -59,32 +59,32 @@ class DetailsActivity constructor(override val layoutId: Int = R.layout.activity
                 requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
                 replaceFragment(ChallengeInstructionFragment.TAG) {
                     replace(
-                            R.id.container,
-                            ChallengeInstructionFragment.getInstance(
-                                    intent.getSerializableExtra(
-                                            ChallengeInstructionFragment.TAG
-                                    ) as ChallengeItem
-                            ),
-                            ChallengeInstructionFragment.TAG
+                        R.id.container,
+                        ChallengeInstructionFragment.getInstance(
+                            intent.getSerializableExtra(
+                                ChallengeInstructionFragment.TAG
+                            ) as ChallengeDTO
+                        ),
+                        ChallengeInstructionFragment.TAG
                     )
                 }
-                changeTitle(getString((intent.getSerializableExtra(
-                        ChallengeInstructionFragment.TAG
-                ) as ChallengeItem).name))
+                changeTitle(
+                    (intent.getSerializableExtra(ChallengeInstructionFragment.TAG) as ChallengeDTO).name
+                )
             }
             AnalysisFragment.TAG -> {
                 replaceFragment(AnalysisFragment.TAG) {
                     replace(
-                            R.id.container,
-                            AnalysisFragment.getInstance(
-                                    intent.getSerializableExtra(
-                                            AnalysisFragment.TAG
-                                    ) as AnalysisDTO,
-                                    intent.getSerializableExtra(
-                                            AnalysisFragment.CHALLENGES
-                                    ) as DashboardDTO
-                            ),
-                            AnalysisFragment.TAG
+                        R.id.container,
+                        AnalysisFragment.getInstance(
+                            intent.getSerializableExtra(
+                                AnalysisFragment.TAG
+                            ) as AnalysisDTO,
+                            intent.getSerializableExtra(
+                                AnalysisFragment.CHALLENGES
+                            ) as DashboardDTO
+                        ),
+                        AnalysisFragment.TAG
                     )
                 }
             }

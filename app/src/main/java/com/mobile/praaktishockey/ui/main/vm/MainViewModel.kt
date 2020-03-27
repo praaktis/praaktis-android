@@ -7,16 +7,17 @@ import com.mobile.praaktishockey.base.BaseViewModel
 import com.mobile.praaktishockey.data.repository.AuthSeriviceRepository
 import com.mobile.praaktishockey.data.repository.UserServiceRepository
 import com.mobile.praaktishockey.domain.common.LiveEvent
-import com.mobile.praaktishockey.domain.common.pref.SettingsStorage
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import io.reactivex.disposables.Disposable
+import kotlin.random.Random
 
 class MainViewModel(app: Application) : BaseViewModel(app) {
 
     private val userRepository by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
     private val authRepository by lazy { AuthSeriviceRepository.AuthServiceRepositoryImpl.getInstance() }
 
-    val challengesEvent: LiveEvent<List<ChallengeDTO>> = LiveEvent()
+    private val _challengesLiveData = MutableLiveData<List<ChallengeDTO>>()
+    val challengesEvent: LiveData<List<ChallengeDTO>> get() = _challengesLiveData/*LiveEvent<List<ChallengeDTO>> = LiveEvent()*/
     private var challengesDisposable: Disposable? = null
     private var fcmDisposable: Disposable? = null
 
@@ -32,7 +33,7 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
             .doOnSubscribe { showHideEvent.postValue(true) }
             .doAfterTerminate { showHideEvent.postValue(false) }
             .subscribe({
-                this.challengesEvent.postValue(it)
+                this._challengesLiveData.postValue(it)
                 settingsStorage.setChallenges(it)
             }, ::onError)
         addDisposable(challengesDisposable!!)
@@ -41,8 +42,8 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
     fun checkFcmToken() {
         if (!settingsStorage.isSentFcmToken) {
             fcmDisposable = authRepository.registerDevice(settingsStorage.fcmToken)
-                .doOnSubscribe{showHideEvent.postValue(true)}
-                .doAfterTerminate{showHideEvent.postValue(false)}
+                .doOnSubscribe { showHideEvent.postValue(true) }
+                .doAfterTerminate { showHideEvent.postValue(false) }
                 .subscribe({
                     settingsStorage.isSentFcmToken = true
                 }, ::onError)
@@ -52,6 +53,6 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
     override fun onError(throwable: Throwable) {
 //        challengesEvent.postValue()
         if (settingsStorage.getChallenges() != null)
-            challengesEvent.postValue(settingsStorage.getChallenges())
+            _challengesLiveData.postValue(settingsStorage.getChallenges())
     }
 }

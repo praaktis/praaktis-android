@@ -13,10 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseFragment
 import com.mobile.praaktishockey.base.BaseViewModel
+import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.extension.getViewModel
 import com.mobile.praaktishockey.ui.challenge.ChallengeActivity
-import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
-import com.praaktis.exerciseengine.Engine.Exercise
 import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_challenge_instruction.*
 
@@ -29,7 +28,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         const val CHALLENGE_RESULT = "CHALLENGE_RESULT"
         const val VIDEO_PATH = "VIDEO_PATH"
 
-        fun getInstance(item: ChallengeItem) = ChallengeInstructionFragment().apply {
+        fun getInstance(item: ChallengeDTO) = ChallengeInstructionFragment().apply {
             arguments = Bundle().apply {
                 putSerializable(CHALLENGE_ITEM, item)
             }
@@ -39,14 +38,14 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
     override val mViewModel: BaseViewModel
         get() = getViewModel { BaseViewModel(Application()) }
 
-    private val challengeItem by lazy { arguments!!.getSerializable(CHALLENGE_ITEM) as ChallengeItem }
+    private val challengeItem by lazy { arguments!!.getSerializable(CHALLENGE_ITEM) as ChallengeDTO }
     private val autoStartAnimator by lazy { ValueAnimator.ofFloat(0f, 1f) }
 
     override fun initUI(savedInstanceState: Bundle?) {
         if (getActivity() is AppCompatActivity)
             (getActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { fragmentManager?.popBackStack() }
-        tvtitle.text = getString(challengeItem.name)
+        tvtitle.text = challengeItem.name
         tv_start_challenge.setOnClickListener {
             autoStartAnimator.pause()
             startChallengeSteps()
@@ -81,19 +80,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
             val intent = Intent(context, ExerciseEngineActivity::class.java)
             intent.putExtra("LOGIN", mViewModel.getLogin())
             intent.putExtra("PASSWORD", mViewModel.getPassword())
-            when(challengeItem.name){
-                R.string.stretching_arms_up -> {
-                    intent.putExtra("EXERCISE", Exercise.STRETCHING_ARMS_UP.ordinal)
-                }
-
-                R.string.squats -> {
-                    intent.putExtra("EXERCISE", Exercise.SQUATS.ordinal)
-                }
-
-                R.string.curl -> {
-                    intent.putExtra("EXERCISE", Exercise.CURL.ordinal)
-                }
-            }
+            intent.putExtra("EXERCISE", challengeItem.id)
             startActivityForResult(intent, 333)
         }
     }
@@ -117,7 +104,12 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
                 @Suppress("UNCHECKED_CAST")
                 val result = data!!.getSerializableExtra("result") as HashMap<String, Any>?
                 Log.d("__RESULT", "Result: $result")
-                ChallengeActivity.start(getActivity()!!, challengeItem, result, data.getStringExtra(VIDEO_PATH))
+                ChallengeActivity.start(
+                    getActivity()!!,
+                    challengeItem,
+                    result,
+                    data.getStringExtra(VIDEO_PATH)
+                )
             }
         }
     }

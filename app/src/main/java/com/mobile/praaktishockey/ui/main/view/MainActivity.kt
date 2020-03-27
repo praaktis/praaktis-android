@@ -3,6 +3,7 @@ package com.mobile.praaktishockey.ui.main.view
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer

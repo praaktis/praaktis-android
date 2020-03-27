@@ -1,6 +1,5 @@
 package com.mobile.praaktishockey.ui.challenge
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
@@ -13,13 +12,12 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
 import com.mobile.praaktishockey.R
+import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.extension.hide
 import com.mobile.praaktishockey.domain.extension.onClick
 import com.mobile.praaktishockey.domain.extension.replaceFragment
 import com.mobile.praaktishockey.domain.extension.show
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
-import com.mobile.praaktishockey.ui.details.view.DetailsActivity
-import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
 import kotlinx.android.synthetic.main.activity_video_challenge.*
 
 /**
@@ -30,14 +28,14 @@ class ChallengeVideoActivity : AppCompatActivity() {
 
     companion object {
         @JvmStatic
-        fun start(context: Context, challengeItem: ChallengeItem) {
+        fun start(context: Context, challengeItem: ChallengeDTO) {
             val intent = Intent(context, ChallengeVideoActivity::class.java)
             intent.putExtra("challengeItem", challengeItem)
             context.startActivity(intent)
         }
     }
 
-    private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as ChallengeItem }
+    private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as ChallengeDTO }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

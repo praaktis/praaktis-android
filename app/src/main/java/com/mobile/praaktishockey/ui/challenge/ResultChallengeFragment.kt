@@ -10,13 +10,12 @@ import android.view.TextureView
 import androidx.fragment.app.Fragment
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseFragment
+import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.entities.DetailResult
 import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.challenge.vm.ResultChallengeFragmentViewModel
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
-import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
 import com.praaktis.exerciseengine.Engine.DetailPoint
-import com.praaktis.exerciseengine.Engine.Exercise
 import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
 import java.util.*
@@ -29,7 +28,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
         val TAG = ResultChallengeFragment::class.java.simpleName
 
         @JvmStatic
-        fun getInstance(challengeItem: ChallengeItem): Fragment {
+        fun getInstance(challengeItem: ChallengeDTO): Fragment {
             val fragment = ResultChallengeFragment()
             val bundle = Bundle()
             bundle.putSerializable("challengeItem", challengeItem)
@@ -41,7 +40,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     override val mViewModel: ResultChallengeFragmentViewModel
         get() = getViewModel { ResultChallengeFragmentViewModel(activity.application) }
 
-    private val challengeItem by lazy { arguments!!.getSerializable("challengeItem") as ChallengeItem }
+    private val challengeItem by lazy { arguments!!.getSerializable("challengeItem") as ChallengeDTO }
     private val result by lazy { activity.intent.getSerializableExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) as HashMap<String, Any>? }
     private val path by lazy { activity.intent.getStringExtra(ChallengeInstructionFragment.VIDEO_PATH) }
 
@@ -258,20 +257,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             val intent = Intent(context, ExerciseEngineActivity::class.java)
             intent.putExtra("LOGIN", mViewModel.getLogin())
             intent.putExtra("PASSWORD", mViewModel.getPassword())
-
-            when (challengeItem.name) {
-                R.string.stretching_arms_up -> {
-                    intent.putExtra("EXERCISE", Exercise.STRETCHING_ARMS_UP.ordinal)
-                }
-
-                R.string.squats -> {
-                    intent.putExtra("EXERCISE", Exercise.SQUATS.ordinal)
-                }
-
-                R.string.curl -> {
-                    intent.putExtra("EXERCISE", Exercise.CURL.ordinal)
-                }
-            }
+            intent.putExtra("EXERCISE", challengeItem.id)
             getActivity()!!.startActivityForResult(intent, 333)
         }
     }

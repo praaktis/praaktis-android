@@ -5,21 +5,22 @@ import android.os.Handler
 import androidx.fragment.app.Fragment
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseFragment
+import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.extension.countTo
 import com.mobile.praaktishockey.domain.extension.getViewModel
 import com.mobile.praaktishockey.domain.extension.showOrReplace
 import com.mobile.praaktishockey.ui.challenge.vm.CalculateChallengeFragmentViewModel
-import com.mobile.praaktishockey.ui.main.adapter.ChallengeItem
 import kotlinx.android.synthetic.main.fragment_calculate.*
 
-class CalculateChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_calculate)
-    : BaseFragment() {
+class CalculateChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_calculate) :
+    BaseFragment() {
 
     companion object {
         @JvmField
         val TAG = CalculateChallengeFragment::class.java.simpleName
+
         @JvmStatic
-        fun getInstance(challengeItem: ChallengeItem): Fragment {
+        fun getInstance(challengeItem: ChallengeDTO): Fragment {
             val fragment = CalculateChallengeFragment()
             val bundle = Bundle()
             bundle.putSerializable("challengeItem", challengeItem)
@@ -31,7 +32,7 @@ class CalculateChallengeFragment constructor(override val layoutId: Int = R.layo
     override val mViewModel: CalculateChallengeFragmentViewModel
         get() = getViewModel { CalculateChallengeFragmentViewModel(activity.application) }
 
-    private val challengeItem by lazy { arguments!!.getSerializable("challengeItem") as ChallengeItem}
+    private val challengeItem by lazy { arguments!!.getSerializable("challengeItem") as ChallengeDTO }
 
     override fun initUI(savedInstanceState: Bundle?) {
         activity.setSupportActionBar(toolbar)
@@ -43,8 +44,10 @@ class CalculateChallengeFragment constructor(override val layoutId: Int = R.layo
         Handler().postDelayed({
             val tag = ResultChallengeFragment.TAG
             activity.showOrReplace(tag) {
-                replace(R.id.container,
-                        ResultChallengeFragment.getInstance(challengeItem), tag)
+                replace(
+                    R.id.container,
+                    ResultChallengeFragment.getInstance(challengeItem), tag
+                )
             }
 //            (activity as ChallengeActivity).changeTitle("Your result")
         }, 3000)
