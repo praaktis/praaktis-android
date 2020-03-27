@@ -6,34 +6,36 @@ package com.praaktis.exerciseengine.Engine;
  */
 abstract class ExerciseAnalyser {
 
+    static final int STRETCHING_ARMS_UP_ID = 4;
+    static final int SQUATS_ID = 5;
+    static final int CURLS_ID = 6;
+
     protected Integer mFrameNum = 0;
-
-
     protected static final int LEFT_ARM = 0;
     protected static final int RIGHT_ARM = 1;
 
     /**
      *
-     * @param exercise Exercise
+     * @param exerciseId Exercise
      * @return ExerciseAnalyzer object
      */
-    public static ExerciseAnalyser createAnalyzer(Exercise exercise) {
+    public static ExerciseAnalyser createAnalyzer(int exerciseId) {
 
-        switch (exercise){
-            case SQUATS:{
-                return new SquatExerciseAnalyzer();
-            }
-
-            case CURL: {
-                return new CurlExerciseAnalyzer();
-            }
-
-            case STRETCHING_ARMS_UP:{
+        switch (exerciseId){
+            case STRETCHING_ARMS_UP_ID:{
                 return new StretchingArmsUpAnalyzer();
             }
 
+            case SQUATS_ID:{
+                return new SquatExerciseAnalyzer();
+            }
+
+            case CURLS_ID: {
+                return new CurlExerciseAnalyzer();
+            }
+
             default:
-                throw new IllegalStateException("Unexpected value: " + exercise);
+                throw new IllegalStateException("Unexpected value: " + exerciseId);
         }
     }
 

@@ -7,7 +7,7 @@ class Globals {
     /**
      * Type of the exercise for the current session
      */
-    static Exercise EXERCISE;
+    static int EXERCISE_ID;
     static ExerciseEngineActivity mainActivity;
 
     /**
@@ -105,15 +105,15 @@ class Globals {
         CRITERIA_POSITION.clear();
         EXERCISE_SCORES  .clear();
 
-        switch (EXERCISE){
-            case SQUATS:{
+        switch (EXERCISE_ID){
+            case ExerciseAnalyser.SQUATS_ID:{
                 Globals.CALIBRATION_TIME_IN_SEC = 6;
                 Globals.EXERCISE_TIME_IN_SEC = 60 * 2;
                 CRITERIA_POSITION.put("back/shin diff", new int[]{50, 50});
                 CRITERIA_POSITION.put("knee/hip angle", new int[]{50, 130});
                 break;
             }
-            case CURL:{
+            case ExerciseAnalyser.CURLS_ID:{
                 Globals.CALIBRATION_TIME_IN_SEC = 6;
                 Globals.EXERCISE_TIME_IN_SEC = 60 * 2;
                 CRITERIA_POSITION.put("α knee", new int[]{50, 50});

@@ -49,7 +49,6 @@ import java.net.Socket;
 import java.util.Arrays;
 
 import static android.content.ContentValues.TAG;
-import static com.praaktis.exerciseengine.Engine.Exercise.SQUATS;
 import static java.lang.System.currentTimeMillis;
 
 
@@ -82,7 +81,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
     private RendererThread mRendererThread;
 
     private static final String sHost = "gauss.site.uz";
-//    private static final String sHost = "10.10.1.24";
+    //    private static final String sHost = "10.10.1.24";
     private static final int sPort = 9080;
 
     private static final int REQUEST_CAMERA_PERMISSION = 200;
@@ -108,6 +107,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
     /**
      * Method to create TextureListener
+     *
      * @return android.view.TextureView.SurfaceTextureListener
      */
     private final TextureView.SurfaceTextureListener createTextureListener() {
@@ -120,7 +120,8 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
             @Override
             public void onSurfaceTextureSizeChanged(SurfaceTexture surfaceTexture,
-                                                    int width, int height) {}
+                                                    int width, int height) {
+            }
 
             @Override
             public boolean onSurfaceTextureDestroyed(SurfaceTexture surfaceTexture) {
@@ -128,12 +129,14 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
             }
 
             @Override
-            public void onSurfaceTextureUpdated(SurfaceTexture surfaceTexture) {}
+            public void onSurfaceTextureUpdated(SurfaceTexture surfaceTexture) {
+            }
         };
     }
 
     /**
      * Method to create CameraCallback
+     *
      * @return android.hardware.camera2.CameraDevice.StateCallback
      */
     private CameraDevice.StateCallback createCameraCallback() {
@@ -183,7 +186,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
         Globals.LOGIN = getIntent().getStringExtra("LOGIN");
         Globals.PASSWORD = getIntent().getStringExtra("PASSWORD");
-        Globals.EXERCISE = Exercise.values()[getIntent().getIntExtra("EXERCISE", SQUATS.ordinal())];
+        Globals.EXERCISE_ID = getIntent().getIntExtra("EXERCISE", ExerciseAnalyser.SQUATS_ID);
 //        Globals.EXERCISE = Exercise.values()[SQUATS.ordinal()];
 
         File file = new File(getCacheDir().getPath() + "/test.mp4");
@@ -493,24 +496,29 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
     /**
      * This method used only for testing
      * send arr through the Socket at host with port
-     * @param arr byte arr
+     *
+     * @param arr  byte arr
      * @param host host
      * @param port port
      */
-    private static void sendByteArrayTcp(byte [] arr, String host, int port) {
+    private static void sendByteArrayTcp(byte[] arr, String host, int port) {
         Socket skt = null;
         try {
             skt = new Socket(host, port);
             OutputStream os = skt.getOutputStream();
             int sent = 0;
             //do {
-               os.write(arr, sent, arr.length - sent);
+            os.write(arr, sent, arr.length - sent);
             //} while (sent < arr.length);
         } catch (IOException ex) {
             Log.e("SENDBYTEARRAYTCP", "Cannot connect.");
         } finally {
             if (skt != null)
-                try {skt.close();} catch (IOException ex2) {};
+                try {
+                    skt.close();
+                } catch (IOException ex2) {
+                }
+            ;
         }
     }
 
@@ -535,7 +543,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
                 ok = !ok;
 
-                if(ok){
+                if (ok) {
                     image.close();
                     return;
                 }
@@ -547,7 +555,7 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
                         return;
                     }
 
-                    byte [] resizedYUV = new byte[(n / (SCALE_FACTOR * SCALE_FACTOR)) * 3 / 2];
+                    byte[] resizedYUV = new byte[(n / (SCALE_FACTOR * SCALE_FACTOR)) * 3 / 2];
                     int uvSize = image.getPlanes()[1].getBuffer().limit();
 
                     if (mRowBytesB == null) {
@@ -584,34 +592,37 @@ public class ExerciseEngineActivity extends Activity implements SurfaceHolder.Ca
 
     /**
      * Native method for resizing a YUV420_888 frame
-     * @param outBuf buffer for result
-     * @param bytesY Y channel
-     * @param bytesB U channel
-     * @param bytesR V channel
-     * @param yRowStride Y channel row stride
+     *
+     * @param outBuf      buffer for result
+     * @param bytesY      Y channel
+     * @param bytesB      U channel
+     * @param bytesR      V channel
+     * @param yRowStride  Y channel row stride
      * @param uvRowstride U channel row stride
      * @param pixelStride pixel stride
      */
-    public native void resizeYUV3(byte [] outBuf,byte[] bytesY, byte[] bytesB, byte[] bytesR,
-                                   int yRowStride, int uvRowstride, int pixelStride);
+    public native void resizeYUV3(byte[] outBuf, byte[] bytesY, byte[] bytesB, byte[] bytesR,
+                                  int yRowStride, int uvRowstride, int pixelStride);
 
     /**
      * Native method for converting YUV420_888 to grayscale RGB
-     * @param buf buffer for result
+     *
+     * @param buf    buffer for result
      * @param pixels yuv frame to be converted
-     * @param n number of bytes
+     * @param n      number of bytes
      */
     public native void yuvToRGBGrayscale(byte[] buf, int[] pixels, int n);
 
     /**
      * Native method for converting YUV420_888 to RGB
-     * @param bytesY Y channel
-     * @param bytesB U channel
-     * @param bytesR V channel
-     * @param bmp    bitmap for result
-     * @param width  Width of the frame
-     * @param height height of the frame
-     * @param yRowStride Y channel row stride
+     *
+     * @param bytesY      Y channel
+     * @param bytesB      U channel
+     * @param bytesR      V channel
+     * @param bmp         bitmap for result
+     * @param width       Width of the frame
+     * @param height      height of the frame
+     * @param yRowStride  Y channel row stride
      * @param uvRowstride U channel row stride
      * @param pixelStride pixel stride
      */

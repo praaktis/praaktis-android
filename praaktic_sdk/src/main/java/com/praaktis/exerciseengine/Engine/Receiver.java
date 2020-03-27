@@ -150,7 +150,7 @@ class Receiver extends Thread{
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void run() {
-        ExerciseAnalyser exerciseAnalyser = ExerciseAnalyser.createAnalyzer(Globals.EXERCISE);
+        ExerciseAnalyser exerciseAnalyser = ExerciseAnalyser.createAnalyzer(Globals.EXERCISE_ID);
         while (mRunning) {
             try {
                 Thread.sleep(5);
