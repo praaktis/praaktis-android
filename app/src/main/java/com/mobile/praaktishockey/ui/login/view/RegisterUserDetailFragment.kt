@@ -1,21 +1,16 @@
 package com.mobile.praaktishockey.ui.login.view
 
-import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
-import android.app.AlertDialog
-import android.app.DatePickerDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.view.WindowManager
 import android.widget.ArrayAdapter
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentActivity
 import com.afollestad.vvalidator.form
 import com.bumptech.glide.Glide
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseFragment
+import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.databinding.FragmentRegisterUserDetailBinding
 import com.mobile.praaktishockey.domain.common.PhotoDelegate
 import com.mobile.praaktishockey.domain.entities.CountryItemDTO
 import com.mobile.praaktishockey.domain.entities.Gender
@@ -28,15 +23,14 @@ import com.mukesh.countrypicker.CountryPicker
 import com.nguyenhoanglam.imagepicker.model.Config
 import com.nguyenhoanglam.imagepicker.model.Image
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker
-import com.tsongkha.spinnerdatepicker.DatePicker
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.fragment_register_user_detail.*
 import org.threeten.bp.LocalDate
 import java.util.*
 
 
-class RegisterUserDetailFragment @SuppressLint("ValidFragment")
-constructor(override val layoutId: Int = R.layout.fragment_register_user_detail) : BaseFragment() {
+class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layout.fragment_register_user_detail) :
+    BaseFragment<FragmentRegisterUserDetailBinding>() {
 
     companion object {
         val TAG: String = RegisterUserDetailFragment::class.java.simpleName
@@ -51,18 +45,18 @@ constructor(override val layoutId: Int = R.layout.fragment_register_user_detail)
     private lateinit var user: UserDTO
 
     private var selectedCountry: CountryItemDTO? = null
-    private lateinit var countryPicker: CountryPicker
+    private var countryPicker: CountryPicker? = null
 
     override fun initUI(savedInstanceState: Bundle?) {
         photoDelegate = PhotoDelegate(this)
         initClicks()
 
-        val genderAdapter = ArrayAdapter<String>(
-            context!!,
-            R.layout.layout_spinner,
+        val genderAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_list_item_1,
             context?.resources?.getStringArray(R.array.genders)!!
         )
-        spGender.adapter = genderAdapter
+        binding.etGender.setAdapter(genderAdapter)
 
         form {
             inputLayout(tilFirstName) {
@@ -85,7 +79,8 @@ constructor(override val layoutId: Int = R.layout.fragment_register_user_detail)
                 activity.hideKeyboard(tvNextStep)
                 user = UserDTO(
                     ability = userLevel,
-                    gender = Gender.values()[spGender.selectedItemPosition],
+                    gender = Gender.values()[resources.getStringArray(R.array.genders)
+                        .indexOf(binding.etGender.text.toString())],
                     firstName = etFirstName.stringText(),
                     lastName = etLastName.stringText(),
                     nickname = etUsername.stringText(),
@@ -147,7 +142,7 @@ constructor(override val layoutId: Int = R.layout.fragment_register_user_detail)
     private fun initClicks() {
 
         etCountry.onClick {
-            countryPicker.showBottomSheet(activity)
+            countryPicker?.showBottomSheet(activity)
         }
 
         ivAvatar.onClick {
@@ -176,30 +171,13 @@ constructor(override val layoutId: Int = R.layout.fragment_register_user_detail)
             showBirthdayDialog()
         }
 
-        val levelToggleFoo: (active: CardView, inActiveFirst: CardView, inActiveSecond: CardView) -> Unit =
-            { first, second, third ->
-                run {
-                    val activeColor = ContextCompat.getColor(context!!, R.color.blue_back_transparent)
-                    val inActiveColor = ContextCompat.getColor(context!!, R.color.light_transparent)
-                    first.setCardBackgroundColor(activeColor)
-                    second.setCardBackgroundColor(inActiveColor)
-                    third.setCardBackgroundColor(inActiveColor)
-                    first.isEnabled = false
-                    second.isEnabled = true
-                    third.isEnabled = true
-                }
+        binding.toggleGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            userLevel = when (checkedId) {
+                R.id.btn_beginner -> UserLevel.B
+                R.id.btn_intermediate -> UserLevel.I
+                R.id.btn_expert -> UserLevel.E
+                else -> UserLevel.E
             }
-        cvBeginner.onClick {
-            userLevel = UserLevel.B
-            levelToggleFoo(cvBeginner, cvIntermediate, cvExpert)
-        }
-        cvIntermediate.onClick {
-            userLevel = UserLevel.I
-            levelToggleFoo(cvIntermediate, cvBeginner, cvExpert)
-        }
-        cvExpert.onClick {
-            userLevel = UserLevel.E
-            levelToggleFoo(cvExpert, cvBeginner, cvIntermediate)
         }
     }
 
@@ -226,7 +204,9 @@ constructor(override val layoutId: Int = R.layout.fragment_register_user_detail)
             .context(context!!)
             .callback { view, year, monthOfYear, dayOfMonth ->
                 dateOfBirthCal?.set(year, monthOfYear, dayOfMonth)
-                etDateOfBirth.setText(dateOfBirthCal?.dateYYYY_MM_DD())
+                etDateOfBirth.setText(
+                    LocalDate.parse(dateOfBirthCal?.dateYYYY_MM_DD()).formatMMMddYYYY()
+                )
             }
             .dialogTheme(R.style.MyDatePickerDialogTheme)
             .spinnerTheme(R.style.MyDatePickerDialogTheme)
@@ -237,11 +217,11 @@ constructor(override val layoutId: Int = R.layout.fragment_register_user_detail)
             .minDate(1950, 0, 1)
             .build()
 
-       /* picker.setButton(0, "Ok", object : DialogInterface.OnClickListener {
-            override fun onClick(dialog: DialogInterface?, which: Int) {
+        /* picker.setButton(0, "Ok", object : DialogInterface.OnClickListener {
+             override fun onClick(dialog: DialogInterface?, which: Int) {
 
-            }
-        })*/
+             }
+         })*/
         picker.show()
 
 //        datePicker.datePicker.maxDate = System.currentTimeMillis()
@@ -263,7 +243,7 @@ constructor(override val layoutId: Int = R.layout.fragment_register_user_detail)
 //        }
     }
 
-    override fun onStart() {
+    /*override fun onStart() {
         super.onStart()
         activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
@@ -271,6 +251,11 @@ constructor(override val layoutId: Int = R.layout.fragment_register_user_detail)
     override fun onStop() {
         super.onStop()
         activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+    }*/
+
+    override fun onDestroy() {
+        countryPicker = null
+        super.onDestroy()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

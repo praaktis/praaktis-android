@@ -28,6 +28,8 @@
         </item>
 
         <item name="materialButtonStyle">@style/AppTheme.MaterialButton</item>
+
+        <item name="textInputStyle">@style/Widget.AppTheme.TextInputLayout</item>
     </style>
 
     <style name="SplashScreenTheme" parent="AppTheme.TransparentStatusBarNavigationBar">
@@ -35,7 +37,7 @@
     </style>
 
     <style name="LoginTheme" parent="AppTheme.TransparentStatusBarNavigationBar">
-        <item name="android:windowTranslucentStatus">false</item>
+
     </style>
 
     <style name="AppTheme.TransparentStatusBarNavigationBar" parent="AppTheme">
@@ -45,6 +47,11 @@
     <style name="ShapeAppearance.AppTheme.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">5dp</item>
+    </style>
+
+    <style name="ShapeAppearance.AppTheme.Circle" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%p</item>
     </style>
 
     <style name="AppTheme.MaterialButton" parent="Widget.MaterialComponents.Button">
@@ -70,6 +77,22 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="Widget.AppTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="hintEnabled">false</item>
+        <item name="startIconTint">@color/secondaryColor</item>
+        <item name="materialThemeOverlay">@style/Widget.AppTheme.TextInputLayout.Overlay</item>
+    </style>
+
+    <style name="Widget.AppTheme.TextInputLayout.Overlay" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="editTextStyle">@style/Widget.AppTheme.TextInputEditText</item>
+    </style>
+
+    <style name="Widget.AppTheme.TextInputEditText" parent="Widget.Design.TextInputEditText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColorHint">@color/grey_600</item>
+    </style>
 
     <style name="WhiteHighlight" parent="AppTheme">
         <item name="colorControlHighlight">@color/dark_grey</item>

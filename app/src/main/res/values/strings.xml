@@ -25,7 +25,7 @@
     <string name="my_best_score">my best score</string>
     <string name="my_average_score">my average score</string>
     <string name="what_do_you_feel_like_trying">what do you feel like trying?</string>
-    <string name="date_of_birth">DATE OF BIRTH</string>
+    <string name="date_of_birth">Date of Birth</string>
     <string name="done">Done</string>
     <string name="error">Please check your connection and try again</string>
     <string name="message_select_or_take">Select or take a new Picture</string>
@@ -42,8 +42,8 @@
         <item>Take a new Picture</item>
     </array>
     <array name="genders">
-        <item>MALE</item>
-        <item>FEMALE</item>
+        <item>Male</item>
+        <item>Female</item>
     </array>
 
     <string name="title_activity_challenge">ChallengeActivity</string>
@@ -53,8 +53,8 @@
     <string name="upload_profile_image">Upload profile image</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="first_name">FIRST NAME</string>
-    <string name="country_cap">COUNTRY</string>
+    <string name="first_name">First name</string>
+    <string name="country">Country</string>
     <string name="thank_you_s">Thank you, %s</string>
     <string name="account_activation_summary">You are now a member of our cool community. We will message you on <b>%s</b> in order to activate your account.</string>
     <string name="are_you_sure_logout">Are you sure that you want to sign out?</string>
@@ -82,13 +82,13 @@
     <string name="back_to_login">Back to login</string>
     <string name="details"><u>Details</u></string>
     <string name="create_account">Create account</string>
-    <string name="last_name">LAST NAME</string>
+    <string name="last_name">Last name</string>
     <string name="nickname">NICKNAME</string>
     <string name="your_email_phone">YOUR EMAIL</string>
     <string name="save">Save</string>
     <string name="registration">Registration</string>
-    <string name="set_password">SET PASSWORD</string>
-    <string name="re_password">RE-PASSWORD</string>
+    <string name="set_password">Set password</string>
+    <string name="re_password">Repeat password</string>
     <string name="send_confirmation_link">Send confirmation link</string>
     <string name="your_result">Your Result</string>
     <string name="try_again">try again</string>
@@ -97,7 +97,7 @@
     <string name="recalibrate">Recalibrate</string>
     <string name="name">Name</string>
     <string name="pos">Pos</string>
-    <string name="how_would_you_like_to_be_known">HOW WOULD YOU LIKE TO BE KNOWN?</string>
+    <string name="how_would_you_like_to_be_known">How would you like to be known?</string>
     <string name="next_step">Next step</string>
     <string name="beginner">Beginner</string>
     <string name="intermediate">Intermediate</string>
@@ -149,4 +149,5 @@
     <string name="within_5_seconds_the_red_markers_will_turn_green_recorder_should_then_tell_the_performer_to_begin_the_challenge">WITHIN 5 SECONDS THE RED MARKERS WILL TURN GREEN. RECORDER SHOULD THEN TELL THE PERFORMER TO BEGIN THE CHALLENGE</string>
     <string name="in_order_to_get_most_accurate_results_it_is_recommended_that_the_performer_completes_5_10_repetitions_of_the_challenge_before_stopping_the_video">IN ORDER TO GET MOST ACCURATE RESULTS IT IS RECOMMENDED THAT THE PERFORMER COMPLETES 5 - 10 REPETITIONS OF THE CHALLENGE BEFORE STOPPING THE VIDEO</string>
     <string name="perform_better">Perform\nBetter</string>
+    <string name="gender">Gender</string>
 </resources>

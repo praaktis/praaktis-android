@@ -51,7 +51,7 @@
         <activity
             android:name="com.mobile.praaktishockey.ui.login.view.LoginActivity"
             android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.mobile.praaktishockey.ui.main.view.MainActivity" />
         <activity android:name="com.mobile.praaktishockey.ui.details.view.DetailsActivity" />
         <activity android:name="com.mobile.praaktishockey.ui.challenge.ChallengeActivity" />

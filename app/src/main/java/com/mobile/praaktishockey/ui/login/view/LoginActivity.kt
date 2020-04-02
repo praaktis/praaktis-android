@@ -35,7 +35,7 @@ class LoginActivity constructor(override val layoutId: Int = R.layout.activity_l
 
     override fun initUI(savedInstanceState: Bundle?) {
         transparentStatusAndNavigationBar()
-        if (false/*mViewModel?.isShowedInroPage()!!*/) {
+        if (mViewModel?.isShowedInroPage()!!) {
             val tag = LoginFragment.TAG
             showOrReplace(tag) {
                 replace(R.id.container, LoginFragment.getInstance(), tag)

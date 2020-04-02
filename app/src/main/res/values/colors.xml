@@ -16,7 +16,12 @@
     <color name="blue_grey_900">#282829</color>
     <color name="amber_300">#FFCE51</color>
     <color name="purple_900">#300686</color>
+    <color name="purple_900_1">#43146E</color>
     <color name="indigo_a100">#A6A4F8</color>
+    <color name="grey_400">#CBCBCB</color>
+    <color name="grey_400_1">#B3AFAF</color>
+
+    <color name="white_alpha_60">#99FFFFFF</color>
 
     <color name="black">#000000</color>
     <color name="black_text">#515151</color>

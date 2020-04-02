@@ -63,17 +63,17 @@ class LoginFragment constructor(override val layoutId: Int = R.layout.fragment_l
         }
     }
 
-    fun isValidLogin(): Boolean {
+    private fun isValidLogin(): Boolean {
         var isValid = true
         if (etEmail.stringText().isEmpty() || !etEmail.isEmailValid()) {
             isValid = false
-            tilEmail.error = getString(R.string.enter_valid_email)
-        } else tilEmail.error = null
+            etEmail.error = getString(R.string.enter_valid_email)
+        } else etEmail.error = null
 
         if (etPassword.stringText().isEmpty() || etPassword.stringText().length < 8) {
             isValid = false
-            tilPassword.error = getString(R.string.enter_valid_password)
-        } else tilPassword.error = null
+            etPassword.error = getString(R.string.enter_valid_password)
+        } else etPassword.error = null
         return isValid
     }
 
@@ -137,8 +137,4 @@ class LoginFragment constructor(override val layoutId: Int = R.layout.fragment_l
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
-    }
 }

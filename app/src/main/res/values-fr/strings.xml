@@ -24,7 +24,7 @@
     <string name="my_best_score">mon meilleur score</string>
     <string name="my_average_score">mon score moyen</string>
     <string name="what_do_you_feel_like_trying">qu\'est-ce que vous avez envie d\'essayer?</string>
-    <string name="date_of_birth">DATE DE NAISSANCE</string>
+    <string name="date_of_birth">Date de Naissance</string>
     <string name="done">Terminé</string>
     <string name="error">Veuillez vérifier votre connexion et réessayer.</string>
     <string name="message_select_or_take">Sélectionnez ou prenez une nouvelle photo</string>
@@ -41,8 +41,8 @@
         <item>Take a new Picture</item>
     </array>
     <array name="genders">
-        <item>MÂLE</item>
-        <item>FEMELLE</item>
+        <item>Mâle</item>
+        <item>Femelle</item>
     </array>
 
     <string name="title_activity_challenge">ChallengeActivité</string>
@@ -53,7 +53,7 @@
     <string name="male">Mâle</string>
     <string name="female">Femelle</string>
     <string name="first_name">PRÉNOM</string>
-    <string name="country_cap">PAYS</string>
+    <string name="country">PAYS</string>
     <string name="thank_you_s">Merci, %s</string>
     <string name="account_activation_summary">Vous êtes maintenant membre de notre communauté cool. Nous vous enverrons un message sur <b>%s</b> afin d\'activer votre compte.</string>
     <string name="are_you_sure_logout">Êtes-vous sûr de vouloir vous déconnecter?</string>
@@ -81,13 +81,13 @@
     <string name="back_to_login">Retour connexion</string>
     <string name="details"><u>Détails</u></string>
     <string name="create_account">Créer un compte</string>
-    <string name="last_name">NOM DE FAMILLE</string>
+    <string name="last_name">Nom de famille</string>
     <string name="nickname">SURNOM</string>
     <string name="your_email_phone">VOTRE EMAIL</string>
     <string name="save">sauvegarder</string>
     <string name="registration">enregistrement</string>
-    <string name="set_password">SET MOT DE PASSE</string>
-    <string name="re_password">MOT DE PASSE</string>
+    <string name="set_password">Set mot de passe</string>
+    <string name="re_password">Mot de passe</string>
     <string name="send_confirmation_link">Envoyer un lien de confirmation</string>
     <string name="your_result">Ton résultat</string>
     <string name="try_again">réessayer</string>
