@@ -1,4 +1,4 @@
-package com.mobile.praaktishockey.base
+package com.mobile.praaktishockey.base.temp
 
 import android.os.Bundle
 import android.transition.Fade
@@ -6,16 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.mobile.praaktishockey.base.BaseActivity
+import com.mobile.praaktishockey.base.BaseViewModel
 import com.mobile.praaktishockey.domain.common.ProgressLoadingDialog
 import com.mobile.praaktishockey.domain.extension.makeToast
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
 
     @get:LayoutRes
     protected abstract val layoutId: Int
+
+    protected lateinit var binding: B
 
     abstract val mViewModel: BaseViewModel
 
@@ -32,8 +37,13 @@ abstract class BaseFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(layoutId, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(

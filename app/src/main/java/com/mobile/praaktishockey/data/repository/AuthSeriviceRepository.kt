@@ -11,8 +11,10 @@ import com.mobile.praaktishockey.domain.entities.RegisterDeviceDTO
 import com.mobile.praaktishockey.domain.entities.UserDTO
 import io.reactivex.Single
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.ResponseBody
 import java.io.File
 
@@ -64,9 +66,8 @@ interface AuthSeriviceRepository {
             userDTO.profileImage?.let {
                 val file = ImageUtils.convertToBitmap2(File(it), 300, 300)
                 val imagePart = MultipartBody.Part.createFormData(
-                    "profileImage", file.name, RequestBody.create(
-                        MediaType.parse("multipart/form-data"), file
-                    )
+                    "profileImage", file.name, file
+                        .asRequestBody("multipart/form-data".toMediaTypeOrNull())
                 )
                 user.add(imagePart)
             }

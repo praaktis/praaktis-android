@@ -14,7 +14,7 @@
         android:gravity="center"
         android:textSize="22sp"
         android:textColor="@color/white"
-        android:background="@drawable/blue_gradient"
+        android:background="@drawable/app_gradient"
         android:textAllCaps="true"
         android:paddingTop="10dp"
         />

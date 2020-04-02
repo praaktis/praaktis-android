@@ -96,16 +96,13 @@ class ChallengesAdapter(private val itemClick: (ChallengeDTO) -> Unit) :
     }
 }
 
-/*
 data class ChallengeItem(
     @StringRes val name: Int,
     @DrawableRes val image: Int,
     val label: String,
     val id: Int
 ) : Serializable
-*/
 
-/*
 val challengesList: List<ChallengeItem> = listOf(
     ChallengeItem(
         R.string.stretching_arms_up,
@@ -118,4 +115,4 @@ val challengesList: List<ChallengeItem> = listOf(
 //        ChallengeItem(R.string.stretching_arms_up, R.drawable.challenge, "Stretching Arms Up", Exercise.SQUATS.ordinal)
 //        ChallengeItem(R.string.low_backhand, R.drawable.img_low_backhand,  "Low backhand", 2),
 //        ChallengeItem(R.string.trap, R.drawable.img_trap, "Trap",3)
-)*/
+)

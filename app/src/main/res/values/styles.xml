@@ -1,20 +1,75 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/blue_back</item>
-        <item name="colorPrimaryDark">#5C459D</item>
-        <item name="colorAccent">@color/black_text</item>
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
 
-        <item name="colorControlNormal">@color/dark_grey</item>
-        <item name="android:fontFamily">@font/abel_regular</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+
+        <item name="colorError">@color/red_500</item>
+        <item name="colorSurface">@color/surfaceColor</item>
+
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="colorOnSurface">@color/grey_600</item>
+        <item name="colorOnBackground">@color/white</item>
+
+        <item name="android:statusBarColor">@color/primaryDarkColor</item>
+
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="fontFamily">@font/lato</item>
+
+        <!-- Cards, dialogs, date picker container -->
+        <item name="shapeAppearanceMediumComponent">
+            @style/ShapeAppearance.AppTheme.MediumComponent
+        </item>
+
+        <item name="materialButtonStyle">@style/AppTheme.MaterialButton</item>
     </style>
 
-    <style name="LoginTheme" parent="AppTheme">
+    <style name="SplashScreenTheme" parent="AppTheme.TransparentStatusBarNavigationBar">
+        <item name="android:windowBackground">@drawable/app_gradient</item>
+    </style>
+
+    <style name="LoginTheme" parent="AppTheme.TransparentStatusBarNavigationBar">
         <item name="android:windowTranslucentStatus">false</item>
     </style>
+
+    <style name="AppTheme.TransparentStatusBarNavigationBar" parent="AppTheme">
+
+    </style>
+
+    <style name="ShapeAppearance.AppTheme.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">5dp</item>
+    </style>
+
+    <style name="AppTheme.MaterialButton" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">25dp</item>
+        <item name="backgroundTint">@color/amber_300</item>
+        <item name="android:textColor">@color/blue_grey_900</item>
+        <item name="android:padding">14dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppTheme.Button</item>
+    </style>
+
+    <style name="AppTheme.MaterialButton.Secondary" parent="AppTheme.MaterialButton">
+        <item name="backgroundTint">@color/purple_900</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppTheme.Button.Secondary</item>
+    </style>
+
+    <style name="TextAppearance.AppTheme.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/blue_grey_900</item>
+    </style>
+
+    <style name="TextAppearance.AppTheme.Button.Secondary" parent="TextAppearance.AppTheme.Button">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 
     <style name="WhiteHighlight" parent="AppTheme">
         <item name="colorControlHighlight">@color/dark_grey</item>

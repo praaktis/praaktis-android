@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blue_gradient"
+    android:background="@drawable/app_gradient"
     android:clickable="true"
     android:focusable="true">
 
@@ -67,7 +67,7 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/vector_avatar" />
+                    android:src="@drawable/ic_user" />
 
                 <TextView
                     android:layout_width="wrap_content"

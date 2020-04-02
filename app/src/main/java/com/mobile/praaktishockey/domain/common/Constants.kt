@@ -54,14 +54,14 @@ object Constants {
         if (loginSettings.token.isNotBlank())
             builder.addInterceptor { chain ->
                 if (loginSettings.token.isNotBlank()) {
-                    Log.d("sssss", "" + chain.request().url().toString())
+                    Log.d("sssss", "" + chain.request().url.toString())
                     val newRequest = chain
                         .request()
                         .newBuilder()
                         .addHeader("Authorization", "Token ${loginSettings.token}")
                         .build()
                     val r  = chain.proceed(newRequest)
-                    Log.d("sssss", "" + chain.request().url().toString())
+                    Log.d("sssss", "" + chain.request().url.toString())
                     return@addInterceptor r
                 }
                 chain.proceed(chain.request())

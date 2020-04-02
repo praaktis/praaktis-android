@@ -9,7 +9,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/blue_gradient"
+        android:background="@drawable/app_gradient"
         android:paddingTop="20dp"
         >
 

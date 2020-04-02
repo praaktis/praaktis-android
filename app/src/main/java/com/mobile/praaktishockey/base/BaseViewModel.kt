@@ -60,7 +60,7 @@ open class BaseViewModel(app: Application) : AndroidViewModel(app) {
                 500 -> "Internal sever error!"
                 401 -> {
                     logoutEvent.postValue(true)
-                    val temp = throwable.response().errorBody()?.string()
+                    val temp = throwable.response()?.errorBody()?.string()
                     if (temp != null) {
                         val messages: MutableList<String> = mutableListOf()
                         try {
@@ -77,7 +77,7 @@ open class BaseViewModel(app: Application) : AndroidViewModel(app) {
                     temp.toString()
                 }
                 else -> {
-                    val temp = throwable.response().errorBody()?.string()
+                    val temp = throwable.response()?.errorBody()?.string()
                     if (temp != null)
                         try {
                             val json = JSONObject(temp)

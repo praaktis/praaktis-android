@@ -16,7 +16,7 @@
         android:textSize="20sp"
         android:paddingTop="10dp"
         android:gravity="center"
-        android:background="@drawable/blue_gradient"
+        android:background="@drawable/app_gradient"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

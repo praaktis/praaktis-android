@@ -1,13 +1,13 @@
 package com.mobile.praaktishockey.ui.login.view
 
-import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseFragment
+import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.databinding.FragmentLoginBinding
 import com.mobile.praaktishockey.domain.common.pref.SettingsStorage
 import com.mobile.praaktishockey.domain.entities.LanguageItem
 import com.mobile.praaktishockey.domain.entities.UserDTO
@@ -16,8 +16,8 @@ import com.mobile.praaktishockey.ui.login.vm.LoginFragmentViewModel
 import com.mobile.praaktishockey.ui.main.view.MainActivity
 import kotlinx.android.synthetic.main.fragment_login.*
 
-class LoginFragment @SuppressLint("ValidFragment")
-constructor(override val layoutId: Int = R.layout.fragment_login) : BaseFragment() {
+class LoginFragment constructor(override val layoutId: Int = R.layout.fragment_login) :
+    BaseFragment<FragmentLoginBinding>() {
 
     companion object {
         val TAG = LoginFragment::class.java.simpleName
@@ -35,7 +35,7 @@ constructor(override val layoutId: Int = R.layout.fragment_login) : BaseFragment
     private fun initClicks() {
         tilPassword.typeface = Typeface.createFromAsset(context?.assets, "fonts/abel_regular.ttf")
 
-        cvCreateAccount.onClick {
+        binding.btnCreateAccount.onClick {
             val tag = RegisterFragment.TAG
             activity.showOrReplace(tag) {
                 add(
@@ -45,7 +45,7 @@ constructor(override val layoutId: Int = R.layout.fragment_login) : BaseFragment
                 ).addToBackStack(tag)
             }
         }
-        tvForgotPassword.onClick {
+        binding.btnForgotPassword.onClick {
             val tag = ForgotPasswordFragment.TAG
             activity.showOrReplace(tag) {
                 add(
@@ -57,7 +57,7 @@ constructor(override val layoutId: Int = R.layout.fragment_login) : BaseFragment
             }
         }
 
-        tvLogin.onClick {
+        binding.btnLogin.onClick {
             if (isValidLogin())
                 mViewModel.login(etEmail.text.toString(), etPassword.text.toString())
         }

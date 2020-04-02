@@ -1,59 +1,37 @@
 package com.mobile.praaktishockey.ui.login.view
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseFragment
+import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.databinding.FragmentIntroPageBinding
 import com.mobile.praaktishockey.domain.common.FadeTransformation
-import com.mobile.praaktishockey.domain.extension.*
+import com.mobile.praaktishockey.domain.extension.getViewModel
+import com.mobile.praaktishockey.domain.extension.onClick
+import com.mobile.praaktishockey.domain.extension.showOrReplace
 import com.mobile.praaktishockey.ui.login.adapter.IntroPagerAdapter
 import com.mobile.praaktishockey.ui.login.vm.IntroPageViewModel
-import kotlinx.android.synthetic.main.fragment_intro_page.*
 
-class IntroPageFragment @SuppressLint("ValidFragment")
-constructor(override val layoutId: Int = R.layout.fragment_intro_page)
-    : BaseFragment() {
+class IntroPageFragment constructor(override val layoutId: Int = R.layout.fragment_intro_page) :
+    BaseFragment<FragmentIntroPageBinding>() {
 
     companion object {
         val TAG = IntroPageFragment::class.java.simpleName
-        fun getInstance() : androidx.fragment.app.Fragment = IntroPageFragment()
+        fun getInstance() = IntroPageFragment()
     }
 
     override val mViewModel: IntroPageViewModel
-        get() = getViewModel{ IntroPageViewModel(activity.application!!)}
+        get() = getViewModel { IntroPageViewModel(activity.application!!) }
 
     override fun initUI(savedInstanceState: Bundle?) {
-        /*tvSkip.onClick { */layoutStartPage.hide() /*}*/
-        cvLogin.onClick {
+        binding.btnLogin.onClick {
             val tag = LoginFragment.TAG
             activity.showOrReplace(tag) {
                 add(R.id.container, LoginFragment.getInstance(), tag)
             }
             mViewModel.setShowedInroPage(true)
         }
-        vpIntro.adapter = IntroPagerAdapter()
-        vpIntro.setPageTransformer(false, FadeTransformation())
-
-//        val radius = 0f
-//
-//        val decorView = activity.window.getDecorView()
-//        val rootView = decorView.findViewById(android.R.id.content) as ViewGroup
-//        val windowBackground = decorView.getBackground()
-//
-//        bv.setupWith(rootView)
-//                .setFrameClearDrawable(windowBackground)
-//                .setBlurAlgorithm(RenderScriptBlur(context))
-//                .setBlurRadius(radius)
-//                .setHasFixedTransformationMatrix(true)
+        binding.vpIntro.adapter = IntroPagerAdapter()
+        binding.vpIntro.setPageTransformer(false, FadeTransformation())
     }
 
-    override fun onStart() {
-        super.onStart()
-//        bvStartPage.startBlur()
-    }
-
-    override fun onStop() {
-        super.onStop()
-//        bvStartPage.pauseBlur()
-    }
 }

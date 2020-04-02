@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blue_gradient"
+    android:background="@drawable/app_gradient"
     android:clickable="true">
 
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/back_line"
-        android:scaleType="centerCrop"
         android:alpha="0.2"
+        android:scaleType="centerCrop"
+        android:src="@drawable/back_line"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -21,13 +21,12 @@
         android:id="@+id/iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/back"
+        android:layout_marginBottom="150dp"
         android:alpha="0.1"
+        android:scaleType="centerCrop"
         android:scaleX="1.5"
         android:scaleY="1.5"
-        android:layout_marginBottom="150dp"
-        />
+        android:src="@drawable/back" />
 
 
     <androidx.core.widget.NestedScrollView
@@ -72,141 +71,121 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <eightbitlab.com.blurview.BlurView
-                        android:id="@+id/bv"
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                        <!--<com.github.mmin18.widget.RealtimeBlurView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--app:realtimeBlurRadius="10dp"-->
-                        <!--app:realtimeOverlayColor="#07000000" />-->
-
-                        <!--<com.fivehundredpx.android.blur.BlurringView-->
-                        <!--android:id="@+id/bvRegister"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--app:blurRadius="11"-->
-                        <!--app:downsampleFactor="6"-->
-                        <!--app:overlayColor="#99FFFFFF"-->
-                        <!--/>-->
-
-                        <LinearLayout
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilEmail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="20dp"
+                            android:textColorHint="@color/dark_grey"
+                            android:theme="@style/AppTheme.LoadingWhite"
+                            app:errorEnabled="true">
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/tilEmail"
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etEmail"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginRight="20dp"
-                                android:textColorHint="@color/dark_grey"
-                                android:theme="@style/AppTheme.LoadingWhite"
-                                app:errorEnabled="true">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/etEmail"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:hint="@string/email"
-                                    android:inputType="textEmailAddress"
-                                    android:maxLength="40"
-                                    android:maxLines="1"
-                                    android:singleLine="true"
-                                    android:theme="@style/AppTheme.LoadingWhite"
-                                    android:textColor="@color/white"
-                                    android:textColorHint="@color/white"
-                                    android:textSize="17sp" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/tilPassword"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginRight="20dp"
-                                android:textColorHint="@color/dark_grey"
-                                android:theme="@style/AppTheme.LoadingWhite"
-                                app:errorEnabled="true"
-                                app:passwordToggleEnabled="true"
-                                app:passwordToggleTint="@color/dark_grey">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/etPassword"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:drawablePadding="-48dp"
-                                    android:gravity="center"
-                                    android:hint="@string/set_password"
-                                    android:inputType="textPassword"
-                                    android:maxLength="20"
-                                    android:maxLines="1"
-                                    android:theme="@style/AppTheme.LoadingWhite"
-                                    android:singleLine="true"
-                                    android:textColor="@color/white"
-                                    android:textColorHint="@color/white"
-                                    android:textSize="17sp" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/tilRePassword"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginRight="20dp"
-                                android:textColorHint="@color/dark_grey"
-                                app:errorEnabled="true"
-                                app:passwordToggleEnabled="true"
-                                android:theme="@style/AppTheme.LoadingWhite"
-                                app:passwordToggleTint="@color/dark_grey">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/etRePassword"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:drawablePadding="-48dp"
-                                    android:fontFamily="@font/abel_regular"
-                                    android:gravity="center"
-                                    android:hint="@string/re_password"
-                                    android:inputType="textPassword"
-                                    android:theme="@style/AppTheme.LoadingWhite"
-                                    android:maxLength="20"
-                                    android:maxLines="1"
-                                    android:singleLine="true"
-                                    android:textColor="@color/white"
-                                    android:textColorHint="@color/white"
-                                    android:textSize="17sp" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <TextView
-                                android:id="@+id/tvSendConfirmationLink"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/light_grey"
-                                android:clickable="true"
-                                android:foreground="?selectableItemBackground"
                                 android:gravity="center"
-                                android:paddingTop="16dp"
-                                android:paddingBottom="16dp"
-                                android:text="@string/send_confirmation_link"
-                                android:textAllCaps="true"
-                                android:textColor="@color/blue_text"
-                                android:textSize="20sp"
-                                android:theme="@style/WhiteHighlight" />
+                                android:hint="@string/email"
+                                android:inputType="textEmailAddress"
+                                android:maxLength="40"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/white"
+                                android:textSize="17sp"
+                                android:theme="@style/AppTheme.LoadingWhite" />
 
-                        </LinearLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    </eightbitlab.com.blurview.BlurView>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="20dp"
+                            android:textColorHint="@color/dark_grey"
+                            android:theme="@style/AppTheme.LoadingWhite"
+                            app:errorEnabled="true"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="@color/dark_grey">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="-48dp"
+                                android:gravity="center"
+                                android:hint="@string/set_password"
+                                android:inputType="textPassword"
+                                android:maxLength="20"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/white"
+                                android:textSize="17sp"
+                                android:theme="@style/AppTheme.LoadingWhite" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilRePassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="20dp"
+                            android:textColorHint="@color/dark_grey"
+                            android:theme="@style/AppTheme.LoadingWhite"
+                            app:errorEnabled="true"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="@color/dark_grey">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etRePassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="-48dp"
+                                android:fontFamily="@font/abel_regular"
+                                android:gravity="center"
+                                android:hint="@string/re_password"
+                                android:inputType="textPassword"
+                                android:maxLength="20"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/white"
+                                android:textSize="17sp"
+                                android:theme="@style/AppTheme.LoadingWhite" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/tvSendConfirmationLink"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/light_grey"
+                            android:clickable="true"
+                            android:foreground="?selectableItemBackground"
+                            android:gravity="center"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp"
+                            android:text="@string/send_confirmation_link"
+                            android:textAllCaps="true"
+                            android:textColor="@color/blue_text"
+                            android:textSize="20sp"
+                            android:theme="@style/WhiteHighlight" />
+
+                    </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -233,7 +212,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:src="@drawable/vector_avatar"
+                            android:src="@drawable/ic_user"
                             android:tint="@color/blue_text" />
 
                         <TextView

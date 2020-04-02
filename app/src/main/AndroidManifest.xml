@@ -39,7 +39,9 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
-        <activity android:name="com.mobile.praaktishockey.ui.SplashScreenActivity">
+        <activity
+            android:name="com.mobile.praaktishockey.ui.SplashScreenActivity"
+            android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

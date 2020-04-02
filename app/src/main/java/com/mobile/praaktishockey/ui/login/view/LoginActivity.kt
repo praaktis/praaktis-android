@@ -8,6 +8,7 @@ import com.mobile.praaktishockey.base.BaseActivity
 import com.mobile.praaktishockey.domain.common.pref.SettingsStorage
 import com.mobile.praaktishockey.domain.extension.getViewModel
 import com.mobile.praaktishockey.domain.extension.showOrReplace
+import com.mobile.praaktishockey.domain.extension.transparentStatusAndNavigationBar
 import com.mobile.praaktishockey.ui.login.vm.LoginActivityViewModel
 
 class LoginActivity constructor(override val layoutId: Int = R.layout.activity_login) : BaseActivity() {
@@ -33,7 +34,8 @@ class LoginActivity constructor(override val layoutId: Int = R.layout.activity_l
     }
 
     override fun initUI(savedInstanceState: Bundle?) {
-        if (mViewModel?.isShowedInroPage()!!) {
+        transparentStatusAndNavigationBar()
+        if (false/*mViewModel?.isShowedInroPage()!!*/) {
             val tag = LoginFragment.TAG
             showOrReplace(tag) {
                 replace(R.id.container, LoginFragment.getInstance(), tag)
