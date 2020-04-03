@@ -52,4 +52,8 @@ interface AuthService {
     fun registerDevice(
         @Body registerDeviceDTO: RegisterDeviceDTO
     ): Single<ResponseBody>
+
+    @POST("user/resendActivation/")
+    fun resendActivation(): Single<ResponseBody>
+
 }

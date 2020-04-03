@@ -30,6 +30,7 @@ interface AuthSeriviceRepository {
     fun getAcceptTerms(): Single<ResponseBody>
     fun forgotPassword(email: String): Single<ResponseBody>
     fun registerDevice(token: String): Single<ResponseBody>
+    fun resendActivation(): Single<ResponseBody>
 
     class AuthServiceRepositoryImpl : AuthSeriviceRepository {
 
@@ -110,6 +111,10 @@ interface AuthSeriviceRepository {
         override fun registerDevice(token: String): Single<ResponseBody> {
             val request = RegisterDeviceDTO(token)
             return authService.registerDevice(request).compose(ASyncTransformer<ResponseBody>())
+        }
+
+        override fun resendActivation(): Single<ResponseBody> {
+            return authService.resendActivation().compose(ASyncTransformer<ResponseBody>())
         }
     }
 }

@@ -63,7 +63,7 @@
     <string name="next">Prochain</string>
     <string name="instructions">Instructions</string>
     <string name="ok">D\'accord</string>
-    <string name="read_and_accept_our_terms"><u>Lire et accepter nos conditions</u></string>
+    <string name="read_and_accept_our_terms">Lire et accepter\nnos <u>conditions</u></string>
     <string name="i_accept_the_terms_and_conditions">J\'accepte les termes et conditions</string>
     <string name="finish">terminer</string>
     <string name="back">Retour</string>
@@ -71,7 +71,9 @@
     <string name="calculating">Calculateur</string>
     <string name="get_into_position">Se mettre en position</string>
     <string name="calibrate">Étalonner</string>
-    <string name="already_activated_nstart">Déjà activé?\nDébut</string>
+    <string name="already_activated_nstart">Déjà activé?</string>
+    <string name="start">Début</string>
+    <string name="already_activated">Déjà activé?</string>
     <string name="resend_link">Renvoyer le lien</string>
     <string name="detailed_analysis">Analyse détaillée</string>
     <string name="forgot_password">Mot de passe oublié</string>

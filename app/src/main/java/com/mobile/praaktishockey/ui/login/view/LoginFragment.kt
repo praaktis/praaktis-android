@@ -2,7 +2,6 @@ package com.mobile.praaktishockey.ui.login.view
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.R
@@ -123,16 +122,16 @@ class LoginFragment constructor(override val layoutId: Int = R.layout.fragment_l
             return if (!user.termsAccepted!!) {
                 AcceptTermsFragment.TAG
             } else {
-                if (user.scalingFactor == null) {
+                /*if (user.scalingFactor == null) {
 //                    CalibrateFragment.TAG
                     null
+                } else {*/
+                if (user.praaktisRegistered == true) {
+                    null
                 } else {
-                    if (!user.praaktisRegistered!!) {
-                        ConfirmLoginFragment.TAG
-                    } else {
-                        null
-                    }
+                    ConfirmLoginFragment.TAG
                 }
+//                }
             }
         }
     }

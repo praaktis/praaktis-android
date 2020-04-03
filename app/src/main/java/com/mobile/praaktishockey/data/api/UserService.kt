@@ -1,6 +1,5 @@
 package com.mobile.praaktishockey.data.api
 
-import com.mobile.praaktishockey.domain.entities.MeVsOthersDTO
 import com.mobile.praaktishockey.domain.entities.*
 import io.reactivex.Single
 import okhttp3.ResponseBody
@@ -42,26 +41,23 @@ interface UserService {
     @POST("user/inviteFriend/")
     fun inviteFriend(
         @Body inviteFriend: InviteFriendRequest
-    ) : Single<UserMessage>
+    ): Single<UserMessage>
 
     @POST("user/deleteFriend/")
     fun deleteFriend(
         @Body deleteFriendRequest: DeleteFriendRequest
-    ):Single<ResponseBody>
+    ): Single<ResponseBody>
 
     @POST("user/confirmFriend/")
     fun confirmFriend(
         @Body confirmFriendRequest: ConfirmFriendRequest
-    ) : Single<ResponseBody>
+    ): Single<ResponseBody>
 
     @GET("user/getFriends/")
     fun getFriends(): Single<List<FriendDTO>>
 
     @GET("user/getFriendRequests/")
-    fun getFriendRequest() : Single<List<FriendDTO>>
-
-    @POST("user/resendActivation/")
-    fun resendActivation()
+    fun getFriendRequest(): Single<List<FriendDTO>>
 
     @POST("user/refuseFriend/")
     fun refuseFriend(

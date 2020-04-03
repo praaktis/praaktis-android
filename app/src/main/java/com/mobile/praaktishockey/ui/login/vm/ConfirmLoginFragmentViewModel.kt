@@ -8,6 +8,7 @@ import com.mobile.praaktishockey.domain.common.LiveEvent
 import com.mobile.praaktishockey.domain.common.pref.SettingsStorage
 import com.mobile.praaktishockey.domain.entities.LanguageItem
 import com.mobile.praaktishockey.domain.entities.UserDTO
+import okhttp3.ResponseBody
 
 class ConfirmLoginFragmentViewModel(app: Application) : BaseViewModel(app) {
 
@@ -26,7 +27,7 @@ class ConfirmLoginFragmentViewModel(app: Application) : BaseViewModel(app) {
             }, ::onError)
     }
 
-    fun getProfile() : UserDTO? {
+    fun getProfile(): UserDTO? {
         return loginStorage.getProfile()
     }
 
@@ -37,5 +38,16 @@ class ConfirmLoginFragmentViewModel(app: Application) : BaseViewModel(app) {
             return Gson().fromJson(json, LanguageItem::class.java)
         }
         return null
+    }
+
+    val resendActivationEvent: LiveEvent<ResponseBody> = LiveEvent()
+
+    fun resendActivation() {
+        repo.resendActivation()
+            .doOnSubscribe { showHideEvent.postValue(true) }
+            .doAfterTerminate { showHideEvent.postValue(false) }
+            .subscribe({
+                resendActivationEvent.postValue(it)
+            }, ::onError)
     }
 }

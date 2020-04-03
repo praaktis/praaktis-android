@@ -76,6 +76,7 @@
                         android:hint="@string/email"
                         android:inputType="textEmailAddress"
                         android:maxLength="40"
+                        android:nextFocusDown="@id/tilPassword"
                         android:textColorHint="@color/grey_600"
                         android:textSize="16sp" />
 
@@ -109,6 +110,7 @@
                         android:hint="@string/password"
                         android:inputType="textPassword"
                         android:maxLength="20"
+                        android:nextFocusDown="@id/btn_login"
                         android:textColorHint="@color/grey_600"
                         android:textSize="17sp" />
 

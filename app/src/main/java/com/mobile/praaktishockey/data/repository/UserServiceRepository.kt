@@ -1,6 +1,5 @@
 package com.mobile.praaktishockey.data.repository
 
-import com.mobile.praaktishockey.domain.entities.MeVsOthersDTO
 import com.mobile.praaktishockey.data.api.UserService
 import com.mobile.praaktishockey.domain.common.ASyncTransformer
 import com.mobile.praaktishockey.domain.common.Constants
@@ -55,7 +54,8 @@ interface UserServiceRepository {
         }
 
         override fun getDetailResult(attemptId: Int): Single<List<DetailScoreDTO>> {
-            return userService.getDetailResult(attemptId).compose(ASyncTransformer<List<DetailScoreDTO>>())
+            return userService.getDetailResult(attemptId)
+                .compose(ASyncTransformer<List<DetailScoreDTO>>())
         }
 
         override fun storeResult(storeResultDTO: StoreResultDTO): Single<ResponseBody> {
@@ -77,7 +77,8 @@ interface UserServiceRepository {
 
         override fun confirmFriend(email: String): Single<ResponseBody> {
             val confirmFriendRequest = ConfirmFriendRequest(email)
-            return userService.confirmFriend(confirmFriendRequest).compose(ASyncTransformer<ResponseBody>())
+            return userService.confirmFriend(confirmFriendRequest)
+                .compose(ASyncTransformer<ResponseBody>())
         }
 
         override fun getFriends(): Single<List<FriendDTO>> {
@@ -111,5 +112,6 @@ interface UserServiceRepository {
         override fun logout(): Single<ResponseBody> {
             return userService.logout().compose(ASyncTransformer<ResponseBody>())
         }
+
     }
 }

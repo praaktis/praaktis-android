@@ -1,182 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/app_gradient"
-    android:clickable="true">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/iv"
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="110dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/boon_mobile_rx"
-        android:visibility="gone"
-        />
+        android:background="@drawable/app_gradient2"
+        android:clickable="true"
+        app:paddingBottomSystemWindowInsets="@{true}">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardElevation="6dp"
+            app:contentPaddingBottom="7dp"
+            app:contentPaddingLeft="27dp"
+            app:contentPaddingRight="27dp"
+            app:contentPaddingTop="28dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="370dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAcceptTerms"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="@string/read_and_accept_our_terms"
+                    android:textAllCaps="true"
+                    android:textColor="@color/purple_900_1"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="0dp">
+
+                    <requestFocus />
+                </EditText>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/chbTermsConditions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="40dp"
-                    app:cardBackgroundColor="@color/white_transparent"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <FrameLayout
-                        android:id="@+id/bv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <!--<com.github.mmin18.widget.RealtimeBlurView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--app:realtimeBlurRadius="10dp"-->
-                        <!--app:realtimeOverlayColor="#07000000" />-->
-
-                        <!--<android.support.v4.widget.NestedScrollView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content">-->
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="80dp"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-                            <TextView
-                                android:id="@+id/tvAcceptTerms"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:text="@string/read_and_accept_our_terms"
-                                android:textAllCaps="true"
-                                android:textColor="@color/white"
-                                android:textSize="35sp" />
-
-                            <androidx.core.widget.NestedScrollView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:fillViewport="true"
-                                android:overScrollMode="never"
-                                android:visibility="gone"
-                                >
-
-                                <TextView
-                                    android:id="@+id/tvTermsConditions"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="20dp"
-                                    android:layout_marginRight="20dp"
-                                    android:layout_marginBottom="20dp"
-                                    android:background="@color/white_transparent"
-                                    android:padding="5dp"
-                                    android:visibility="gone"
-                                    android:text="      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. "
-                                    android:textColor="@color/black"
-                                    android:textSize="15sp" />
-
-
-                            </androidx.core.widget.NestedScrollView>
-
-                        </LinearLayout>
-                        <!--</android.support.v4.widget.NestedScrollView>-->
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_marginTop="20dp"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <EditText
-                                android:layout_width="0dp"
-                                android:layout_height="0dp">
-
-                                <requestFocus />
-                            </EditText>
-
-                            <androidx.appcompat.widget.AppCompatCheckBox
-                                android:id="@+id/chbTermsConditions"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingLeft="10dp"
-                                android:text="@string/i_accept_the_terms_and_conditions"
-                                android:textAllCaps="true"
-                                android:textColor="@color/white" />
-
-                            <FrameLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:padding="10dp">
-
-                                <TextView
-                                    android:id="@+id/tvBack"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:background="?selectableItemBackgroundBorderless"
-                                    android:clickable="true"
-                                    android:text="@string/back"
-                                    android:padding="5dp"
-                                    android:textAllCaps="true"
-                                    android:textColor="@color/white_transparent"
-                                    android:textSize="17sp"
-                                    android:theme="@style/WhiteHighlight" />
-
-                                <TextView
-                                    android:id="@+id/tvFinish"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:background="?selectableItemBackgroundBorderless"
-                                    android:clickable="true"
-                                    android:text="@string/finish"
-                                    android:textAllCaps="true"
-                                    android:padding="5dp"
-                                    android:textColor="@color/white"
-                                    android:textSize="18sp"
-                                    android:theme="@style/WhiteHighlight" />
-
-                            </FrameLayout>
-                        </LinearLayout>
-
-                    </FrameLayout>
-
-                </androidx.cardview.widget.CardView>
+                    android:background="@android:color/transparent"
+                    android:button="@android:color/transparent"
+                    android:drawableStart="@drawable/selector_checkbox"
+                    android:drawablePadding="16dp"
+                    android:paddingLeft="10dp"
+                    android:text="@string/i_accept_the_terms_and_conditions"
+                    android:textColor="@color/grey_600"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
-        </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-    </LinearLayout>
-</FrameLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tvBack"
+            style="@style/AppTheme.MaterialButton.Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="30dp"
+            android:alpha=".5"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:text="@string/back"
+            app:icon="@drawable/ic_arrow_left"
+            app:iconGravity="textStart"
+            app:iconPadding="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:textSize="17sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tvFinish"
+            style="@style/AppTheme.MaterialButton.Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="30dp"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:text="@string/finish"
+            app:icon="@drawable/ic_arrow_right"
+            app:iconGravity="textEnd"
+            app:iconPadding="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:textSize="17sp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

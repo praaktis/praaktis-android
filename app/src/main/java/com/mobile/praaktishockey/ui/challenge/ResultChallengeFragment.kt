@@ -211,7 +211,6 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
         result?.forEach { (key, value) ->
             when (value) {
                 is DetailPoint -> {
-                    // todo:: send results to backend, @param(DetailResult.detailPointId) not receiving
                     detailResults.add(
                         DetailResult(
                             value.id,

@@ -59,6 +59,9 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
         binding.etGender.setAdapter(genderAdapter)
 
         form {
+            inputLayout(binding.tilGender) {
+                isNotEmpty().description("Select your gender")
+            }
             inputLayout(tilFirstName) {
                 isNotEmpty().description("Enter your First Name")
             }
@@ -74,7 +77,6 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
             inputLayout(tilUsername) {
                 isNotEmpty().description("Enter your nickname")
             }
-
             submitWith(tvNextStep) {
                 activity.hideKeyboard(tvNextStep)
                 user = UserDTO(

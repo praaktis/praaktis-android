@@ -54,6 +54,10 @@
         <item name="cornerSize">50%p</item>
     </style>
 
+    <style name="ShapeAppearance.AppTheme.HalfCircle" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+    </style>
+
     <style name="AppTheme.MaterialButton" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">25dp</item>
         <item name="backgroundTint">@color/amber_300</item>

@@ -22,6 +22,7 @@
     <color name="grey_400_1">#B3AFAF</color>
 
     <color name="white_alpha_60">#99FFFFFF</color>
+    <color name="white_alpha_70">#B3FFFFFF</color>
 
     <color name="black">#000000</color>
     <color name="black_text">#515151</color>

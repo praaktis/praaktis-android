@@ -1,143 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/app_gradient"
-    android:clickable="true">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/iv"
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="110dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/boon_mobile_rx"
-        android:visibility="gone" />
+        android:background="@drawable/app_gradient2"
+        android:clickable="true"
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.08" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvThankYou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="26dp"
+            android:gravity="center"
+            android:text="Thank you, Saidjamol"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:translationY="16dp"
+            app:drawableTopCompat="@drawable/ic_smile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guide_top" />
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_curved_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:contentPaddingBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvThankYou">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:clipToPadding="false"
+                app:paddingBottomSystemWindowInsets="@{true}">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="40dp"
-                    android:clickable="false"
-                    app:cardBackgroundColor="@color/white_transparent"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="42dp"
+                    android:layout_marginEnd="42dp"
+                    app:cardElevation="6dp"
+                    app:contentPaddingBottom="28dp"
+                    app:contentPaddingLeft="20dp"
+                    app:contentPaddingRight="20dp"
+                    app:contentPaddingTop="28dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_max="370dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="80dp"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:id="@+id/tvThankYou"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="false"
-                            android:gravity="center"
-                            android:text="@string/thank_you_s"
-                            android:textAllCaps="true"
-                            android:textColor="@color/white"
-                            android:textSize="35sp" />
-
-                        <TextView
-                            android:id="@+id/tvActivationSummary"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:clickable="false"
-                            android:gravity="center"
-                            android:text="@string/account_activation_summary"
-                            android:textColor="@color/white"
-                            android:textSize="17sp"
-                            android:theme="@style/WhiteHighlight" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvActivationSummary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|center_horizontal"
-                        android:clickable="false"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="10dp">
+                        android:text="@string/account_activation_summary"
+                        android:textSize="14sp" />
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="?selectableItemBackgroundBorderless"
-                            android:clickable="true"
-                            android:src="@drawable/vector_reload"
-                            android:theme="@style/WhiteHighlight"
-                            android:tint="@color/white" />
+                </com.google.android.material.card.MaterialCardView>
 
-                        <TextView
-                            android:id="@+id/tvStart"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:gravity="center"
-                            android:text="@string/already_activated_nstart"
-                            android:textAllCaps="true"
-                            android:textColor="@color/white"
-                            android:textSize="17sp" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_activated"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:gravity="center"
+                    android:text="@string/already_activated"
+                    android:textColor="@color/purple_900_1"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cv_summary" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tvStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:paddingStart="67dp"
+                    android:paddingEnd="67dp"
+                    android:text="@string/start"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_activated"
+                    tools:textSize="17sp" />
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="40dp"
-                            android:src="@drawable/vector_email"
-                            android:tint="@color/white" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_resend"
+                    style="@style/AppTheme.MaterialButton.Secondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="39dp"
+                    android:paddingEnd="39dp"
+                    android:text="@string/resend_link"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvStart"
+                    app:layout_constraintVertical_bias=".8"
+                    tools:textSize="17sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:background="?selectableItemBackground"
-                            android:clickable="true"
-                            android:padding="10dp"
-                            android:text="@string/resend_link"
-                            android:textAllCaps="true"
-                            android:textColor="@color/white"
-                            android:textSize="17sp"
-                            android:theme="@style/WhiteHighlight" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-                </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </LinearLayout>
-
-        </FrameLayout>
-
-    </LinearLayout>
-</FrameLayout>
+</layout>

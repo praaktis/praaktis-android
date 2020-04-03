@@ -3,15 +3,16 @@ package com.mobile.praaktishockey.ui.login.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.FragmentManager
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseActivity
 import com.mobile.praaktishockey.domain.common.pref.SettingsStorage
-import com.mobile.praaktishockey.domain.extension.getViewModel
-import com.mobile.praaktishockey.domain.extension.showOrReplace
-import com.mobile.praaktishockey.domain.extension.transparentStatusAndNavigationBar
+import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.login.vm.LoginActivityViewModel
 
-class LoginActivity constructor(override val layoutId: Int = R.layout.activity_login) : BaseActivity() {
+class LoginActivity constructor(override val layoutId: Int = R.layout.activity_login) :
+    BaseActivity(),
+    FragmentManager.OnBackStackChangedListener {
 
     override val mViewModel: LoginActivityViewModel?
         get() = getViewModel { LoginActivityViewModel(application) }
@@ -35,6 +36,9 @@ class LoginActivity constructor(override val layoutId: Int = R.layout.activity_l
 
     override fun initUI(savedInstanceState: Bundle?) {
         transparentStatusAndNavigationBar()
+
+        supportFragmentManager.addOnBackStackChangedListener(this)
+
         if (mViewModel?.isShowedInroPage()!!) {
             val tag = LoginFragment.TAG
             showOrReplace(tag) {
@@ -69,4 +73,17 @@ class LoginActivity constructor(override val layoutId: Int = R.layout.activity_l
         }
     }
 
+    override fun onBackStackChanged() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
+        when (currentFragment) {
+            is ConfirmLoginFragment -> {
+                setLightNavigationBar()
+            }
+            else -> {
+                clearLightNavigationBar()
+            }
+        }
+    }
+
 }
+

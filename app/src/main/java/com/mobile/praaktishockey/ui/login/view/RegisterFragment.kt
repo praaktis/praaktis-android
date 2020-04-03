@@ -62,22 +62,8 @@ class RegisterFragment constructor(override val layoutId: Int = R.layout.fragmen
                 }
             }
 
-            // todo: uncomment after test
-//            submitWith(binding.btnSubmit) {
-//                mViewModel.createUser(etEmail.text.toString(), etPassword.text.toString())
-//            }
-        }
-
-
-        // todo: remove after test
-        binding.btnSubmit.setOnClickListener {
-            val tag = RegisterUserDetailFragment.TAG
-            activity.showOrReplace(tag) {
-                add(
-                    R.id.container,
-                    RegisterUserDetailFragment.getInstance(),
-                    tag
-                ).addToBackStack(tag)
+            submitWith(binding.btnSubmit) {
+                mViewModel.createUser(etEmail.text.toString(), etPassword.text.toString())
             }
         }
     }
