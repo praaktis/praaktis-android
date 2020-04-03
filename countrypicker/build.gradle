@@ -3,11 +3,11 @@ apply plugin: 'com.android.library'
 group = 'com.github.mukeshsolanki'
 
 android {
-  compileSdkVersion 28
+  compileSdkVersion 29
 
   defaultConfig {
-    minSdkVersion 14
-    targetSdkVersion 28
+    minSdkVersion 17
+    targetSdkVersion 29
     versionCode 16
     versionName "2.0.1"
   }
@@ -21,10 +21,10 @@ android {
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
-  implementation 'androidx.appcompat:appcompat:1.0.2'
-  implementation('com.google.android.material:material:1.0.0') {
+  implementation 'androidx.appcompat:appcompat:1.1.0'
+  implementation('com.google.android.material:material:1.1.0') {
     exclude group: 'com.android.support', module: 'asynclayoutinflater'
     exclude group: 'com.android.support', module: 'animated-vector-drawable'
   }
-  implementation 'androidx.recyclerview:recyclerview:1.0.0'
+  implementation 'androidx.recyclerview:recyclerview:1.1.0'
 }

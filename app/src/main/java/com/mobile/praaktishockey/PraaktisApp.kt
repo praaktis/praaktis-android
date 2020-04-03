@@ -15,7 +15,7 @@ class PraaktisApp : Application() {
         Fabric.with(this, Crashlytics())
         AndroidThreeTen.init(this)
         initPreferences()
-        TypefaceUtil.overrideFont(this, "SERIF", "fonts/abel_regular.ttf")
+//        TypefaceUtil.overrideFont(this, "SERIF", "fonts/abel_regular.ttf")
     }
 
     private fun initPreferences() {

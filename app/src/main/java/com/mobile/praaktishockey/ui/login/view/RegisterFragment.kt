@@ -61,11 +61,15 @@ class RegisterFragment constructor(override val layoutId: Int = R.layout.fragmen
                     etRePassword.text.toString() == etPassword.text.toString()
                 }
             }
+
+            // todo: uncomment after test
 //            submitWith(binding.btnSubmit) {
 //                mViewModel.createUser(etEmail.text.toString(), etPassword.text.toString())
 //            }
         }
 
+
+        // todo: remove after test
         binding.btnSubmit.setOnClickListener {
             val tag = RegisterUserDetailFragment.TAG
             activity.showOrReplace(tag) {

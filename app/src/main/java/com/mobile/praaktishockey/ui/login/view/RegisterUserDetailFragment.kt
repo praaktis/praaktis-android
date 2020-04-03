@@ -163,8 +163,8 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
         }
 
         tvBackLogin.onClick {
-            fragmentManager?.popBackStack()
-            fragmentManager?.popBackStack()
+            activity.supportFragmentManager.popBackStack()
+            activity.supportFragmentManager.popBackStack()
         }
 
         etDateOfBirth.onClick {
