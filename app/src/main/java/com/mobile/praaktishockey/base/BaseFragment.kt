@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.domain.common.ProgressLoadingDialog
@@ -21,7 +20,13 @@ abstract class BaseFragment : Fragment() {
 
     val progressLoadingDialog by lazy { ProgressLoadingDialog(context!!) }
 
-    val activity by lazy { getActivity() as BaseActivity }
+    val activity by lazy {
+        try {
+            getActivity() as BaseActivity
+        } catch (ex: ClassCastException) {
+            getActivity() as com.mobile.praaktishockey.base.temp.BaseActivity<*>
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val fade = Fade()
@@ -32,7 +37,11 @@ abstract class BaseFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(layoutId, container, false)
     }
 

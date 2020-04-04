@@ -1,263 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:background="@color/white"
-    tools:context=".ui.main.view.DashboardFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        app:paddingTopSystemWindowInsets="@{true}"
+        tools:background="@drawable/app_gradient"
+        tools:context=".ui.main.view.DashboardFragment">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="@string/dashboard"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constTop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/app_gradient"
-            android:padding="16dp">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                android:textSize="22sp"
-                android:layout_marginTop="20dp"
-                android:text="@string/dashboard"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_me"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/me"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title"
-                android:layout_marginTop="15dp"
-                />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:stateListAnimator="@animator/toolbar_elevation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent=".20"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title">
 
             <LinearLayout
                 android:id="@+id/layout_level"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/bg_rect_rounded_corner"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="19dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="77:98"
                 app:layout_constraintEnd_toStartOf="@id/layout_points"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_me">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/level"
                     android:textAllCaps="true"
                     android:textColor="@color/black_text"
-                    app:autoSizeMaxTextSize="20sp"
-                    app:autoSizeTextType="uniform" />
+                    android:textSize="15sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_level"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="1"
                     android:textColor="@color/black_text"
-                    app:autoSizeMaxTextSize="35sp"
-                    app:autoSizeTextType="uniform" />
+                    android:textSize="24dp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_points"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/bg_rect_rounded_corner"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="19dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                app:layout_constraintBottom_toBottomOf="@id/layout_level"
+                app:layout_constraintDimensionRatio="77:98"
                 app:layout_constraintEnd_toStartOf="@id/layout_credits"
                 app:layout_constraintStart_toEndOf="@id/layout_level"
-                app:layout_constraintTop_toTopOf="@id/layout_level"
-                >
+                app:layout_constraintTop_toTopOf="@id/layout_level">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/points"
                     android:textAllCaps="true"
                     android:textColor="@color/black_text"
-                    app:autoSizeMaxTextSize="20sp"
-                    app:autoSizeTextType="uniform" />
+                    android:textSize="15sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_points"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="0"
                     android:textColor="@color/black_text"
-                    app:autoSizeMaxTextSize="35sp"
-                    app:autoSizeTextType="uniform" />
+                    android:textSize="24sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_credits"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:background="@drawable/bg_rect_rounded_corner"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="19dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                app:layout_constraintBottom_toBottomOf="@id/layout_level"
+                app:layout_constraintDimensionRatio="77:98"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/layout_points"
                 app:layout_constraintTop_toTopOf="@id/layout_level">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/credits"
                     android:textAllCaps="true"
                     android:textColor="@color/black_text"
-                    app:autoSizeMaxTextSize="20sp"
-                    app:autoSizeTextType="uniform" />
+                    android:textSize="15sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_credits"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="0"
                     android:textColor="@color/black_text"
-                    app:autoSizeMaxTextSize="35sp"
-                    app:autoSizeTextType="uniform" />
+                    android:textSize="24sp" />
 
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_curved_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:background="@color/white"
-            >
+            android:layout_height="0dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constTop">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_progress_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:text="@string/progress_to_next_level"
-                android:textAllCaps="true"
-                android:textColor="@color/black_text"
-                android:textSize="17sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <LinearLayout
-                android:id="@+id/layout_progress"
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nested_scroll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                android:animateLayoutChanges="true"
-                android:background="@color/white_alpha_20"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_progress_title">
+                android:layout_height="match_parent"
+                android:overScrollMode="never">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_score_current"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/blue_grey_500"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:padding="1dp"
-                    android:singleLine="true"
-                    android:text="-"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-                    tools:text="0" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="16dp"
+                    android:paddingBottom="300dp"
+                    android:paddingRight="16dp">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_score_remained"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/indigo_300"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:padding="1dp"
-                    android:singleLine="true"
-                    android:text="-"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-                    tools:text="22" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_progress_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/progress_to_next_level"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black_text"
+                        android:textSize="17sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/layout_progress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:animateLayoutChanges="true"
+                        android:background="@color/white_alpha_20"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_progress_title">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_analysis_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="65dp"
-                android:text="@string/analysis"
-                android:textAllCaps="true"
-                android:textColor="@color/black_text"
-                android:textSize="22sp"
-                app:layout_constraintTop_toBottomOf="@id/layout_progress" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_score_current"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/blue_grey_500"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="1dp"
+                            android:singleLine="true"
+                            android:text="-"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            tools:text="0" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_analysis"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:nestedScrollingEnabled="false"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_analysis_title"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_analysis" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_score_remained"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/indigo_300"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="1dp"
+                            android:singleLine="true"
+                            android:text="-"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            tools:text="22" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
 
-    </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_analysis_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="65dp"
+                        android:text="@string/analysis"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black_text"
+                        android:textSize="22sp"
+                        app:layout_constraintTop_toBottomOf="@id/layout_progress" />
 
-</androidx.core.widget.NestedScrollView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_analysis"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:nestedScrollingEnabled="false"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_analysis_title"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/item_analysis" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

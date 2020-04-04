@@ -16,7 +16,6 @@ import com.mobile.praaktishockey.domain.extension.onClick
 import com.mobile.praaktishockey.domain.extension.show
 import com.mobile.praaktishockey.ui.friends.adapter.FriendsRequestAdapter
 import com.mobile.praaktishockey.ui.friends.adapter.FriendsRequestItemListener
-import com.mobile.praaktishockey.ui.friends.vm.FriendsFragmentViewModel
 import com.mobile.praaktishockey.ui.friends.vm.FriendsRequestFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_friends.*
 

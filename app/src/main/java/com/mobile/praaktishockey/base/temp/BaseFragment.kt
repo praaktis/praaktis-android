@@ -26,7 +26,13 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
 
     val progressLoadingDialog by lazy { ProgressLoadingDialog(context!!) }
 
-    val activity by lazy { getActivity() as BaseActivity }
+    val activity by lazy {
+        try {
+            getActivity() as BaseActivity
+        } catch (ex: ClassCastException) {
+            getActivity() as com.mobile.praaktishockey.base.temp.BaseActivity<*>
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val fade = Fade()

@@ -40,6 +40,10 @@
 
     </style>
 
+    <style name="MainTheme" parent="AppTheme.TransparentStatusBarNavigationBar">
+        <item name="android:windowBackground">@drawable/app_gradient</item>
+    </style>
+
     <style name="AppTheme.TransparentStatusBarNavigationBar" parent="AppTheme">
 
     </style>
@@ -97,6 +101,9 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColorHint">@color/grey_600</item>
     </style>
+
+
+
 
     <style name="WhiteHighlight" parent="AppTheme">
         <item name="colorControlHighlight">@color/dark_grey</item>

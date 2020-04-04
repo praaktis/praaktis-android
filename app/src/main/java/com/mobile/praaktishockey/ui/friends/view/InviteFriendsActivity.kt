@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.R
@@ -22,7 +23,7 @@ class InviteFriendsActivity constructor(override val layoutId: Int = R.layout.ac
         @JvmField
         val INVITE_FRIEND_REQUEST_CODE = 21
         @JvmStatic
-        fun start(activity: BaseActivity) {
+        fun start(activity: AppCompatActivity) {
             val intent = Intent(activity, InviteFriendsActivity::class.java)
             activity.startActivityForResult(intent, INVITE_FRIEND_REQUEST_CODE)
         }

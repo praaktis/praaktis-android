@@ -11,8 +11,7 @@ import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.login.vm.LoginActivityViewModel
 
 class LoginActivity constructor(override val layoutId: Int = R.layout.activity_login) :
-    BaseActivity(),
-    FragmentManager.OnBackStackChangedListener {
+    BaseActivity(), FragmentManager.OnBackStackChangedListener {
 
     override val mViewModel: LoginActivityViewModel?
         get() = getViewModel { LoginActivityViewModel(application) }

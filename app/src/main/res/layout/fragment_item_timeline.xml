@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    tools:background="@drawable/app_gradient">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:overScrollMode="never">
 
         <LinearLayout
@@ -21,7 +20,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:background="@drawable/app_gradient"
                 android:gravity="center"
                 android:paddingTop="10dp"
                 android:text="@string/timeline"
@@ -33,6 +31,7 @@
                 android:id="@+id/rv_timeline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_timeline" />
 

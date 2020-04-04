@@ -152,4 +152,7 @@
     <string name="in_order_to_get_most_accurate_results_it_is_recommended_that_the_performer_completes_5_10_repetitions_of_the_challenge_before_stopping_the_video">IN ORDER TO GET MOST ACCURATE RESULTS IT IS RECOMMENDED THAT THE PERFORMER COMPLETES 5 - 10 REPETITIONS OF THE CHALLENGE BEFORE STOPPING THE VIDEO</string>
     <string name="perform_better">Perform\nBetter</string>
     <string name="gender">Gender</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

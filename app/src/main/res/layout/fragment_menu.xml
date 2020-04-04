@@ -3,24 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:clickable="true"
-    >
-
-    <!--<com.github.mmin18.widget.RealtimeBlurView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--app:realtimeBlurRadius="10dp"-->
-        <!--app:realtimeOverlayColor="@color/grey_900_alpha_70" />-->
+    android:clickable="true">
 
     <View
         android:layout_width="0dp"
         android:layout_height="23dp"
-        android:background="@color/light_grey"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title"
@@ -61,9 +51,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="16dp"
-                app:srcCompat="@drawable/ic_user"
                 android:tint="@color/black_text"
-            />
+                app:srcCompat="@drawable/ic_user" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -88,21 +77,19 @@
             android:background="?selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:theme="@style/WhiteHighlight"
-            android:gravity="center_vertical"
             android:foreground="?selectableItemBackground"
+            android:gravity="center_vertical"
             android:padding="16dp"
+            android:theme="@style/WhiteHighlight"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/menu_my_profile"
-            >
+            app:layout_constraintTop_toBottomOf="@id/menu_my_profile">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="16dp"
-                app:srcCompat="@drawable/ic_friends"
                 android:tint="@color/black_text"
-                />
+                app:srcCompat="@drawable/ic_friends" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -110,8 +97,7 @@
                 android:text="@string/friends"
                 android:textAllCaps="true"
                 android:textColor="@color/black_text"
-                android:textSize="30sp"
-                />
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/badge"
@@ -124,10 +110,9 @@
                 android:gravity="center"
                 android:padding="3dp"
                 android:text="2"
-                android:textSize="14sp"
                 android:textColor="@color/white"
-                android:visibility="gone"
-                />
+                android:textSize="14sp"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -155,9 +140,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="16dp"
-                app:srcCompat="@drawable/ic_outline_settings"
                 android:tint="@color/black_text"
-                />
+                app:srcCompat="@drawable/ic_outline_settings" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -193,9 +177,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="16dp"
-            app:srcCompat="@drawable/ic_logout"
             android:tint="@color/black_text"
-            />
+            app:srcCompat="@drawable/ic_logout" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"

@@ -3,25 +3,22 @@ package com.mobile.praaktishockey.ui.main.view
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseActivity
-import com.mobile.praaktishockey.domain.common.Constants
+import com.mobile.praaktishockey.base.temp.BaseActivity
+import com.mobile.praaktishockey.databinding.ActivityMainBinding
 import com.mobile.praaktishockey.domain.common.PraaktisBottomNavigationView
-import com.mobile.praaktishockey.domain.entities.TimelineDTO
 import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.friends.view.FriendsPagerFragment
 import com.mobile.praaktishockey.ui.main.vm.MainViewModel
 import com.mobile.praaktishockey.ui.settings.view.SettingsFragment
-import com.mobile.praaktishockey.ui.timeline.view.TimelineFragment
 import com.mobile.praaktishockey.ui.timeline.view.TimelineItemFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity constructor(override val layoutId: Int = R.layout.activity_main) : BaseActivity(),
-    FragmentManager.OnBackStackChangedListener {
+class MainActivity constructor(override val layoutId: Int = R.layout.activity_main) :
+    BaseActivity<ActivityMainBinding>(), FragmentManager.OnBackStackChangedListener {
 
     companion object {
         @JvmField
@@ -40,8 +37,11 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
     private var notificationBadge: View? = null
 
     override fun initUI(savedInstanceState: Bundle?) {
+        transparentStatusAndNavigationBar()
+
         mViewModel?.getChallenges()
         mViewModel?.checkFcmToken()
+
 //        mViewModel?.
 //        toolbar.setOnApplyWindowInsetsListener { v, insets ->
 //            v.updateLayoutParams<FrameLayout.LayoutParams> {
@@ -73,15 +73,30 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
 //            selectedItemId = R.id.menu_dashboard
 //        }
         setMoreItemBadge()
+
+        // todo uncomment after test
         val tag = DashboardFragment.TAG
-        showOrReplace(tag) {
+         showOrReplace(tag) {
+             add(
+                 R.id.container,
+                 DashboardFragment(),
+                 tag
+             )
+         }
+        // todo remove after test
+/*
+        showOrReplace("TestFragment") {
             add(
                 R.id.container,
-                DashboardFragment(),
-                tag
+                TestFragment(),
+                "TestFragment"
             )
         }
-        bottomNavigation.setNavigationListener(object : PraaktisBottomNavigationView.HockeyBottomNavigationListener {
+*/
+
+
+        bottomNavigation.setNavigationListener(object :
+            PraaktisBottomNavigationView.HockeyBottomNavigationListener {
             override fun setOnNavigationItemSelected(itemPosition: Int) {
                 val currentFragment = getVisibleFragment()
                 when (itemPosition) {
