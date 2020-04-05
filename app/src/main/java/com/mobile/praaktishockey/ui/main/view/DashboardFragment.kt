@@ -4,9 +4,13 @@ import android.animation.Animator
 import android.animation.ValueAnimator
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
-import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +22,7 @@ import com.mobile.praaktishockey.domain.common.shape.CurvedEdgeTreatment
 import com.mobile.praaktishockey.domain.entities.DashboardDTO
 import com.mobile.praaktishockey.domain.extension.dp
 import com.mobile.praaktishockey.domain.extension.getViewModel
+import com.mobile.praaktishockey.domain.extension.updateLayoutParams
 import com.mobile.praaktishockey.domain.extension.updatePadding
 import com.mobile.praaktishockey.ui.details.view.AnalysisFragment
 import com.mobile.praaktishockey.ui.details.view.DetailsActivity
@@ -94,7 +99,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
                 binding.nestedScroll.setOnScrollChangeListener { v: NestedScrollView, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
                     lifecycleScope.launch(Dispatchers.Default) {
                         val percentage =
-                            abs(scrollY).toFloat() / (binding.clContent.getChildAt(0).top -16.dp)/*v.maxScrollAmount*/ // calculate offset percentage
+                            abs(scrollY).toFloat() / (binding.clContent.getChildAt(0).top - 16.dp)/*v.maxScrollAmount*/ // calculate offset percentage
                         Log.d(TAG, "SCROLLY: $scrollY")
                         Log.d(TAG, "MAXSCROLLAMOUNT: ${v.maxScrollAmount}")
                         Log.d(TAG, percentage.toString())
@@ -147,32 +152,25 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
     }
 
     private fun updateScoreProgress(currentScore: Long, remainedScore: Long) {
-        val delta = (currentScore - remainedScore) / 2
-        (tv_score_current.layoutParams as LinearLayout.LayoutParams).weight =
-            (currentScore + remainedScore) / 2f
-        (tv_score_remained.layoutParams as LinearLayout.LayoutParams).weight =
-            (currentScore + remainedScore) / 2f
-        tv_score_remained.requestLayout()
-        tv_score_current.requestLayout()
+        val maxScore = currentScore + remainedScore
+        val currentScorePercent: Float = currentScore.toFloat() / maxScore.toFloat()
 
-        val valueAnimator = ValueAnimator.ofFloat(0f, delta.toFloat())
-        valueAnimator.duration = 500
-        valueAnimator.startDelay = 200
-        valueAnimator.interpolator = LinearInterpolator()
+        binding.tvScoreRemained.text = maxScore.toString()
+
+        val valueAnimator = ValueAnimator.ofFloat(0.0f, currentScorePercent)
+        valueAnimator.duration = 2000
+        valueAnimator.interpolator = FastOutSlowInInterpolator()
         valueAnimator.addUpdateListener {
             if (tv_score_current == null) return@addUpdateListener
             val v = it.animatedValue as Float
-            (tv_score_current.layoutParams as LinearLayout.LayoutParams).weight =
-                (currentScore + remainedScore) / 2f + v
-            (tv_score_remained.layoutParams as LinearLayout.LayoutParams).weight =
-                (currentScore + remainedScore) / 2f - v
-            tv_score_current.text =
-                "" + (tv_score_current.layoutParams as LinearLayout.LayoutParams).weight.toInt()
-            tv_score_remained.text =
-                "" + (tv_score_remained.layoutParams as LinearLayout.LayoutParams).weight.toInt()
 
-            tv_score_remained.requestLayout()
-            tv_score_current.requestLayout()
+
+            Log.d(TAG, v.toString())
+            binding.vScoreCurrent.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                matchConstraintPercentWidth = v
+            }
+            binding.tvScoreCurrent.text = (maxScore * v).toInt().toString()
+
         }
         valueAnimator.addListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator?) {

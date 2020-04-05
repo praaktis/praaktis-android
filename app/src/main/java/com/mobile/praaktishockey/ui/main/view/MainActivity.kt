@@ -38,6 +38,7 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
 
     override fun initUI(savedInstanceState: Bundle?) {
         transparentStatusAndNavigationBar()
+        setLightNavigationBar()
 
         mViewModel?.getChallenges()
         mViewModel?.checkFcmToken()
@@ -74,26 +75,14 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
 //        }
         setMoreItemBadge()
 
-        // todo uncomment after test
         val tag = DashboardFragment.TAG
-         showOrReplace(tag) {
-             add(
-                 R.id.container,
-                 DashboardFragment(),
-                 tag
-             )
-         }
-        // todo remove after test
-/*
-        showOrReplace("TestFragment") {
+        showOrReplace(tag) {
             add(
                 R.id.container,
-                TestFragment(),
-                "TestFragment"
+                DashboardFragment(),
+                tag
             )
         }
-*/
-
 
         bottomNavigation.setNavigationListener(object :
             PraaktisBottomNavigationView.HockeyBottomNavigationListener {
