@@ -2,6 +2,7 @@ package com.mobile.praaktishockey.ui.details.view
 
 import android.graphics.Color
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.*
@@ -9,12 +10,14 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.EntryXComparator
 import com.github.mikephil.charting.utils.MPPointF
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseFragment
+import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.databinding.FragmentMeVsOthersBinding
 import com.mobile.praaktishockey.domain.entities.AnalysisDTO
 import com.mobile.praaktishockey.domain.entities.ComparisonDTO
 import com.mobile.praaktishockey.domain.entities.MeVsOtherChallenge
 import com.mobile.praaktishockey.domain.extension.dpToPx
 import com.mobile.praaktishockey.domain.extension.getViewModel
+import com.mobile.praaktishockey.domain.extension.hide
 import com.mobile.praaktishockey.domain.extension.show
 import com.mobile.praaktishockey.ui.details.vm.ComparisonViewModel
 import kotlinx.android.synthetic.main.fragment_me_vs_others.*
@@ -22,7 +25,8 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
-class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragment_me_vs_others) : BaseFragment() {
+class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragment_me_vs_others) :
+    BaseFragment<FragmentMeVsOthersBinding>() {
 
     companion object {
         @JvmField
@@ -150,12 +154,14 @@ class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragm
         val set1 = LineDataSet(entries, "Your")
 
         with(set1) {
+            val chartLineColor = ContextCompat.getColor(requireContext(), R.color.primaryColor)
+
             lineWidth = 3f
             circleRadius = 6f
             circleHoleColor = Color.WHITE
             circleHoleRadius = 3f
-            setCircleColor(Color.parseColor("#E81DEC"))
-            color = Color.parseColor("#E81DEC")
+            setCircleColor(chartLineColor)
+            color = chartLineColor
             setDrawValues(false)
         }
 
@@ -173,12 +179,14 @@ class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragm
         // create a dataset and give it a type
         val set2 = LineDataSet(entries2, "Friends")
         with(set2) {
+            val chartLineColor = ContextCompat.getColor(requireContext(), R.color.green_500)
+
             lineWidth = 3f
             circleRadius = 6f
             circleHoleColor = Color.WHITE
             circleHoleRadius = 3f
-            setCircleColor(Color.parseColor("#00CD14"))
-            color = Color.parseColor("#00CD14")
+            setCircleColor(chartLineColor)
+            color = chartLineColor
             setDrawValues(false)
         }
 
@@ -214,10 +222,11 @@ class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragm
             isEnabled = false
         }
 
-        if(meVsOtherChallenge?.attemptChart!!.me != 0 && meVsOtherChallenge?.attemptChart!!.others != 0) {
+        if (meVsOtherChallenge?.attemptChart!!.me != 0 && meVsOtherChallenge?.attemptChart!!.others != 0) {
             pieChart.show()
             setPieChartData()
         } else {
+            pieChart.hide()
             tvNoPieChartDataAvailable.show()
         }
     }

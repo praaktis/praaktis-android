@@ -55,6 +55,7 @@
                         android:id="@+id/tv_best_score"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:textColor="@color/grey_600"
@@ -95,6 +96,7 @@
                         android:id="@+id/tv_average_score"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:textColor="@color/grey_600"
@@ -210,7 +212,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/cvVsFriends"
+                android:id="@+id/btn_me_vs_friends"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -225,7 +227,7 @@
                 tools:textSize="17sp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/cvVsOthers"
+                android:id="@+id/btn_me_vs_others"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -236,7 +238,7 @@
                 app:iconTint="@color/blue_grey_900"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cvVsFriends"
+                app:layout_constraintTop_toBottomOf="@id/btn_me_vs_friends"
                 tools:textSize="17sp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

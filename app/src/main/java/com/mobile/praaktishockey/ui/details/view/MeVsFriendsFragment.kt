@@ -2,6 +2,7 @@ package com.mobile.praaktishockey.ui.details.view
 
 import android.graphics.Color
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.Description
@@ -10,7 +11,8 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.utils.EntryXComparator
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseFragment
+import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.databinding.FragmentMeVsFriendsBinding
 import com.mobile.praaktishockey.domain.entities.AnalysisDTO
 import com.mobile.praaktishockey.domain.entities.ComparisonDTO
 import com.mobile.praaktishockey.domain.entities.MeVsOtherChallenge
@@ -25,12 +27,13 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
-class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.fragment_me_vs_friends)
-    : BaseFragment() {
+class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.fragment_me_vs_friends) :
+    BaseFragment<FragmentMeVsFriendsBinding>() {
 
     companion object {
         @JvmField
-        val TAG  = MeVsFriendsFragment::class.java.simpleName
+        val TAG = MeVsFriendsFragment::class.java.simpleName
+
         @JvmStatic
         fun getInstance(data: AnalysisDTO): Fragment {
             val fragment = MeVsFriendsFragment()
@@ -88,7 +91,7 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
     private fun initChart() {
         with(lineChart) {
             val desc = Description()
-            desc .text = ""
+            desc.text = ""
             description = desc
 
             setBorderColor(Color.BLACK)
@@ -131,7 +134,7 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
             isEnabled = false
         }
 
-        if(analysisDTO.chartData.series.isNotEmpty() || meVsFriendsChallenge!!.chartData.series.isNotEmpty()) {
+        if (analysisDTO.chartData.series.isNotEmpty() || meVsFriendsChallenge!!.chartData.series.isNotEmpty()) {
             lineChart.show()
             setChartData()
         } else {
@@ -156,12 +159,14 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
         val set1 = LineDataSet(entries, "Your")
 
         with(set1) {
+            val chartLineColor = ContextCompat.getColor(requireContext(), R.color.primaryColor)
+
             lineWidth = 3f
             circleRadius = 6f
             circleHoleColor = Color.WHITE
             circleHoleRadius = 3f
-            setCircleColor(Color.parseColor("#E81DEC"))
-            color = Color.parseColor("#E81DEC")
+            setCircleColor(chartLineColor)
+            color = chartLineColor
             setDrawValues(false)
         }
 
@@ -179,12 +184,14 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
         // create a dataset and give it a type
         val set2 = LineDataSet(entries2, "Friends")
         with(set2) {
+            val chartLineColor = ContextCompat.getColor(requireContext(), R.color.green_500)
+
             lineWidth = 3f
             circleRadius = 6f
             circleHoleColor = Color.WHITE
             circleHoleRadius = 3f
-            setCircleColor(Color.parseColor("#00CD14"))
-            color = Color.parseColor("#00CD14")
+            setCircleColor(chartLineColor)
+            color = chartLineColor
             setDrawValues(false)
         }
 

@@ -7,12 +7,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.domain.entities.Leader
-import com.mobile.praaktishockey.domain.extension.show
 
-class ScoresAdapter(val list: List<Leader>) : RecyclerView.Adapter<ScoresAdapter.ScoresViewHolder>() {
+class ScoresAdapter(val list: List<Leader>) :
+    RecyclerView.Adapter<ScoresAdapter.ScoresViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScoresViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_friend_score, parent, false)
+        val v =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_friend_score, parent, false)
         return ScoresViewHolder(v)
     }
 
@@ -21,7 +22,12 @@ class ScoresAdapter(val list: List<Leader>) : RecyclerView.Adapter<ScoresAdapter
             tvPosition.text = "${position + 1}"
             tvName.text = list[position].firstName + list[position].lastName
             tvScore.text = "${list[position].maxScore}"
-            vCircle.show()
+
+            // Zebra-striping color effect
+            holder.itemView.setBackgroundResource(
+                if (position % 2 == 0) R.color.white
+                else R.color.blue_grey_50
+            )
         }
     }
 

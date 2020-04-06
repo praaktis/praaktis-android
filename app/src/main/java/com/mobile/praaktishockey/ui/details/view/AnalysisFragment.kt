@@ -68,14 +68,14 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
     }
 
     private fun initClicks() {
-        cvVsFriends.onClick {
+        binding.btnMeVsFriends.onClick {
             val tag = MeVsFriendsFragment.TAG
             activity.showOrReplaceLast(tag) {
                 add(R.id.container, MeVsFriendsFragment.getInstance(analysisData), tag)
                     .addToBackStack(tag)
             }
         }
-        cvVsOthers.onClick {
+        binding.btnMeVsOthers.onClick {
             val tag = MeVsOthersFragment.TAG
             activity.showOrReplaceLast(tag) {
                 add(R.id.container, MeVsOthersFragment.getInstance(analysisData), tag)

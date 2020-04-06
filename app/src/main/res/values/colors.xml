@@ -22,6 +22,8 @@
     <color name="grey_400_1">#B3AFAF</color>
     <color name="deep_purple_a700">#6700C5</color>
     <color name="blue_grey_100">#D0D7E3</color>
+    <color name="green_500">#3FBD58</color>
+    <color name="blue_grey_50">#ECEEF2</color>
 
     <color name="white_alpha_60">#99FFFFFF</color>
     <color name="white_alpha_70">#B3FFFFFF</color>
