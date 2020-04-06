@@ -3,7 +3,6 @@ package com.mobile.praaktishockey.ui.main.adapter
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -11,9 +10,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.praaktishockey.R
+import com.mobile.praaktishockey.databinding.ItemChallengeBinding
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
+import com.mobile.praaktishockey.domain.extension.loadUrl
 import com.mobile.praaktishockey.domain.extension.onClick
-import kotlinx.android.synthetic.main.item_challenge.view.*
 import java.io.Serializable
 
 class ChallengesAdapter(private val itemClick: (ChallengeDTO) -> Unit) :
@@ -25,48 +25,56 @@ class ChallengesAdapter(private val itemClick: (ChallengeDTO) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
-        holder.itemView.onClick {
-            it.fl_overlay.animate().alpha(0.2f).setDuration(100).start()
+        holder.binding.vGradient.onClick {
             Handler().postDelayed({
-                it.iv_image.animate().cancel()
-                it.iv_image.animate().scaleX(1f).start()
-                it.iv_image.animate().scaleY(1f).start()
+                holder.binding.vGradient.animate().cancel()
+                holder.binding.vGradient.animate().scaleX(1f).start()
+                holder.binding.vGradient.animate().scaleY(1f).start()
 
-                it.fl_overlay.animate().cancel()
-                it.fl_overlay.animate().alpha(0.7f).setDuration(250).start()
+                holder.binding.root.animate().cancel()
+                holder.binding.root.animate().scaleX(1f).start()
+                holder.binding.root.animate().scaleY(1f).start()
+
                 itemClick.invoke(getItem(position))
                 it.clearAnimation()
             }, 100)
         }
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(val binding: ItemChallengeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ChallengeDTO) {
-//            itemView.iv_image.setImageResource(item.image)
-            itemView.tv_title.text = item.name
+            binding.ivImage.loadUrl(item.iconUrl)
+            binding.tvTitle.text = item.name
 
-            itemView.setOnTouchListener { _, event ->
+            binding.vGradient.setOnTouchListener { _, event ->
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
-                        itemView.fl_overlay.animate().alpha(0.2f).setDuration(150).start()
-                        itemView.iv_image.animate().scaleX(1.2f).setDuration(150).start()
-                        itemView.iv_image.animate().scaleY(1.2f).setDuration(150).start()
+                        binding.vGradient.animate().scaleX(1.2f).setDuration(150).start()
+                        binding.vGradient.animate().scaleY(1.2f).setDuration(150).start()
+
+                        binding.root.animate().scaleX(0.95f).setDuration(150).start()
+                        binding.root.animate().scaleY(0.95f).setDuration(150).start()
                     }
                     MotionEvent.ACTION_UP -> {
-                        itemView.iv_image.animate().cancel()
-                        itemView.iv_image.animate().scaleX(1f).start()
-                        itemView.iv_image.animate().scaleY(1f).start()
+                        binding.vGradient.animate().cancel()
+                        binding.root.animate().cancel()
 
-                        itemView.fl_overlay.animate().cancel()
-                        itemView.fl_overlay.animate().alpha(0.7f).setDuration(250).start()
+                        binding.vGradient.animate().scaleX(1f).start()
+                        binding.vGradient.animate().scaleY(1f).start()
+
+                        binding.root.animate().scaleX(1f).start()
+                        binding.root.animate().scaleY(1f).start()
                     }
                     MotionEvent.ACTION_CANCEL -> {
-                        itemView.iv_image.animate().cancel()
-                        itemView.iv_image.animate().scaleX(1f).start()
-                        itemView.iv_image.animate().scaleY(1f).start()
+                        binding.vGradient.animate().cancel()
+                        binding.root.animate().cancel()
 
-                        itemView.fl_overlay.animate().cancel()
-                        itemView.fl_overlay.animate().alpha(0.7f).setDuration(250).start()
+                        binding.vGradient.animate().scaleX(1f).start()
+                        binding.vGradient.animate().scaleY(1f).start()
+
+                        binding.root.animate().scaleX(1f).start()
+                        binding.root.animate().scaleY(1f).start()
                     }
                 }
                 false
@@ -76,8 +84,9 @@ class ChallengesAdapter(private val itemClick: (ChallengeDTO) -> Unit) :
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 return ViewHolder(
-                    LayoutInflater.from(parent.context)
-                        .inflate(R.layout.item_challenge, parent, false)
+                    ItemChallengeBinding.inflate(
+                        LayoutInflater.from(parent.context), parent, false
+                    )
                 )
             }
         }

@@ -104,6 +104,7 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.kirich1409.svgplugin:svg-glide4-plugin:1.2.1'
 
     //fabric
     api('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
