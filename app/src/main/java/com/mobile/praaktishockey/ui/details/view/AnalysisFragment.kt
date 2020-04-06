@@ -2,33 +2,29 @@ package com.mobile.praaktishockey.ui.details.view
 
 import android.graphics.Color
 import android.os.Bundle
-import com.github.mikephil.charting.components.XAxis.XAxisPosition
-import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.utils.EntryXComparator
-import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseFragment
-import com.mobile.praaktishockey.ui.details.vm.AnalysisViewModel
-import com.mobile.praaktishockey.ui.details.vm.DetailsViewModel
-import com.mobile.praaktishockey.ui.main.adapter.AnalysisItem
-import kotlinx.android.synthetic.main.fragment_analysis.*
-import java.util.*
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.github.mikephil.charting.components.Description
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.components.XAxis.XAxisPosition
+import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import com.github.mikephil.charting.utils.EntryXComparator
+import com.mobile.praaktishockey.R
+import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.databinding.FragmentAnalysisBinding
 import com.mobile.praaktishockey.domain.entities.AnalysisDTO
 import com.mobile.praaktishockey.domain.entities.DashboardDTO
 import com.mobile.praaktishockey.domain.extension.*
+import com.mobile.praaktishockey.ui.details.vm.AnalysisViewModel
+import com.mobile.praaktishockey.ui.details.vm.DetailsViewModel
+import kotlinx.android.synthetic.main.fragment_analysis.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
+import java.util.*
 
-class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragment_analysis) : BaseFragment() {
+class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragment_analysis) :
+    BaseFragment<FragmentAnalysisBinding>() {
 
     companion object {
         val TAG: String = AnalysisFragment::class.java.simpleName
@@ -47,7 +43,7 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
         get() = getViewModel { AnalysisViewModel(activity.application) }
 
     private lateinit var detailsViewModel: DetailsViewModel
-    private val analysisData : AnalysisDTO by lazy {
+    private val analysisData: AnalysisDTO by lazy {
         return@lazy arguments?.getSerializable(ANALYSIS_ITEM) as AnalysisDTO
     }
 
@@ -147,8 +143,10 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
         val entries = ArrayList<Entry>()
 
         for (i in 0 until count) {
-            val xVal = /*if (i != 0) (Math.random() * range).toFloat() else 0f*/analysisData.chartData.keys[i]
-            val yVal = /*if (i != 0) (Math.random() * range).toFloat() else 0f*/analysisData.chartData.series[i]
+            val xVal = /*if (i != 0) (Math.random() * range).toFloat() else 0f*/
+                analysisData.chartData.keys[i]
+            val yVal = /*if (i != 0) (Math.random() * range).toFloat() else 0f*/
+                analysisData.chartData.series[i]
             entries.add(Entry(xVal.toFloat(), yVal.toFloat()))
         }
 
@@ -159,12 +157,13 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
         val set1 = LineDataSet(entries, "Your")
 
         with(set1) {
+            val chartColor = ContextCompat.getColor(requireContext(), R.color.primaryColor)
             lineWidth = 3f
             circleRadius = 6f
             circleHoleColor = Color.WHITE
             circleHoleRadius = 3f
-            setCircleColor(Color.parseColor("#E81DEC"))
-            color = Color.parseColor("#E81DEC")
+            setCircleColor(chartColor)
+            color = chartColor
             setDrawValues(false)
         }
 
@@ -250,7 +249,8 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
             val startColor4 = ContextCompat.getColor(context!!, android.R.color.holo_green_light)
             val startColor5 = ContextCompat.getColor(context!!, android.R.color.holo_red_light)
 
-            set1.colors = mutableListOf(startColor1, startColor2, startColor3, startColor4, startColor5)
+            set1.colors =
+                mutableListOf(startColor1, startColor2, startColor3, startColor4, startColor5)
             set1.valueTextColor = Color.BLACK
 
             val dataSets = ArrayList<IBarDataSet>()

@@ -56,7 +56,9 @@
         <activity
             android:name="com.mobile.praaktishockey.ui.main.view.MainActivity"
             android:theme="@style/MainTheme" />
-        <activity android:name="com.mobile.praaktishockey.ui.details.view.DetailsActivity" />
+        <activity
+            android:name="com.mobile.praaktishockey.ui.details.view.DetailsActivity"
+            android:theme="@style/MainTheme" />
         <activity android:name="com.mobile.praaktishockey.ui.challenge.ChallengeActivity" />
         <activity android:name="com.mobile.praaktishockey.ui.friends.view.InviteFriendsActivity" />
         <activity android:name="com.praaktis.exerciseengine.Engine.ExerciseEngineActivity" />

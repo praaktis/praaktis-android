@@ -164,7 +164,6 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
             if (tv_score_current == null) return@addUpdateListener
             val v = it.animatedValue as Float
 
-
             Log.d(TAG, v.toString())
             binding.vScoreCurrent.updateLayoutParams<ConstraintLayout.LayoutParams> {
                 matchConstraintPercentWidth = v

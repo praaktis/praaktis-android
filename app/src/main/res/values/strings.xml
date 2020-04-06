@@ -155,4 +155,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="me_vs_friends">Me vs friends</string>
+    <string name="me_vs_others">Me vs others</string>
 </resources>

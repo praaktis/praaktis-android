@@ -7,18 +7,17 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseActivity
+import com.mobile.praaktishockey.base.temp.BaseActivity
+import com.mobile.praaktishockey.databinding.ActivityDetailsBinding
 import com.mobile.praaktishockey.domain.entities.AnalysisDTO
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.entities.DashboardDTO
-import com.mobile.praaktishockey.domain.extension.getViewModel
-import com.mobile.praaktishockey.domain.extension.replaceFragment
-import com.mobile.praaktishockey.domain.extension.updateLayoutParams
+import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.details.vm.DetailsViewModel
 import kotlinx.android.synthetic.main.activity_details.*
 
 class DetailsActivity constructor(override val layoutId: Int = R.layout.activity_details) :
-    BaseActivity() {
+    BaseActivity<ActivityDetailsBinding>() {
 
     companion object {
 
@@ -33,15 +32,8 @@ class DetailsActivity constructor(override val layoutId: Int = R.layout.activity
     override val mViewModel: DetailsViewModel? get() = getViewModel { DetailsViewModel(application) }
 
     override fun initUI(savedInstanceState: Bundle?) {
-        toolbar.setOnApplyWindowInsetsListener { v, insets ->
-            v.updateLayoutParams<FrameLayout.LayoutParams> {
-                topMargin = insets.systemWindowInsetTop
-            }
-            tv_title.updateLayoutParams<FrameLayout.LayoutParams> {
-                topMargin = insets.systemWindowInsetTop / 2
-            }
-            insets
-        }
+        transparentStatusAndNavigationBar()
+        setLightNavigationBar()
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

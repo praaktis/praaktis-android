@@ -1,288 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:overScrollMode="never"
-    tools:context=".ui.details.view.AnalysisFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:overScrollMode="never"
+        tools:context=".ui.details.view.AnalysisFragment">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:clipToPadding="false"
+            android:paddingStart="26dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="26dp"
+            android:paddingBottom="26dp"
+            app:paddingBottomSystemWindowInsets="@{true}">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_best_score"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="3dp"
-                app:contentPadding="10dp">
+                android:layout_height="0dp"
+                android:layout_marginEnd="15dp"
+                app:cardElevation="6dp"
+                app:contentPadding="10dp"
+                app:layout_constraintDimensionRatio="147:98"
+                app:layout_constraintEnd_toStartOf="@id/cv_average_score"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:text="@string/my_best_score"
                         android:textAllCaps="true"
-                        android:textColor="@color/black_text"
-                        android:textSize="17sp" />
+                        android:textColor="@color/grey_600"
+                        android:textSize="13sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_best_score"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:includeFontPadding="false"
-                        android:text="90%"
-                        android:textColor="@color/black_text"
-                        android:textSize="35sp" />
+                        android:textColor="@color/grey_600"
+                        android:textSize="24sp"
+                        tools:text="90%" />
 
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_average_score"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="3dp"
-                app:contentPadding="10dp">
+                android:layout_height="0dp"
+                app:cardElevation="6dp"
+                app:constraintSet="@id/cv_best_score"
+                app:contentPadding="10dp"
+                app:layout_constraintDimensionRatio="147:98"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cv_best_score"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:text="@string/my_average_score"
                         android:textAllCaps="true"
-                        android:textColor="@color/black_text"
-                        android:textSize="17sp" />
+                        android:textColor="@color/grey_600"
+                        android:textSize="13sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_average_score"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:includeFontPadding="false"
-                        android:text="85%"
-                        android:textColor="@color/black_text"
-                        android:textSize="35sp" />
+                        android:textColor="@color/grey_600"
+                        android:textSize="24sp"
+                        tools:text="85%" />
 
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-        </LinearLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_scores"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="24dp"
+                app:cardElevation="6dp"
+                app:layout_constraintDimensionRatio="309:124"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_best_score">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginRight="16dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:visibility="visible">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="Scores"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black_text"
-                    android:textSize="20sp" />
-
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="120dp">
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/lineChart"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:layout_marginLeft="10dp"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/tvNoLineChartDataAvailable"
-                        android:layout_width="match_parent"
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center"
-                        android:text="@string/no_chart_data_available"
-                        android:textColor="@color/black_text"
-                        android:visibility="gone" />
+                        android:text="@string/scores"
+                        android:textAllCaps="true"
+                        android:textColor="@color/purple_900_1"
+                        android:textSize="16sp" />
 
-                </FrameLayout>
-            </LinearLayout>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-        </androidx.cardview.widget.CardView>
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/lineChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:visibility="gone" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginRight="16dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp">
+                        <TextView
+                            android:id="@+id/tvNoLineChartDataAvailable"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:text="@string/no_chart_data_available"
+                            android:textColor="@color/black_text"
+                            android:visibility="gone" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                    </FrameLayout>
+                </LinearLayout>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="Attempts"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black_text"
-                    android:textSize="20sp" />
+            </com.google.android.material.card.MaterialCardView>
 
-                <FrameLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_attempts"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="6dp"
+                app:layout_constraintDimensionRatio="309:124"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_scores">
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="120dp">
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
-                    <com.github.mikephil.charting.charts.BarChart
-                        android:id="@+id/barChart"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:layout_marginLeft="10dp"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/tvNoBarChartDataAvailable"
-                        android:layout_width="match_parent"
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center"
-                        android:text="@string/no_chart_data_available"
-                        android:textColor="@color/black_text"
-                        android:visibility="gone" />
+                        android:text="@string/attempts"
+                        android:textAllCaps="true"
+                        android:textColor="@color/purple_900_1"
+                        android:textSize="16sp" />
 
-                </FrameLayout>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-            </LinearLayout>
+                        <com.github.mikephil.charting.charts.BarChart
+                            android:id="@+id/barChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:visibility="gone" />
 
-        </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:id="@+id/tvNoBarChartDataAvailable"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:text="@string/no_chart_data_available"
+                            android:textColor="@color/black_text"
+                            android:visibility="gone" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvVsFriends"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:clickable="true"
-            android:foreground="?selectableItemBackground"
-            android:theme="@style/WhiteHighlight"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            app:contentPaddingBottom="15dp"
-            app:contentPaddingLeft="10dp"
-            app:contentPaddingRight="10dp"
-            app:contentPaddingTop="15dp">
+                    </FrameLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
+                </LinearLayout>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Me vs friends"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black_text"
-                    android:textSize="17sp" />
+            </com.google.android.material.card.MaterialCardView>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:rotation="180"
-                    android:src="@drawable/ic_left_arrow"
-                    android:tint="@color/white" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cvVsFriends"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/me_vs_friends"
+                app:icon="@drawable/ic_arrow_right"
+                app:iconGravity="textEnd"
+                app:iconPadding="20dp"
+                app:iconTint="@color/blue_grey_900"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_attempts"
+                tools:textSize="17sp" />
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cvVsOthers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/me_vs_others"
+                app:icon="@drawable/ic_arrow_right"
+                app:iconGravity="textEnd"
+                app:iconPadding="20dp"
+                app:iconTint="@color/blue_grey_900"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cvVsFriends"
+                tools:textSize="17sp" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvVsOthers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:clickable="true"
-            android:foreground="?selectableItemBackground"
-            android:theme="@style/WhiteHighlight"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="10dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp"
-            app:contentPaddingBottom="15dp"
-            app:contentPaddingLeft="10dp"
-            app:contentPaddingRight="10dp"
-            app:contentPaddingTop="15dp">
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Me vs others"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black_text"
-                    android:textSize="17sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:rotation="180"
-                    android:src="@drawable/ic_left_arrow"
-                    android:tint="@color/white" />
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+</layout>
