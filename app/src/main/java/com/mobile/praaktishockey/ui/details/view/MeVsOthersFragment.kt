@@ -272,8 +272,12 @@ class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragm
         // add a lot of colors
 
         val colors = ArrayList<Int>()
-        colors.add(Color.parseColor("#00CD14"))
-        colors.add(Color.parseColor("#E81DEC"))
+
+        val color1 = ContextCompat.getColor(requireContext(), R.color.primaryColor)
+        val color2 = ContextCompat.getColor(requireContext(), R.color.green_500)
+
+        colors.add(/*Color.parseColor("#00CD14")*/color2)
+        colors.add(/*Color.parseColor("#E81DEC")*/color1)
 
 //        for (c in ColorTemplate.VORDIPLOM_COLORS)
 //            colors.add(c)
