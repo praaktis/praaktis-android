@@ -179,7 +179,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
             override fun onAnimationEnd(animation: Animator?) {
                 if (tv_score_current == null) return
                 tv_score_current.text = "$currentScore"
-                tv_score_remained.text = "$remainedScore"
+//                tv_score_remained.text = "$remainedScore"
             }
 
             override fun onAnimationCancel(animation: Animator?) {

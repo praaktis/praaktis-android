@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseFragment
+import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.databinding.FragmentItemTimelineBinding
 import com.mobile.praaktishockey.domain.common.Constants
 import com.mobile.praaktishockey.domain.entities.ScoreDTO
 import com.mobile.praaktishockey.domain.entities.TimelineChallengeItem
@@ -18,7 +19,7 @@ import com.mobile.praaktishockey.ui.timeline.vm.TimelineFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_item_timeline.*
 
 class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fragment_item_timeline) :
-    BaseFragment() {
+    BaseFragment<FragmentItemTimelineBinding>() {
 
     companion object {
         val TAG = TimelineItemFragment::class.java.simpleName

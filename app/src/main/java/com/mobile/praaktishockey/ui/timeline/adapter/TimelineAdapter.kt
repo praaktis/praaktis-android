@@ -12,6 +12,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
 import java.text.DecimalFormat
 
 class TimelineAdapter(
@@ -68,7 +70,11 @@ class TimelineAdapter(
             binding.tvChallengeName.text = item.name
             binding.tvPoints.text = item.points.toString()
             binding.tvScore.text = decimalFormat.format(item.score)
-            binding.tvTimePerformed.text = item.timePerformed
+
+            val dateTime = LocalDateTime.parse(item.timePerformed, DateTimeFormatter.ofPattern("E MMM dd HH:mm:ss yyyy"))
+
+            binding.tvDate.text = dateTime.format(DateTimeFormatter.ofPattern("E dd MMM yyyy")).toLowerCase()
+            binding.tvTime.text = dateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
 
             binding.tvDetail.setOnClickListener {
                 onItemClick.invoke(item)

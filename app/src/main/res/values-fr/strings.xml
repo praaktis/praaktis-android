@@ -81,7 +81,7 @@
     <string name="password">MOT DE PASSE</string>
     <string name="submit">Soumettre</string>
     <string name="back_to_login">Retour connexion</string>
-    <string name="details"><u>Détails</u></string>
+    <string name="details">Détails</string>
     <string name="create_account">Créer un compte</string>
     <string name="last_name">Nom de famille</string>
     <string name="nickname">SURNOM</string>
