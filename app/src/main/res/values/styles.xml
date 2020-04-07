@@ -30,6 +30,9 @@
         <item name="materialButtonStyle">@style/AppTheme.MaterialButton</item>
 
         <item name="textInputStyle">@style/Widget.AppTheme.TextInputLayout</item>
+
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.AppTheme.MaterialAlertDialog
+        </item>
     </style>
 
     <style name="SplashScreenTheme" parent="AppTheme.TransparentStatusBarNavigationBar">
@@ -102,8 +105,10 @@
         <item name="android:textColorHint">@color/grey_600</item>
     </style>
 
-
-
+    <style name="ThemeOverlay.AppTheme.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog.Centered">
+        <item name="buttonBarPositiveButtonStyle">@style/AppTheme.MaterialButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/AppTheme.MaterialButton.Secondary</item>
+    </style>
 
     <style name="WhiteHighlight" parent="AppTheme">
         <item name="colorControlHighlight">@color/dark_grey</item>

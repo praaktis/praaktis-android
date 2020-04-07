@@ -3,12 +3,22 @@ package com.mobile.praaktishockey.domain.extension
 import android.app.Activity
 import android.content.Context
 import android.util.DisplayMetrics
+import android.view.Gravity
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.Dimension
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.ButtonBarLayout
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.marginBottom
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mobile.praaktishockey.R
 
 fun AppCompatActivity.supportFragmentTransaction(init: FragmentTransaction.() -> Unit) {
@@ -71,7 +81,46 @@ fun Activity.showAlertMessage(title: String = "", init: AlertDialog.Builder.() -
 
 fun Fragment.alert(init: AlertDialog.Builder.() -> Unit) = activity?.alert(init)
 
-fun Context.dpToPx(dp: Int) : Int {
+fun Activity.materialAlert(init: MaterialAlertDialogBuilder.() -> Unit): AlertDialog {
+    val builder = MaterialAlertDialogBuilder(this)
+    builder.init()
+    val dialog = builder.create()
+
+    dialog.setOnShowListener {
+        val positiveBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        dialog.findViewById<TextView>(android.R.id.message)?.apply {
+            gravity = Gravity.CENTER
+            setTextSize(Dimension.SP, 18f)
+            setTextColor(ContextCompat.getColor(context, R.color.purple_900_1))
+            setTypeface(ResourcesCompat.getFont(context, R.font.lato))
+            updatePadding(bottom = 16.dp)
+        }
+        (dialog.getButton(AlertDialog.BUTTON_POSITIVE).parent as ButtonBarLayout).updatePadding(
+            bottom = 10.dp
+        )
+        positiveBtn.layoutParams = (positiveBtn.layoutParams as LinearLayout.LayoutParams).apply {
+            weight = 10f
+            gravity = Gravity.CENTER
+            marginEnd = 6.dp
+        }
+
+        val negativeBtn = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+        negativeBtn.layoutParams = (negativeBtn.layoutParams as LinearLayout.LayoutParams).apply {
+            weight = 10f
+            marginEnd = 10.dp
+            gravity = Gravity.CENTER
+        }
+    }
+
+
+
+    return dialog
+}
+
+//fun Fragment.materialAlert(init: MaterialAlertDialogBuilder.() -> Unit) = activity?.alert {  }
+
+
+fun Context.dpToPx(dp: Int): Int {
     val displayMetrics = resources.displayMetrics
     return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
 }

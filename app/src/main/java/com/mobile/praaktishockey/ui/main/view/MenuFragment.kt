@@ -6,9 +6,9 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseFragment
-import com.mobile.praaktishockey.domain.common.InfoDialog
 import com.mobile.praaktishockey.domain.extension.addFragment
 import com.mobile.praaktishockey.domain.extension.getViewModel
+import com.mobile.praaktishockey.domain.extension.materialAlert
 import com.mobile.praaktishockey.domain.extension.onClick
 import com.mobile.praaktishockey.ui.friends.view.FriendsPagerFragment
 import com.mobile.praaktishockey.ui.login.view.LoginActivity
@@ -17,7 +17,8 @@ import com.mobile.praaktishockey.ui.settings.view.SettingsFragment
 import kotlinx.android.synthetic.main.fragment_menu.*
 
 
-class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_menu) : BaseFragment() {
+class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_menu) :
+    BaseFragment() {
 
     companion object {
         val TAG = MenuFragment::class.java.simpleName
@@ -60,13 +61,13 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
             }
         }
         menu_logout.onClick {
-            val dialog =
-                InfoDialog(context!!, getString(R.string.are_you_sure_logout), object : InfoDialog.InfoDialogListener {
-                    override fun onOkClicked() {
-                        mViewModel.logout()
-                    }
-                })
-            dialog.show()
+            activity.materialAlert {
+                setMessage(getString(R.string.are_you_sure_logout))
+                setPositiveButton(R.string.ok) { dialog, which ->
+                    mViewModel.logout()
+                }
+                setNegativeButton(R.string.cancel) { dialog, which -> }
+            }.show()
         }
 
         mViewModel.logoutEvent.observe(viewLifecycleOwner, Observer {
