@@ -8,7 +8,9 @@ import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseActivity
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.entities.ScoreDTO
+import com.mobile.praaktishockey.domain.extension.setLightNavigationBar
 import com.mobile.praaktishockey.domain.extension.showOrReplace
+import com.mobile.praaktishockey.domain.extension.transparentStatusAndNavigationBar
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.mobile.praaktishockey.ui.login.view.CalibrateFragment
 
@@ -46,6 +48,9 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
     private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as ChallengeDTO }
 
     override fun initUI(savedInstanceState: Bundle?) {
+        transparentStatusAndNavigationBar()
+        setLightNavigationBar()
+
         if (intent.hasExtra("score")) {
             val tag = DetailAnalysisFragment.TAG
             showOrReplace(tag) {

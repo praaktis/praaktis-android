@@ -90,17 +90,17 @@
                     android:paddingEnd="18dp"
                     android:paddingBottom="22dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/points"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="15sp" />
 
-                    <TextView
-                        android:id="@+id/tvPoints"
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_points"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -137,7 +137,7 @@
                     android:paddingEnd="18dp"
                     android:paddingBottom="22dp">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -146,7 +146,7 @@
                         android:textColor="@color/white"
                         android:textSize="15sp" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvScore"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -10,20 +10,22 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseFragment
+import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.databinding.FragmentDetailedAnalysisBinding
 import com.mobile.praaktishockey.domain.common.AnalysisLineChart
+import com.mobile.praaktishockey.domain.common.GRADIENT_PROGRESS_ARRAY
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.entities.DetailPoint
 import com.mobile.praaktishockey.domain.entities.DetailScoreDTO
 import com.mobile.praaktishockey.domain.entities.ScoreDTO
-import com.mobile.praaktishockey.domain.extension.dpToPx
+import com.mobile.praaktishockey.domain.extension.dp
 import com.mobile.praaktishockey.domain.extension.getViewModel
 import com.mobile.praaktishockey.ui.challenge.vm.DetailAnalysisFragmentViewModel
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import kotlinx.android.synthetic.main.fragment_detailed_analysis.*
 
 class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.fragment_detailed_analysis) :
-    BaseFragment() {
+    BaseFragment<FragmentDetailedAnalysisBinding>() {
 
     companion object {
         @JvmField
@@ -105,22 +107,33 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
         if (arguments?.getSerializable("score") != null) tvDragFlick.text = scoreDTO.name
         else tvDragFlick.text = challengeItem.name
         tvDragFlick.isAllCaps = true
-        tvDragFlick.setTextSize(Dimension.SP, 17f)
-        tvDragFlick.setTextColor(ContextCompat.getColor(context!!, R.color.black_text))
+        tvDragFlick.setTextSize(Dimension.SP, 18f)
+        tvDragFlick.setTextColor(ContextCompat.getColor(context!!, R.color.purple_900_1))
         val lp = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
         lp.gravity = Gravity.CENTER_HORIZONTAL
-        lp.setMargins(0, context!!.dpToPx(5), 0, context!!.dpToPx(5))
+        lp.setMargins(0, 0, 0, 12.dp)
         tvDragFlick.layoutParams = lp
         llAnalysisContainer.addView(tvDragFlick)
 
-        for (i in 0 until detailScores.size) {
+        var gradientIterator = GRADIENT_PROGRESS_ARRAY.listIterator()
+
+        for (i in detailScores.indices) {
+            val progressBackground =
+                if (gradientIterator.hasNext())
+                    gradientIterator.next()
+                else {
+                    gradientIterator = GRADIENT_PROGRESS_ARRAY.listIterator()
+                    gradientIterator.next()
+                }
+
             val chart = AnalysisLineChart(
-                context!!,
+                requireContext(),
                 detailScores[i].detailPointScore.toFloat(),
-                detailScores[i].detailPoint.name
+                detailScores[i].detailPoint.name,
+                progressBackground
             )
             llAnalysisContainer.addView(chart)
         }

@@ -22,7 +22,7 @@ class TimelineAdapter(
 ) :
     ListAdapter<ScoreDTO, TimelineAdapter.ViewHolder>(DIFF_CALLBACK) {
 
-    val adapterScope = CoroutineScope(Dispatchers.Default)
+    private val adapterScope = CoroutineScope(Dispatchers.Default)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
