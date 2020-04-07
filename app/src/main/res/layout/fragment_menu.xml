@@ -3,34 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/app_gradient2"
     android:clickable="true">
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="23dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="58dp"
-        android:layout_marginTop="83dp"
+        android:gravity="center"
         android:text="@string/menu"
         android:textAllCaps="true"
-        android:textColor="@color/black_text"
-        android:textSize="36sp"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/ll_top_menu"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".45"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/ll_top_menu"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="50dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/menu_logout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title">
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintWidth_max="400dp">
 
         <LinearLayout
             android:id="@+id/menu_my_profile"
@@ -39,19 +41,19 @@
             android:background="?selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?selectableItemBackground"
             android:gravity="center_vertical"
             android:padding="16dp"
-            android:theme="@style/WhiteHighlight"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title">
 
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="46dp"
+                android:layout_height="46dp"
                 android:layout_marginEnd="16dp"
-                android:tint="@color/black_text"
+                android:background="@android:color/white"
+                android:scaleType="center"
+                android:tint="@color/secondaryColor"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.AppTheme.Circle"
                 app:srcCompat="@drawable/ic_user" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -59,16 +61,16 @@
                 android:layout_height="wrap_content"
                 android:text="@string/my_profile"
                 android:textAllCaps="true"
-                android:textColor="@color/black_text"
-                android:textSize="30sp" />
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginStart="62dp"
-            android:background="@color/grey_800" />
+            android:layout_marginStart="78dp"
+            android:background="@android:color/white" />
 
         <LinearLayout
             android:id="@+id/menu_friends"
@@ -77,18 +79,19 @@
             android:background="?selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?selectableItemBackground"
             android:gravity="center_vertical"
             android:padding="16dp"
-            android:theme="@style/WhiteHighlight"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/menu_my_profile">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="46dp"
+                android:layout_height="46dp"
                 android:layout_marginEnd="16dp"
-                android:tint="@color/black_text"
+                android:background="@android:color/white"
+                android:scaleType="center"
+                android:tint="@color/secondaryColor"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.AppTheme.Circle"
                 app:srcCompat="@drawable/ic_friends" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -96,8 +99,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/friends"
                 android:textAllCaps="true"
-                android:textColor="@color/black_text"
-                android:textSize="30sp" />
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/badge"
@@ -110,7 +113,7 @@
                 android:gravity="center"
                 android:padding="3dp"
                 android:text="2"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 android:textSize="14sp"
                 android:visibility="gone" />
 
@@ -119,8 +122,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginStart="62dp"
-            android:background="@color/grey_800" />
+            android:layout_marginStart="78dp"
+            android:background="@android:color/white" />
 
         <LinearLayout
             android:id="@+id/menu_settings"
@@ -129,55 +132,61 @@
             android:background="?selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?selectableItemBackground"
             android:gravity="center_vertical"
             android:padding="16dp"
-            android:theme="@style/WhiteHighlight"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/menu_friends">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="46dp"
+                android:layout_height="46dp"
                 android:layout_marginEnd="16dp"
-                android:tint="@color/black_text"
-                app:srcCompat="@drawable/ic_outline_settings" />
+                android:background="@android:color/white"
+                android:scaleType="center"
+                android:tint="@color/secondaryColor"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.AppTheme.Circle"
+                app:srcCompat="@drawable/ic_gear" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/settings"
                 android:textAllCaps="true"
-                android:textColor="@color/black_text"
-                android:textSize="30sp" />
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginStart="62dp"
-            android:background="@color/grey_800" />
+            android:layout_marginStart="78dp"
+            android:background="@android:color/white" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/menu_logout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:background="?selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center_vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="@id/ll_top_menu"
+        app:layout_constraintStart_toStartOf="@id/ll_top_menu">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="46dp"
+            android:layout_height="46dp"
             android:layout_marginEnd="16dp"
-            android:tint="@color/black_text"
+            android:background="@android:color/white"
+            android:scaleType="center"
+            android:tint="@color/secondaryColor"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.AppTheme.Circle"
             app:srcCompat="@drawable/ic_logout" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -185,8 +194,8 @@
             android:layout_height="wrap_content"
             android:text="@string/log_out"
             android:textAllCaps="true"
-            android:textColor="@color/black_text"
-            android:textSize="30sp" />
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
