@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cardview_size">68dp</dimen>
+    <dimen name="cardview_padding">8dp</dimen>
+    <dimen name="cardview_stroke_width">1dp</dimen>
+    <dimen name="instruction_text_top_padding">9dp</dimen>
+    <dimen name="line_divider_width">1dp</dimen>
+    <dimen name="line_divider_height">33dp</dimen>
+    <dimen name="line_divider_top_margin">9dp</dimen>
+</resources>

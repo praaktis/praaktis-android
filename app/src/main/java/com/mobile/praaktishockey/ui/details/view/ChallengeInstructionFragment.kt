@@ -11,8 +11,9 @@ import android.util.Log
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseFragment
 import com.mobile.praaktishockey.base.BaseViewModel
+import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.databinding.FragmentChallengeInstructionBinding
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.extension.getViewModel
 import com.mobile.praaktishockey.ui.challenge.ChallengeActivity
@@ -20,7 +21,7 @@ import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_challenge_instruction.*
 
 class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragment_challenge_instruction) :
-    BaseFragment() {
+    BaseFragment<FragmentChallengeInstructionBinding>() {
 
     companion object {
         val TAG: String = ChallengeInstructionFragment::class.java.simpleName
@@ -46,6 +47,16 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
             (getActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { fragmentManager?.popBackStack() }
         tvtitle.text = challengeItem.name
+        binding.viewInstructions.setInstructions(
+            listOf(
+                getString(R.string.best_results_need_2_people_one_to_perform_the_challenge_one_to_record_video),
+                getString(R.string.performer_should_stand_approx_4_metres_from_the_camera_performer_should_have_right_side_facing_camera_arms_in_front_horizontal_and_level_with_the_shoulder),
+                getString(R.string.recorder_should_line_up_camera_so_that_performer_is_entirely_within_the_four_corners_identified_with_4_red_corner_markers),
+                getString(R.string.within_5_seconds_the_red_markers_will_turn_green_recorder_should_then_tell_the_performer_to_begin_the_challenge),
+                getString(R.string.in_order_to_get_most_accurate_results_it_is_recommended_that_the_performer_completes_5_10_repetitions_of_the_challenge_before_stopping_the_video)
+            )
+        )
+
         tv_start_challenge.setOnClickListener {
             autoStartAnimator.pause()
             startChallengeSteps()

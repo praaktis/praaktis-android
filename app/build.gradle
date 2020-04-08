@@ -122,8 +122,6 @@ dependencies {
     // country picker
     implementation project(path: ':countrypicker')
     implementation project(path: ':praaktic_sdk')
-//    implementation 'com.github.yesterselga:country-picker-android:1.0'
-//    implementation 'com.github.mukeshsolanki:country-picker-android:2.0.1'
 
     // image picker
 //    implementation 'gun0912.ted:tedimagepicker:1.0.1'
@@ -132,8 +130,11 @@ dependencies {
     implementation 'com.github.drawers:SpinnerDatePicker:2.0.1'
 
     implementation 'com.google.firebase:firebase-messaging:20.1.4'
+    
+    implementation project(path: ':praaktisinstructionsview')
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
+
 }
 // Add the following line to the bottom of the file:
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin

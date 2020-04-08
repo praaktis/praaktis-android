@@ -1,1 +1,1 @@
-include ':app', ':countrypicker', ':praaktic_sdk'
+include ':app', ':countrypicker', ':praaktic_sdk', ':praaktisinstructionsview'

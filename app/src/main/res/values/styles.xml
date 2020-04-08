@@ -110,6 +110,7 @@
         <item name="buttonBarNegativeButtonStyle">@style/AppTheme.MaterialButton.Secondary</item>
     </style>
 
+
     <style name="WhiteHighlight" parent="AppTheme">
         <item name="colorControlHighlight">@color/dark_grey</item>
         <item name="colorControlNormal">@color/dark_grey</item>
@@ -162,16 +163,9 @@
         <item name="colorControlActivated">@color/white</item>
     </style>
 
-    <style name="FullscreenTheme" parent="AppTheme">
-        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+    <style name="FullscreenTheme" parent="AppTheme.TransparentStatusBarNavigationBar">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@null</item>
-        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
-        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
-    </style>
-
-    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/black</item>
     </style>
 
     <style name="BottomNavigation" parent="AppTheme">

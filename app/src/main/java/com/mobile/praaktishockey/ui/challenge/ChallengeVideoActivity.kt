@@ -9,14 +9,13 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
+import androidx.fragment.app.FragmentManager
 import com.mobile.praaktishockey.R
+import com.mobile.praaktishockey.base.temp.BaseActivity
+import com.mobile.praaktishockey.databinding.ActivityVideoChallengeBinding
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
-import com.mobile.praaktishockey.domain.extension.hide
-import com.mobile.praaktishockey.domain.extension.onClick
-import com.mobile.praaktishockey.domain.extension.replaceFragment
-import com.mobile.praaktishockey.domain.extension.show
+import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import kotlinx.android.synthetic.main.activity_video_challenge.*
 
@@ -24,7 +23,9 @@ import kotlinx.android.synthetic.main.activity_video_challenge.*
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-class ChallengeVideoActivity : AppCompatActivity() {
+class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_video_challenge) :
+    BaseActivity<ActivityVideoChallengeBinding>(),
+    FragmentManager.OnBackStackChangedListener {
 
     companion object {
         @JvmStatic
@@ -37,11 +38,13 @@ class ChallengeVideoActivity : AppCompatActivity() {
 
     private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as ChallengeDTO }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initUI(savedInstanceState: Bundle?) {
+        transparentStatusAndNavigationBar()
+        setLightNavigationBar()
+        hideSystemUI()
 
-        setContentView(R.layout.activity_video_challenge)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportFragmentManager.addOnBackStackChangedListener(this)
 
         videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.challenge_video))
         videoView.setOnPreparedListener {
@@ -59,7 +62,6 @@ class ChallengeVideoActivity : AppCompatActivity() {
             it.hide()
         }
         videoView.setOnCompletionListener {
-            llCompleteVideo.show()
             ivPlayReply.show()
             ivPlayReply.setImageResource(R.drawable.vector_replay)
         }
@@ -89,6 +91,13 @@ class ChallengeVideoActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackStackChanged() {
+        if (supportFragmentManager.backStackEntryCount > 0)
+            showSystemUI()
+        else
+            hideSystemUI()
     }
 
 }
