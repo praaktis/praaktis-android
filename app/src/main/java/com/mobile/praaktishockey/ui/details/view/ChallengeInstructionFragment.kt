@@ -16,6 +16,7 @@ import com.mobile.praaktishockey.base.temp.BaseFragment
 import com.mobile.praaktishockey.databinding.FragmentChallengeInstructionBinding
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.extension.getViewModel
+import com.mobile.praaktishockey.domain.extension.updateLayoutParams
 import com.mobile.praaktishockey.ui.challenge.ChallengeActivity
 import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_challenge_instruction.*
@@ -68,9 +69,10 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         autoStartAnimator.duration = 7500
         autoStartAnimator.addUpdateListener {
             val v = it.animatedValue as Float
-            val lp = LinearLayout.LayoutParams(0, 5, v)
             if (vAutoStart == null) autoStartAnimator.pause()
-            vAutoStart?.layoutParams = lp
+            vAutoStart.updateLayoutParams<LinearLayout.LayoutParams> {
+                weight = v
+            }
         }
         autoStartAnimator.addListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator?) {}

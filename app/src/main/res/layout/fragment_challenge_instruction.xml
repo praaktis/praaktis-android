@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/app_gradient"
         android:clickable="true"
+        android:clipToPadding="false"
         android:orientation="vertical"
         app:paddingTopSystemWindowInsets="@{true}"
         tools:context=".ui.details.view.ChallengeInstructionFragment">
@@ -54,7 +55,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:paddingBottom="50dp"
+                android:paddingBottom="76dp"
                 app:paddingBottomSystemWindowInsets="@{true}">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -80,51 +81,60 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tv_start_challenge"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:paddingBottomSystemWindowInsets="@{true}">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_max="310dp"
+            app:marginBottomSystemWindowInsets="@{true}"
+            tools:textSize="17sp" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_start_challenge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="bottom"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:text="@string/let_me_go"
-                android:textAllCaps="true"
-                android:textColor="@color/black_text"
-                android:textSize="20sp" />
+        <LinearLayout
+            android:id="@+id/llAutoStart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="5dp"
+            android:translationZ="10dp"
+            android:weightSum="1"
+            app:layout_constraintBottom_toBottomOf="@id/tv_start_challenge"
+            app:layout_constraintEnd_toEndOf="@id/tv_start_challenge"
+            app:layout_constraintStart_toStartOf="@id/tv_start_challenge"
+            app:layout_constraintTop_toTopOf="@id/tv_start_challenge">
 
-            <LinearLayout
-                android:id="@+id/llAutoStart"
-                android:layout_width="300dp"
-                android:layout_height="2dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="15dp"
-                android:background="@color/light_transparent"
-                android:weightSum="1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_start_challenge">
-
-                <View
-                    android:id="@+id/vAutoStart"
-                    android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:layout_weight="0"
-                    android:background="@color/white" />
-
-            </LinearLayout>
+            <View
+                android:id="@+id/vAutoStart"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:background="@drawable/auto_start_button_background" />
 
         </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:drawablePadding="36dp"
+            android:elevation="0dp"
+            android:gravity="center"
+            android:text="@string/let_me_go"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/blue_grey_900"
+            android:textSize="16sp"
+            android:translationZ="10dp"
+            app:drawableEndCompat="@drawable/ic_arrow_right"
+            app:drawableTint="@color/blue_grey_900"
+            app:layout_constraintBottom_toBottomOf="@id/tv_start_challenge"
+            app:layout_constraintEnd_toEndOf="@id/tv_start_challenge"
+            app:layout_constraintStart_toStartOf="@id/tv_start_challenge"
+            app:layout_constraintTop_toTopOf="@id/tv_start_challenge" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
