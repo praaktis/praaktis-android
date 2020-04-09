@@ -9,7 +9,8 @@ import android.view.Surface
 import android.view.TextureView
 import androidx.fragment.app.Fragment
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseFragment
+import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.databinding.FragmentResultChallengeBinding
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.entities.DetailResult
 import com.mobile.praaktishockey.domain.extension.*
@@ -21,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_result_challenge.*
 import java.util.*
 
 class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_result_challenge) :
-    BaseFragment() {
+    BaseFragment<FragmentResultChallengeBinding>() {
 
     companion object {
         @JvmField

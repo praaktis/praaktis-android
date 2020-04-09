@@ -61,7 +61,6 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
                 )
             }
         } else if (intent.hasExtra("challengeItem")) {
-//            val tag = CalculateChallengeFragment.TAG
             val tag = ResultChallengeFragment.TAG
             showOrReplace(tag) {
                 replace(
