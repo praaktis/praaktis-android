@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobile.praaktishockey.databinding.ItemTimelineBinding
 import com.mobile.praaktishockey.domain.entities.ScoreDTO
 import com.mobile.praaktishockey.domain.entities.TimelineChallengeItem
+import com.mobile.praaktishockey.domain.extension.removeDuplicateWhiteSpaces
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -71,9 +72,9 @@ class TimelineAdapter(
             binding.tvPoints.text = item.points.toString()
             binding.tvScore.text = decimalFormat.format(item.score)
 
-            val dateTime = LocalDateTime.parse(item.timePerformed, DateTimeFormatter.ofPattern("E MMM dd HH:mm:ss yyyy"))
+            val dateTime = LocalDateTime.parse(item.timePerformed?.removeDuplicateWhiteSpaces(), DateTimeFormatter.ofPattern("E MMM d HH:mm:ss yyyy"))
 
-            binding.tvDate.text = dateTime.format(DateTimeFormatter.ofPattern("E dd MMM yyyy")).toLowerCase()
+            binding.tvDate.text = dateTime.format(DateTimeFormatter.ofPattern("E d MMM yyyy")).toLowerCase()
             binding.tvTime.text = dateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
 
             binding.tvDetail.setOnClickListener {

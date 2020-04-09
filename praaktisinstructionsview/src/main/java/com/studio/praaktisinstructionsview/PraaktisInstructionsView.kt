@@ -57,7 +57,7 @@ class PraaktisInstructionsView @JvmOverloads constructor(
     private fun createMaterialCardView(size: Int): MaterialCardView {
         return MaterialCardView(context).apply {
             layoutParams = LayoutParams(size, size)
-            radius = size.toFloat()
+            radius = (size / 2).toFloat()
             cardViewPadding.toInt().let {
                 setContentPadding(it, it, it, it)
             }

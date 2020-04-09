@@ -8,3 +8,4 @@ val Int.dp: Int get() = (this * Resources.getSystem().displayMetrics.density).to
 val Float.dp: Int get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 val Float.px: Int get() = (this / Resources.getSystem().displayMetrics.density).toInt()
 
+fun String.removeDuplicateWhiteSpaces() = this.replace("\\s+".toRegex(), " ")
