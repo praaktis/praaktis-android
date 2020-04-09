@@ -39,7 +39,7 @@ class TimelineAdapter(
         adapterScope.launch {
             val result: MutableList<ScoreDTO> = mutableListOf()
             timelines.forEach { challenge -> // set challenge name to each item score
-                if (challenge.latest.timePerformed != null) {
+                if (challenge.latest.timePerformed != null && challenge.latest.attemptId != challenge.scores.last().attemptId) {
                     challenge.latest.name = challenge.name
                     result.add(challenge.latest)
                 }
@@ -72,9 +72,13 @@ class TimelineAdapter(
             binding.tvPoints.text = item.points.toString()
             binding.tvScore.text = decimalFormat.format(item.score)
 
-            val dateTime = LocalDateTime.parse(item.timePerformed?.removeDuplicateWhiteSpaces(), DateTimeFormatter.ofPattern("E MMM d HH:mm:ss yyyy"))
+            val dateTime = LocalDateTime.parse(
+                item.timePerformed?.removeDuplicateWhiteSpaces(),
+                DateTimeFormatter.ofPattern("E MMM d HH:mm:ss yyyy")
+            )
 
-            binding.tvDate.text = dateTime.format(DateTimeFormatter.ofPattern("E d MMM yyyy")).toLowerCase()
+            binding.tvDate.text =
+                dateTime.format(DateTimeFormatter.ofPattern("E d MMM yyyy")).toLowerCase()
             binding.tvTime.text = dateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
 
             binding.tvDetail.setOnClickListener {
