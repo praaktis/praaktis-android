@@ -84,8 +84,8 @@
     <string name="details">Détails</string>
     <string name="create_account">Créer un compte</string>
     <string name="last_name">Nom de famille</string>
-    <string name="nickname">SURNOM</string>
-    <string name="your_email_phone">VOTRE EMAIL</string>
+    <string name="nickname">Surnom</string>
+    <string name="your_email_phone">Votre email</string>
     <string name="save">sauvegarder</string>
     <string name="registration">enregistrement</string>
     <string name="set_password">Set mot de passe</string>
@@ -116,7 +116,7 @@
     <string name="ability_gender_age_group">[Capacité] [Sexe] [Groupe d\'âge]</string>
     <string name="attempt">Tentative</string>
     <string name="all">Tout</string>
-    <string name="new_password">NOUVEAU MOT DE PASSE</string>
+    <string name="new_password">Nouveau mot de passe</string>
     <string name="processing">En traitement</string>
     <string name="please_rotate_your_device">Veuillez faire pivoter votre appareil</string>
     <string name="attempts">Tentatives</string>

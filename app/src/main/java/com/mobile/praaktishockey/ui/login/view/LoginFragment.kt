@@ -32,8 +32,6 @@ class LoginFragment constructor(override val layoutId: Int = R.layout.fragment_l
     }
 
     private fun initClicks() {
-        tilPassword.typeface = Typeface.createFromAsset(context?.assets, "fonts/abel_regular.ttf")
-
         binding.btnCreateAccount.onClick {
             val tag = RegisterFragment.TAG
             activity.showOrReplace(tag) {

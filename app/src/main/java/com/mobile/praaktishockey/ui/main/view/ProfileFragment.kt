@@ -1,24 +1,18 @@
 package com.mobile.praaktishockey.ui.main.view
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.Application
-import android.app.DatePickerDialog
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
-import android.view.WindowManager
 import android.widget.ArrayAdapter
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.afollestad.vvalidator.form
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseFragment
+import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.databinding.FragmentProfileBinding
 import com.mobile.praaktishockey.domain.common.ImageUtils
 import com.mobile.praaktishockey.domain.entities.CountryItemDTO
 import com.mobile.praaktishockey.domain.entities.Gender
@@ -37,7 +31,8 @@ import org.threeten.bp.LocalDate
 import java.io.File
 import java.util.*
 
-class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) : BaseFragment() {
+class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) :
+    BaseFragment<FragmentProfileBinding>() {
 
     companion object {
         val TAG: String = ProfileFragment::class.java.simpleName
@@ -56,20 +51,6 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) : 
     private var userImageUri: String? = null
 
     override fun initUI(savedInstanceState: Bundle?) {
-        root.setOnApplyWindowInsetsListener { v, insets ->
-            v.updatePadding(top = insets.systemWindowInsetTop)
-            insets
-        }
-
-        tilPassword.typeface = Typeface.createFromAsset(context?.assets, "fonts/abel_regular.ttf")
-
-        val adapter = ArrayAdapter<String>(
-            context!!,
-            R.layout.layout_spinner,
-            context?.resources?.getStringArray(R.array.genders)!!
-        )
-        spGender.adapter = adapter
-
         mViewModel.profileInfoEvent.observe(this, Observer {
             setProfileCredentials(it)
         })
@@ -129,8 +110,16 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) : 
             etCountry.setText(mViewModel.getCountryObject()?.name)
         etEmail.setText(user.email)
 
-        if (user.gender != null)
-            spGender.setSelection(user.gender.ordinal)
+        if (user.gender != null) {
+            val genders = resources.getStringArray(R.array.genders)
+            binding.etGender.setText(genders[user.gender.ordinal])
+            val genderAdapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_list_item_1,
+                genders
+            )
+            binding.etGender.setAdapter(genderAdapter)
+        }
 
         etDateOfBirth.onClick {
             showBirthdayDialog()
@@ -143,7 +132,8 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) : 
         selectedCountry = mViewModel.getCountryObject()
         oldUserInfo = UserDTO(
             dateOfBirth = user.dateOfBirth?.let { LocalDate.parse(user.dateOfBirth).toString() },
-            gender = Gender.values()[spGender.selectedItemPosition],
+            gender = Gender.values()[resources.getStringArray(R.array.genders)
+                .indexOf(binding.etGender.text.toString())],
             firstName = etFirstName.stringText(),
             lastName = etLastName.stringText(),
             nickname = etNickname.stringText(),
@@ -167,17 +157,29 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) : 
             inputLayout(tilCountry) {
                 isNotEmpty()
             }
-            /*inputLayout(tilEmail) {
-                isNotEmpty()
-                isEmail()
-            }*/
             inputLayout(tilPassword, optional = true) {
-                length().atLeast(8)
+                startRealTimeValidation(500)
+                length().atLeast(8).description(getString(R.string.at_least_8_characters))
+                conditional({ !binding.etConfirmPassword.text.isNullOrBlank() }) {
+                    assert(getString(R.string.password_donot_match)) {
+                        binding.etConfirmPassword.text.toString() == binding.etPassword.text.toString()
+                    }
+                }
+            }
+            inputLayout(binding.tilConfirmPassword) {
+                startRealTimeValidation(500)
+                conditional({ !binding.etPassword.text.isNullOrBlank() }) {
+                    length().atLeast(8).description(getString(R.string.at_least_8_characters))
+                    assert(getString(R.string.password_donot_match)) {
+                        binding.etConfirmPassword.text.toString() == binding.etPassword.text.toString()
+                    }
+                }
             }
             submitWith(tvSave) {
                 newUserInfo = UserDTO(
                     dateOfBirth = etDateOfBirth.stringText().MMMddYYYYtoLocalDate().toString(),
-                    gender = Gender.values()[spGender.selectedItemPosition],
+                    gender = Gender.values()[resources.getStringArray(R.array.genders)
+                        .indexOf(binding.etGender.text.toString())],
                     firstName = etFirstName.stringText(),
                     lastName = etLastName.stringText(),
                     nickname = etNickname.stringText(),
@@ -200,7 +202,8 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) : 
     private fun returnDiffUserDTO(): UserDTO {
         return UserDTO(
             dateOfBirth = oldUserInfo.dateOfBirth.returnDiff(newUserInfo.dateOfBirth),
-            gender = oldUserInfo.gender!!.name.returnDiff(newUserInfo.gender!!.name)?.let { Gender.valueOf(it) },
+            gender = oldUserInfo.gender!!.name.returnDiff(newUserInfo.gender!!.name)
+                ?.let { Gender.valueOf(it) },
             firstName = oldUserInfo.firstName!!.returnDiff(newUserInfo.firstName),
             lastName = oldUserInfo.lastName!!.returnDiff(newUserInfo.lastName),
             nickname = oldUserInfo.nickname!!.returnDiff(newUserInfo.nickname),
@@ -276,7 +279,9 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) : 
             .context(context!!)
             .callback { view, year, monthOfYear, dayOfMonth ->
                 dateOfBirthCal?.set(year, monthOfYear, dayOfMonth)
-                etDateOfBirth.setText(LocalDate.parse(dateOfBirthCal?.dateYYYY_MM_DD()).formatMMMddYYYY())
+                etDateOfBirth.setText(
+                    LocalDate.parse(dateOfBirthCal?.dateYYYY_MM_DD()).formatMMMddYYYY()
+                )
             }
             .dialogTheme(R.style.MyDatePickerDialogTheme)
             .spinnerTheme(R.style.MyDatePickerDialogTheme)
@@ -288,18 +293,6 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) : 
             .build()
 
         picker.show()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Handler().post {
-            activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
     }
 
 }

@@ -85,8 +85,8 @@
     <string name="details">Details</string>
     <string name="create_account">Create account</string>
     <string name="last_name">Last name</string>
-    <string name="nickname">NICKNAME</string>
-    <string name="your_email_phone">YOUR EMAIL</string>
+    <string name="nickname">Nickname</string>
+    <string name="your_email_phone">Your email</string>
     <string name="save">Save</string>
     <string name="registration">Registration</string>
     <string name="set_password">Set password</string>
@@ -117,7 +117,7 @@
     <string name="ability_gender_age_group">[Ability] [Gender] [Age group]</string>
     <string name="attempt">Attempt</string>
     <string name="all">All</string>
-    <string name="new_password">NEW PASSWORD</string>
+    <string name="new_password">New password</string>
     <string name="processing">Processing</string>
     <string name="please_rotate_your_device">Please rotate your device</string>
     <string name="please_get_someone_to_use_your_phone_to_take_a_photo_of_you_standing_with_your_feet_apart_and_arms_outstretched_like">Please get someone to use your phone to take a photo of you standing with your feet apart and arms outstretched, like</string>
@@ -159,4 +159,5 @@
     <string name="me_vs_others">Me vs others</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="confirm_new_password">Confirm new password</string>
 </resources>

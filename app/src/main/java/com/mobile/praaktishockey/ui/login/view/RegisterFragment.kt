@@ -32,8 +32,6 @@ class RegisterFragment constructor(override val layoutId: Int = R.layout.fragmen
     }
 
     private fun initClicks() {
-        tilPassword.typeface = Typeface.createFromAsset(context?.assets, "fonts/abel_regular.ttf")
-        tilRePassword.typeface = Typeface.createFromAsset(context?.assets, "fonts/abel_regular.ttf")
 
         binding.btnBack.onClick {
             activity.currentFocus?.let {

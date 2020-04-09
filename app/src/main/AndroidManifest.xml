@@ -56,7 +56,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.main.view.MainActivity"
-            android:theme="@style/MainTheme" />
+            android:theme="@style/MainTheme"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.details.view.DetailsActivity"
             android:theme="@style/MainTheme" />
