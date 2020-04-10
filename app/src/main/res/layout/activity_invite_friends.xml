@@ -1,90 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <data>
+
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/app_gradient"
-        android:paddingTop="20dp"
-        >
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:paddingTopSystemWindowInsets="@{true}"
+        tools:background="@drawable/app_gradient">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title=" "
-            />
+            android:layout_height="?actionBarSize">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:text="@string/invite_a_friends"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title=" " />
 
-    </FrameLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/invite_a_friends"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="15dp"
-        android:theme="@style/WhiteHighlight"
-        app:cardBackgroundColor="@color/light_transparent"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="0dp"
-        app:contentPadding="10dp"
-        >
+        </FrameLayout>
 
-        <EditText
-            android:id="@+id/etInviteEmail"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/transparent"
-            android:padding="5dp"
-            android:gravity="center"
-            android:textColor="@color/black_text"
-            android:inputType="textEmailAddress"
-            android:hint="@string/enter_email_address"
-            android:textColorHint="@color/black_text"
-            />
+            android:background="@android:color/white"
+            android:orientation="vertical">
 
-    </androidx.cardview.widget.CardView>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="26dp"
+                android:gravity="center"
+                android:text="@string/enter_email_address"
+                android:textColor="@color/purple_900_1"
+                android:textSize="18sp" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvInvite"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:clickable="true"
-        android:foreground="?selectableItemBackground"
-        android:theme="@style/WhiteHighlight"
-        android:layout_marginTop="15dp"
-        app:cardBackgroundColor="@color/blue_back"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="0dp"
-        app:contentPadding="16dp">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="26dp"
+                app:boxBackgroundColor="@android:color/white"
+                app:hintEnabled="false">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/invite"
-            android:textColor="@color/white"
-            android:textSize="17sp"
-            android:textAllCaps="true"
-            />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:nextFocusDown="@id/btn_invite" />
 
-    </androidx.cardview.widget.CardView>
+            </com.google.android.material.textfield.TextInputLayout>
 
-</LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_invite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:paddingStart="63dp"
+                android:paddingEnd="63dp"
+                android:text="@string/invite"
+                tools:textSize="17sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

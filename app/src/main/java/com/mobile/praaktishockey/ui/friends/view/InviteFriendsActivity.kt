@@ -8,20 +8,22 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import com.afollestad.vvalidator.form
+import com.mobile.praaktishockey.BuildConfig
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseActivity
+import com.mobile.praaktishockey.base.temp.BaseActivity
+import com.mobile.praaktishockey.databinding.ActivityInviteFriendsBinding
+import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.friends.vm.InviteFriendsActivityViewModel
 import kotlinx.android.synthetic.main.activity_invite_friends.*
-import com.mobile.praaktishockey.BuildConfig
-import com.mobile.praaktishockey.domain.extension.*
-
 
 class InviteFriendsActivity constructor(override val layoutId: Int = R.layout.activity_invite_friends) :
-    BaseActivity() {
+    BaseActivity<ActivityInviteFriendsBinding>() {
 
     companion object {
         @JvmField
         val INVITE_FRIEND_REQUEST_CODE = 21
+
         @JvmStatic
         fun start(activity: AppCompatActivity) {
             val intent = Intent(activity, InviteFriendsActivity::class.java)
@@ -33,14 +35,24 @@ class InviteFriendsActivity constructor(override val layoutId: Int = R.layout.ac
         get() = getViewModel { InviteFriendsActivityViewModel(application) }
 
     override fun initUI(savedInstanceState: Bundle?) {
+        transparentStatusAndNavigationBar()
+        setLightNavigationBar()
+
         initToolbar()
-        cvInvite.onClick {
-            if (etInviteEmail.isEmailValid())
-                mViewModel?.inviteFriend(etInviteEmail.text.toString())
+
+        form {
+            inputLayout(binding.tilEmail) {
+                isNotEmpty()
+                isEmail()
+            }
+            submitWith(binding.btnInvite) {
+                mViewModel?.inviteFriend(binding.etEmail.text.toString())
+            }
         }
+
         mViewModel?.inviteFriendEvent?.observe(this, Observer {
             makeToast(it)
-            etInviteEmail.clearText()
+            binding.etEmail.clearText()
             setResult(Activity.RESULT_OK)
         })
     }
@@ -49,12 +61,12 @@ class InviteFriendsActivity constructor(override val layoutId: Int = R.layout.ac
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_left_arrow)
+        toolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_back)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menu?.add(0, 0, 0, "Share")
-            ?.setIcon(android.R.drawable.ic_menu_share)
+            ?.setIcon(R.drawable.ic_share)
             ?.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS)
         return super.onCreateOptionsMenu(menu)
     }

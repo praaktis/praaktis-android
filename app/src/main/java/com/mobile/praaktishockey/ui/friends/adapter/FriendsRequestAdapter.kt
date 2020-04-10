@@ -1,15 +1,11 @@
 package com.mobile.praaktishockey.ui.friends.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.mobile.praaktishockey.R
+import com.mobile.praaktishockey.databinding.ItemFriendsRequestBinding
 import com.mobile.praaktishockey.domain.entities.FriendDTO
 import com.mobile.praaktishockey.domain.extension.hide
-import com.mobile.praaktishockey.domain.extension.listen
 import com.mobile.praaktishockey.domain.extension.onClick
 import com.mobile.praaktishockey.domain.extension.show
 
@@ -19,39 +15,40 @@ class FriendsRequestAdapter(
 ) : RecyclerView.Adapter<FriendsRequestAdapter.FriendsRequestViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendsRequestViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_friends_request, parent, false)
-        return FriendsRequestViewHolder(v)
+        return FriendsRequestViewHolder(
+            ItemFriendsRequestBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: FriendsRequestViewHolder, position: Int) {
         with(holder) {
-            if (list[position].friendFirstName != null && list[position].friendFirstName.isNotEmpty())
-                tvFriendName.text = list[position].friendFirstName + " " + list[position].friendLastName
-            else tvFriendName.text = list[position].friendEmail
-            tvResend.onClick { listener.onResendClicked(list[position]) }
-            cvAccept.onClick { listener.onAcceptClicked(list[position]) }
-            tvRefuse.onClick { listener.onRefuseClicked(list[position]) }
-            if (list[position].requestedBy.equals("me")) {
-                cvAccept.hide()
-                tvRefuse.hide()
-                tvPendingStatus.show()
-                tvResend.show()
+            if (list[position].friendFirstName.isNotEmpty())
+                binding.tvName.text =
+                    list[position].friendFirstName + " " + list[position].friendLastName
+            else binding.tvName.text = list[position].friendEmail
+            binding.btnResend.onClick { listener.onResendClicked(list[position]) }
+            binding.btnAccept.onClick { listener.onAcceptClicked(list[position]) }
+            binding.btnRefuse.onClick { listener.onRefuseClicked(list[position]) }
+            if (list[position].requestedBy == "me") {
+                binding.btnAccept.hide()
+                binding.btnRefuse.hide()
+                binding.tvStatus.show()
+                binding.btnResend.show()
             } else {
-                cvAccept.show()
-                tvRefuse.show()
-                tvPendingStatus.hide()
-                tvResend.hide()
+                binding.tvStatus.hide()
+                binding.btnResend.hide()
+                binding.btnAccept.show()
+                binding.btnRefuse.show()
             }
         }
     }
 
-    inner class FriendsRequestViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
-        val tvFriendName: TextView = v.findViewById(R.id.tvFriendName)
-        val tvPendingStatus: TextView = v.findViewById(R.id.tvPendingStatus)
-        val tvResend: TextView = v.findViewById(R.id.tvResend)
-        val cvAccept: CardView = v.findViewById(R.id.cvAccept)
-        val tvRefuse: TextView = v.findViewById(R.id.tvRefuse)
-    }
+    inner class FriendsRequestViewHolder(val binding: ItemFriendsRequestBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

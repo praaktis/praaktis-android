@@ -41,9 +41,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="No data"
-            android:textColor="@color/black_text"
-            android:textSize="18sp"
-            android:visibility="gone" />
+            android:textColor="@color/grey_600"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

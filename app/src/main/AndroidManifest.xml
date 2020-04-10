@@ -64,7 +64,9 @@
         <activity
             android:name=".ui.challenge.ChallengeActivity"
             android:theme="@style/MainTheme" />
-        <activity android:name=".ui.friends.view.InviteFriendsActivity" />
+        <activity
+            android:name=".ui.friends.view.InviteFriendsActivity"
+            android:theme="@style/MainTheme" />
         <activity android:name="com.praaktis.exerciseengine.Engine.ExerciseEngineActivity" />
         <activity
             android:name=".ui.challenge.ChallengeVideoActivity"

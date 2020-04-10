@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.ButtonBarLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.marginBottom
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -111,13 +110,11 @@ fun Activity.materialAlert(init: MaterialAlertDialogBuilder.() -> Unit): AlertDi
             gravity = Gravity.CENTER
         }
     }
-
-
-
     return dialog
 }
 
-//fun Fragment.materialAlert(init: MaterialAlertDialogBuilder.() -> Unit) = activity?.alert {  }
+fun Fragment.materialAlert(init: MaterialAlertDialogBuilder.() -> Unit) =
+    activity?.materialAlert(init)
 
 
 fun Context.dpToPx(dp: Int): Int {
