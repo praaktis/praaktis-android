@@ -3,13 +3,14 @@ package com.mobile.praaktishockey.ui.main.view
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.temp.BaseActivity
 import com.mobile.praaktishockey.databinding.ActivityMainBinding
-import com.mobile.praaktishockey.domain.common.PraaktisBottomNavigationView
 import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.friends.view.FriendsPagerFragment
 import com.mobile.praaktishockey.ui.main.vm.MainViewModel
@@ -18,7 +19,8 @@ import com.mobile.praaktishockey.ui.timeline.view.TimelineItemFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity constructor(override val layoutId: Int = R.layout.activity_main) :
-    BaseActivity<ActivityMainBinding>(), FragmentManager.OnBackStackChangedListener {
+    BaseActivity<ActivityMainBinding>(), FragmentManager.OnBackStackChangedListener,
+    BottomNavigationView.OnNavigationItemSelectedListener {
 
     companion object {
         @JvmField
@@ -69,10 +71,10 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
             })
         }
 
-//        bottom_navigation.apply {
-//            setOnNavigationItemSelectedListener(this@MainActivity)
-//            selectedItemId = R.id.menu_dashboard
-//        }
+        binding.bottomNavigation.apply {
+            setOnNavigationItemSelectedListener(this@MainActivity)
+            selectedItemId = R.id.menu_dashboard
+        }
         setMoreItemBadge()
 
         val tag = DashboardFragment.TAG
@@ -84,6 +86,7 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
             )
         }
 
+/*
         bottomNavigation.setNavigationListener(object :
             PraaktisBottomNavigationView.HockeyBottomNavigationListener {
             override fun setOnNavigationItemSelected(itemPosition: Int) {
@@ -183,6 +186,80 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
                 }
             }
         })
+*/
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val currentFragment = getVisibleFragment()
+        when (item.itemId) {
+            R.id.menu_dashboard -> {
+                if (currentFragment == null || currentFragment !is DashboardFragment) {
+                    val tag = DashboardFragment.TAG
+                    showOrReplace(tag, currentFragment) {
+                        replace(
+                            R.id.container,
+                            DashboardFragment(),
+                            tag
+                        )
+                    }
+                    changeTitle(getString(R.string.dashboard))
+                }
+            }
+            R.id.menu_new_challenge -> {
+                if (currentFragment == null || currentFragment !is NewChallengeFragment) {
+                    val tag = NewChallengeFragment.TAG
+                    showOrReplace(tag, currentFragment) {
+                        replace(
+                            R.id.container,
+                            NewChallengeFragment.getInstance(),
+                            tag
+                        )
+                    }
+                    changeTitle(getString(R.string.new_challenge))
+                }
+            }
+            R.id.menu_timeline -> {
+                if (currentFragment == null || currentFragment !is TimelineItemFragment) {
+                    val tag = TimelineItemFragment.TAG
+                    showOrReplace(tag, currentFragment) {
+                        replace(
+                            R.id.container,
+                            TimelineItemFragment(),
+                            tag
+                        )
+                    }
+                    changeTitle(getString(R.string.timeline))
+                }
+            }
+            R.id.menu_more -> {
+                if (supportFragmentManager.findFragmentById(R.id.menu_container) !is MenuFragment) {
+                    if (supportFragmentManager.findFragmentById(R.id.menu_container) is FriendsPagerFragment
+                        || supportFragmentManager.findFragmentById(R.id.menu_container) is ProfileFragment
+                        || supportFragmentManager.findFragmentById(R.id.menu_container) is SettingsFragment
+                    ) {
+                        onBackPressed()
+                        return true
+                    } else
+                        addFragment {
+                            add(
+                                R.id.menu_container,
+                                MenuFragment(),
+                                MenuFragment.TAG
+                            )
+                            addToBackStack(MenuFragment.TAG)
+                        }
+                } else return true
+            }
+        }
+
+        // close Menu after click
+        if (supportFragmentManager.findFragmentById(R.id.menu_container) != null) {
+            supportFragmentManager.popBackStackImmediate(
+                MenuFragment.TAG,
+                FragmentManager.POP_BACK_STACK_INCLUSIVE
+            )
+        }
+        return true
     }
 
     private fun setMoreItemBadge() {
@@ -207,13 +284,13 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
             )
             return when (currentFragment) {
                 is DashboardFragment -> {
-//                    bottom_navigation.selectedItemId = R.id.menu_dashboard
+                    bottom_navigation.selectedItemId = R.id.menu_dashboard
                 }
                 is NewChallengeFragment -> {
-//                    bottom_navigation.selectedItemId = R.id.menu_new_challenge
+                    bottom_navigation.selectedItemId = R.id.menu_new_challenge
                 }
                 else -> {
-//                    bottom_navigation.selectedItemId = R.id.menu_timeline
+                    bottom_navigation.selectedItemId = R.id.menu_timeline
                 }
             }
         }
@@ -230,5 +307,6 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
             fragment.onActivityResult(requestCode, resultCode, data)
         }
     }
+
 
 }

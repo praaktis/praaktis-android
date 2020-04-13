@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -195,6 +195,5 @@
         <item name="colorPrimary">@android:color/white</item>
         <item name="android:progress">@android:color/white</item>
     </style>
-
 
 </resources>

@@ -45,7 +45,7 @@
             android:id="@+id/container"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+            app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -54,33 +54,34 @@
             android:id="@+id/menu_container"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+            app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
-        <!--android:id="@+id/bottom_navigation"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:elevation="5dp"-->
-        <!--app:labelVisibilityMode="labeled"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:menu="@menu/bottom_navigation_menu"-->
-        <!--android:background="@color/black"-->
-        <!--android:theme="@style/BottomNavigation"-->
-        <!--app:itemTextColor="@drawable/bottom_background"-->
-        <!--app:itemIconTint="@drawable/bottom_background"-->
-        <!--/>-->
-
-        <com.mobile.praaktishockey.domain.common.PraaktisBottomNavigationView
-            android:id="@+id/bottomNavigation"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:elevation="5dp"
+            app:elevation="8dp"
+            app:itemBackground="@drawable/bottomnav_item_background"
+            app:itemIconTint="@color/deep_purple_a700"
+            app:itemTextColor="@color/purple_900_1"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:paddingBottomSystemWindowInsets="@{true}" />
+            app:paddingBottomSystemWindowInsets="@{true}"
+            app:menu="@menu/bottom_navigation_menu" />
+
+        <!--
+                <com.mobile.praaktishockey.domain.common.PraaktisBottomNavigationView
+                    android:id="@+id/bottomNavigation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:elevation="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:paddingBottomSystemWindowInsets="@{true}" />
+        -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

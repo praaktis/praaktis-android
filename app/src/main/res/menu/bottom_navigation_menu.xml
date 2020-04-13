@@ -3,22 +3,18 @@
 
     <item
         android:id="@+id/menu_dashboard"
-        android:icon="@drawable/vector_dashboard"
-        android:title="@string/dashboard"
-    />
+        android:icon="@drawable/ic_dashboard"
+        android:title="@string/dashboard" />
     <item
         android:id="@+id/menu_new_challenge"
-        android:icon="@drawable/ic_add"
-        android:title="@string/new_challenge"
-    />
+        android:icon="@drawable/ic_new_challenge"
+        android:title="@string/new_challenge" />
     <item
         android:id="@+id/menu_timeline"
         android:icon="@drawable/ic_timeline"
-        android:title="@string/timeline"
-    />
+        android:title="@string/timeline" />
     <item
         android:id="@+id/menu_more"
-        android:icon="@drawable/ic_menu"
-        android:title="@string/more"
-    />
+        android:icon="@drawable/ic_more"
+        android:title="@string/more" />
 </menu>
