@@ -16,6 +16,8 @@ import kotlinx.coroutines.withContext
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
 import java.text.DecimalFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TimelineAdapter(
     private val onItemClick: (ScoreDTO) -> Unit,
@@ -74,7 +76,7 @@ class TimelineAdapter(
 
             val dateTime = LocalDateTime.parse(
                 item.timePerformed?.removeDuplicateWhiteSpaces(),
-                DateTimeFormatter.ofPattern("E MMM d HH:mm:ss yyyy")
+                DateTimeFormatter.ofPattern("E MMM d HH:mm:ss yyyy", Locale.ENGLISH)
             )
 
             binding.tvDate.text =

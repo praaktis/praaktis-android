@@ -6,6 +6,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen
 import com.mobile.praaktishockey.domain.common.TypefaceUtil
 import com.mobile.praaktishockey.domain.common.pref.SettingsStorage
 import io.fabric.sdk.android.Fabric
+import timber.log.Timber
 
 class PraaktisApp : Application() {
 
@@ -14,8 +15,8 @@ class PraaktisApp : Application() {
         app = this
         Fabric.with(this, Crashlytics())
         AndroidThreeTen.init(this)
+        if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
         initPreferences()
-//        TypefaceUtil.overrideFont(this, "SERIF", "fonts/abel_regular.ttf")
     }
 
     private fun initPreferences() {

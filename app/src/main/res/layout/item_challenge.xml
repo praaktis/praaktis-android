@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -48,14 +49,14 @@
                 android:layout_marginStart="7dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center"
-                android:text="@string/drag_flick"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_image"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/drag_flick" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

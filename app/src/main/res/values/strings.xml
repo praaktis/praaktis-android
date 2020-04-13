@@ -161,4 +161,8 @@
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="confirm_new_password">Confirm new password</string>
     <string name="my_friends">My friends</string>
+
+
+    <string name="locale_en" translatable="false">English</string>
+    <string name="locale_fr" translatable="false">French</string>
 </resources>

@@ -26,6 +26,7 @@
     <color name="blue_grey_50">#ECEEF2</color>
     <color name="grey_600_alpha_15">#26707070</color>
 
+    <color name="white_alpha_50">#80FFFFFF</color>
     <color name="white_alpha_60">#99FFFFFF</color>
     <color name="white_alpha_70">#B3FFFFFF</color>
 
@@ -57,5 +58,6 @@
     <color name="blue_back">#49459D</color>
     <color name="blue_back_transparent">#3249459D</color>
     <color name="yellow_detail">#C2D951</color>
+
 
 </resources>
