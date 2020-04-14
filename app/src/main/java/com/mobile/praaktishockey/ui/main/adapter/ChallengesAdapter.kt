@@ -4,17 +4,13 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.databinding.ItemChallengeBinding
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.extension.loadUrl
 import com.mobile.praaktishockey.domain.extension.onClick
-import java.io.Serializable
 
 class ChallengesAdapter(private val itemClick: (ChallengeDTO) -> Unit) :
     ListAdapter<ChallengeDTO, ChallengesAdapter.ViewHolder>(DIFF_CALLBACK) {
@@ -105,23 +101,3 @@ class ChallengesAdapter(private val itemClick: (ChallengeDTO) -> Unit) :
     }
 }
 
-data class ChallengeItem(
-    @StringRes val name: Int,
-    @DrawableRes val image: Int,
-    val label: String,
-    val id: Int
-) : Serializable
-
-val challengesList: List<ChallengeItem> = listOf(
-    ChallengeItem(
-        R.string.stretching_arms_up,
-        R.drawable.stretching_arms_up_card,
-        "Stretching Arms Up",
-        4
-    ),
-    ChallengeItem(R.string.squats, R.drawable.stretching_arms_up_card, "Squats", 5),
-    ChallengeItem(R.string.curl, R.drawable.curl_card, "Stretching Arms Up", 6)
-//        ChallengeItem(R.string.stretching_arms_up, R.drawable.challenge, "Stretching Arms Up", Exercise.SQUATS.ordinal)
-//        ChallengeItem(R.string.low_backhand, R.drawable.img_low_backhand,  "Low backhand", 2),
-//        ChallengeItem(R.string.trap, R.drawable.img_trap, "Trap",3)
-)

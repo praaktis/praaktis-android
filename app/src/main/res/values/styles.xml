@@ -133,11 +133,6 @@
         <item name="colorControlActivated">@color/dark_grey</item>
     </style>
 
-    <style name="BaseDialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:windowMinWidthMajor">90%</item>
-        <item name="android:windowMinWidthMinor">90%</item>
-    </style>
-
     <style name="MyDatePickerDialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
         <item name="colorPrimary">@color/black</item>
@@ -154,40 +149,9 @@
         <item name="android:headerBackground">@color/main_bg</item>
     </style>
 
-    <style name="AppAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowBackground">@android:color/white</item>
-        <!--<item name="buttonBarButtonStyle">@style/DialogButtonStyle</item>-->
-        <item name="buttonStyle">@style/AlertButtonStyle</item>
-        <item name="android:textColorPrimary">@color/black</item>
-        <item name="android:windowMinWidthMajor">90%</item>
-        <item name="android:windowMinWidthMinor">90%</item>
-    </style>
-
-    <style name="AlertButtonStyle" parent="TextAppearance.AppCompat.Button">
-        <item name="android:background">@color/white</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="DialogButtonStyle" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:textColor">@color/black</item>
-        <item name="android:src">@color/white</item>
-        <item name="android:background">@color/white</item>
-    </style>
-
-    <style name="WhiteRadioButton" parent="Theme.AppCompat.Light">
-        <item name="colorControlNormal">@color/white</item>
-        <item name="colorControlActivated">@color/white</item>
-    </style>
-
     <style name="FullscreenTheme" parent="AppTheme.TransparentStatusBarNavigationBar">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@null</item>
-    </style>
-
-    <style name="BottomNavigation" parent="AppTheme">
-        <item name="colorControlHighlight">@color/white_transparent</item>
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="AppTheme.LoadingWhite" parent="AppTheme">

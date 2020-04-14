@@ -24,7 +24,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:navigationIcon="@drawable/ic_left_arrow"
+                app:navigationIcon="@drawable/ic_back"
                 app:title=" "
                 tools:layout_marginTop="20dp" />
 
@@ -71,17 +71,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:paddingBottomSystemWindowInsets="@{true}"
             app:menu="@menu/bottom_navigation_menu" />
-
-        <!--
-                <com.mobile.praaktishockey.domain.common.PraaktisBottomNavigationView
-                    android:id="@+id/bottomNavigation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/white"
-                    android:elevation="5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:paddingBottomSystemWindowInsets="@{true}" />
-        -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

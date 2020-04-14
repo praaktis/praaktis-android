@@ -12,7 +12,6 @@ import com.mobile.praaktishockey.domain.extension.setLightNavigationBar
 import com.mobile.praaktishockey.domain.extension.showOrReplace
 import com.mobile.praaktishockey.domain.extension.transparentStatusAndNavigationBar
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
-import com.mobile.praaktishockey.ui.login.view.CalibrateFragment
 
 class ChallengeActivity constructor(override val layoutId: Int = R.layout.activity_challenge) :
     BaseActivity() {
@@ -66,19 +65,6 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
                 replace(
                     R.id.container,
                     ResultChallengeFragment.getInstance(challengeItem), tag
-                )
-            }
-
-//            showOrReplace(tag) {
-//                add(R.id.container, CalculateChallengeFragment.getInstance(challengeItem), tag)
-//            }
-        } else {
-            val tag = CalibrateFragment.TAG
-            showOrReplace(tag) {
-                add(
-                    R.id.container,
-                    CalibrateFragment.getInstance(false),
-                    tag
                 )
             }
         }

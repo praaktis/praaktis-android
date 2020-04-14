@@ -62,7 +62,7 @@ fun Context.makeToast(@StringRes messageId: Int) {
 }
 
 fun Activity.alert(init: AlertDialog.Builder.() -> Unit): AlertDialog {
-    val builder = androidx.appcompat.app.AlertDialog.Builder(this, R.style.AppAlertDialogTheme)
+    val builder = AlertDialog.Builder(this)
     builder.setCancelable(false)
     builder.init()
     return builder.create()
