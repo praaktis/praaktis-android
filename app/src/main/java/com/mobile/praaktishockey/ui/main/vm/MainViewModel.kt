@@ -21,13 +21,6 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
     private var challengesDisposable: Disposable? = null
     private var fcmDisposable: Disposable? = null
 
-    private val _title = MutableLiveData<String>()
-    val title: LiveData<String> get() = _title
-
-    fun changeTitle(title: String) {
-        _title.value = title
-    }
-
     fun getChallenges() {
         challengesDisposable = userRepository.getChallenges()
             .doOnSubscribe { showHideEvent.postValue(true) }

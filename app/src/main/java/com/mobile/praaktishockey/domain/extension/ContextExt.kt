@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mobile.praaktishockey.R
@@ -120,4 +121,26 @@ fun Fragment.materialAlert(init: MaterialAlertDialogBuilder.() -> Unit) =
 fun Context.dpToPx(dp: Int): Int {
     val displayMetrics = resources.displayMetrics
     return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
+}
+
+fun FragmentManager.switch(containerId: Int, newFrag: Fragment, tag: String) {
+    var current = findFragmentByTag(tag)
+    beginTransaction()
+        .apply {
+
+            //Hide the current fragment
+            primaryNavigationFragment?.let { hide(it) }
+
+            //Check if current fragment exists in fragmentManager
+            if (current == null) {
+                current = newFrag
+                add(containerId, current!!, tag)
+            } else {
+                show(current!!)
+            }
+        }
+//        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        .setPrimaryNavigationFragment(current)
+        .setReorderingAllowed(true)
+        .commitNowAllowingStateLoss()
 }

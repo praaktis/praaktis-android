@@ -32,7 +32,6 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
 
     override fun initUI(savedInstanceState: Bundle?) {
         mainViewModel = ViewModelProvider(activity).get(MainViewModel::class.java)
-        mainViewModel.changeTitle(getString(R.string.new_challenge))
 
         val adapter = ChallengesAdapter {
             ChallengeVideoActivity.start(activity, it)

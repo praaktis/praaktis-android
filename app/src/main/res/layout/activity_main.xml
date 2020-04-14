@@ -13,33 +13,6 @@
         tools:background="@drawable/app_gradient"
         tools:context=".ui.main.view.MainActivity">
 
-        <FrameLayout
-            android:id="@+id/topPanel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                app:navigationIcon="@drawable/ic_back"
-                app:title=" " />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                android:textSize="22sp"
-                tools:layout_marginTop="10dp"
-                tools:text="@string/dashboard" />
-
-        </FrameLayout>
-
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/container"
             android:layout_width="0dp"

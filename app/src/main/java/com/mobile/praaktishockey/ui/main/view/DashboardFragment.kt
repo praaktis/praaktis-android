@@ -27,8 +27,8 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import kotlin.math.abs
-
 
 class DashboardFragment constructor(override val layoutId: Int = R.layout.fragment_dashboard) :
     BaseFragment<FragmentDashboardBinding>() {
@@ -46,7 +46,6 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
 
     override fun initUI(savedInstanceState: Bundle?) {
         mainViewModel = ViewModelProvider(activity).get(MainViewModel::class.java)
-        mainViewModel.changeTitle(getString(R.string.dashboard))
 
         setupCurvedLayout()
 
@@ -151,9 +150,4 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
             })
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser)
-            mViewModel.getDashboardData()
-    }
 }
