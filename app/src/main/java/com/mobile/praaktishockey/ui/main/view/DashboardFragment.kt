@@ -111,9 +111,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
                             binding.constTop.translationY = -16.dp.toFloat()
                         }
                     }
-
                 }
-
             }
         }
     }
@@ -131,11 +129,11 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
             tv_level.text = "$level"
             tv_points.text = "$totalPoints"
             tv_credits.text = "$totalCredits"
-            setWeightProgress(totalPoints, if (pointsToNextLevel < 0) 0 else pointsToNextLevel)
+            updateScoreProgress(totalPoints, if (pointsToNextLevel < 0) 0 else pointsToNextLevel)
         }
     }
 
-    private fun setWeightProgress(currentScore: Long, remainedScore: Long) {
+    private fun updateScoreProgress(currentScore: Long, remainedScore: Long) {
         val maxScore = currentScore + remainedScore
         binding.tvScoreTotal.text = maxScore.toString()
         binding.llProgressLayout.weightSum = maxScore.toFloat()

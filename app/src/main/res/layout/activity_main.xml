@@ -25,8 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:navigationIcon="@drawable/ic_back"
-                app:title=" "
-                tools:layout_marginTop="20dp" />
+                app:title=" " />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_title"
@@ -50,7 +49,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <FrameLayout
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/menu_container"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -69,8 +68,8 @@
             app:itemTextColor="@color/purple_900_1"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:paddingBottomSystemWindowInsets="@{true}"
-            app:menu="@menu/bottom_navigation_menu" />
+            app:menu="@menu/bottom_navigation_menu"
+            app:paddingBottomSystemWindowInsets="@{true}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

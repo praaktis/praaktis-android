@@ -3,9 +3,14 @@
 
     <style name="AppTheme.TransparentStatusBarNavigationBar" parent="AppTheme">
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/white_alpha_70</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowTranslucentNavigation">false</item>
+    </style>
+
+    <style name="SplashScreenTheme" parent="AppTheme.TransparentStatusBarNavigationBar">
+        <item name="android:windowBackground">@drawable/app_gradient</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
 </resources>

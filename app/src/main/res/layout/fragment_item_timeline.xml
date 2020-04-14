@@ -29,6 +29,7 @@
             android:layout_height="0dp"
             android:background="@color/white"
             android:clipToPadding="false"
+            android:elevation="6dp"
             android:paddingTop="22dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
