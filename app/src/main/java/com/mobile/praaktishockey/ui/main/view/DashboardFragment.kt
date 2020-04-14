@@ -1,16 +1,10 @@
 package com.mobile.praaktishockey.ui.main.view
 
-import android.animation.Animator
-import android.animation.ValueAnimator
+import android.graphics.Point
 import android.os.Bundle
 import android.util.Log
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.DecelerateInterpolator
-import android.view.animation.LinearInterpolator
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -20,9 +14,9 @@ import com.mobile.praaktishockey.base.temp.BaseFragment
 import com.mobile.praaktishockey.databinding.FragmentDashboardBinding
 import com.mobile.praaktishockey.domain.common.shape.CurvedEdgeTreatment
 import com.mobile.praaktishockey.domain.entities.DashboardDTO
+import com.mobile.praaktishockey.domain.extension.animateWeightChange
 import com.mobile.praaktishockey.domain.extension.dp
 import com.mobile.praaktishockey.domain.extension.getViewModel
-import com.mobile.praaktishockey.domain.extension.updateLayoutParams
 import com.mobile.praaktishockey.domain.extension.updatePadding
 import com.mobile.praaktishockey.ui.details.view.AnalysisFragment
 import com.mobile.praaktishockey.ui.details.view.DetailsActivity
@@ -71,67 +65,57 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
     }
 
     private fun setupCurvedLayout() {
-        binding.root.post {
-            lifecycleScope.launch(Dispatchers.Default) {
-                val curveSize = binding.root.width * 0.22f
+        lifecycleScope.launch(Dispatchers.Default) {
+            val display = activity.windowManager.defaultDisplay
+            val size = Point()
+            display.getSize(size)
+            val curveSize = size.x * 0.22f
 
-                withContext(Dispatchers.Main) {
-                    binding.cvCurvedLayout.apply {
-                        clipToOutline = false
-                        binding.clContent.updatePadding(top = curveSize.toInt())
+            withContext(Dispatchers.Main) {
+                binding.cvCurvedLayout.apply {
+                    clipToOutline = false
+                    binding.clContent.updatePadding(top = curveSize.toInt())
 //                        setContentPadding(0, curveSize.toInt(), 0, 0)
+                }
+            }
+
+            suspend fun setCurvedLayout(curvedPercent: Float) {
+                binding.cvCurvedLayout.apply {
+                    val shapeAppearanceModel = ShapeAppearanceModel.Builder()
+                        .setTopEdge(CurvedEdgeTreatment(curveSize * curvedPercent))
+                        .build()
+                    withContext(Dispatchers.Main) {
+                        binding.cvCurvedLayout.shapeAppearanceModel = shapeAppearanceModel
                     }
                 }
+            }
 
-                suspend fun setCurvedLayout(curvedPercent: Float) {
-                    binding.cvCurvedLayout.apply {
-                        val shapeAppearanceModel = ShapeAppearanceModel.Builder()
-                            .setTopEdge(CurvedEdgeTreatment(curveSize * curvedPercent))
-                            .build()
+            setCurvedLayout(1f)
+
+            binding.nestedScroll.setOnScrollChangeListener { v: NestedScrollView, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+                lifecycleScope.launch(Dispatchers.Default) {
+                    val percentage =
+                        abs(scrollY).toFloat() / (binding.clContent.getChildAt(0).top - 16.dp)/*v.maxScrollAmount*/ // calculate offset percentage
+                    Log.d(TAG, "SCROLLY: $scrollY")
+                    Log.d(TAG, "MAXSCROLLAMOUNT: ${v.maxScrollAmount}")
+                    Log.d(TAG, percentage.toString())
+
+                    if (percentage <= 1) {
+                        setCurvedLayout(1 - percentage)
                         withContext(Dispatchers.Main) {
-                            binding.cvCurvedLayout.shapeAppearanceModel = shapeAppearanceModel
+                            binding.constTop.translationY = -(16.dp * percentage)
                         }
-                    }
-                }
-
-                setCurvedLayout(1f)
-
-                binding.nestedScroll.setOnScrollChangeListener { v: NestedScrollView, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-                    lifecycleScope.launch(Dispatchers.Default) {
-                        val percentage =
-                            abs(scrollY).toFloat() / (binding.clContent.getChildAt(0).top - 16.dp)/*v.maxScrollAmount*/ // calculate offset percentage
-                        Log.d(TAG, "SCROLLY: $scrollY")
-                        Log.d(TAG, "MAXSCROLLAMOUNT: ${v.maxScrollAmount}")
-                        Log.d(TAG, percentage.toString())
-
-                        if (percentage <= 1) {
-                            setCurvedLayout(1 - percentage)
-                            withContext(Dispatchers.Main) {
-                                binding.constTop.translationY = -(16.dp * percentage)
-                            }
-                        } else {
-                            setCurvedLayout(0f)
-                            withContext(Dispatchers.Main) {
-                                binding.constTop.translationY = -16.dp.toFloat()
-                            }
+                    } else {
+                        setCurvedLayout(0f)
+                        withContext(Dispatchers.Main) {
+                            binding.constTop.translationY = -16.dp.toFloat()
                         }
-
                     }
 
                 }
 
-/*
-                binding.appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-                    lifecycleScope.launch(Dispatchers.Default) {
-                        val percentage = abs(verticalOffset)
-                            .toFloat() / appBarLayout.totalScrollRange // calculate offset percentage
-                        setCurvedLayout(percentage)
-                    }
-                })
-*/
             }
         }
-
     }
 
     private fun initEvents() {
@@ -147,48 +131,26 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
             tv_level.text = "$level"
             tv_points.text = "$totalPoints"
             tv_credits.text = "$totalCredits"
-            updateScoreProgress(totalPoints, if (pointsToNextLevel < 0) 0 else pointsToNextLevel)
+            setWeightProgress(totalPoints, if (pointsToNextLevel < 0) 0 else pointsToNextLevel)
         }
     }
 
-    private fun updateScoreProgress(currentScore: Long, remainedScore: Long) {
+    private fun setWeightProgress(currentScore: Long, remainedScore: Long) {
         val maxScore = currentScore + remainedScore
-        val currentScorePercent: Float = currentScore.toFloat() / maxScore.toFloat()
-
-        binding.tvScoreRemained.text = maxScore.toString()
-
-        val valueAnimator = ValueAnimator.ofFloat(0.0f, currentScorePercent)
-        valueAnimator.duration = 2000
-        valueAnimator.interpolator = FastOutSlowInInterpolator()
-        valueAnimator.addUpdateListener {
-            if (tv_score_current == null) return@addUpdateListener
-            val v = it.animatedValue as Float
-
-            Log.d(TAG, v.toString())
-            binding.vScoreCurrent.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                matchConstraintPercentWidth = v
-            }
-            binding.tvScoreCurrent.text = (maxScore * v).toInt().toString()
-
-        }
-        valueAnimator.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(animation: Animator?) {
-
-            }
-
-            override fun onAnimationEnd(animation: Animator?) {
-                if (tv_score_current == null) return
-                tv_score_current.text = "$currentScore"
-//                tv_score_remained.text = "$remainedScore"
-            }
-
-            override fun onAnimationCancel(animation: Animator?) {
-            }
-
-            override fun onAnimationStart(animation: Animator?) {
-            }
-        })
-        valueAnimator.start()
+        binding.tvScoreTotal.text = maxScore.toString()
+        binding.llProgressLayout.weightSum = maxScore.toFloat()
+        binding.vProgressCurrent.animateWeightChange(
+            0,
+            currentScore.toInt(),
+            duration = 1500,
+            startDelay = 200,
+            init = { interpolator = FastOutSlowInInterpolator() },
+            onValueChange = {
+                binding.tvScoreCurrent.apply {
+                    text = it.toInt().toString()
+                    translationX = binding.vProgressCurrent.width.toFloat()
+                }
+            })
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {

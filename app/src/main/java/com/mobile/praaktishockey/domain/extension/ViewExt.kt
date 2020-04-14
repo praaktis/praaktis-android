@@ -468,6 +468,7 @@ fun View.animateWeightChange(
     to: Int,
     duration: Long = 600,
     startDelay: Long = 100,
+    init: (ValueAnimator.() -> Unit)? = null,
     onValueChange: (Float) -> Unit
 ) {
     val valueAnimator =
@@ -475,6 +476,7 @@ fun View.animateWeightChange(
     valueAnimator.duration = duration
     valueAnimator.startDelay = startDelay
     valueAnimator.interpolator = AccelerateInterpolator()
+    init?.let { valueAnimator.it() }
     valueAnimator.addUpdateListener {
         this.updateLayoutParams<LinearLayout.LayoutParams> {
             weight = it.animatedValue as Float

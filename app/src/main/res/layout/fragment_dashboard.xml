@@ -190,9 +190,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp">
+                    android:clipToPadding="false">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guide_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="16dp" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guide_end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_end="16dp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_progress_title"
@@ -202,82 +214,71 @@
                         android:textAllCaps="true"
                         android:textColor="@color/purple_900_1"
                         android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/guide_end"
+                        app:layout_constraintStart_toStartOf="@id/guide_start"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <FrameLayout
                         android:id="@+id/progress_level"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
                         android:layout_marginTop="15dp"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_progress_title"
-                        app:layout_constraintWidth_max="400dp">
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@id/tv_progress_title">
 
-                        <View
-                            android:id="@+id/layout_progress"
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:id="@+id/ll_progress_layout"
+                            android:layout_width="match_parent"
                             android:layout_height="15dp"
+                            android:layout_marginStart="26dp"
+                            android:layout_marginEnd="26dp"
                             android:background="@drawable/shape_progress_bg"
-                            android:orientation="horizontal"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
+                            android:weightSum="100">
 
-                        <View
-                            android:id="@+id/v_score_current"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:background="@drawable/gradient_progress"
-                            app:layout_constraintBottom_toBottomOf="@id/layout_progress"
-                            app:layout_constraintEnd_toEndOf="@id/layout_progress"
-                            app:layout_constraintHorizontal_bias="0"
-                            app:layout_constraintStart_toStartOf="@id/layout_progress"
-                            app:layout_constraintTop_toTopOf="@id/layout_progress"
-                            app:layout_constraintWidth_percent=".0" />
+                            <View
+                                android:id="@+id/v_progress_current"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0"
+                                android:background="@drawable/gradient_progress"
+                                tools:layout_weight="50" />
+
+                        </LinearLayout>
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tv_score_current"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="7dp"
-                            android:gravity="end"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="22dp"
+                            android:layout_marginEnd="14dp"
                             android:includeFontPadding="false"
                             android:maxLines="1"
                             android:text="0"
                             android:textColor="@color/purple_900_1"
                             android:textSize="18sp"
-                            app:layout_constraintEnd_toEndOf="@id/v_score_current"
-                            app:layout_constraintStart_toEndOf="@id/v_score_current"
-                            app:layout_constraintTop_toBottomOf="@id/v_score_current"
-                            app:layout_constraintWidth_default="spread"
                             tools:text="342" />
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_score_remained"
-                            android:layout_width="0dp"
+                            android:id="@+id/tv_score_total"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:gravity="end"
+                            android:layout_gravity="end"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="21dp"
+                            android:layout_marginEnd="14dp"
                             android:includeFontPadding="false"
                             android:maxLines="1"
                             android:text="-"
                             android:textColor="@color/grey_600"
                             android:textSize="14sp"
-                            android:translationX="5dp"
-                            app:layout_constraintEnd_toEndOf="@id/layout_progress"
-                            app:layout_constraintStart_toStartOf="@id/layout_progress"
-                            app:layout_constraintTop_toBottomOf="@id/layout_progress"
                             tools:text="433" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </FrameLayout>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_analysis_title"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="3dp"
                         android:layout_marginTop="45dp"
@@ -286,6 +287,8 @@
                         android:textAllCaps="true"
                         android:textColor="@color/purple_900_1"
                         android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="@id/guide_end"
+                        app:layout_constraintStart_toStartOf="@id/guide_start"
                         app:layout_constraintTop_toBottomOf="@id/progress_level" />
 
                     <androidx.recyclerview.widget.RecyclerView
