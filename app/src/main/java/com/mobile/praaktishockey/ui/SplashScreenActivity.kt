@@ -4,18 +4,21 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseActivity
+import com.mobile.praaktishockey.base.temp.BaseActivity
+import com.mobile.praaktishockey.databinding.LayoutStartPageBinding
 import com.mobile.praaktishockey.domain.common.pref.SettingsStorage
 import com.mobile.praaktishockey.domain.entities.LanguageItem
 import com.mobile.praaktishockey.domain.entities.UserDTO
 import com.mobile.praaktishockey.domain.extension.getViewModel
+import com.mobile.praaktishockey.domain.extension.hide
+import com.mobile.praaktishockey.domain.extension.show
 import com.mobile.praaktishockey.domain.extension.transparentStatusAndNavigationBar
 import com.mobile.praaktishockey.ui.login.view.LoginActivity
 import com.mobile.praaktishockey.ui.login.vm.LoginFragmentViewModel
 import com.mobile.praaktishockey.ui.main.view.MainActivity
 
 class SplashScreenActivity constructor(override val layoutId: Int = R.layout.layout_start_page) :
-    BaseActivity() {
+    BaseActivity<LayoutStartPageBinding>() {
 
     override fun initUI(savedInstanceState: Bundle?) {
         transparentStatusAndNavigationBar()
@@ -51,7 +54,7 @@ class SplashScreenActivity constructor(override val layoutId: Int = R.layout.lay
         SettingsStorage.instance.lang = localeKey
     }
 
-    private fun getSplashScreenDuration() = 2000L
+    private fun getSplashScreenDuration() = 1500L
 
     private fun routeToAppropriatePage(user: UserDTO?) {
         // Example routing
@@ -66,4 +69,13 @@ class SplashScreenActivity constructor(override val layoutId: Int = R.layout.lay
             }
         }
     }
+
+    override fun showProgress() {
+        binding.progressCircular.show()
+    }
+
+    override fun hideProgress() {
+        binding.progressCircular.hide()
+    }
+
 }

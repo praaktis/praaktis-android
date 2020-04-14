@@ -48,8 +48,8 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
             })
 
             it.showHideEvent.observe(this, Observer {
-                if (it) progressLoadingDialog.show()
-                else progressLoadingDialog.dismiss()
+                if (it) showProgress()
+                else hideProgress()
             })
         }
     }
@@ -59,6 +59,14 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
     open fun shouldOverridePendingTransition() = true
     open fun enterPendingTransition() = overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     open fun exitPendingTransition() = overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
+    open fun showProgress() {
+        progressLoadingDialog.show()
+    }
+
+    open fun hideProgress() {
+        progressLoadingDialog.dismiss()
+    }
 
     protected fun requestCorrectOrientation() {
         requestedOrientation = if (isTablet()) {

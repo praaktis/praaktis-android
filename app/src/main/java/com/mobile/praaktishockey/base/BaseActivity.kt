@@ -43,10 +43,18 @@ abstract class BaseActivity : AppCompatActivity() {
             })
 
             it.showHideEvent.observe(this, Observer {
-                if (it) progressLoadingDialog.show()
-                else progressLoadingDialog.dismiss()
+                if (it) showProgress()
+                else hideProgress()
             })
         }
+    }
+
+    open fun showProgress() {
+        progressLoadingDialog.show()
+    }
+
+    open fun hideProgress() {
+        progressLoadingDialog.dismiss()
     }
 
     abstract fun initUI(savedInstanceState: Bundle?)
