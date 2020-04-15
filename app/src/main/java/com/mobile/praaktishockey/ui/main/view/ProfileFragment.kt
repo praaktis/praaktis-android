@@ -55,12 +55,6 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) :
             setProfileCredentials(it)
         })
 
-        mViewModel.profileImageEvent.observe(this, Observer {
-            Glide.with(context!!)
-                .load(it)
-                .into(ivAvatar)
-        })
-
         ivAvatar.onClick {
             ImagePicker.with(this)
                 .setToolbarColor("#000000")
@@ -101,6 +95,7 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) :
     }
 
     private fun setProfileCredentials(user: UserDTO) {
+        binding.ivAvatar.loadAvatar(user.imageUrl, R.drawable.ic_user_large)
         if (user.dateOfBirth != null)
             etDateOfBirth.setText(LocalDate.parse(user.dateOfBirth).formatMMMddYYYY())
         etFirstName.setText(user.firstName)

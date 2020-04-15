@@ -124,7 +124,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
     private fun setDashboardData(dashboardData: DashboardDTO) {
         this.dashboardData = dashboardData
         with(dashboardData) {
-            analysisAdapter.submitList(dashboardData.challenges.toList())
+            analysisAdapter.submitList(dashboardData.challenges)
             tv_level.text = "$level"
             tv_points.text = "$totalPoints"
             tv_credits.text = "$totalCredits"

@@ -50,7 +50,9 @@
                 android:orientation="vertical"
                 android:paddingStart="30dp"
                 android:paddingTop="24dp"
+                android:clipChildren="false"
                 android:paddingEnd="30dp"
+                android:clipToPadding="false"
                 android:paddingBottom="30dp"
                 app:paddingBottomSystemWindowInsets="@{true}" />
 

@@ -18,8 +18,7 @@ class AnalysisLineChart(
     val value: Float,
     val title: String,
     val progressBackground: Int
-) :
-    LinearLayout(context) {
+) : LinearLayout(context) {
 
     init {
         init()
@@ -49,7 +48,7 @@ class AnalysisLineChart(
             0,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
-        progressLp.weight = value
+//        progressLp.weight = value
         progressView.layoutParams = progressLp
         lineView.addView(progressView)
 

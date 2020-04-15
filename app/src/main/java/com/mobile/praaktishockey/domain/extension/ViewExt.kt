@@ -21,6 +21,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.Px
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.ChangeBounds
 import androidx.transition.Transition
@@ -475,7 +476,7 @@ fun View.animateWeightChange(
         ValueAnimator.ofFloat(from.toFloat(), to.toFloat())
     valueAnimator.duration = duration
     valueAnimator.startDelay = startDelay
-    valueAnimator.interpolator = AccelerateInterpolator()
+    valueAnimator.interpolator = FastOutSlowInInterpolator()
     init?.let { valueAnimator.it() }
     valueAnimator.addUpdateListener {
         this.updateLayoutParams<LinearLayout.LayoutParams> {

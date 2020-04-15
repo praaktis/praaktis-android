@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobile.praaktishockey.databinding.ItemFriendsRequestBinding
 import com.mobile.praaktishockey.domain.entities.FriendDTO
 import com.mobile.praaktishockey.domain.extension.hide
+import com.mobile.praaktishockey.domain.extension.loadAvatar
 import com.mobile.praaktishockey.domain.extension.onClick
 import com.mobile.praaktishockey.domain.extension.show
 
@@ -32,6 +33,7 @@ class FriendsRequestAdapter(
                 binding.tvName.text =
                     list[position].friendFirstName + " " + list[position].friendLastName
             else binding.tvName.text = list[position].friendEmail
+            binding.ivAvatar.loadAvatar(list[position].friendImage)
             binding.btnResend.onClick { listener.onResendClicked(list[position]) }
             binding.btnAccept.onClick { listener.onAcceptClicked(list[position]) }
             binding.btnRefuse.onClick { listener.onRefuseClicked(list[position]) }

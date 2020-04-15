@@ -37,5 +37,7 @@ data class Leader(
     @SerializedName("firstname")
     val firstName: String,
     @SerializedName("max_score")
-    val maxScore: Double
+    val maxScore: Double,
+    @SerializedName("image_url")
+    val imageUrl: String
 ) :Serializable

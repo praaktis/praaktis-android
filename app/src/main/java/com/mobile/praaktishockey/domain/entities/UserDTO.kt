@@ -51,7 +51,9 @@ data class UserDTO(
     @SerializedName("password")
     val password: String? = null,
     @SerializedName("profileImage")
-    val profileImage:String? = null
+    val profileImage: String? = null,
+    @SerializedName("image_url")
+    val imageUrl: String? = null
 ) : Serializable
 
 enum class UserLevel(val label: String) {

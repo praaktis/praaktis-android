@@ -13,5 +13,5 @@ data class DashboardDTO(
         @SerializedName("points_to_next_level")
         val pointsToNextLevel: Long,
         @SerializedName("challenges")
-        val challenges: Array<AnalysisDTO>
+        val challenges: List<AnalysisDTO>
 ) : Serializable

@@ -5,8 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.imageview.ShapeableImageView
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.domain.entities.Leader
+import com.mobile.praaktishockey.domain.extension.loadAvatar
 
 class ScoresAdapter(val list: List<Leader>) :
     RecyclerView.Adapter<ScoresAdapter.ScoresViewHolder>() {
@@ -22,6 +24,7 @@ class ScoresAdapter(val list: List<Leader>) :
             tvPosition.text = "${position + 1}"
             tvName.text = list[position].firstName + list[position].lastName
             tvScore.text = "${list[position].maxScore}"
+            ivAvatar.loadAvatar(list[position].imageUrl)
 
             // Zebra-striping color effect
             holder.itemView.setBackgroundResource(
@@ -37,6 +40,6 @@ class ScoresAdapter(val list: List<Leader>) :
         val tvPosition: TextView = v.findViewById(R.id.tvPosition)
         val tvScore: TextView = v.findViewById(R.id.tvScore)
         val tvName: TextView = v.findViewById(R.id.tvName)
-        val vCircle: View = v.findViewById(R.id.vCircle)
+        val ivAvatar: ShapeableImageView = v.findViewById(R.id.iv_avatar)
     }
 }

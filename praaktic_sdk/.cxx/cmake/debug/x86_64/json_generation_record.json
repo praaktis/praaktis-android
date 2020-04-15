@@ -7,6 +7,12 @@
   },
   {
     "level": "INFO",
+    "message": "- CMake found from cmake.dir at \u0027C:\\Users\\Saidjamol\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\u0027 had version \u00273.10.2\u0027",
+    "file": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\src\\main\\cpp\\CMakeLists.txt",
+    "tag": "debug|x86_64"
+  },
+  {
+    "level": "INFO",
     "message": "JSON \u0027C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\.cxx\\cmake\\debug\\x86_64\\android_gradle_build.json\u0027 was up-to-date",
     "file": "C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\praaktic_sdk\\src\\main\\cpp\\CMakeLists.txt",
     "tag": "debug|x86_64"

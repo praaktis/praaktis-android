@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.praaktishockey.databinding.ItemFriendsBinding
 import com.mobile.praaktishockey.domain.entities.FriendDTO
+import com.mobile.praaktishockey.domain.extension.loadAvatar
 import com.mobile.praaktishockey.domain.extension.onClick
 
 class FriendsAdapter(
@@ -28,6 +29,7 @@ class FriendsAdapter(
         with(holder) {
             binding.tvName.text =
                 list[position].friendFirstName + " " + list[position].friendLastName
+            binding.ivAvatar.loadAvatar(list[position].friendImage)
             binding.btnDelete.onClick {
                 listener.onDeleteFriendItem(list[position])
             }

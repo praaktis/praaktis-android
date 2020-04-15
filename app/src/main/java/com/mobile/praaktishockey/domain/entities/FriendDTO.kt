@@ -15,5 +15,7 @@ data class FriendDTO(
     @SerializedName("requested_by")
     val requestedBy: String,
     @SerializedName("id")
-    val id: Int
+    val id: Int,
+    @SerializedName("friend_image")
+    val friendImage: String
 ) : Serializable

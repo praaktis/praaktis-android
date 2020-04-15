@@ -24,7 +24,7 @@ class ProfileViewModel(app: Application) : BaseViewModel(app) {
 
     init {
         getProfile()
-        getProfileImage()
+//        getProfileImage()
         getCountries()
     }
 

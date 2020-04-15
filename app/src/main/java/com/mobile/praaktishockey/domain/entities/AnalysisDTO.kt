@@ -17,7 +17,7 @@ data class AnalysisDTO(
         @SerializedName("chart_data")
         val chartData: ChartData,
         @SerializedName("scores")
-        val scores: Array<ScoreDTO>
+        val scores: List<ScoreDTO>
 ): Serializable
 
 data class AttemptChartData(
