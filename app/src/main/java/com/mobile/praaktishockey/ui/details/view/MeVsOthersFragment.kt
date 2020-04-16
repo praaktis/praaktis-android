@@ -11,6 +11,7 @@ import com.github.mikephil.charting.utils.EntryXComparator
 import com.github.mikephil.charting.utils.MPPointF
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.data.entities.AnalysisComplete
 import com.mobile.praaktishockey.databinding.FragmentMeVsOthersBinding
 import com.mobile.praaktishockey.domain.entities.AnalysisDTO
 import com.mobile.praaktishockey.domain.entities.ComparisonDTO
@@ -33,7 +34,7 @@ class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragm
         val TAG = MeVsOthersFragment::class.java.simpleName
 
         @JvmStatic
-        fun getInstance(data: AnalysisDTO): Fragment {
+        fun getInstance(data: AnalysisComplete): Fragment {
             val fragment = MeVsOthersFragment()
             val bundle = Bundle()
             bundle.putSerializable("data", data)
@@ -45,7 +46,7 @@ class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragm
     override val mViewModel: ComparisonViewModel
         get() = getViewModel { ComparisonViewModel(activity.application) }
 
-    private val analysisDTO by lazy { arguments!!.getSerializable("data") as AnalysisDTO }
+    private val analysisDTO by lazy { arguments!!.getSerializable("data") as AnalysisComplete }
     private var comparisonData: ComparisonDTO? = null
     private var meVsOtherChallenge: MeVsOtherChallenge? = null
 
@@ -57,7 +58,7 @@ class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragm
         mViewModel.getMeVsOthers()
         mViewModel.meVsOthersEvent.observe(this, androidx.lifecycle.Observer {
             comparisonData = it
-            meVsOtherChallenge = it.others.challenges.find { it.name.equals(analysisDTO.name) }
+            meVsOtherChallenge = it.others.challenges.find { it.id == analysisDTO.analysisEntity.id }
             initInfo()
             initChart()
             initPieChart()
@@ -69,8 +70,8 @@ class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragm
         val decimalFormatter = numberFormat as DecimalFormat
         decimalFormatter.applyPattern("##.#")
         with(analysisDTO) {
-            tvMeHighest.text = "${decimalFormatter.format(maxScore)}%"
-            tvMeAverage.text = "${decimalFormatter.format(averageScore)}%"
+            tvMeHighest.text = "${decimalFormatter.format(analysisEntity.maxScore)}%"
+            tvMeAverage.text = "${decimalFormatter.format(analysisEntity.averageScore)}%"
         }
         with(meVsOtherChallenge!!) {
             tvMeRank.text = "${rank}"

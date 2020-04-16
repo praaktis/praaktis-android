@@ -4,14 +4,16 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class MeVsOtherChallenge(
+    @SerializedName("id")
+    val id: Int,
     @SerializedName("name")
-    val name : String,
+    val name: String,
     @SerializedName("attempt_chart")
-    val attemptChart : AttemptChart,
+    val attemptChart: AttemptChart,
     @SerializedName("avg_score")
     val avgScore: Double,
     @SerializedName("rank")
-    val rank : Int,
+    val rank: Int,
     @SerializedName("low_score")
     val lowScore: Double,
     @SerializedName("max_score")
@@ -40,4 +42,4 @@ data class Leader(
     val maxScore: Double,
     @SerializedName("image_url")
     val imageUrl: String
-) :Serializable
+) : Serializable

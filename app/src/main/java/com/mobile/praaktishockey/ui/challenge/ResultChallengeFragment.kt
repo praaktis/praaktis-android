@@ -18,7 +18,9 @@ import com.mobile.praaktishockey.ui.challenge.vm.ResultChallengeFragmentViewMode
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.praaktis.exerciseengine.Engine.DetailPoint
 import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
+import com.praaktis.exerciseengine.RawPlayer.H264RawPlayerActivity
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
+import timber.log.Timber
 import java.util.*
 
 class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_result_challenge) :
@@ -225,6 +227,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     }
 
     private fun initClicks() {
+        // todo : uncomment after test, sdk player integration
         ivPlay.onClick {
             //            videoView1.start()
 //            videoView2.start()
@@ -237,6 +240,18 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             mediaPlayer2?.start()
             it.hide()
         }
+        // todo: test
+/*
+        binding.ivPlay.setOnClickListener {
+            Timber.d("FILEPATH " + path)
+            val intent = Intent(activity, H264RawPlayerActivity::class.java)
+            intent.putExtra("FILE_NAME", path)
+            intent.putExtra("CAPTIONS", "|Some val #1|0.1|0.1|Some val #2|.1|.15|@0|.1|.20")
+            intent.putExtra("CAPTION_VALS", arrayOf<Any>(2, 1, .12, "ok", 20, .14, ""))
+            startActivity(intent)
+        }
+*/
+
         cvDetailAnalysis.onClick {
             //            videoView1.pause()
 //            videoView2.pause()

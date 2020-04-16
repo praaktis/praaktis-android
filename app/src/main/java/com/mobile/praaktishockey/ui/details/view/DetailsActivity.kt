@@ -3,16 +3,17 @@ package com.mobile.praaktishockey.ui.details.view
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.temp.BaseActivity
+import com.mobile.praaktishockey.data.entities.AnalysisComplete
 import com.mobile.praaktishockey.databinding.ActivityDetailsBinding
-import com.mobile.praaktishockey.domain.entities.AnalysisDTO
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
-import com.mobile.praaktishockey.domain.entities.DashboardDTO
-import com.mobile.praaktishockey.domain.extension.*
+import com.mobile.praaktishockey.domain.extension.getViewModel
+import com.mobile.praaktishockey.domain.extension.replaceFragment
+import com.mobile.praaktishockey.domain.extension.setLightNavigationBar
+import com.mobile.praaktishockey.domain.extension.transparentStatusAndNavigationBar
 import com.mobile.praaktishockey.ui.details.vm.DetailsViewModel
 import kotlinx.android.synthetic.main.activity_details.*
 
@@ -71,10 +72,7 @@ class DetailsActivity constructor(override val layoutId: Int = R.layout.activity
                         AnalysisFragment.getInstance(
                             intent.getSerializableExtra(
                                 AnalysisFragment.TAG
-                            ) as AnalysisDTO,
-                            intent.getSerializableExtra(
-                                AnalysisFragment.CHALLENGES
-                            ) as DashboardDTO
+                            ) as AnalysisComplete
                         ),
                         AnalysisFragment.TAG
                     )

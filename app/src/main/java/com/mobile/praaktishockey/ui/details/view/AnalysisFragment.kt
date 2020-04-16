@@ -12,9 +12,8 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.github.mikephil.charting.utils.EntryXComparator
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.data.entities.AnalysisComplete
 import com.mobile.praaktishockey.databinding.FragmentAnalysisBinding
-import com.mobile.praaktishockey.domain.entities.AnalysisDTO
-import com.mobile.praaktishockey.domain.entities.DashboardDTO
 import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.details.vm.AnalysisViewModel
 import com.mobile.praaktishockey.ui.details.vm.DetailsViewModel
@@ -29,12 +28,10 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
     companion object {
         val TAG: String = AnalysisFragment::class.java.simpleName
         const val ANALYSIS_ITEM = "ANALYSIS_ITEM"
-        const val CHALLENGES = "CHALLENGES"
 
-        fun getInstance(item: AnalysisDTO, challenges: DashboardDTO) = AnalysisFragment().apply {
+        fun getInstance(item: AnalysisComplete) = AnalysisFragment().apply {
             arguments = Bundle().apply {
                 putSerializable(ANALYSIS_ITEM, item)
-                putSerializable(CHALLENGES, challenges)
             }
         }
     }
@@ -43,13 +40,13 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
         get() = getViewModel { AnalysisViewModel(activity.application) }
 
     private lateinit var detailsViewModel: DetailsViewModel
-    private val analysisData: AnalysisDTO by lazy {
-        return@lazy arguments?.getSerializable(ANALYSIS_ITEM) as AnalysisDTO
+    private val analysisData: AnalysisComplete by lazy {
+        return@lazy arguments?.getSerializable(ANALYSIS_ITEM) as AnalysisComplete
     }
 
     override fun initUI(savedInstanceState: Bundle?) {
         detailsViewModel = ViewModelProvider(activity).get(DetailsViewModel::class.java)
-        detailsViewModel.changeTitle(analysisData.name)
+        detailsViewModel.changeTitle(analysisData.analysisEntity.name)
 
         initInfoChallenge()
         initClicks()
@@ -62,8 +59,8 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
             val numberFormat = NumberFormat.getNumberInstance(Locale.ENGLISH)
             val decimalFormatter = numberFormat as DecimalFormat
             decimalFormatter.applyPattern("##.#")
-            tv_average_score.text = "${decimalFormatter.format(averageScore)}%"
-            tv_best_score.text = "${decimalFormatter.format(maxScore)}%"
+            tv_average_score.text = "${decimalFormatter.format(analysisEntity.averageScore)}%"
+            tv_best_score.text = "${decimalFormatter.format(analysisEntity.maxScore)}%"
         }
     }
 

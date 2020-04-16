@@ -3,6 +3,7 @@ package com.mobile.praaktishockey.ui.main.view
 import android.graphics.Point
 import android.os.Bundle
 import android.util.Log
+import android.widget.LinearLayout
 import androidx.core.widget.NestedScrollView
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.Observer
@@ -11,9 +12,9 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.data.entities.DashboardWithAnalysis
 import com.mobile.praaktishockey.databinding.FragmentDashboardBinding
 import com.mobile.praaktishockey.domain.common.shape.CurvedEdgeTreatment
-import com.mobile.praaktishockey.domain.entities.DashboardDTO
 import com.mobile.praaktishockey.domain.extension.animateWeightChange
 import com.mobile.praaktishockey.domain.extension.dp
 import com.mobile.praaktishockey.domain.extension.getViewModel
@@ -41,7 +42,6 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
         get() = getViewModel { DashboardViewModel(activity.application) }
 
     private lateinit var mainViewModel: MainViewModel
-    private var dashboardData: DashboardDTO? = null
     private lateinit var analysisAdapter: AnalysisAdapter
 
     override fun initUI(savedInstanceState: Bundle?) {
@@ -49,18 +49,60 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
 
         setupCurvedLayout()
 
-        mViewModel.getDashboardData()
         initEvents()
 
         analysisAdapter = AnalysisAdapter {
-            if (dashboardData != null)
-                startActivity(
-                    DetailsActivity.start(activity, AnalysisFragment.TAG)
-                        .putExtra(AnalysisFragment.TAG, it)
-                        .putExtra(AnalysisFragment.CHALLENGES, dashboardData)
-                )
+            startActivity(
+                DetailsActivity.start(activity, AnalysisFragment.TAG)
+                    .putExtra(AnalysisFragment.TAG, it)
+            )
         }
-        rv_analysis.adapter = analysisAdapter
+        binding.rvAnalysis.adapter = analysisAdapter
+    }
+
+    private fun initEvents() {
+        mViewModel.observeDashboard().observe(viewLifecycleOwner, Observer {
+            Timber.d("DASHBOARD_ENTITY $it")
+            if (it != null) setDashboardData(it)
+        })
+    }
+
+    private fun setDashboardData(dashboardData: DashboardWithAnalysis) {
+        with(dashboardData) {
+            analysisAdapter.submitList(dashboardData.analysis)
+            binding.apply {
+                tvLevel.text = "${dashboard.level}"
+                tvPoints.text = "${dashboard.totalPoints}"
+                tvCredits.text = "${dashboard.totalCredits}"
+            }
+            updateScoreProgress(
+                dashboard.totalPoints,
+                if (dashboard.pointsToNextLevel < 0) 0 else dashboard.pointsToNextLevel
+            )
+        }
+    }
+
+    private fun updateScoreProgress(currentScore: Long, remainedScore: Long) {
+        if (binding.vProgressCurrent.tag != currentScore) {
+            binding.vProgressCurrent.tag = currentScore
+
+            val maxScore = currentScore + remainedScore
+            binding.tvScoreTotal.text = maxScore.toString()
+            binding.llProgressLayout.weightSum = maxScore.toFloat()
+
+            binding.vProgressCurrent.animateWeightChange(
+                (binding.vProgressCurrent.layoutParams as LinearLayout.LayoutParams).weight.toInt(),
+                currentScore.toInt(),
+                duration = 1500,
+                startDelay = 200,
+                init = { interpolator = FastOutSlowInInterpolator() },
+                onValueChange = {
+                    binding.tvScoreCurrent.apply {
+                        text = it.toInt().toString()
+                        translationX = binding.vProgressCurrent.width.toFloat()
+                    }
+                })
+        }
     }
 
     private fun setupCurvedLayout() {
@@ -74,7 +116,6 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
                 binding.cvCurvedLayout.apply {
                     clipToOutline = false
                     binding.clContent.updatePadding(top = curveSize.toInt())
-//                        setContentPadding(0, curveSize.toInt(), 0, 0)
                 }
             }
 
@@ -113,41 +154,6 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
                 }
             }
         }
-    }
-
-    private fun initEvents() {
-        mViewModel.dashboardEvent.observe(this, Observer {
-            setDashboardData(it)
-        })
-    }
-
-    private fun setDashboardData(dashboardData: DashboardDTO) {
-        this.dashboardData = dashboardData
-        with(dashboardData) {
-            analysisAdapter.submitList(dashboardData.challenges)
-            tv_level.text = "$level"
-            tv_points.text = "$totalPoints"
-            tv_credits.text = "$totalCredits"
-            updateScoreProgress(totalPoints, if (pointsToNextLevel < 0) 0 else pointsToNextLevel)
-        }
-    }
-
-    private fun updateScoreProgress(currentScore: Long, remainedScore: Long) {
-        val maxScore = currentScore + remainedScore
-        binding.tvScoreTotal.text = maxScore.toString()
-        binding.llProgressLayout.weightSum = maxScore.toFloat()
-        binding.vProgressCurrent.animateWeightChange(
-            0,
-            currentScore.toInt(),
-            duration = 1500,
-            startDelay = 200,
-            init = { interpolator = FastOutSlowInInterpolator() },
-            onValueChange = {
-                binding.tvScoreCurrent.apply {
-                    text = it.toInt().toString()
-                    translationX = binding.vProgressCurrent.width.toFloat()
-                }
-            })
     }
 
 }

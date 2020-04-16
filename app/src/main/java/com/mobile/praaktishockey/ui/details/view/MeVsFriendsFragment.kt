@@ -12,6 +12,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.utils.EntryXComparator
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.data.entities.AnalysisComplete
 import com.mobile.praaktishockey.databinding.FragmentMeVsFriendsBinding
 import com.mobile.praaktishockey.domain.entities.AnalysisDTO
 import com.mobile.praaktishockey.domain.entities.ComparisonDTO
@@ -35,7 +36,7 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
         val TAG = MeVsFriendsFragment::class.java.simpleName
 
         @JvmStatic
-        fun getInstance(data: AnalysisDTO): Fragment {
+        fun getInstance(data: AnalysisComplete): Fragment {
             val fragment = MeVsFriendsFragment()
             val bundle = Bundle()
             bundle.putSerializable("data", data)
@@ -47,7 +48,7 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
     override val mViewModel: ComparisonViewModel
         get() = getViewModel { ComparisonViewModel(activity.application) }
 
-    private val analysisDTO by lazy { arguments!!.getSerializable("data") as AnalysisDTO }
+    private val analysisDTO by lazy { arguments!!.getSerializable("data") as AnalysisComplete }
     private var comparisonData: ComparisonDTO? = null
     private var meVsFriendsChallenge: MeVsOtherChallenge? = null
 
@@ -65,7 +66,7 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
                 progressLoadingDialog.dismiss()
                 return@Observer
             }
-            meVsFriendsChallenge = it.friends.challenges.find { it.name.equals(analysisDTO.name) }
+            meVsFriendsChallenge = it.friends.challenges.find { it.id == analysisDTO.analysisEntity.id }
             initInfo()
             initChart()
             initFriendsScoreList()
@@ -77,8 +78,8 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
         val decimalFormatter = numberFormat as DecimalFormat
         decimalFormatter.applyPattern("##.#")
         with(analysisDTO) {
-            tvMeHighest.text = "${decimalFormatter.format(maxScore)}%"
-            tvMeAverage.text = "${decimalFormatter.format(averageScore)}%"
+            tvMeHighest.text = "${decimalFormatter.format(analysisEntity.maxScore)}%"
+            tvMeAverage.text = "${decimalFormatter.format(analysisEntity.averageScore)}%"
         }
         with(meVsFriendsChallenge!!) {
             tvMeRank.text = "${rank}"

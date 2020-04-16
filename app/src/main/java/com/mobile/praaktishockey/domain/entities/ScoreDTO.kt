@@ -1,6 +1,7 @@
 package com.mobile.praaktishockey.domain.entities
 
 import com.google.gson.annotations.SerializedName
+import com.mobile.praaktishockey.data.entities.ScoreAnalysisEntity
 import java.io.Serializable
 
 data class ScoreDTO(
@@ -15,3 +16,6 @@ data class ScoreDTO(
     @SerializedName("score")
     val score: Double
 ) : Serializable
+
+fun ScoreDTO.toScoreAnalysisEntity(challengeId: Int) =
+    ScoreAnalysisEntity(attemptId, challengeId, score, timePerformed)
