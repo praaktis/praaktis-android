@@ -2,10 +2,12 @@ package com.mobile.praaktishockey.ui.challenge.vm
 
 import android.app.Application
 import com.mobile.praaktishockey.base.BaseViewModel
+import com.mobile.praaktishockey.data.db.PraaktisDatabase
 import com.mobile.praaktishockey.data.repository.UserServiceRepository
-import com.mobile.praaktishockey.domain.entities.ChallengeDTO
-import com.mobile.praaktishockey.domain.entities.DetailResult
-import com.mobile.praaktishockey.domain.entities.StoreResultDTO
+import com.mobile.praaktishockey.domain.entities.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,8 +37,45 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
             .doOnSubscribe { showHideEvent.postValue(true) }
             .doAfterTerminate { showHideEvent.postValue(false) }
             .subscribe({
-
+                fetchDashboardData()
+                fetchTimelineData()
             }, ::onError)
     }
+
+    private fun fetchDashboardData() {
+        userService.getDashboardData()
+            .doOnSubscribe { showHideEvent.postValue(true) }
+            .doAfterTerminate { showHideEvent.postValue(false) }
+            .subscribe({
+                if (it != null) {
+                    GlobalScope.launch(Dispatchers.IO) {
+                        PraaktisDatabase.getInstance(getApplication()).getDashboardDao().apply {
+                            val analysis = it.toAnalysisEntityList()
+                            setDashboardData(
+                                it.toDashboardEntity(),
+                                analysis.first,
+                                analysis.second,
+                                analysis.third,
+                                analysis.fourth
+                            )
+                        }
+                    }
+                    settingsStorage.setDashboard(it)
+                }
+            }, ::onError)
+    }
+
+    private fun fetchTimelineData() {
+        userService.getTimelineData()
+            .doOnSubscribe { showHideEvent.postValue(true) }
+            .doAfterTerminate { showHideEvent.postValue(false) }
+            .subscribe({
+                GlobalScope.launch(Dispatchers.IO) {
+                    PraaktisDatabase.getInstance(getApplication()).getTimelineDao()
+                        .removeAndInsertTimeline(it.toTimelineEntities())
+                }
+            }, ::onError)
+    }
+
 
 }

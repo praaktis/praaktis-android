@@ -46,6 +46,29 @@ android {
     dataBinding {
         enabled = true
     }
+
+    /*flavorDimensions "default"
+
+    productFlavors {
+
+        finalProd {
+            dimension "default"
+            resValue "string", "app_name", "Praaktis"
+        }
+
+        demoProd {
+            dimension "default"
+            applicationIdSuffix ".demo"
+            resValue "string", "app_name", "Praaktis.Demo"
+        }
+
+        dev {
+            dimension "default"
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "Praaktis.Dev"
+        }
+
+    }*/
 }
 
 dependencies {

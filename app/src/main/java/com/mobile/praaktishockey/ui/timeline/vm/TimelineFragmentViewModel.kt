@@ -15,14 +15,14 @@ class TimelineFragmentViewModel(app: Application) : BaseViewModel(app) {
     val userService by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
 
     init {
-        getTimelineData()
+        fetchTimelineData()
     }
 
     fun observeTimeline() =
         PraaktisDatabase.getInstance(getApplication()).getTimelineDao().getAllTimeline()
             .asLiveData()
 
-    fun getTimelineData() {
+    fun fetchTimelineData() {
         userService.getTimelineData()
             .doOnSubscribe { showHideEvent.postValue(true) }
             .doAfterTerminate { showHideEvent.postValue(false) }

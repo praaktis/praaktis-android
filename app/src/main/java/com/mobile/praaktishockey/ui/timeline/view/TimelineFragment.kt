@@ -25,7 +25,7 @@ class TimelineFragment constructor(override val layoutId: Int = R.layout.fragmen
         get() = getViewModel { TimelineFragmentViewModel(activity.application) }
 
     override fun initUI(savedInstanceState: Bundle?) {
-        mViewModel.getTimelineData()
+//        mViewModel.getTimelineData()
     }
 
     private fun initPager() {

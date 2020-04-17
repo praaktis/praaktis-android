@@ -40,7 +40,9 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
 
     override fun initUI(savedInstanceState: Bundle?) {
         transparentStatusAndNavigationBar()
-        setLightNavigationBar()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            setLightNavigationBar()
+        }
         hideSystemUI()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
