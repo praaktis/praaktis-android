@@ -2,10 +2,12 @@ package com.mobile.praaktishockey.ui.challenge
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseActivity
+import com.mobile.praaktishockey.data.entities.TimelineEntity
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.entities.ScoreDTO
 import com.mobile.praaktishockey.domain.extension.setLightNavigationBar
@@ -37,7 +39,7 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
             activity.startActivity(intent)
         }
 
-        fun start(activity: Activity, scoreDTO: ScoreDTO) {
+        fun start(activity: Activity, scoreDTO: TimelineEntity) {
             val intent = Intent(activity, ChallengeActivity::class.java)
             intent.putExtra("score", scoreDTO)
             activity.startActivity(intent)
@@ -48,14 +50,16 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
 
     override fun initUI(savedInstanceState: Bundle?) {
         transparentStatusAndNavigationBar()
-        setLightNavigationBar()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            setLightNavigationBar()
+        }
 
         if (intent.hasExtra("score")) {
             val tag = DetailAnalysisFragment.TAG
             showOrReplace(tag) {
                 add(
                     R.id.container,
-                    DetailAnalysisFragment.getInstance(intent.getSerializableExtra("score") as ScoreDTO),
+                    DetailAnalysisFragment.getInstance(intent.getSerializableExtra("score") as TimelineEntity),
                     tag
                 )
             }

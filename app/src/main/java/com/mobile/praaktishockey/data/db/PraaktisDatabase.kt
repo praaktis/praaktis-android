@@ -20,7 +20,8 @@ import com.mobile.praaktishockey.domain.entities.CountryItemDTO
         AnalysisEntity::class,
         AttemptChartDataEntity::class,
         ChartDataEntity::class,
-        ScoreAnalysisEntity::class
+        ScoreAnalysisEntity::class,
+        TimelineEntity::class
     ],
     version = DATABASE_HOCKEY_VERSION,
     exportSchema = false
@@ -53,5 +54,7 @@ abstract class PraaktisDatabase : RoomDatabase() {
     abstract fun getCountriesDao(): CountriesDao
 
     abstract fun getDashboardDao(): DashboardDao
+
+    abstract fun getTimelineDao(): TimelineDao
 
 }

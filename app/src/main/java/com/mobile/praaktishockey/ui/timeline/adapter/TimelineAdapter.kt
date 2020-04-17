@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.mobile.praaktishockey.data.entities.TimelineEntity
 import com.mobile.praaktishockey.databinding.ItemTimelineBinding
 import com.mobile.praaktishockey.domain.entities.ScoreDTO
 import com.mobile.praaktishockey.domain.entities.TimelineChallengeItem
@@ -20,10 +21,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class TimelineAdapter(
-    private val onItemClick: (ScoreDTO) -> Unit,
+    private val onItemClick: (TimelineEntity) -> Unit,
     private val isEmptySet: (Boolean) -> Unit
 ) :
-    ListAdapter<ScoreDTO, TimelineAdapter.ViewHolder>(DIFF_CALLBACK) {
+    ListAdapter<TimelineEntity, TimelineAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
@@ -37,7 +38,7 @@ class TimelineAdapter(
         )
     }
 
-    fun submitList(timelines: ArrayList<TimelineChallengeItem>) {
+    /*fun submitList(timelines: ArrayList<TimelineChallengeItem>) {
         adapterScope.launch {
             val result: MutableList<ScoreDTO> = mutableListOf()
             timelines.forEach { challenge -> // set challenge name to each item score
@@ -59,7 +60,7 @@ class TimelineAdapter(
             }
         }
     }
-
+*/
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
@@ -69,8 +70,8 @@ class TimelineAdapter(
 
         private val decimalFormat = DecimalFormat("##.##")
 
-        fun bind(item: ScoreDTO) {
-            binding.tvChallengeName.text = item.name
+        fun bind(item: TimelineEntity) {
+            binding.tvChallengeName.text = item.challengeName
             binding.tvPoints.text = item.points.toString()
             binding.tvScore.text = decimalFormat.format(item.score)
 
@@ -80,7 +81,7 @@ class TimelineAdapter(
             )
 
             binding.tvDate.text =
-                dateTime.format(DateTimeFormatter.ofPattern("E d MMM yyyy")).toLowerCase()
+                dateTime.format(DateTimeFormatter.ofPattern("E d MMM yyyy")).toLowerCase(Locale.getDefault())
             binding.tvTime.text = dateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
 
             binding.tvDetail.setOnClickListener {
@@ -91,12 +92,12 @@ class TimelineAdapter(
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ScoreDTO>() {
-            override fun areItemsTheSame(oldItem: ScoreDTO, newItem: ScoreDTO): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TimelineEntity>() {
+            override fun areItemsTheSame(oldItem: TimelineEntity, newItem: TimelineEntity): Boolean {
                 return oldItem.attemptId == newItem.attemptId
             }
 
-            override fun areContentsTheSame(oldItem: ScoreDTO, newItem: ScoreDTO): Boolean {
+            override fun areContentsTheSame(oldItem: TimelineEntity, newItem: TimelineEntity): Boolean {
                 return oldItem == newItem
             }
         }

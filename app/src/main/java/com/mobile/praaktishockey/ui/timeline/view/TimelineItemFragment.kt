@@ -73,11 +73,10 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
                     if (it) tvNoData.show()
                     else tvNoData.hide()
                 })
-            rv_timeline.adapter = adapter
+            binding.rvTimeline.adapter = adapter
 
-            mViewModel.getTimelineData()
-            mViewModel.timelineDataEvent.observe(this, Observer {
-                adapter.submitList(it.challenges)
+            mViewModel.observeTimeline().observe(viewLifecycleOwner, Observer {
+                if (it != null) adapter.submitList(it)
             })
         }
     }
