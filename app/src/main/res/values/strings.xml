@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Praaktis</string>
+<!--    <string name="app_name" translatable="false">Praaktis</string>-->
     <string name="default_notification_channel_id" translatable="false">Praaktis</string>
     <string name="royal_n_belgian_n_hockey_n_association">Royal\nBelgian\nHockey\nAssociation</string>
     <string name="login">LOGIN</string>

@@ -3,7 +3,6 @@ package com.mobile.praaktishockey
 import android.app.Application
 import com.crashlytics.android.Crashlytics
 import com.jakewharton.threetenabp.AndroidThreeTen
-import com.mobile.praaktishockey.domain.common.TypefaceUtil
 import com.mobile.praaktishockey.domain.common.pref.SettingsStorage
 import io.fabric.sdk.android.Fabric
 import timber.log.Timber
@@ -26,7 +25,8 @@ class PraaktisApp : Application() {
     companion object {
         @JvmField
         var app: Application? = null
+
         @JvmStatic
-        fun getApplication() : Application = app!!
+        fun getApplication(): Application = app!!
     }
 }

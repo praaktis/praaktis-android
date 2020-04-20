@@ -47,7 +47,7 @@ android {
         enabled = true
     }
 
-    /*flavorDimensions "default"
+    flavorDimensions "default"
 
     productFlavors {
 
@@ -68,7 +68,7 @@ android {
             resValue "string", "app_name", "Praaktis.Dev"
         }
 
-    }*/
+    }
 }
 
 dependencies {
