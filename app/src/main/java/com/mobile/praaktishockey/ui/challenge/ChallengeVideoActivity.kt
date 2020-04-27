@@ -48,7 +48,14 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportFragmentManager.addOnBackStackChangedListener(this)
 
-        videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.challenge_video))
+        val video = when(challengeItem.id) {
+            4 -> R.raw.handsup1
+            5 -> R.raw.squats1
+            6 -> R.raw.curl1
+            else -> R.raw.challenge_video
+        }
+
+        videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + video))
         videoView.setOnPreparedListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val playbackParams = PlaybackParams()
@@ -65,7 +72,7 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
         }
         videoView.setOnCompletionListener {
             ivPlayReply.show()
-            ivPlayReply.setImageResource(R.drawable.vector_replay)
+//            ivPlayReply.setImageResource(R.drawable.vector_replay)
         }
         tvCancel.onClick { finish() }
         tvNext.onClick {
@@ -83,7 +90,7 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
         }
         Handler().postDelayed({
             videoView?.start()
-        }, 2000)
+        }, 1000)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
