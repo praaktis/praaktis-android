@@ -96,8 +96,7 @@ class ConfirmLoginFragment constructor(override val layoutId: Int = R.layout.fra
             if (user.language != null)
                 setLanguageAccordingly(mViewModel.getLanguageObject()!!)
             (activity as LoginActivity).isLoginProcessFinishSuccess = true
-            activity.finish()
-            MainActivity.start(activity)
+            MainActivity.startAndFinishAll(activity)
         } else {
             activity.makeToast(getString(R.string.please_activate_link))
         }

@@ -1,6 +1,5 @@
 package com.mobile.praaktishockey.ui.login.view
 
-import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -97,8 +96,7 @@ class LoginFragment constructor(override val layoutId: Int = R.layout.fragment_l
                 } else { // all info is full
                     mViewModel.getLanguageObject()?.let { lang -> setLanguageAccordingly(lang) }
                     (activity as LoginActivity).isLoginProcessFinishSuccess = true
-                    activity.finish()
-                    MainActivity.start(activity)
+                    MainActivity.startAndFinishAll(activity)
                 }
             }
         })

@@ -35,13 +35,11 @@ class SplashScreenActivity constructor(override val layoutId: Int = R.layout.lay
         mViewModel?.loginEvent?.observe(this, Observer {
             mViewModel!!.getLanguageObject()?.let { lang -> setLanguageAccordingly(lang) }
             routeToAppropriatePage(it)
-            finish()
         })
         mViewModel?.connectionErrorEvent?.observe(this, Observer {
             if (mViewModel!!.getProfile() != null)
-                MainActivity.start(this)
-            else LoginActivity.start(this)
-            finish()
+                MainActivity.startAndFinishAll(this)
+            else LoginActivity.startAndFinishAll(this)
         })
     }
 
@@ -59,11 +57,11 @@ class SplashScreenActivity constructor(override val layoutId: Int = R.layout.lay
     private fun routeToAppropriatePage(user: UserDTO?) {
         // Example routing
         when {
-            user == null -> LoginActivity.start(this)
+            user == null -> LoginActivity.startAndFinishAll(this)
             else -> {
                 mViewModel!!.getProfile()?.let {
 //                    if (it.language != null)
-                    MainActivity.start(this)
+                    MainActivity.startAndFinishAll(this)
 //                    else LoginActivity.start(this)
                 }
             }

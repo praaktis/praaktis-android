@@ -1,5 +1,6 @@
 package com.mobile.praaktishockey.ui.login.view
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -31,6 +32,13 @@ class LoginActivity constructor(override val layoutId: Int = R.layout.activity_l
             val intent = Intent(context, LoginActivity::class.java)
             context.startActivity(intent)
         }
+
+        fun startAndFinishAll(activity: Activity) {
+            activity.startActivity(Intent(activity, LoginActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            })
+        }
+
     }
 
     override fun initUI(savedInstanceState: Bundle?) {

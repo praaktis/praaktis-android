@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.temp.BaseActivity
@@ -30,6 +29,12 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
         fun start(activity: Activity) {
             val intent = Intent(activity, MainActivity::class.java)
             activity.startActivity(intent)
+        }
+
+        fun startAndFinishAll(activity: Activity) {
+            activity.startActivity(Intent(activity, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            })
         }
     }
 
@@ -66,7 +71,11 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
             R.id.menu_new_challenge -> {
                 if (currentFragment == null || currentFragment !is NewChallengeFragment) {
                     val tag = NewChallengeFragment.TAG
-                    supportFragmentManager.switch(R.id.container, NewChallengeFragment.getInstance(), tag)
+                    supportFragmentManager.switch(
+                        R.id.container,
+                        NewChallengeFragment.getInstance(),
+                        tag
+                    )
                 }
             }
             R.id.menu_timeline -> {

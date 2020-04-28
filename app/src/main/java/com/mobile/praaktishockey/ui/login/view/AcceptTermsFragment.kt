@@ -64,8 +64,7 @@ class AcceptTermsFragment constructor(override val layoutId: Int = R.layout.frag
                 if (it.language != null)
                     setLanguageAccordingly(mViewModel.getLanguageObject()!!)
                 (activity as LoginActivity).isLoginProcessFinishSuccess = true
-                activity.finish()
-                MainActivity.start(activity)
+                MainActivity.startAndFinishAll(activity)
             } else {
                 val tag = ConfirmLoginFragment.TAG
                 activity.showOrReplace(tag) {
