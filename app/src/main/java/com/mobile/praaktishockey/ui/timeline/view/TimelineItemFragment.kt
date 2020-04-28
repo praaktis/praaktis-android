@@ -17,7 +17,6 @@ import com.mobile.praaktishockey.ui.challenge.ChallengeActivity
 import com.mobile.praaktishockey.ui.timeline.adapter.TimelineAdapter
 import com.mobile.praaktishockey.ui.timeline.vm.TimelineFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_item_timeline.*
-import timber.log.Timber
 
 class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fragment_item_timeline) :
     BaseFragment<FragmentItemTimelineBinding>() {
@@ -69,15 +68,13 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
             val adapter = TimelineAdapter(
                 onItemClick = {
                     ChallengeActivity.start(activity, it)
-                },
-                isEmptySet = {
-                    if (it) tvNoData.show()
-                    else tvNoData.hide()
-                })
+                }
+            )
             binding.rvTimeline.adapter = adapter
 
             mViewModel.observeTimeline().observe(viewLifecycleOwner, Observer {
-                Timber.d("TIMELINE_DATA_ROOM $it")
+                if (it.isNullOrEmpty()) tvNoData.show()
+                else tvNoData.hide()
                 if (it != null) adapter.submitList(it)
             })
         }

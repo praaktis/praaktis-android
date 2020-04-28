@@ -21,8 +21,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class TimelineAdapter(
-    private val onItemClick: (TimelineEntity) -> Unit,
-    private val isEmptySet: (Boolean) -> Unit
+    private val onItemClick: (TimelineEntity) -> Unit
 ) :
     ListAdapter<TimelineEntity, TimelineAdapter.ViewHolder>(DIFF_CALLBACK) {
 
@@ -38,29 +37,6 @@ class TimelineAdapter(
         )
     }
 
-    /*fun submitList(timelines: ArrayList<TimelineChallengeItem>) {
-        adapterScope.launch {
-            val result: MutableList<ScoreDTO> = mutableListOf()
-            timelines.forEach { challenge -> // set challenge name to each item score
-                if (challenge.latest.timePerformed != null && challenge.latest.attemptId != challenge.scores.last().attemptId) {
-                    challenge.latest.name = challenge.name
-                    result.add(challenge.latest)
-                }
-                val scoresWithName = challenge.scores.onEach {
-                    it.name = challenge.name
-                }
-                result.addAll(scoresWithName)
-            }
-            result.sortByDescending { // sort scores by latest attempt
-                it.attemptId
-            }
-            withContext(Dispatchers.Main) {
-                isEmptySet.invoke(result.isEmpty())
-                super.submitList(result)
-            }
-        }
-    }
-*/
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
