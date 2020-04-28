@@ -46,7 +46,7 @@ class LoginActivity constructor(override val layoutId: Int = R.layout.activity_l
 
         supportFragmentManager.addOnBackStackChangedListener(this)
 
-        if (mViewModel?.isShowedInroPage()!!) {
+        if (mViewModel?.isShowedInroPage() == true) {
             val tag = LoginFragment.TAG
             showOrReplace(tag) {
                 replace(R.id.container, LoginFragment.getInstance(), tag)

@@ -71,6 +71,7 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
     override fun isLoggedIn(): Boolean = token.isNotEmpty()
 
     override fun logout() {
+        showedIntroPage = false
         token = ""
     }
 
