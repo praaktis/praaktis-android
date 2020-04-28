@@ -52,9 +52,11 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
 
         supportFragmentManager.addOnBackStackChangedListener(this)
 
-        binding.bottomNavigation.apply {
-            setOnNavigationItemSelectedListener(this@MainActivity)
-            selectedItemId = R.id.menu_dashboard
+        binding.bottomNavigation.post {
+            with(binding.bottomNavigation) {
+                setOnNavigationItemSelectedListener(this@MainActivity)
+                selectedItemId = R.id.menu_dashboard
+            }
         }
         setMoreItemBadge()
     }
