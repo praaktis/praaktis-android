@@ -38,7 +38,6 @@ class ForgotPasswordFragment constructor(override val layoutId: Int = R.layout.f
         })
 
         form {
-            useRealTimeValidation()
             inputLayout(tilEmail) {
                 isEmail().description(getString(R.string.invalid_email))
             }
