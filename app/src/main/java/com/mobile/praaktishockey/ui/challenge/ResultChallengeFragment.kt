@@ -98,11 +98,19 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             ) {
                 val surface = Surface(surface)
                 mediaPlayer1 = MediaPlayer()
+
+                val video = when(challengeItem.id) {
+                    4 -> R.raw.handsup1
+                    5 -> R.raw.squats1
+                    6 -> R.raw.curl1
+                    else -> R.raw.challenge_video
+                }
+
                 try {
                     mediaPlayer1?.setDataSource(
                         context!!, Uri.parse(
                             "android.resource://" +
-                                    context?.packageName + "/" + R.raw.challenge_video
+                                    context?.packageName + "/" + video
                         )
                     )
                     mediaPlayer1?.setSurface(surface)
