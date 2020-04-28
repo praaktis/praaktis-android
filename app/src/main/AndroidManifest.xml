@@ -20,9 +20,6 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup,android:roundIcon,android:icon">
 
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="5308e5d18fb474a6a50c966f4ebd775a40b1bda2" />
         <!--
  Set custom default icon. This is used when no icon is set for incoming notification messages.
              See README(https://goo.gl/l4GJaQ) for more.

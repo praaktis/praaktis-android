@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.firebase.crashlytics'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -143,10 +143,10 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.kirich1409.svgplugin:svg-glide4-plugin:1.2.1'
 
-    //fabric
-    api('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
-        transitive = true
-    }
+    // analytics.
+    implementation 'com.google.firebase:firebase-analytics:17.4.0'
+    // crashlytics.
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
 
     // chart lib
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
