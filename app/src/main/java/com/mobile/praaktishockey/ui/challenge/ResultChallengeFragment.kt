@@ -18,9 +18,7 @@ import com.mobile.praaktishockey.ui.challenge.vm.ResultChallengeFragmentViewMode
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.praaktis.exerciseengine.Engine.DetailPoint
 import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
-import com.praaktis.exerciseengine.RawPlayer.H264RawPlayerActivity
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
-import timber.log.Timber
 import java.util.*
 
 class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_result_challenge) :
@@ -43,7 +41,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     override val mViewModel: ResultChallengeFragmentViewModel
         get() = getViewModel { ResultChallengeFragmentViewModel(activity.application) }
 
-    private val challengeItem by lazy { arguments!!.getSerializable("challengeItem") as ChallengeDTO }
+    private val challengeItem by lazy { requireArguments().getSerializable("challengeItem") as ChallengeDTO }
     private val result by lazy { activity.intent.getSerializableExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) as HashMap<String, Any>? }
     private val path by lazy { activity.intent.getStringExtra(ChallengeInstructionFragment.VIDEO_PATH) }
 
@@ -99,7 +97,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
                 val surface = Surface(surface)
                 mediaPlayer1 = MediaPlayer()
 
-                val video = when(challengeItem.id) {
+                val video = when (challengeItem.id) {
                     4 -> R.raw.handsup1
                     5 -> R.raw.squats1
                     6 -> R.raw.curl1
@@ -202,12 +200,11 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
         timer = Timer()
         timer?.schedule(object : TimerTask() {
             override fun run() {
-                if (ivPlay != null)
-                    if (mediaPlayer2?.isPlaying == false) {
-                        activity.runOnUiThread { ivPlay.show() }
-                    } else {
-                        activity.runOnUiThread { ivPlay.hide() }
-                    }
+                if (mediaPlayer2?.isPlaying == false) {
+                    activity.runOnUiThread { binding.ivPlay.show() }
+                } else {
+                    activity.runOnUiThread { binding.ivPlay.hide() }
+                }
             }
         }, 1000, 1000)
     }
@@ -281,7 +278,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             intent.putExtra("LOGIN", mViewModel.getLogin())
             intent.putExtra("PASSWORD", mViewModel.getPassword())
             intent.putExtra("EXERCISE", challengeItem.id)
-            getActivity()!!.startActivityForResult(intent, 333)
+            requireActivity().startActivityForResult(intent, 333)
         }
     }
 
