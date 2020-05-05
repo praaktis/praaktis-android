@@ -74,9 +74,12 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
             ivPlayReply.show()
 //            ivPlayReply.setImageResource(R.drawable.vector_replay)
         }
+
         tvCancel.onClick { finish() }
         tvNext.onClick {
             videoView.pause()
+            ivPlayReply.show()
+
             val tag = ChallengeInstructionFragment.TAG
             replaceFragment(tag) {
                 add(
