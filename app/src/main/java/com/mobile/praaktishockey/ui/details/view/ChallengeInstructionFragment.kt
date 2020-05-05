@@ -66,7 +66,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
     }
 
     private fun initAutoStart() {
-        autoStartAnimator.duration = 7500
+        autoStartAnimator.duration = 10000
         autoStartAnimator.addUpdateListener {
             val v = it.animatedValue as Float
             if (vAutoStart == null) autoStartAnimator.pause()
