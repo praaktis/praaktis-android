@@ -36,6 +36,7 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
         }
     }
 
+
     private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as ChallengeDTO }
 
     override fun initUI(savedInstanceState: Bundle?) {
@@ -57,14 +58,26 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
 
         videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + video))
         videoView.setOnPreparedListener {
+            ivPlayReply.show()
+            videoView.start();
+            videoView.pause();
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val playbackParams = PlaybackParams()
 //                playbackParams.speed = 0.5f
                 it.playbackParams = playbackParams
-                ivPlayReply.hide()
+//                ivPlayReply.hide()
             }
             it.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
         }
+        videoView.setOnInfoListener { mp, what, extra ->
+            if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START){
+                //first frame was bufered - do your stuff here
+                ivPlayReply.hide()
+            }
+            false
+        }
+
         ivPlayReply.show()
         ivPlayReply.onClick {
             videoView.start()
