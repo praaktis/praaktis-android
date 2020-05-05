@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:drawablePadding="26dp"
             android:gravity="center"
-            android:text="Thank you, Saidjamol"
+            tools:text="Thank you, Saidjamol"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -77,7 +77,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/account_activation_summary"
+                        tools:text="@string/account_activation_summary"
                         android:textSize="14sp" />
 
                 </com.google.android.material.card.MaterialCardView>
