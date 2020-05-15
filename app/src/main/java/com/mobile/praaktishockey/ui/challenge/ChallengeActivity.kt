@@ -91,7 +91,8 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
                     )
                 )
             } else {
-                Log.d("_RESULT", "RESULT_NOT_OK")
+                Log.d("__RESULT", "Result NOT OK $resultCode")
+                Log.d("__RESULT", "Result NOT OK ${data?.getSerializableExtra("result")}")
             }
         }
     }

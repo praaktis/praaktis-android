@@ -10,7 +10,6 @@ import okhttp3.ResponseBody
 
 interface UserServiceRepository {
 
-    fun refreshAuth()
     fun getDashboardData(): Single<DashboardDTO>
     fun getProfile(): Single<UserDTO>
     fun getTimelineData(): Single<TimelineDTO>
@@ -40,7 +39,6 @@ interface UserServiceRepository {
 
         var userService: UserService = createService()
 
-        //todo
         override fun getDashboardData(): Single<DashboardDTO> {
             return userService.getDashboardData().compose(ASyncTransformer<DashboardDTO>())
         }
@@ -102,11 +100,6 @@ interface UserServiceRepository {
         override fun registerDevice(deviceId: String): Single<ResponseBody> {
             val request = RegisterDeviceDTO(deviceId)
             return userService.registerDevice(request).compose(ASyncTransformer<ResponseBody>())
-        }
-
-        override fun refreshAuth() {
-            Constants.clearClientData()
-            userService = createService()
         }
 
         override fun logout(): Single<ResponseBody> {

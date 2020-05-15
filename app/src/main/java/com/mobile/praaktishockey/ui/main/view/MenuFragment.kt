@@ -74,7 +74,9 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
             if (it) {
                 Log.d("HERELOGOUT", "LOGOUT")
                 mViewModel.onLogoutSuccess()
+
                 LoginActivity.startAndFinishAll(activity)
+                activity.finish()
             }
         })
     }

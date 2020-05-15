@@ -46,6 +46,7 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
         }
 
     override fun initUI(savedInstanceState: Bundle?) {
+        mViewModel.fetchTimelineData()
 
         if (arguments != null) {
             if (arguments?.get(Constants.TIMELINE) != null) {

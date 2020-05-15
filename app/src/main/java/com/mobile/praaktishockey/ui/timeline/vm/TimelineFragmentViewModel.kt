@@ -15,7 +15,7 @@ class TimelineFragmentViewModel(app: Application) : BaseViewModel(app) {
     val userService by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
 
     init {
-        fetchTimelineData()
+//        fetchTimelineData()
     }
 
     fun observeTimeline() =

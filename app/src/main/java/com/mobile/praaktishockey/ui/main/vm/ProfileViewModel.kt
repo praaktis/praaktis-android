@@ -57,6 +57,10 @@ class ProfileViewModel(app: Application) : BaseViewModel(app) {
             .doOnSubscribe { showHideEvent.postValue(true) }
             .doAfterTerminate { showHideEvent.postValue(false) }
             .subscribe({
+                if (!user.password.isNullOrBlank()) {
+                    settingsStorage.password = user.password
+                }
+
                 val json = JSONObject(it.string())
                 val message = json.getString("message")
                 updateProfileEvent.postValue(message)

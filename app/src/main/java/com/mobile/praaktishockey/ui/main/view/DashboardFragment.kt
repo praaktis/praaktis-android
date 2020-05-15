@@ -24,7 +24,6 @@ import com.mobile.praaktishockey.ui.details.view.DetailsActivity
 import com.mobile.praaktishockey.ui.main.adapter.AnalysisAdapter
 import com.mobile.praaktishockey.ui.main.vm.DashboardViewModel
 import com.mobile.praaktishockey.ui.main.vm.MainViewModel
-import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -45,6 +44,8 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
     private lateinit var analysisAdapter: AnalysisAdapter
 
     override fun initUI(savedInstanceState: Bundle?) {
+        mViewModel.fetchDashboardData()
+
         mainViewModel = ViewModelProvider(activity).get(MainViewModel::class.java)
 
         setupCurvedLayout()

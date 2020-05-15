@@ -16,7 +16,7 @@ class DashboardViewModel(app: Application) : BaseViewModel(app) {
     val userService by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
 
     init {
-        fetchDashboardData()
+//        fetchDashboardData()
     }
 
     fun observeDashboard() =

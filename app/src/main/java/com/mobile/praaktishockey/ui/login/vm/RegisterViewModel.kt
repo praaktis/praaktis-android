@@ -33,7 +33,6 @@ class RegisterViewModel(app: Application) : BaseViewModel(app) {
                 val json = JSONObject(temp)
                 loginStorage.token = json.getString("token")
                 loginEvent.postValue(true)
-                repo.refreshAuth()
             }, ::onError)
     }
 

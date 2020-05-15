@@ -123,6 +123,9 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
                     result,
                     data.getStringExtra(VIDEO_PATH)
                 )
+            } else {
+                Log.d("__RESULT", "Result NOT OK $resultCode")
+                Log.d("__RESULT", "Result NOT OK ${data?.getSerializableExtra("result")}")
             }
         }
     }

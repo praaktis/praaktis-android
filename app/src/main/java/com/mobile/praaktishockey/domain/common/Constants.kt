@@ -5,7 +5,6 @@ import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import com.google.gson.Gson
 import com.mobile.praaktishockey.domain.common.pref.SettingsStorage
 import io.reactivex.schedulers.Schedulers
@@ -27,44 +26,38 @@ object Constants {
     var retrofit: Retrofit? = null
 
     inline fun <reified S> createService(): S {
-        return getRetrofit(true, "https://api.praaktis.fuzzydigital.com/api/").create(S::class.java)
+        return getRetrofit("https://api.praaktis.fuzzydigital.com/api/").create(S::class.java)
     }
 
-    fun clearClientData() {
-        retrofit = null
-    }
-
-    fun getRetrofit(shouldAddInterceptor: Boolean, endpoint: String): Retrofit {
+    fun getRetrofit(endpoint: String): Retrofit {
         if (retrofit == null) {
             retrofit = Retrofit.Builder()
                 .baseUrl(endpoint)
                 .addConverterFactory(GsonConverterFactory.create(Gson()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-                .client(buildClient(shouldAddInterceptor))
+                .client(buildClient())
                 .build()
         }
         return retrofit!!
     }
 
-    private fun buildClient(shouldAddCustomHeaders: Boolean = true): OkHttpClient {
+    private fun buildClient(): OkHttpClient {
         val loginSettings = SettingsStorage.instance
         val builder = OkHttpClient.Builder()
         builder.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
 
-        if (loginSettings.token.isNotBlank())
-            builder.addInterceptor { chain ->
-                if (loginSettings.token.isNotBlank()) {
-                    val newRequest = chain
-                        .request()
-                        .newBuilder()
-                        .addHeader("Authorization", "Token ${loginSettings.token}")
-                        .build()
-                    val r  = chain.proceed(newRequest)
-                    return@addInterceptor r
-                }
-                chain.proceed(chain.request())
+        builder.addInterceptor { chain ->
+            if (loginSettings.token.isNotBlank()) {
+                val newRequest = chain
+                    .request()
+                    .newBuilder()
+                    .addHeader("Authorization", "Token ${loginSettings.token}")
+                    .build()
+                val r = chain.proceed(newRequest)
+                return@addInterceptor r
             }
-//    builder.addInterceptor(ChuckInterceptor(OziqApplication.instance))
+            chain.proceed(chain.request())
+        }
         builder
             .readTimeout(15, TimeUnit.SECONDS)
             .connectTimeout(15, TimeUnit.SECONDS)
@@ -80,7 +73,7 @@ object Constants {
         return contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv)
     }
 
-     fun getImageUri(): Uri? {
+    fun getImageUri(): Uri? {
         var m_imgUri: Uri? = null
         try {
             val cacheDir = Environment.getExternalStorageDirectory()

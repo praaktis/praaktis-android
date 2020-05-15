@@ -58,7 +58,7 @@
                     app:endIconTint="@color/grey_400"
                     app:hintEnabled="false">
 
-                    <com.google.android.material.textview.MaterialAutoCompleteTextView
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/et_language"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

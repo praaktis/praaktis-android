@@ -2,7 +2,6 @@ package com.mobile.praaktishockey.data.repository
 
 import com.mobile.praaktishockey.data.api.AuthService
 import com.mobile.praaktishockey.domain.common.ASyncTransformer
-import com.mobile.praaktishockey.domain.common.Constants.clearClientData
 import com.mobile.praaktishockey.domain.common.Constants.createService
 import com.mobile.praaktishockey.domain.common.ImageUtils
 import com.mobile.praaktishockey.domain.entities.CreateUserDTO
@@ -10,17 +9,14 @@ import com.mobile.praaktishockey.domain.entities.LoginDTO
 import com.mobile.praaktishockey.domain.entities.RegisterDeviceDTO
 import com.mobile.praaktishockey.domain.entities.UserDTO
 import io.reactivex.Single
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.ResponseBody
 import java.io.File
 
 interface AuthSeriviceRepository {
 
-    fun refreshAuth()
     fun login(userName: String, password: String): Single<ResponseBody>
     fun createUser(email: String, password: String): Single<ResponseBody>
     fun updateProfile(userDTO: UserDTO): Single<ResponseBody>
@@ -45,11 +41,6 @@ interface AuthSeriviceRepository {
 
         var authService: AuthService = createService()
 
-        override fun refreshAuth() {
-            clearClientData()
-            authService = createService()
-        }
-
         //todo
         override fun login(userName: String, password: String): Single<ResponseBody> {
             val request = LoginDTO(userName, password)
@@ -73,21 +64,83 @@ interface AuthSeriviceRepository {
                 user.add(imagePart)
             }
 
-            userDTO.firstName?.let { user.add(MultipartBody.Part.createFormData("first_name", userDTO.firstName)) }
-            userDTO.lastName?.let { user.add(MultipartBody.Part.createFormData("last_name", userDTO.lastName)) }
-            userDTO.ability?.let { user.add(MultipartBody.Part.createFormData("ability", userDTO.ability.name)) }
-            userDTO.dateOfBirth?.let { user.add(MultipartBody.Part.createFormData("date_of_birth", userDTO.dateOfBirth)) }
-            userDTO.gender?.let { user.add(MultipartBody.Part.createFormData("gender", userDTO.gender.name)) }
-            userDTO.nickname?.let { user.add(MultipartBody.Part.createFormData("nickname", userDTO.nickname)) }
-            userDTO.country?.let { user.add(MultipartBody.Part.createFormData("country", userDTO.country.toString())) }
-            userDTO.password?.let { user.add(MultipartBody.Part.createFormData("password", userDTO.password)) }
-            userDTO.language?.let { user.add(MultipartBody.Part.createFormData("language", userDTO.language.toString())) }
+            userDTO.firstName?.let {
+                user.add(
+                    MultipartBody.Part.createFormData(
+                        "first_name",
+                        userDTO.firstName
+                    )
+                )
+            }
+            userDTO.lastName?.let {
+                user.add(
+                    MultipartBody.Part.createFormData(
+                        "last_name",
+                        userDTO.lastName
+                    )
+                )
+            }
+            userDTO.ability?.let {
+                user.add(
+                    MultipartBody.Part.createFormData(
+                        "ability",
+                        userDTO.ability.name
+                    )
+                )
+            }
+            userDTO.dateOfBirth?.let {
+                user.add(
+                    MultipartBody.Part.createFormData(
+                        "date_of_birth",
+                        userDTO.dateOfBirth
+                    )
+                )
+            }
+            userDTO.gender?.let {
+                user.add(
+                    MultipartBody.Part.createFormData(
+                        "gender",
+                        userDTO.gender.name
+                    )
+                )
+            }
+            userDTO.nickname?.let {
+                user.add(
+                    MultipartBody.Part.createFormData(
+                        "nickname",
+                        userDTO.nickname
+                    )
+                )
+            }
+            userDTO.country?.let {
+                user.add(
+                    MultipartBody.Part.createFormData(
+                        "country",
+                        userDTO.country.toString()
+                    )
+                )
+            }
+            userDTO.password?.let {
+                user.add(
+                    MultipartBody.Part.createFormData(
+                        "password",
+                        userDTO.password
+                    )
+                )
+            }
+            userDTO.language?.let {
+                user.add(
+                    MultipartBody.Part.createFormData(
+                        "language",
+                        userDTO.language.toString()
+                    )
+                )
+            }
 
             return authService.updateProfile(user.toTypedArray())
         }
 
         override fun getProfile(): Single<UserDTO> {
-            clearClientData()
             authService = createService()
             return authService.getProfile().compose(ASyncTransformer<UserDTO>())
         }
