@@ -28,7 +28,9 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         val TAG: String = ChallengeInstructionFragment::class.java.simpleName
         const val CHALLENGE_ITEM = "ANALYSIS_ITEM"
         const val CHALLENGE_RESULT = "CHALLENGE_RESULT"
+        const val RAW_VIDEO_PATH = "RAW_VIDEO_PATH"
         const val VIDEO_PATH = "VIDEO_PATH"
+        private const val AUTO_START_DURATION = 20000L
 
         fun getInstance(item: ChallengeDTO) = ChallengeInstructionFragment().apply {
             arguments = Bundle().apply {
@@ -66,7 +68,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
     }
 
     private fun initAutoStart() {
-        autoStartAnimator.duration = 10000
+        autoStartAnimator.duration = AUTO_START_DURATION
         autoStartAnimator.addUpdateListener {
             val v = it.animatedValue as Float
             if (vAutoStart == null) autoStartAnimator.pause()
@@ -121,6 +123,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
                     getActivity()!!,
                     challengeItem,
                     result,
+                    data.getStringExtra(RAW_VIDEO_PATH),
                     data.getStringExtra(VIDEO_PATH)
                 )
             } else {

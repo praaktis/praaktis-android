@@ -3,6 +3,7 @@ package com.mobile.praaktishockey.ui.main.view
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -22,6 +23,7 @@ import com.mobile.praaktishockey.ui.main.vm.MainViewModel
 import com.mobile.praaktishockey.ui.main.vm.NewChallengeViewModel
 import kotlinx.android.synthetic.main.fragment_new_challenge.*
 
+
 class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_new_challenge) :
     BaseFragment<FragmentNewChallengeBinding>() {
 
@@ -39,6 +41,8 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
         get() = getViewModel { NewChallengeViewModel(activity.application) }
 
     private lateinit var mainViewModel: MainViewModel
+
+    private var mediaPlayer2: MediaPlayer? = MediaPlayer()
 
     private var challenge: ChallengeDTO? = null
 

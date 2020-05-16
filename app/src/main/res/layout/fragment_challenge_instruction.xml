@@ -55,6 +55,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
+                android:paddingTop="50dp"
                 android:paddingBottom="76dp"
                 app:paddingBottomSystemWindowInsets="@{true}">
 
@@ -135,6 +136,44 @@
             app:layout_constraintEnd_toEndOf="@id/tv_start_challenge"
             app:layout_constraintStart_toStartOf="@id/tv_start_challenge"
             app:layout_constraintTop_toTopOf="@id/tv_start_challenge" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/tg_mode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            app:checkedButton="@id/btn_multi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topPanel"
+            app:layout_constraintWidth_percent=".65"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_single"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/toggle_group_item_color_2"
+                android:text="Single"
+                android:textColor="@color/toggle_group_item_text_color_2"
+                app:strokeColor="@color/toggle_group_item_stroke_color_2" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_multi"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/toggle_group_item_color_2"
+                android:text="Multi"
+                android:textColor="@color/toggle_group_item_text_color_2"
+                app:strokeColor="@color/toggle_group_item_stroke_color_2" />
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
