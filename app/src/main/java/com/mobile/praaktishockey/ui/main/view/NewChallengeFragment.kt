@@ -42,8 +42,6 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
 
     private lateinit var mainViewModel: MainViewModel
 
-    private var mediaPlayer2: MediaPlayer? = MediaPlayer()
-
     private var challenge: ChallengeDTO? = null
 
     override fun initUI(savedInstanceState: Bundle?) {

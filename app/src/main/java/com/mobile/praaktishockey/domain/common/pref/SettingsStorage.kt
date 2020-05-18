@@ -42,6 +42,7 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
     var lang by prefString()
     var login by prefString()
     var password by prefString()
+    var cameraMode by prefBoolean()
 
     private companion object {
         const val SORTING = "App_Sorting_"
@@ -67,6 +68,8 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
 //
 //    return SortOrder(exType!!, exDirection!!)
 //  }
+
+    override fun cameraMode(): Boolean  = cameraMode
 
     override fun isLoggedIn(): Boolean = token.isNotEmpty()
 

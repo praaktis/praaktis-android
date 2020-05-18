@@ -142,7 +142,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:elevation="6dp"
-            app:checkedButton="@id/btn_multi"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topPanel"
@@ -157,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/toggle_group_item_color_2"
-                android:text="Single"
+                android:text="One person"
                 android:textColor="@color/toggle_group_item_text_color_2"
                 app:strokeColor="@color/toggle_group_item_stroke_color_2" />
 
@@ -168,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/toggle_group_item_color_2"
-                android:text="Multi"
+                android:text="Two people"
                 android:textColor="@color/toggle_group_item_text_color_2"
                 app:strokeColor="@color/toggle_group_item_stroke_color_2" />
 

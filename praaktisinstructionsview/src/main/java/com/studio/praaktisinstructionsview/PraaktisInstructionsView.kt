@@ -28,6 +28,7 @@ class PraaktisInstructionsView @JvmOverloads constructor(
     fun setInstructions(list: List<String>) {
         instructions.clear()
         instructions.addAll(list)
+        removeAllViews()
         addInstructions()
     }
 

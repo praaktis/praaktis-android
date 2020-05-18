@@ -22,4 +22,6 @@ interface LoginSettings {
     fun getTimelineDetails(attemptId: Int): List<DetailScoreDTO>?
     fun setComparison(comparisonDTO: ComparisonDTO)
     fun getComparison(): ComparisonDTO?
+
+    fun cameraMode(): Boolean
 }
