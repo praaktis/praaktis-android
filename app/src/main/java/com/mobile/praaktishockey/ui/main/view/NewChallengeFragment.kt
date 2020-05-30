@@ -3,7 +3,6 @@ package com.mobile.praaktishockey.ui.main.view
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -34,7 +33,7 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
         @JvmStatic
         fun getInstance(): Fragment = NewChallengeFragment()
 
-        const val CAMERA_AND_EXTERNAL_STORAGE_PERMISSIONS = 111
+        const val PRAAKTIS_SDK_PERMISSIONS = 111
     }
 
     override val mViewModel: NewChallengeViewModel
@@ -66,13 +65,17 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
             ContextCompat.checkSelfPermission(
                 activity,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(
+                activity, Manifest.permission.RECORD_AUDIO
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             requestPermissions(
                 arrayOf(
                     Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ), CAMERA_AND_EXTERNAL_STORAGE_PERMISSIONS
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.RECORD_AUDIO
+                ), PRAAKTIS_SDK_PERMISSIONS
             )
         } else {
             openChallengeVideo()
@@ -89,14 +92,14 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
         grantResults: IntArray
     ) {
         when (requestCode) {
-            CAMERA_AND_EXTERNAL_STORAGE_PERMISSIONS -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            PRAAKTIS_SDK_PERMISSIONS -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
                     openChallengeVideo()
                 } else {
                     val showRationale =
                         shouldShowRequestPermissionRationale(permissions[0]) || shouldShowRequestPermissionRationale(
                             permissions[1]
-                        )
+                        ) || shouldShowRequestPermissionRationale(permissions[2])
                     materialAlert {
                         setMessage("Sorry!!!, you can't use challenges without granting permissions")
                         setPositiveButton(

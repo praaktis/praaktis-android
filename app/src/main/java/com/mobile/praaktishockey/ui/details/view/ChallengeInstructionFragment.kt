@@ -31,6 +31,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         const val CHALLENGE_RESULT = "CHALLENGE_RESULT"
         const val RAW_VIDEO_PATH = "RAW_VIDEO_PATH"
         const val VIDEO_PATH = "VIDEO_PATH"
+        const val SINGLE_USER_MODE = "SINGLE_USER_MODE"
         private const val AUTO_START_DURATION = 20000L
 
         fun getInstance(item: ChallengeDTO) = ChallengeInstructionFragment().apply {
@@ -114,7 +115,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
             intent.putExtra("LOGIN", mViewModel.getLogin())
             intent.putExtra("PASSWORD", mViewModel.getPassword())
             intent.putExtra("EXERCISE", challengeItem.id)
-            intent.putExtra("CAMERA_MODE", mViewModel.settingsStorage.cameraMode)
+            intent.putExtra(SINGLE_USER_MODE, mViewModel.settingsStorage.cameraMode)
             startActivityForResult(intent, 333)
         }
     }
