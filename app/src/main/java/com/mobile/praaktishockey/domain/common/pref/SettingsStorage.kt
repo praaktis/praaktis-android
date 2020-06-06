@@ -76,6 +76,7 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
     override fun logout() {
         showedIntroPage = false
         token = ""
+        preferences.edit().clear().apply()
     }
 
     override fun token(): String = token

@@ -10,6 +10,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import com.mobile.praaktishockey.PraaktisApp
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseViewModel
 import com.mobile.praaktishockey.base.temp.BaseFragment
@@ -18,6 +20,8 @@ import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.extension.getViewModel
 import com.mobile.praaktishockey.domain.extension.updateLayoutParams
 import com.mobile.praaktishockey.ui.challenge.ChallengeActivity
+import com.mobile.praaktishockey.ui.login.view.LoginActivity
+import com.mobile.praaktishockey.ui.main.vm.MenuViewModel
 import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
 import kotlinx.android.synthetic.main.fragment_challenge_instruction.*
 import timber.log.Timber
@@ -41,10 +45,9 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         }
     }
 
-    override val mViewModel: BaseViewModel
-        get() = getViewModel { BaseViewModel(Application()) }
+    override val mViewModel: MenuViewModel get() = getViewModel { MenuViewModel(PraaktisApp.getApplication()) }
 
-    private val challengeItem by lazy { arguments!!.getSerializable(CHALLENGE_ITEM) as ChallengeDTO }
+    private val challengeItem by lazy { requireArguments().getSerializable(CHALLENGE_ITEM) as ChallengeDTO }
     private val autoStartAnimator by lazy { ValueAnimator.ofFloat(0f, 1f) }
 
     override fun initUI(savedInstanceState: Bundle?) {
@@ -65,6 +68,17 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
             startChallengeSteps()
         }
         initAutoStart()
+
+        mViewModel.logoutEvent.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                Log.d("HERELOGOUT", "LOGOUT")
+                mViewModel.onLogoutSuccess()
+
+                LoginActivity.startAndFinishAll(activity)
+                activity.finish()
+            }
+        })
+
     }
 
     private fun changeInstruction(checkedId: Int) {
@@ -116,7 +130,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
             intent.putExtra("PASSWORD", mViewModel.getPassword())
             intent.putExtra("EXERCISE", challengeItem.id)
             intent.putExtra(SINGLE_USER_MODE, mViewModel.settingsStorage.cameraMode)
-            startActivityForResult(intent, 333)
+            startActivityForResult(intent, ChallengeActivity.PRAAKTIS_SDK_REQUEST_CODE)
         }
     }
 
@@ -133,22 +147,35 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d("__RESULT", "Request: $requestCode")
-        if (requestCode == 333) {
-            getActivity()?.finish()
-            if (resultCode == Activity.RESULT_OK) {
-                @Suppress("UNCHECKED_CAST")
-                val result = data!!.getSerializableExtra("result") as HashMap<String, Any>?
-                Log.d("__RESULT", "Result: $result")
-                ChallengeActivity.start(
-                    getActivity()!!,
-                    challengeItem,
-                    result,
-                    data.getStringExtra(RAW_VIDEO_PATH),
-                    data.getStringExtra(VIDEO_PATH)
-                )
-            } else {
-                Log.d("__RESULT", "Result NOT OK $resultCode")
-                Log.d("__RESULT", "Result NOT OK ${data?.getSerializableExtra("result")}")
+        if (requestCode == ChallengeActivity.PRAAKTIS_SDK_REQUEST_CODE) {
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    getActivity()?.finish()
+                    @Suppress("UNCHECKED_CAST")
+                    val result = data!!.getSerializableExtra("result") as HashMap<String, Any>?
+                    Log.d("__RESULT", "Result: $result")
+                    ChallengeActivity.start(
+                        requireActivity(),
+                        challengeItem,
+                        result,
+                        data.getStringExtra(RAW_VIDEO_PATH),
+                        data.getStringExtra(VIDEO_PATH)
+                    )
+                }
+                ExerciseEngineActivity.AUTHENTICATION_FAILED -> {
+                    Timber.d("LOGOUT EVENT : AUTHENTICATION_FAILED")
+                    mViewModel.logout()
+                }
+                ExerciseEngineActivity.CALIBRATION_FAILED, ExerciseEngineActivity.POOR_CONNECTION -> {
+                    getActivity()?.finish()
+                    Timber.d("ERROR EVENT : $resultCode")
+                    Timber.d("Result NOT OK ${data?.getSerializableExtra("result")}")
+                }
+                else -> {
+                    getActivity()?.finish()
+                    Log.d("__RESULT", "Result NOT OK $resultCode")
+                    Log.d("__RESULT", "Result NOT OK ${data?.getSerializableExtra("result")}")
+                }
             }
         }
     }

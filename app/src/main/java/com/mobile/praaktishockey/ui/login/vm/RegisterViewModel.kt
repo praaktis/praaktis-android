@@ -32,6 +32,8 @@ class RegisterViewModel(app: Application) : BaseViewModel(app) {
                 val temp = it.string()
                 val json = JSONObject(temp)
                 loginStorage.token = json.getString("token")
+                loginStorage.login = userName
+                loginStorage.password = password
                 loginEvent.postValue(true)
             }, ::onError)
     }

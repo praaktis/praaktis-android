@@ -13,8 +13,11 @@ import com.mobile.praaktishockey.domain.common.pref.SettingsStorage
 import com.mobile.praaktishockey.domain.entities.CountryItemDTO
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.json.JSONObject
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.InterruptedIOException
 
 open class BaseViewModel(app: Application) : AndroidViewModel(app) {
@@ -23,8 +26,8 @@ open class BaseViewModel(app: Application) : AndroidViewModel(app) {
     val showHideEvent = BoolLV()
     val logoutEvent = BoolLV()
 
-    fun getLogin() : String = settingsStorage.login
-    fun getPassword() : String = settingsStorage.password
+    fun getLogin(): String = settingsStorage.login
+    fun getPassword(): String = settingsStorage.password
 
     fun onLogoutSuccess() {
         UserServiceRepository.UserServiceRepositoryImpl.INSTANCE = null
@@ -69,7 +72,7 @@ open class BaseViewModel(app: Application) : AndroidViewModel(app) {
                             json.keys().forEach {
                                 messages.add(json.getString(it))
                             }
-                        } catch (ex: JsonParseException) {
+                        } catch (ex: Exception) {
                             temp.toString()
                         }
                         messages.joinToString()

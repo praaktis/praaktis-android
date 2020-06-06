@@ -198,6 +198,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/first_name"
+                                android:nextFocusDown="@id/etLastName"
                                 android:inputType="textEmailAddress"
                                 android:maxLength="40" />
 
@@ -217,6 +218,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/last_name"
+                                android:nextFocusDown="@id/etUsername"
                                 android:inputType="textPersonName"
                                 android:maxLength="40" />
 
@@ -235,6 +237,7 @@
                                 android:id="@+id/etUsername"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:nextFocusDown="@id/etCountry"
                                 android:hint="@string/how_would_you_like_to_be_known"
                                 android:inputType="text"
                                 android:maxLength="40" />

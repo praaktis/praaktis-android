@@ -62,12 +62,20 @@ class LoginActivity constructor(override val layoutId: Int = R.layout.activity_l
     private val loginStorage by lazy { SettingsStorage.instance }
     var isLoginProcessFinishSuccess = false
     private var tempToken: String? = null
+    private var tempLogin: String? = null
+    private var tempPassword: String? = null
 
     override fun onResume() {
         super.onResume()
         if (!isLoginProcessFinishSuccess) {
             tempToken?.let {
                 loginStorage.token = it
+            }
+            tempLogin?.let {
+                loginStorage.login = it
+            }
+            tempPassword?.let {
+                loginStorage.password = it
             }
         }
     }
@@ -76,6 +84,8 @@ class LoginActivity constructor(override val layoutId: Int = R.layout.activity_l
         super.onStop()
         if (!isLoginProcessFinishSuccess) {
             tempToken = loginStorage.token()
+            tempLogin = loginStorage.login
+            tempPassword = loginStorage.password
             loginStorage.logout()
         }
     }

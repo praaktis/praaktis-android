@@ -132,7 +132,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             intent.putExtra("PASSWORD", mViewModel.getPassword())
             intent.putExtra("EXERCISE", challengeItem.id)
             intent.putExtra(ChallengeInstructionFragment.SINGLE_USER_MODE, mViewModel.settingsStorage.cameraMode)
-            requireActivity().startActivityForResult(intent, 333)
+            requireActivity().startActivityForResult(intent, ChallengeActivity.PRAAKTIS_SDK_REQUEST_CODE)
         }
     }
 

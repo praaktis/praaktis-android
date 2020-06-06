@@ -39,7 +39,7 @@ abstract class BaseActivity : AppCompatActivity() {
                 else if (it is Int) makeToast(it)
             })
             it.logoutEvent.observe(this, Observer {
-//                makeToast("" + it)
+                makeToast("" + it)
             })
 
             it.showHideEvent.observe(this, Observer {
