@@ -19,7 +19,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.mobile.praaktishockey.BuildConfig
 import com.mobile.praaktishockey.R
+import com.nguyenhoanglam.imagepicker.model.Config
+import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker
 
 fun AppCompatActivity.supportFragmentTransaction(init: FragmentTransaction.() -> Unit) {
     if (!isFinishing) {
@@ -143,4 +146,21 @@ fun FragmentManager.switch(containerId: Int, newFrag: Fragment, tag: String) {
         .setPrimaryNavigationFragment(current)
         .setReorderingAllowed(true)
         .commitNowAllowingStateLoss()
+}
+
+fun Fragment.openImagePicker() {
+    ImagePicker.with(this)
+        .setToolbarColor("#000000")
+        .setStatusBarColor("#000000")
+        .setToolbarTextColor("#FFFFFF")
+        .setToolbarIconColor("#FFFFFF")
+        .setProgressBarColor("#CE0106")
+        .setBackgroundColor("#66000000")
+        .setShowCamera(true)
+        .setMultipleMode(false)
+        .setFolderMode(true)
+        .setDoneTitle("Done")
+        .setRootDirectoryName(Config.ROOT_DIR_DCIM)
+        .setDirectoryName(getString(R.string.app_name))
+        .start()
 }

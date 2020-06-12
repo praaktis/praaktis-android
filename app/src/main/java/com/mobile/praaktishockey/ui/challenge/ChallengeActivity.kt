@@ -8,7 +8,6 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.BaseActivity
-import com.mobile.praaktishockey.base.BaseViewModel
 import com.mobile.praaktishockey.data.entities.TimelineEntity
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.extension.getViewModel
@@ -26,6 +25,9 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
 
     companion object {
         const val PRAAKTIS_SDK_REQUEST_CODE = 333
+        const val AUTHENTICATION_FAILED = 401
+        const val POOR_CONNECTION = 402
+        const val CALIBRATION_FAILED = 403
 
         fun start(activity: Activity) {
             val intent = Intent(activity, ChallengeActivity::class.java)
@@ -116,11 +118,11 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
                         data.getStringExtra(ChallengeInstructionFragment.VIDEO_PATH)
                     )
                 }
-                ExerciseEngineActivity.AUTHENTICATION_FAILED -> {
+                AUTHENTICATION_FAILED -> {
                     Timber.d("LOGOUT EVENT : AUTHENTICATION_FAILED")
                     mViewModel.logout()
                 }
-                ExerciseEngineActivity.CALIBRATION_FAILED, ExerciseEngineActivity.POOR_CONNECTION -> {
+                CALIBRATION_FAILED, POOR_CONNECTION -> {
                     finish()
                     Timber.d("ERROR EVENT : $resultCode")
                     Timber.d("Result NOT OK ${data?.getSerializableExtra("result")}")

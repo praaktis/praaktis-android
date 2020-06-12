@@ -4,8 +4,6 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import com.afollestad.vvalidator.form
 import com.bumptech.glide.Glide
 import com.mobile.praaktishockey.R
@@ -148,20 +146,7 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
         }
 
         ivAvatar.onClick {
-            ImagePicker.with(this)
-                .setToolbarColor("#000000")
-                .setStatusBarColor("#000000")
-                .setToolbarTextColor("#FFFFFF")
-                .setToolbarIconColor("#FFFFFF")
-                .setProgressBarColor("#CE0106")
-                .setBackgroundColor("#66000000")
-                .setShowCamera(true)
-                .setMultipleMode(false)
-                .setFolderMode(true)
-                .setDoneTitle("Done")
-                .setSavePath("BelgianHockey")
-                .setKeepScreenOn(true)
-                .start()
+            openImagePicker()
         }
 
         tvBackLogin.onClick {
@@ -262,9 +247,9 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == Config.RC_PICK_IMAGES && resultCode == RESULT_OK && data != null) {
-            val images: ArrayList<Image> = data.getParcelableArrayListExtra(Config.EXTRA_IMAGES)
+            val images: ArrayList<Image> = ImagePicker.getImages(data)
             userImageUri = images.first().path
-            Glide.with(context!!)
+            Glide.with(this)
                 .load(userImageUri)
                 .into(ivAvatar)
         }
