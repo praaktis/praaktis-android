@@ -53,6 +53,8 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
             4 -> R.raw.handsup1
             5 -> R.raw.squats1
             6 -> R.raw.curl1
+            7 -> R.raw.fw_lunge
+            8 -> R.raw.bw_lunge
             else -> R.raw.challenge_video
         }
 

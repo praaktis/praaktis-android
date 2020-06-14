@@ -25,9 +25,6 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
 
     companion object {
         const val PRAAKTIS_SDK_REQUEST_CODE = 333
-        const val AUTHENTICATION_FAILED = 401
-        const val POOR_CONNECTION = 402
-        const val CALIBRATION_FAILED = 403
 
         fun start(activity: Activity) {
             val intent = Intent(activity, ChallengeActivity::class.java)
@@ -118,11 +115,11 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
                         data.getStringExtra(ChallengeInstructionFragment.VIDEO_PATH)
                     )
                 }
-                AUTHENTICATION_FAILED -> {
+                ExerciseEngineActivity.AUTHENTICATION_FAILED -> {
                     Timber.d("LOGOUT EVENT : AUTHENTICATION_FAILED")
                     mViewModel.logout()
                 }
-                CALIBRATION_FAILED, POOR_CONNECTION -> {
+                ExerciseEngineActivity.CALIBRATION_FAILED, ExerciseEngineActivity.POOR_CONNECTION -> {
                     finish()
                     Timber.d("ERROR EVENT : $resultCode")
                     Timber.d("Result NOT OK ${data?.getSerializableExtra("result")}")

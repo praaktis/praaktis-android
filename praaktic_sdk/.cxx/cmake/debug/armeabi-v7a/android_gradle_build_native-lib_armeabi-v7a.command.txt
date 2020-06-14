@@ -1,7 +1,0 @@
-Executable : C:\Users\Saidjamol\AppData\Local\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe
-arguments : 
--C
-C:\Users\Saidjamol\AndroidStudioProjects\praaktis-android\praaktic_sdk\.cxx\cmake\debug\armeabi-v7a
-native-lib
-jvmArgs : 
-

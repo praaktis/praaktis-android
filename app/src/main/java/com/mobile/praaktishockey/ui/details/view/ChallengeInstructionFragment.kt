@@ -162,11 +162,11 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
                         data.getStringExtra(VIDEO_PATH)
                     )
                 }
-                ChallengeActivity.AUTHENTICATION_FAILED -> {
+                ExerciseEngineActivity.AUTHENTICATION_FAILED -> {
                     Timber.d("LOGOUT EVENT : AUTHENTICATION_FAILED")
                     mViewModel.logout()
                 }
-                ChallengeActivity.CALIBRATION_FAILED, ChallengeActivity.POOR_CONNECTION -> {
+                ExerciseEngineActivity.CALIBRATION_FAILED, ExerciseEngineActivity.POOR_CONNECTION -> {
                     getActivity()?.finish()
                     Timber.d("ERROR EVENT : $resultCode")
                     Timber.d("Result NOT OK ${data?.getSerializableExtra("result")}")
