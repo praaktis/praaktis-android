@@ -5,6 +5,14 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
+    signingConfigs {
+        relese_signing_config {
+            storeFile file('C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\keys\\keystore.jks')
+            storePassword 'Uu9DVnC!PShqGv-uM?93'
+            keyAlias 'key0'
+            keyPassword 'T&mGKc)w2]FB9NW#QBjH'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
@@ -12,9 +20,10 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 22
-        versionName "0.8.99"
+        versionName "0.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptSupportModeEnabled true
+        signingConfig signingConfigs.relese_signing_config
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -27,7 +36,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

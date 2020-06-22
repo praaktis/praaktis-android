@@ -93,7 +93,12 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
     ) {
         when (requestCode) {
             PRAAKTIS_SDK_PERMISSIONS -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+                val permissionsGrantedList: MutableList<Boolean> = mutableListOf()
+                grantResults.forEach {
+                    permissionsGrantedList.add(it == PackageManager.PERMISSION_GRANTED)
+                }
+
+                if (!permissionsGrantedList.contains(false)/*grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED && grantResults[2] == PackageManager.PERMISSION_GRANTED*/) {
                     openChallengeVideo()
                 } else {
                     val showRationale =

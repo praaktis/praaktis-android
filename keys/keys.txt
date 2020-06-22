@@ -1,0 +1,4 @@
+C:\Users\Saidjamol\AndroidStudioProjects\praaktis-android\keys\keystore.jks
+keystore_password: Uu9DVnC!PShqGv-uM?93
+alias: key0
+key_password: T&mGKc)w2]FB9NW#QBjH
