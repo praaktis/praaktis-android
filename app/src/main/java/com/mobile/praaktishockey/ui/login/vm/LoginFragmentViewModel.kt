@@ -10,7 +10,6 @@ import com.mobile.praaktishockey.domain.entities.LanguageItem
 import com.mobile.praaktishockey.domain.entities.UserDTO
 import org.json.JSONObject
 import retrofit2.HttpException
-import java.lang.Exception
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -35,7 +34,8 @@ class LoginFragmentViewModel(app: Application) : BaseViewModel(app) {
                     loginStorage.login = userName
                     loginStorage.password = password
                     loadProfile()
-                } catch (e: Exception) {}
+                } catch (e: Exception) {
+                }
             }, ::onError)
     }
 
@@ -45,8 +45,15 @@ class LoginFragmentViewModel(app: Application) : BaseViewModel(app) {
                 .doOnSubscribe { showHideEvent.postValue(true) }
                 .doAfterTerminate { showHideEvent.postValue(false) }
                 .subscribe({
-                    loginEvent.postValue(it)
                     loginStorage.setProfile(it)
+                    commonsRepo.getServerName()
+                        .doOnSubscribe { showHideEvent.postValue(true) }
+                        .doAfterTerminate { showHideEvent.postValue(false) }
+                        .subscribe({ serverName ->
+                            settingsStorage.praaktisServerName =
+                                serverName.getOrDefault("serverName", "")
+                            loginEvent.postValue(it)
+                        }, ::onError)
                 }, ::onError)
         else loginEvent.postValue(null)
     }

@@ -10,6 +10,8 @@ interface CommonsServiceRepository {
 
     fun getCountries(): Single<List<CountryItemDTO>>
 
+    fun getServerName(): Single<Map<String, String>>
+
     class CommonsServiceRepositoryImpl(val app: Application) : CommonsServiceRepository {
 
         companion object {
@@ -26,6 +28,10 @@ interface CommonsServiceRepository {
 
         override fun getCountries(): Single<List<CountryItemDTO>> {
             return commonsService.getCountries()
+        }
+
+        override fun getServerName(): Single<Map<String, String>> {
+            return commonsService.getServerName()
         }
     }
 

@@ -24,4 +24,5 @@ interface LoginSettings {
     fun getComparison(): ComparisonDTO?
 
     fun cameraMode(): Boolean
+    fun praaktisServerName(): String
 }

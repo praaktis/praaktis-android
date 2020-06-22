@@ -6,10 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.mobile.praaktishockey.base.BaseViewModel
 import com.mobile.praaktishockey.data.repository.AuthSeriviceRepository
 import com.mobile.praaktishockey.data.repository.UserServiceRepository
-import com.mobile.praaktishockey.domain.common.LiveEvent
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import io.reactivex.disposables.Disposable
-import kotlin.random.Random
 
 class MainViewModel(app: Application) : BaseViewModel(app) {
 
@@ -47,5 +45,11 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
 //        challengesEvent.postValue()
         if (settingsStorage.getChallenges() != null)
             _challengesLiveData.postValue(settingsStorage.getChallenges())
+    }
+
+    fun getServerName() {
+        commonsRepo.getServerName().subscribe({
+            settingsStorage.praaktisServerName = it.get(it.keys.first()) ?: ""
+        }, ::onError)
     }
 }

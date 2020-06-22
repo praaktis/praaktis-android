@@ -8,4 +8,8 @@ interface CommonsService {
 
     @GET("getCountries/")
     fun getCountries(): Single<List<CountryItemDTO>>
+
+    @GET("serverName/")
+    fun getServerName(): Single<Map<String, String>>
+
 }
