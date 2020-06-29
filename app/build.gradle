@@ -19,8 +19,8 @@ android {
         applicationId "com.mobile.praaktishockey"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 22
-        versionName "0.9"
+        versionCode 29
+        versionName "0.9.31"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptSupportModeEnabled true
         signingConfig signingConfigs.relese_signing_config

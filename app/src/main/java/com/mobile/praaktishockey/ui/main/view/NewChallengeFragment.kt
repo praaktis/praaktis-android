@@ -98,13 +98,18 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
                     permissionsGrantedList.add(it == PackageManager.PERMISSION_GRANTED)
                 }
 
-                if (!permissionsGrantedList.contains(false)/*grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED && grantResults[2] == PackageManager.PERMISSION_GRANTED*/) {
+                if (!permissionsGrantedList.contains(false)) {
                     openChallengeVideo()
                 } else {
-                    val showRationale =
-                        shouldShowRequestPermissionRationale(permissions[0]) || shouldShowRequestPermissionRationale(
-                            permissions[1]
-                        ) || shouldShowRequestPermissionRationale(permissions[2])
+                    var showRationale = false
+                    kotlin.run loop@{
+                        permissions.forEach {
+                            if (shouldShowRequestPermissionRationale(it)) {
+                                showRationale = true
+                                return@loop
+                            }
+                        }
+                    }
                     materialAlert {
                         setMessage("Sorry!!!, you can't use challenges without granting permissions")
                         setPositiveButton(

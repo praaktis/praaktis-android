@@ -23,14 +23,15 @@ class ConfirmLoginFragmentViewModel(app: Application) : BaseViewModel(app) {
             .doOnSubscribe { showHideEvent.postValue(true) }
             .doAfterTerminate { showHideEvent.postValue(false) }
             .subscribe({
-                commonsRepo.getServerName()
+                profileInfoEvent.postValue(it)
+                /*commonsRepo.getServerName()
                     .doOnSubscribe { showHideEvent.postValue(true) }
                     .doAfterTerminate { showHideEvent.postValue(false) }
                     .subscribe({ serverName ->
                         settingsStorage.praaktisServerName =
                             serverName.getOrDefault("serverName", "")
                         profileInfoEvent.postValue(it)
-                    }, ::onError)
+                    }, ::onError)*/
             }, ::onError)
     }
 
