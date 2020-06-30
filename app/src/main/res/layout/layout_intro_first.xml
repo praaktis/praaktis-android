@@ -18,7 +18,7 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@id/tv_title"
         app:layout_constraintStart_toStartOf="@id/tv_title"
-        app:srcCompat="@drawable/ic_logo" />
+        app:srcCompat="@drawable/ic_logo_2" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_title"

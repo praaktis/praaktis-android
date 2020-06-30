@@ -19,8 +19,8 @@ android {
         applicationId "com.mobile.praaktishockey"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 29
-        versionName "0.9.31"
+        versionCode 30
+        versionName "0.9.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptSupportModeEnabled true
         signingConfig signingConfigs.relese_signing_config
@@ -148,9 +148,9 @@ dependencies {
     // analytics.
     implementation 'com.google.firebase:firebase-analytics:17.4.3'
     // crashlytics.
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.1'
+    implementation 'com.google.firebase:firebase-crashlytics:17.1.0'
     // notifications
-    implementation 'com.google.firebase:firebase-messaging:20.2.0'
+    implementation 'com.google.firebase:firebase-messaging:20.2.1'
 
     // chart lib
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
