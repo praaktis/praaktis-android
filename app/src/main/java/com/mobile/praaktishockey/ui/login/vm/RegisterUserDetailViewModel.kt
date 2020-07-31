@@ -46,8 +46,8 @@ class RegisterUserDetailViewModel(app: Application) : BaseViewModel(app) {
             .doAfterTerminate { showHideEvent.postValue(false) }
             .subscribe({
                 var temp = it.string().replace("\"", "")
-                if (!temp.startsWith("https"))
-                    temp = "https://$temp"
+                /*if (!temp.startsWith("http"))
+                    temp = "https://$temp"*/
                 getAcceptTermsEvent.postValue(temp)
             }, ::onError)
     }

@@ -19,6 +19,10 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
     private var challengesDisposable: Disposable? = null
     private var fcmDisposable: Disposable? = null
 
+    init {
+        getServerName()
+    }
+
     fun getChallenges() {
         challengesDisposable = userRepository.getChallenges()
             .doOnSubscribe { showHideEvent.postValue(true) }
@@ -50,6 +54,6 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
     fun getServerName() {
         commonsRepo.getServerName().subscribe({
             settingsStorage.praaktisServerName = it.get(it.keys.first()) ?: ""
-        }, ::onError)
+        }, {})
     }
 }

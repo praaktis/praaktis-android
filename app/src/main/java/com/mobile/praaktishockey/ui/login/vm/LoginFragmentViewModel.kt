@@ -47,16 +47,6 @@ class LoginFragmentViewModel(app: Application) : BaseViewModel(app) {
                 .subscribe({
                     loginStorage.setProfile(it)
                     loginEvent.postValue(it)
-/*
-                    commonsRepo.getServerName()
-                        .doOnSubscribe { showHideEvent.postValue(true) }
-                        .doAfterTerminate { showHideEvent.postValue(false) }
-                        .subscribe({ serverName ->
-                            settingsStorage.praaktisServerName =
-                                serverName.getOrDefault("serverName", "")
-                            loginEvent.postValue(it)
-                        }, ::onError)
-*/
                 }, ::onError)
         else loginEvent.postValue(null)
     }

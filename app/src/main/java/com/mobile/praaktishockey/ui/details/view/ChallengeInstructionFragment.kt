@@ -131,7 +131,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
             intent.putExtra("PASSWORD", mViewModel.getPassword())
             intent.putExtra("EXERCISE", challengeItem.id)
             intent.putExtra(SINGLE_USER_MODE, mViewModel.settingsStorage.cameraMode)
-//            intent.putExtra(SERVER_NAME, mViewModel.settingsStorage.praaktisServerName)
+            intent.putExtra(SERVER_NAME, mViewModel.settingsStorage.praaktisServerName)
             startActivityForResult(intent, ChallengeActivity.PRAAKTIS_SDK_REQUEST_CODE)
         }
     }
