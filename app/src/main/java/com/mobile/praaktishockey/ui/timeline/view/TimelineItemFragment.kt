@@ -2,6 +2,7 @@ package com.mobile.praaktishockey.ui.timeline.view
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -109,6 +110,7 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
             }
         }
         binding.ivInfo.setOnClickListener {
+            binding.rvTimeline.smoothScrollToPosition(0)
             restartSpotlight()
         }
     }

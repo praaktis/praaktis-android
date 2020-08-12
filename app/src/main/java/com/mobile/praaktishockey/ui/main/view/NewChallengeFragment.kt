@@ -7,6 +7,7 @@ import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -159,6 +160,8 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
             }
         }
         binding.ivInfo.setOnClickListener {
+            binding.nestedScroll.fullScroll(View.FOCUS_UP)
+            binding.nestedScroll.smoothScrollTo(0,0)
             restartSpotlight()
         }
     }
@@ -193,7 +196,8 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
         val target = LayoutTargetChallengesBinding.inflate(layoutInflater)
         target.closeSpotlight.setOnClickListener { closeSpotlight() }
 
-        target.customText.text = "Discover all the Challenges and Identify which one you want to try"
+        target.customText.text =
+            "Discover all the Challenges and Identify which one you want to try"
 
         val rvLocation = IntArray(2)
         binding.rvChallenges.getLocationOnScreen(rvLocation)

@@ -4,6 +4,7 @@ import android.graphics.Point
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.LinearLayout
 import androidx.core.view.doOnPreDraw
 import androidx.core.widget.NestedScrollView
@@ -184,6 +185,10 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
             }
         }
         binding.ivInfo.setOnClickListener {
+            if (binding.nestedScroll.canScrollVertically(-1)) {
+                binding.nestedScroll.fullScroll(View.FOCUS_UP)
+                binding.nestedScroll.smoothScrollTo(0, 0)
+            }
             restartSpotlight()
         }
     }
@@ -261,7 +266,8 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
 
         secondTarget.closeTarget.setOnClickListener { nextTarget() }
         secondTarget.closeSpotlight.setOnClickListener { closeSpotlight() }
-        secondTarget.customText.text = "Shows your scores and attempts for each Challenge and comparison with Friends and other Users at your level, age and experience"
+        secondTarget.customText.text =
+            "Shows your scores and attempts for each Challenge and comparison with Friends and other Users at your level, age and experience"
 
         secondTarget.root.updatePadding(bottom = tvAnalysisLocation[1] - binding.tvAnalysisTitle.height)
 
