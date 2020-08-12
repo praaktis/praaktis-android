@@ -13,8 +13,12 @@
     <color name="grey_600">#868686</color>
     <color name="red_500">#F44336</color>
 
+    <color name="deep_purple_a200_alpha_90">#E6A155FF</color>
+    <color name="deep_purple_a400_alpha_90">#E6661FF5</color>
+
     <color name="blue_grey_900">#282829</color>
     <color name="amber_300">#FFCE51</color>
+    <color name="amber_300_alpha_90">#E6FFCE51</color>
     <color name="purple_900">#300686</color>
     <color name="purple_900_1">#43146E</color>
     <color name="indigo_a100">#A6A4F8</color>
@@ -29,6 +33,7 @@
     <color name="white_alpha_50">#80FFFFFF</color>
     <color name="white_alpha_60">#99FFFFFF</color>
     <color name="white_alpha_70">#B3FFFFFF</color>
+    <color name="white_alpha_5">#0DFFFFFF</color>
 
     <color name="black">#000000</color>
     <color name="black_text">#515151</color>

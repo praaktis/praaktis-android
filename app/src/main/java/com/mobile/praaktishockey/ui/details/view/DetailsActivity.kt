@@ -2,6 +2,7 @@ package com.mobile.praaktishockey.ui.details.view
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -10,10 +11,7 @@ import com.mobile.praaktishockey.base.temp.BaseActivity
 import com.mobile.praaktishockey.data.entities.AnalysisComplete
 import com.mobile.praaktishockey.databinding.ActivityDetailsBinding
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
-import com.mobile.praaktishockey.domain.extension.getViewModel
-import com.mobile.praaktishockey.domain.extension.replaceFragment
-import com.mobile.praaktishockey.domain.extension.setLightNavigationBar
-import com.mobile.praaktishockey.domain.extension.transparentStatusAndNavigationBar
+import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.details.vm.DetailsViewModel
 import kotlinx.android.synthetic.main.activity_details.*
 
@@ -34,7 +32,9 @@ class DetailsActivity constructor(override val layoutId: Int = R.layout.activity
 
     override fun initUI(savedInstanceState: Bundle?) {
         transparentStatusAndNavigationBar()
-        setLightNavigationBar()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            setLightNavigationBar()
+        }
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -66,20 +66,34 @@ class DetailsActivity constructor(override val layoutId: Int = R.layout.activity
                 )
             }
             AnalysisFragment.TAG -> {
+                val fragment = AnalysisFragment.getInstance(
+                    intent.getSerializableExtra(
+                        AnalysisFragment.TAG
+                    ) as AnalysisComplete
+                )
                 replaceFragment(AnalysisFragment.TAG) {
                     replace(
                         R.id.container,
-                        AnalysisFragment.getInstance(
-                            intent.getSerializableExtra(
-                                AnalysisFragment.TAG
-                            ) as AnalysisComplete
-                        ),
+                        fragment,
                         AnalysisFragment.TAG
                     )
+                }
+
+                binding.ivInfo.show()
+                binding.ivInfo.setOnClickListener {
+                    fragment.restartSpotlight()
                 }
             }
             else -> throw IllegalArgumentException("Wrong fragment")
         }
+    }
+
+    fun hideInfo() {
+        binding.ivInfo.hideAnimWithScale()
+    }
+
+    fun showInfo() {
+        binding.ivInfo.showAnimWithScale()
     }
 
     private fun changeTitle(title: String) {

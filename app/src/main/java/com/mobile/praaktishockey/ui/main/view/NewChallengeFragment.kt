@@ -3,6 +3,7 @@ package com.mobile.praaktishockey.ui.main.view
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -13,13 +14,19 @@ import androidx.lifecycle.ViewModelProvider
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.temp.BaseFragment
 import com.mobile.praaktishockey.databinding.FragmentNewChallengeBinding
+import com.mobile.praaktishockey.databinding.LayoutTargetChallengesBinding
+import com.mobile.praaktishockey.domain.common.AppGuide
+import com.mobile.praaktishockey.domain.common.resettableLazy
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
-import com.mobile.praaktishockey.domain.extension.getViewModel
-import com.mobile.praaktishockey.domain.extension.materialAlert
+import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.challenge.ChallengeVideoActivity
 import com.mobile.praaktishockey.ui.main.adapter.ChallengesAdapter
 import com.mobile.praaktishockey.ui.main.vm.MainViewModel
 import com.mobile.praaktishockey.ui.main.vm.NewChallengeViewModel
+import com.takusemba.spotlight.OnSpotlightListener
+import com.takusemba.spotlight.Spotlight
+import com.takusemba.spotlight.Target
+import com.takusemba.spotlight.shape.RoundedRectangle
 import kotlinx.android.synthetic.main.fragment_new_challenge.*
 
 
@@ -47,13 +54,17 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
         mainViewModel = ViewModelProvider(activity).get(MainViewModel::class.java)
 
         val adapter = ChallengesAdapter {
+            closeSpotlight()
+
             this.challenge = it
             handleChallengeClick()
         }
         rv_challenges.adapter = adapter
 
         mainViewModel.challengesEvent.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
+            adapter.submitList(it) {
+                startGuideIfNecessary()
+            }
         })
 
     }
@@ -135,6 +146,75 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
             action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
             data = Uri.fromParts("package", activity.packageName, null)
         })
+    }
+
+    private val spotlightDelegate = resettableLazy { initGuide() }
+    private val spotlight by spotlightDelegate
+
+    private fun startGuideIfNecessary() {
+        if (!AppGuide.isGuideDone(TAG)) {
+            AppGuide.setGuideDone(TAG)
+            binding.rvChallenges.doOnPreDraw {
+                spotlight.start()
+            }
+        }
+        binding.ivInfo.setOnClickListener {
+            restartSpotlight()
+        }
+    }
+
+    private fun restartSpotlight() {
+        if (spotlightDelegate.isInitialized())
+            spotlightDelegate.reset()
+        spotlight.start()
+    }
+
+    private fun closeSpotlight() {
+        spotlight.finish()
+    }
+
+    private fun initGuide(): Spotlight {
+        return Spotlight.Builder(activity)
+            .setTargets(challengeTarget())
+            .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
+            .setOnSpotlightListener(object : OnSpotlightListener {
+                override fun onStarted() {
+                    binding.ivInfo.hideAnimWithScale()
+                }
+
+                override fun onEnded() {
+                    binding.ivInfo.showAnimWithScale()
+                }
+            })
+            .build()
+    }
+
+    private fun challengeTarget(): Target {
+        val target = LayoutTargetChallengesBinding.inflate(layoutInflater)
+        target.closeSpotlight.setOnClickListener { closeSpotlight() }
+
+        target.customText.text = "Discover all the Challenges and Identify which one you want to try"
+
+        val rvLocation = IntArray(2)
+        binding.rvChallenges.getLocationOnScreen(rvLocation)
+
+        val rvVisibleRect = Rect()
+        binding.rvChallenges.getLocalVisibleRect(rvVisibleRect)
+
+        return Target.Builder()
+            .setAnchor(
+                rvLocation[0] + binding.rvChallenges.width / 2f,
+                rvLocation[1] + rvVisibleRect.height() / 2f
+            )
+            .setOverlay(target.root)
+            .setShape(
+                RoundedRectangle(
+                    rvVisibleRect.height().toFloat() + 20.dp,
+                    binding.rvChallenges.width.toFloat() + 20.dp,
+                    4.dp.toFloat()
+                )
+            )
+            .build()
     }
 
 }

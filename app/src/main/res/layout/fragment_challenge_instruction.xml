@@ -40,6 +40,19 @@
                 android:textSize="18sp"
                 tools:text="Title" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center"
+                android:layout_marginEnd="16dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="@string/show_guide"
+                android:focusable="true"
+                android:padding="4dp"
+                app:srcCompat="@drawable/ic_outline_info" />
+
         </FrameLayout>
 
         <androidx.core.widget.NestedScrollView

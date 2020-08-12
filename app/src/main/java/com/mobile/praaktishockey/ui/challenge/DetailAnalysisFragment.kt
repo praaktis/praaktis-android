@@ -6,22 +6,31 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.annotation.Dimension
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.doOnPreDraw
+import androidx.core.view.updateMargins
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.temp.BaseFragment
 import com.mobile.praaktishockey.data.entities.TimelineEntity
 import com.mobile.praaktishockey.databinding.FragmentDetailedAnalysisBinding
+import com.mobile.praaktishockey.databinding.LayoutTargetTimelineBinding
 import com.mobile.praaktishockey.domain.common.AnalysisLineChart
+import com.mobile.praaktishockey.domain.common.AppGuide
 import com.mobile.praaktishockey.domain.common.GRADIENT_PROGRESS_ARRAY
+import com.mobile.praaktishockey.domain.common.resettableLazy
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.entities.DetailPoint
 import com.mobile.praaktishockey.domain.entities.DetailScoreDTO
-import com.mobile.praaktishockey.domain.extension.dp
-import com.mobile.praaktishockey.domain.extension.getViewModel
+import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.challenge.vm.DetailAnalysisFragmentViewModel
 import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
+import com.takusemba.spotlight.OnSpotlightListener
+import com.takusemba.spotlight.Spotlight
+import com.takusemba.spotlight.Target
+import com.takusemba.spotlight.shape.RoundedRectangle
 import kotlinx.android.synthetic.main.fragment_detailed_analysis.*
 
 class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.fragment_detailed_analysis) :
@@ -69,6 +78,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
         }
         mViewModel.detailResultEvent.observe(this, Observer {
             setDetail(it)
+            startGuideIfNecessary(it.size)
         })
     }
 
@@ -138,4 +148,75 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
             llAnalysisContainer.addView(chart)
         }
     }
+
+    private val spotlightDelegate = resettableLazy { initGuide() }
+    private val spotlight by spotlightDelegate
+
+    private fun startGuideIfNecessary(listSize: Int) {
+        if (!AppGuide.isGuideDone(TAG)) {
+            if (listSize > 0) {
+                AppGuide.setGuideDone(TAG)
+                binding.topPanel.doOnPreDraw {
+                    spotlight.start()
+                }
+            }
+        }
+        binding.ivInfo.setOnClickListener {
+            restartSpotlight()
+        }
+    }
+
+    private fun restartSpotlight() {
+        if (spotlightDelegate.isInitialized())
+            spotlightDelegate.reset()
+        spotlight.start()
+    }
+
+    private fun closeSpotlight() {
+        spotlight.finish()
+    }
+
+    private fun initGuide(): Spotlight {
+        return Spotlight.Builder(activity)
+            .setTargets(detailsTarget())
+            .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
+            .setOnSpotlightListener(object : OnSpotlightListener {
+                override fun onStarted() {
+                    binding.ivInfo.hideAnimWithScale()
+                }
+
+                override fun onEnded() {
+                    binding.ivInfo.showAnimWithScale()
+                }
+            })
+            .build()
+    }
+
+    private fun detailsTarget(): Target {
+        val target = LayoutTargetTimelineBinding.inflate(layoutInflater)
+        target.closeSpotlight.setOnClickListener { closeSpotlight() }
+        target.customText.updateLayoutParams<ConstraintLayout.LayoutParams> { updateMargins(top = binding.toolbar.height + 340.dp) }
+        target.customText.text =
+            "Shows your performance on each of the key aspects of the Challenge"
+
+        val viewLocation = IntArray(2)
+        binding.toolbar.getLocationOnScreen(viewLocation)
+
+        return Target.Builder()
+            .setAnchor(
+                viewLocation[0] + binding.llAnalysisContainer.width / 2f,
+                viewLocation[1].toFloat() + 220.dp
+            )
+            .setOverlay(target.root)
+            .setShape(
+                RoundedRectangle(
+                    320.dp.toFloat(),
+                    binding.llAnalysisContainer.width.toFloat() - 32.dp,
+                    4.dp.toFloat()
+                )
+            )
+            .build()
+    }
+
+
 }

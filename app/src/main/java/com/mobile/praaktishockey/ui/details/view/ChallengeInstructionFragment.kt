@@ -4,25 +4,31 @@ package com.mobile.praaktishockey.ui.details.view
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.app.Activity
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.PraaktisApp
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseViewModel
 import com.mobile.praaktishockey.base.temp.BaseFragment
 import com.mobile.praaktishockey.databinding.FragmentChallengeInstructionBinding
+import com.mobile.praaktishockey.databinding.LayoutTargetBinding
+import com.mobile.praaktishockey.databinding.LayoutTargetBottomBinding
+import com.mobile.praaktishockey.domain.common.AppGuide
+import com.mobile.praaktishockey.domain.common.resettableLazy
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
-import com.mobile.praaktishockey.domain.extension.getViewModel
-import com.mobile.praaktishockey.domain.extension.updateLayoutParams
+import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.challenge.ChallengeActivity
 import com.mobile.praaktishockey.ui.login.view.LoginActivity
 import com.mobile.praaktishockey.ui.main.vm.MenuViewModel
 import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
+import com.takusemba.spotlight.OnSpotlightListener
+import com.takusemba.spotlight.Spotlight
+import com.takusemba.spotlight.Target
+import com.takusemba.spotlight.shape.RoundedRectangle
 import kotlinx.android.synthetic.main.fragment_challenge_instruction.*
 import timber.log.Timber
 
@@ -58,17 +64,21 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         tvtitle.text = challengeItem.name
 
         binding.tgMode.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            if (isChecked)
+            if (isChecked) {
+                autoStartAnimator.start()
                 changeInstruction(checkedId)
+            }
         }
-        val defaultCheckedMode = if (mViewModel.settingsStorage.cameraMode) R.id.btn_single else R.id.btn_multi
+        val defaultCheckedMode =
+            if (mViewModel.settingsStorage.cameraMode) R.id.btn_single else R.id.btn_multi
         binding.tgMode.check(defaultCheckedMode)
 
         tv_start_challenge.setOnClickListener {
             autoStartAnimator.pause()
             startChallengeSteps()
         }
-        initAutoStart()
+
+        startGuideIfNecessary()
 
         mViewModel.logoutEvent.observe(viewLifecycleOwner, Observer {
             if (it) {
@@ -105,10 +115,12 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         autoStartAnimator.duration = AUTO_START_DURATION
         autoStartAnimator.addUpdateListener {
             val v = it.animatedValue as Float
-            if (vAutoStart == null) autoStartAnimator.pause()
-            vAutoStart.updateLayoutParams<LinearLayout.LayoutParams> {
-                weight = v
-            }
+            if (vAutoStart == null)
+                autoStartAnimator.pause()
+            else
+                vAutoStart.updateLayoutParams<LinearLayout.LayoutParams> {
+                    weight = v
+                }
         }
         autoStartAnimator.addListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator?) {}
@@ -181,4 +193,100 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
             }
         }
     }
+
+    private val spotlightDelegate = resettableLazy { initGuide() }
+    private val spotlight by spotlightDelegate
+
+    private fun startGuideIfNecessary() {
+        if (!AppGuide.isGuideDone(TAG)) {
+            AppGuide.setGuideDone(TAG)
+            binding.tgMode.doOnPreDraw {
+                spotlight.start()
+            }
+        } else {
+            initAutoStart()
+        }
+        binding.ivInfo.setOnClickListener {
+            restartSpotlight()
+        }
+    }
+
+    private fun restartSpotlight() {
+        if (spotlightDelegate.isInitialized())
+            spotlightDelegate.reset()
+        spotlight.start()
+    }
+
+    private fun nextTarget() {
+        spotlight.next()
+    }
+
+    private fun closeSpotlight() {
+        spotlight.finish()
+    }
+
+    private fun initGuide(): Spotlight {
+        return Spotlight.Builder(activity)
+            .setTargets(personModeTarget(), letMeGoTarget())
+            .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
+            .setOnSpotlightListener(object : OnSpotlightListener {
+                override fun onStarted() {
+                    binding.ivInfo.hideAnimWithScale()
+                }
+
+                override fun onEnded() {
+                    binding.ivInfo.showAnimWithScale()
+                    autoStartAnimator.start()
+                    initAutoStart()
+                }
+            })
+            .build()
+    }
+
+    private fun personModeTarget(): Target {
+        val target = LayoutTargetBinding.inflate(layoutInflater)
+        target.closeTarget.setOnClickListener { nextTarget() }
+        target.closeSpotlight.setOnClickListener { closeSpotlight() }
+        target.customText.text =
+            "You can switch modes of the recording by selecting one person mode or two people mode"
+        target.customText.updatePadding(top = binding.tgMode.y.toInt() + binding.tgMode.height)
+
+        return Target.Builder()
+            .setAnchor(binding.tgMode)
+            .setOverlay(target.root)
+            .setShape(
+                RoundedRectangle(
+                    binding.tgMode.height.toFloat() + 4.dp,
+                    binding.tgMode.width.toFloat() + 4.dp,
+                    4.dp.toFloat()
+                )
+            )
+            .build()
+    }
+
+    private fun letMeGoTarget(): Target {
+        val target = LayoutTargetBottomBinding.inflate(layoutInflater)
+        target.closeSpotlight.setOnClickListener { closeSpotlight() }
+        target.closeTarget.setOnClickListener { nextTarget() }
+        target.customText.text = "Start the exercise"
+        target.root.updatePadding(bottom = binding.tvStartChallenge.height + 16.dp)
+
+        return Target.Builder()
+            .setAnchor(binding.tvStartChallenge)
+            .setOverlay(target.root)
+            .setShape(
+                RoundedRectangle(
+                    binding.tvStartChallenge.height.toFloat(),
+                    binding.tvStartChallenge.width.toFloat(),
+                    24.dp.toFloat()
+                )
+            )
+            .build()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        closeSpotlight()
+    }
+
 }

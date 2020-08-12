@@ -1,9 +1,11 @@
 package com.mobile.praaktishockey.ui.main.view
 
 import android.graphics.Point
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.widget.LinearLayout
+import androidx.core.view.doOnPreDraw
 import androidx.core.widget.NestedScrollView
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.Observer
@@ -14,16 +16,21 @@ import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.temp.BaseFragment
 import com.mobile.praaktishockey.data.entities.DashboardWithAnalysis
 import com.mobile.praaktishockey.databinding.FragmentDashboardBinding
+import com.mobile.praaktishockey.databinding.LayoutTargetBinding
+import com.mobile.praaktishockey.databinding.LayoutTargetBottomBinding
+import com.mobile.praaktishockey.domain.common.AppGuide
+import com.mobile.praaktishockey.domain.common.resettableLazy
 import com.mobile.praaktishockey.domain.common.shape.CurvedEdgeTreatment
-import com.mobile.praaktishockey.domain.extension.animateWeightChange
-import com.mobile.praaktishockey.domain.extension.dp
-import com.mobile.praaktishockey.domain.extension.getViewModel
-import com.mobile.praaktishockey.domain.extension.updatePadding
+import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.details.view.AnalysisFragment
 import com.mobile.praaktishockey.ui.details.view.DetailsActivity
 import com.mobile.praaktishockey.ui.main.adapter.AnalysisAdapter
 import com.mobile.praaktishockey.ui.main.vm.DashboardViewModel
 import com.mobile.praaktishockey.ui.main.vm.MainViewModel
+import com.takusemba.spotlight.OnSpotlightListener
+import com.takusemba.spotlight.Spotlight
+import com.takusemba.spotlight.Target
+import com.takusemba.spotlight.shape.RoundedRectangle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -53,12 +60,14 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
         initEvents()
 
         analysisAdapter = AnalysisAdapter {
+            spotlight.finish()
             startActivity(
                 DetailsActivity.start(activity, AnalysisFragment.TAG)
                     .putExtra(AnalysisFragment.TAG, it)
             )
         }
         binding.rvAnalysis.adapter = analysisAdapter
+
     }
 
     private fun initEvents() {
@@ -80,6 +89,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
                 dashboard.totalPoints,
                 if (dashboard.pointsToNextLevel < 0) 0 else dashboard.pointsToNextLevel
             )
+            startGuideIfNecessary()
         }
     }
 
@@ -155,6 +165,120 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
                 }
             }
         }
+    }
+
+    private val spotlightDelegate = resettableLazy { initDashboardGuide() }
+    private val spotlight by spotlightDelegate
+
+    private fun startGuideIfNecessary() {
+        if (!AppGuide.isGuideDone(TAG)) {
+            AppGuide.setGuideDone(TAG)
+            binding.constTop.doOnPreDraw {
+                binding.progressLevel.doOnPreDraw {
+                    binding.tvProgressTitle.doOnPreDraw {
+                        binding.tvAnalysisTitle.doOnPreDraw {
+                            spotlight.start()
+                        }
+                    }
+                }
+            }
+        }
+        binding.ivInfo.setOnClickListener {
+            restartSpotlight()
+        }
+    }
+
+    private fun restartSpotlight() {
+        if (spotlightDelegate.isInitialized())
+            spotlightDelegate.reset()
+        spotlight.start()
+    }
+
+    fun nextTarget() {
+        spotlight.next()
+    }
+
+    fun closeSpotlight() {
+        spotlight.finish()
+    }
+
+    private fun initDashboardGuide(): Spotlight {
+        return Spotlight.Builder(activity)
+            .setTargets(firstTarget(), secondTarget(), (activity as MainActivity).bottomNavTarget())
+            .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
+            .setOnSpotlightListener(object : OnSpotlightListener {
+                override fun onStarted() {
+                    binding.ivInfo.hideAnimWithScale()
+                }
+
+                override fun onEnded() {
+                    binding.ivInfo.showAnimWithScale()
+                }
+            })
+            .build()
+    }
+
+    private fun firstTarget(): Target {
+        val firstTarget = LayoutTargetBinding.inflate(layoutInflater)
+
+        firstTarget.closeTarget.setOnClickListener { nextTarget() }
+        firstTarget.closeSpotlight.setOnClickListener { closeSpotlight() }
+        firstTarget.customText.text =
+            "Shows your current level, points and credits. You earn Points for achieving a score better than 80% on any Challenge up to a maximum of 15 and you earn 1 Credit for each 5 attempts at Challenges"
+
+        val progressLocation = IntArray(2)
+        binding.progressLevel.getLocationInWindow(progressLocation)
+
+        val constTopLocation = IntArray(2)
+        binding.constTop.getLocationInWindow(constTopLocation)
+
+        val shapeHeight = progressLocation[1].toFloat()
+        val shapeWidth = binding.constTop.width.toFloat() - 10.dp
+
+        firstTarget.root.updatePadding(top = binding.progressLevel.height + progressLocation[1])
+
+        return Target.Builder()
+            .setAnchor(
+                progressLocation[0] + binding.constTop.width / 2f,
+                (progressLocation[1] + constTopLocation[1]) / 2f
+            )
+            .setOverlay(firstTarget.root)
+            .setShape(RoundedRectangle(shapeHeight, shapeWidth, 4.dp.toFloat()))
+            .build()
+    }
+
+    private fun secondTarget(): Target {
+        val secondTarget = LayoutTargetBottomBinding.inflate(layoutInflater)
+
+        val rvAnalysisLocation = IntArray(2)
+        binding.rvAnalysis.getLocationOnScreen(rvAnalysisLocation)
+
+        val rvAnalysisVisibleRect = Rect()
+        binding.rvAnalysis.getLocalVisibleRect(rvAnalysisVisibleRect)
+
+        val tvAnalysisLocation = IntArray(2)
+        binding.tvAnalysisTitle.getLocationInWindow(tvAnalysisLocation)
+
+        secondTarget.closeTarget.setOnClickListener { nextTarget() }
+        secondTarget.closeSpotlight.setOnClickListener { closeSpotlight() }
+        secondTarget.customText.text = "Shows your scores and attempts for each Challenge and comparison with Friends and other Users at your level, age and experience"
+
+        secondTarget.root.updatePadding(bottom = tvAnalysisLocation[1] - binding.tvAnalysisTitle.height)
+
+        return Target.Builder()
+            .setAnchor(
+                rvAnalysisLocation[0] + binding.rvAnalysis.width / 2f,
+                tvAnalysisLocation[1] + binding.tvAnalysisTitle.height / 2f + rvAnalysisVisibleRect.height() / 2f
+            )
+            .setOverlay(secondTarget.root)
+            .setShape(
+                RoundedRectangle(
+                    (rvAnalysisVisibleRect.height() + binding.tvAnalysisTitle.height).toFloat() + 20.dp,
+                    binding.rvAnalysis.width.toFloat() + 20.dp,
+                    4.dp.toFloat()
+                )
+            )
+            .build()
     }
 
 }

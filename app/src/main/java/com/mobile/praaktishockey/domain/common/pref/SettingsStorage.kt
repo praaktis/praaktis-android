@@ -6,7 +6,9 @@ import android.content.res.Configuration
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.mobile.praaktishockey.domain.entities.*
+import io.paperdb.Paper
 import java.util.*
+import kotlin.collections.HashMap
 
 object SettingsStorage {
     @SuppressLint("StaticFieldLeak")
@@ -49,7 +51,7 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
         const val SORTING = "App_Sorting_"
     }
 
-//  fun saveSorting(sorting: SortOrder) {
+    //  fun saveSorting(sorting: SortOrder) {
 //    val type = sorting.type.serialize()
 //    val direction = sorting.direction.serialize()
 //    val saveLike = "$type$SORTING_DELIMETER$direction"
@@ -70,7 +72,7 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
 //    return SortOrder(exType!!, exDirection!!)
 //  }
 
-    override fun cameraMode(): Boolean  = cameraMode
+    override fun cameraMode(): Boolean = cameraMode
 
     override fun isLoggedIn(): Boolean = token.isNotEmpty()
 
@@ -105,7 +107,10 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
         if (preferences.getString("challenges", null) != null) {
             val gson = Gson()
             val listType = object : TypeToken<List<ChallengeDTO>>() {}.type
-            val newList = gson.fromJson<List<ChallengeDTO>>(preferences.getString("challenges", null), listType)
+            val newList = gson.fromJson<List<ChallengeDTO>>(
+                preferences.getString("challenges", null),
+                listType
+            )
             return newList
         }
         return null
@@ -117,7 +122,10 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
 
     override fun getDashboard(): DashboardDTO? {
         if (preferences.getString("dashboard", null) != null)
-            return Gson().fromJson(preferences.getString("dashboard", null), DashboardDTO::class.java)
+            return Gson().fromJson(
+                preferences.getString("dashboard", null),
+                DashboardDTO::class.java
+            )
         return null
     }
 
@@ -136,14 +144,20 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
     }
 
     override fun setTimelineDetails(timelineDetails: List<DetailScoreDTO>, attemptId: Int) {
-        preferences.edit().putString("timelineDetails_$attemptId", Gson().toJson(timelineDetails)).commit()
+        preferences.edit().putString("timelineDetails_$attemptId", Gson().toJson(timelineDetails))
+            .commit()
     }
 
     override fun getTimelineDetails(attemptId: Int): List<DetailScoreDTO>? {
         if (preferences.getString("timelineDetails_$attemptId", null) != null) {
             val gson = Gson()
             val listType = object : TypeToken<List<DetailScoreDTO>>() {}.type
-            return gson.fromJson<List<DetailScoreDTO>>(preferences.getString("timelineDetails_$attemptId", null), listType)
+            return gson.fromJson<List<DetailScoreDTO>>(
+                preferences.getString(
+                    "timelineDetails_$attemptId",
+                    null
+                ), listType
+            )
         }
         return null
     }
@@ -154,7 +168,10 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
 
     override fun getComparison(): ComparisonDTO? {
         if (preferences.getString("comparison", null) != null) {
-            return Gson().fromJson(preferences.getString("comparison", ""), ComparisonDTO::class.java)
+            return Gson().fromJson(
+                preferences.getString("comparison", ""),
+                ComparisonDTO::class.java
+            )
         }
         return null
     }

@@ -14,9 +14,16 @@ import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.temp.BaseFragment
 import com.mobile.praaktishockey.data.entities.AnalysisComplete
 import com.mobile.praaktishockey.databinding.FragmentAnalysisBinding
+import com.mobile.praaktishockey.databinding.LayoutTargetBottomBinding
+import com.mobile.praaktishockey.domain.common.AppGuide
+import com.mobile.praaktishockey.domain.common.resettableLazy
 import com.mobile.praaktishockey.domain.extension.*
 import com.mobile.praaktishockey.ui.details.vm.AnalysisViewModel
 import com.mobile.praaktishockey.ui.details.vm.DetailsViewModel
+import com.takusemba.spotlight.OnSpotlightListener
+import com.takusemba.spotlight.Spotlight
+import com.takusemba.spotlight.Target
+import com.takusemba.spotlight.shape.RoundedRectangle
 import kotlinx.android.synthetic.main.fragment_analysis.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -52,6 +59,8 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
         initClicks()
         initLineChart()
         initBarChart()
+
+        startGuideIfNecessary()
     }
 
     private fun initInfoChallenge() {
@@ -66,6 +75,8 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
 
     private fun initClicks() {
         binding.btnMeVsFriends.onClick {
+            closeSpotlight()
+
             val tag = MeVsFriendsFragment.TAG
             activity.showOrReplaceLast(tag) {
                 add(R.id.container, MeVsFriendsFragment.getInstance(analysisData), tag)
@@ -260,4 +271,93 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
             barChart.data = data
         }
     }
+
+    private val spotlightDelegate = resettableLazy { initAnalysisGuide() }
+    private val spotlight by spotlightDelegate
+
+    private fun startGuideIfNecessary() {
+        if (!AppGuide.isGuideDone(TAG)) {
+            AppGuide.setGuideDone(TAG)
+            binding.btnMeVsFriends.doOnPreDraw {
+                spotlight.start()
+            }
+        }
+    }
+
+    fun restartSpotlight() {
+        if (spotlightDelegate.isInitialized())
+            spotlightDelegate.reset()
+        spotlight.start()
+    }
+
+    private fun nextTarget() {
+        spotlight.next()
+    }
+
+    private fun closeSpotlight() {
+        spotlight.finish()
+    }
+
+    private fun meVsFriendsTarget(): Target {
+        val target = LayoutTargetBottomBinding.inflate(layoutInflater)
+        target.closeSpotlight.setOnClickListener { closeSpotlight() }
+        target.closeTarget.setOnClickListener { nextTarget() }
+
+        target.customText.text =
+            "Get detailed information on your performance and compare to your Friends"
+
+        target.root.updatePadding(bottom = binding.cvAttempts.y.toInt())
+
+        return Target.Builder()
+            .setAnchor(binding.btnMeVsFriends)
+            .setOverlay(target.root)
+            .setShape(
+                RoundedRectangle(
+                    binding.btnMeVsFriends.height.toFloat() + 10.dp,
+                    binding.btnMeVsFriends.width.toFloat() + 10.dp,
+                    25.dp.toFloat()
+                )
+            )
+            .build()
+    }
+
+    private fun meVsOthersTarget(): Target {
+        val target = LayoutTargetBottomBinding.inflate(layoutInflater)
+        target.closeSpotlight.setOnClickListener { closeSpotlight() }
+        target.closeTarget.setOnClickListener { nextTarget() }
+
+        target.customText.text =
+            "Get detailed information on your performance and compare to against other Users like you"
+
+        target.root.updatePadding(bottom = binding.cvAttempts.y.toInt())
+
+        return Target.Builder()
+            .setAnchor(binding.btnMeVsOthers)
+            .setOverlay(target.root)
+            .setShape(
+                RoundedRectangle(
+                    binding.btnMeVsOthers.height.toFloat() + 10.dp,
+                    binding.btnMeVsOthers.width.toFloat() + 10.dp,
+                    25.dp.toFloat()
+                )
+            )
+            .build()
+    }
+
+    private fun initAnalysisGuide(): Spotlight {
+        return Spotlight.Builder(activity)
+            .setTargets(meVsFriendsTarget(), meVsOthersTarget())
+            .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
+            .setOnSpotlightListener(object : OnSpotlightListener {
+                override fun onStarted() {
+                    (activity as DetailsActivity).hideInfo()
+                }
+
+                override fun onEnded() {
+                    (activity as DetailsActivity).showInfo()
+                }
+            })
+            .build()
+    }
+
 }

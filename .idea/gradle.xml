@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/pocketsphinx" />
             <option value="$PROJECT_DIR$/praaktis_sdk" />
             <option value="$PROJECT_DIR$/praaktisinstructionsview" />
+            <option value="$PROJECT_DIR$/spotlight" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
