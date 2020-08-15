@@ -14,7 +14,7 @@
         android:clickable="true"
         android:orientation="vertical">
 
-        <VideoView
+        <com.mobile.praaktishockey.domain.common.StateBroadcastingVideoView
             android:id="@+id/videoView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,9 +40,8 @@
             android:id="@+id/ivPlayReply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:src="@drawable/ic_play"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

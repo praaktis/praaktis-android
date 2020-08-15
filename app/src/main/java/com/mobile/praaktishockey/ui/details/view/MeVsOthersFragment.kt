@@ -30,8 +30,7 @@ class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragm
     BaseFragment<FragmentMeVsOthersBinding>() {
 
     companion object {
-        @JvmField
-        val TAG = MeVsOthersFragment::class.java.simpleName
+        const val TAG = "MeVsOthersFragment"
 
         @JvmStatic
         fun getInstance(data: AnalysisComplete): Fragment {

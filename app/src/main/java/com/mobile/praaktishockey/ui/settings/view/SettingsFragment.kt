@@ -8,20 +8,16 @@ import com.mobile.praaktishockey.R
 import com.mobile.praaktishockey.base.temp.BaseFragment
 import com.mobile.praaktishockey.databinding.FragmentSettingsBinding
 import com.mobile.praaktishockey.domain.extension.getViewModel
-import com.mobile.praaktishockey.domain.extension.onClick
 import com.mobile.praaktishockey.ui.SplashScreenActivity
-import com.mobile.praaktishockey.ui.challenge.ChallengeActivity
 import com.mobile.praaktishockey.ui.settings.adapter.LanguageAdapter
 import com.mobile.praaktishockey.ui.settings.vm.SettingsFragmentViewModel
-import kotlinx.android.synthetic.main.fragment_settings.*
 import java.util.*
 
 class SettingsFragment constructor(override val layoutId: Int = R.layout.fragment_settings) :
     BaseFragment<FragmentSettingsBinding>() {
 
     companion object {
-        @JvmField
-        val TAG = SettingsFragment::class.java.simpleName
+        const val TAG = "SettingsFragment"
 
         @JvmStatic
         fun getInstance(): Fragment = SettingsFragment()

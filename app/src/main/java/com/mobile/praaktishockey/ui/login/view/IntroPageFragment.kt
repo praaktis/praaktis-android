@@ -15,7 +15,7 @@ class IntroPageFragment constructor(override val layoutId: Int = R.layout.fragme
     BaseFragment<FragmentIntroPageBinding>() {
 
     companion object {
-        val TAG = IntroPageFragment::class.java.simpleName
+        const val TAG = "IntroPageFragment"
         fun getInstance() = IntroPageFragment()
     }
 

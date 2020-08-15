@@ -36,7 +36,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
     BaseFragment<FragmentChallengeInstructionBinding>() {
 
     companion object {
-        val TAG: String = ChallengeInstructionFragment::class.java.simpleName
+        const val TAG: String = "ChallengeInstructionFragment"
         const val CHALLENGE_ITEM = "ANALYSIS_ITEM"
         const val CHALLENGE_RESULT = "CHALLENGE_RESULT"
         const val RAW_VIDEO_PATH = "RAW_VIDEO_PATH"
@@ -196,6 +196,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
 
     private val spotlightDelegate = resettableLazy { initGuide() }
     private val spotlight by spotlightDelegate
+    private var isGuideStarted = false
 
     private fun startGuideIfNecessary() {
         if (!AppGuide.isGuideDone(TAG)) {
@@ -222,7 +223,8 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
     }
 
     private fun closeSpotlight() {
-        spotlight.finish()
+        if (isGuideStarted)
+            spotlight.finish()
     }
 
     private fun initGuide(): Spotlight {
@@ -231,10 +233,13 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
             .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
             .setOnSpotlightListener(object : OnSpotlightListener {
                 override fun onStarted() {
+                    isGuideStarted = true
                     binding.ivInfo.hideAnimWithScale()
+                    autoStartAnimator.pause()
                 }
 
                 override fun onEnded() {
+                    isGuideStarted = false
                     binding.ivInfo.showAnimWithScale()
                     autoStartAnimator.start()
                     initAutoStart()

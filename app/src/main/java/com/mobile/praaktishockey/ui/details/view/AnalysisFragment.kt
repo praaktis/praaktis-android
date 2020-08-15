@@ -33,7 +33,7 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
     BaseFragment<FragmentAnalysisBinding>() {
 
     companion object {
-        val TAG: String = AnalysisFragment::class.java.simpleName
+        const val TAG: String = "AnalysisFragment"
         const val ANALYSIS_ITEM = "ANALYSIS_ITEM"
 
         fun getInstance(item: AnalysisComplete) = AnalysisFragment().apply {
@@ -84,6 +84,8 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
             }
         }
         binding.btnMeVsOthers.onClick {
+            closeSpotlight()
+
             val tag = MeVsOthersFragment.TAG
             activity.showOrReplaceLast(tag) {
                 add(R.id.container, MeVsOthersFragment.getInstance(analysisData), tag)
@@ -274,6 +276,7 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
 
     private val spotlightDelegate = resettableLazy { initAnalysisGuide() }
     private val spotlight by spotlightDelegate
+    private var isGuideStarted = false
 
     private fun startGuideIfNecessary() {
         if (!AppGuide.isGuideDone(TAG)) {
@@ -295,7 +298,8 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
     }
 
     private fun closeSpotlight() {
-        spotlight.finish()
+        if (isGuideStarted)
+            spotlight.finish()
     }
 
     private fun meVsFriendsTarget(): Target {
@@ -350,10 +354,12 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
             .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
             .setOnSpotlightListener(object : OnSpotlightListener {
                 override fun onStarted() {
+                    isGuideStarted = true
                     (activity as DetailsActivity).hideInfo()
                 }
 
                 override fun onEnded() {
+                    isGuideStarted = false
                     (activity as DetailsActivity).showInfo()
                 }
             })

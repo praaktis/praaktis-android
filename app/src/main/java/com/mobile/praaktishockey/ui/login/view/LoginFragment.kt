@@ -18,7 +18,7 @@ class LoginFragment constructor(override val layoutId: Int = R.layout.fragment_l
     BaseFragment<FragmentLoginBinding>() {
 
     companion object {
-        val TAG = LoginFragment::class.java.simpleName
+        const val TAG = "LoginFragment"
         fun getInstance(): Fragment = LoginFragment()
     }
 

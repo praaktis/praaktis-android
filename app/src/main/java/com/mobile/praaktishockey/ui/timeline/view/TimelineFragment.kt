@@ -17,7 +17,7 @@ class TimelineFragment constructor(override val layoutId: Int = R.layout.fragmen
     BaseFragment() {
 
     companion object {
-        val TAG = TimelineFragment::class.java.simpleName
+        const val TAG = "TimelineFragment"
         fun getInstance(): Fragment = TimelineFragment()
     }
 

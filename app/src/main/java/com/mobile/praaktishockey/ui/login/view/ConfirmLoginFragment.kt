@@ -26,7 +26,7 @@ class ConfirmLoginFragment constructor(override val layoutId: Int = R.layout.fra
     BaseFragment<FragmentConfirmLoginBinding>() {
 
     companion object {
-        val TAG = ConfirmLoginFragment::class.java.simpleName
+        const val TAG = "ConfirmLoginFragment"
 
         fun getInstance() = ConfirmLoginFragment().apply {
             arguments = Bundle().apply {

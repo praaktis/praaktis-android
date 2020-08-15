@@ -42,7 +42,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
     BaseFragment<FragmentDashboardBinding>() {
 
     companion object {
-        val TAG: String = DashboardFragment::class.java.simpleName
+        const val TAG: String = "DashboardFragment"
     }
 
     override val mViewModel: DashboardViewModel
@@ -170,6 +170,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
 
     private val spotlightDelegate = resettableLazy { initDashboardGuide() }
     private val spotlight by spotlightDelegate
+    private var isGuideStarted = false
 
     private fun startGuideIfNecessary() {
         if (!AppGuide.isGuideDone(TAG)) {
@@ -204,7 +205,8 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
     }
 
     fun closeSpotlight() {
-        spotlight.finish()
+        if (isGuideStarted)
+            spotlight.finish()
     }
 
     private fun initDashboardGuide(): Spotlight {
@@ -213,10 +215,12 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
             .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
             .setOnSpotlightListener(object : OnSpotlightListener {
                 override fun onStarted() {
+                    isGuideStarted = true
                     binding.ivInfo.hideAnimWithScale()
                 }
 
                 override fun onEnded() {
+                    isGuideStarted = false
                     binding.ivInfo.showAnimWithScale()
                 }
             })

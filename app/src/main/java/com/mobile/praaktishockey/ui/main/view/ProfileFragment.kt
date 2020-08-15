@@ -35,7 +35,7 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) :
     BaseFragment<FragmentProfileBinding>() {
 
     companion object {
-        val TAG: String = ProfileFragment::class.java.simpleName
+        const val TAG: String = "ProfileFragment"
     }
 
     override val mViewModel: ProfileViewModel get() = getViewModel { ProfileViewModel(Application()) }

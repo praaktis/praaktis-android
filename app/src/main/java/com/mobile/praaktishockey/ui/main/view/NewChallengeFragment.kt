@@ -35,8 +35,7 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
     BaseFragment<FragmentNewChallengeBinding>() {
 
     companion object {
-        @JvmField
-        val TAG: String = NewChallengeFragment::class.java.simpleName
+        const val TAG: String = "NewChallengeFragment"
 
         @JvmStatic
         fun getInstance(): Fragment = NewChallengeFragment()
@@ -151,6 +150,7 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
 
     private val spotlightDelegate = resettableLazy { initGuide() }
     private val spotlight by spotlightDelegate
+    private var isGuideStarted = false
 
     private fun startGuideIfNecessary() {
         if (!AppGuide.isGuideDone(TAG)) {
@@ -161,7 +161,7 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
         }
         binding.ivInfo.setOnClickListener {
             binding.nestedScroll.fullScroll(View.FOCUS_UP)
-            binding.nestedScroll.smoothScrollTo(0,0)
+            binding.nestedScroll.smoothScrollTo(0, 0)
             restartSpotlight()
         }
     }
@@ -173,7 +173,8 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
     }
 
     private fun closeSpotlight() {
-        spotlight.finish()
+        if (isGuideStarted)
+            spotlight.finish()
     }
 
     private fun initGuide(): Spotlight {
@@ -182,10 +183,12 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
             .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
             .setOnSpotlightListener(object : OnSpotlightListener {
                 override fun onStarted() {
+                    isGuideStarted = true
                     binding.ivInfo.hideAnimWithScale()
                 }
 
                 override fun onEnded() {
+                    isGuideStarted = false
                     binding.ivInfo.showAnimWithScale()
                 }
             })

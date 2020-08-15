@@ -2,6 +2,7 @@ package com.mobile.praaktishockey.ui.friends.view
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -36,7 +37,9 @@ class InviteFriendsActivity constructor(override val layoutId: Int = R.layout.ac
 
     override fun initUI(savedInstanceState: Bundle?) {
         transparentStatusAndNavigationBar()
-        setLightNavigationBar()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            setLightNavigationBar()
+        }
 
         initToolbar()
 

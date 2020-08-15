@@ -16,6 +16,7 @@ import com.mobile.praaktishockey.base.temp.BaseActivity
 import com.mobile.praaktishockey.databinding.ActivityVideoChallengeBinding
 import com.mobile.praaktishockey.databinding.LayoutTargetBottomBinding
 import com.mobile.praaktishockey.domain.common.AppGuide
+import com.mobile.praaktishockey.domain.common.StateBroadcastingVideoView
 import com.mobile.praaktishockey.domain.common.resettableLazy
 import com.mobile.praaktishockey.domain.entities.ChallengeDTO
 import com.mobile.praaktishockey.domain.extension.*
@@ -23,8 +24,6 @@ import com.mobile.praaktishockey.ui.details.view.ChallengeInstructionFragment
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
-import com.takusemba.spotlight.shape.Circle
-import com.takusemba.spotlight.shape.RoundedRectangle
 import kotlinx.android.synthetic.main.activity_video_challenge.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -49,7 +48,6 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
         }
     }
 
-
     private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as ChallengeDTO }
 
     override fun initUI(savedInstanceState: Bundle?) {
@@ -71,45 +69,46 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
             else -> R.raw.challenge_video
         }
 
-        videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + video))
-        videoView.setOnPreparedListener {
-            ivPlayReply.show()
-            videoView.start();
-            videoView.pause();
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                val playbackParams = PlaybackParams()
-//                playbackParams.speed = 0.5f
-                it.playbackParams = playbackParams
-//                ivPlayReply.hide()
-            }
+        binding.videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + video))
+        binding.videoView.setOnPreparedListener {
+            binding.ivPlayReply.show()
+            binding.videoView.start()
+            binding.videoView.pause()
             it.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
         }
-        videoView.setOnInfoListener { mp, what, extra ->
+        /*binding.videoView.setOnInfoListener { mp, what, extra ->
             if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
                 //first frame was bufered - do your stuff here
-                ivPlayReply.hide()
+                binding.ivPlayReply.invisible()
             }
             false
-        }
+        }*/
 
-        ivPlayReply.show()
-        ivPlayReply.onClick {
+        binding.videoView.setPlayPauseListener(object : StateBroadcastingVideoView.PlayPauseListener {
+            override fun onPlay() {
+                binding.ivPlayReply.invisible()
+            }
+
+            override fun onPause() {
+                binding.ivPlayReply.show()
+            }
+        })
+
+        binding.ivPlayReply.onClick {
             closeSpotlight()
-
-            videoView.start()
-            it.hide()
+            binding.videoView.start()
+            it.invisible()
         }
-        videoView.setOnCompletionListener {
+        binding.videoView.setOnCompletionListener {
             ivPlayReply.show()
         }
 
-        tvCancel.onClick { finish() }
-        tvNext.onClick {
+        binding.tvCancel.onClick { finish() }
+        binding.tvNext.onClick {
             closeSpotlight()
 
-            videoView.pause()
-            ivPlayReply.show()
+            binding.videoView.pause()
+            binding.ivPlayReply.show()
 
             val tag = ChallengeInstructionFragment.TAG
             replaceFragment(tag) {
@@ -148,6 +147,7 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
 
     private val spotlightDelegate = resettableLazy { initGuide() }
     private val spotlight by spotlightDelegate
+    private var isGuideStarted = false
 
     private fun startGuideIfNecessary() {
         if (!AppGuide.isGuideDone(TAG)) {
@@ -162,6 +162,7 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
             }
         }
         binding.ivInfo.setOnClickListener {
+            binding.videoView.pause()
             restartSpotlight()
         }
     }
@@ -173,7 +174,8 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
     }
 
     private fun closeSpotlight() {
-        spotlight.finish()
+        if (isGuideStarted)
+            spotlight.finish()
     }
 
     private fun challengeVideoTarget(): Target {
@@ -198,10 +200,12 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
             .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
             .setOnSpotlightListener(object : OnSpotlightListener {
                 override fun onStarted() {
+                    isGuideStarted = true
                     binding.ivInfo.hideAnimWithScale()
                 }
 
                 override fun onEnded() {
+                    isGuideStarted = false
                     binding.ivInfo.showAnimWithScale()
                     lifecycleScope.launch(Dispatchers.Main) {
                         delay(1000)

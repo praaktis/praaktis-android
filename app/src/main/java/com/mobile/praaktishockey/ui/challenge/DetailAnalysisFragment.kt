@@ -37,8 +37,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
     BaseFragment<FragmentDetailedAnalysisBinding>() {
 
     companion object {
-        @JvmField
-        val TAG = DetailAnalysisFragment::class.java.simpleName
+        const val TAG = "DetailAnalysisFragment"
 
         @JvmStatic
         fun getInstance(): Fragment = DetailAnalysisFragment()

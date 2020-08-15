@@ -21,8 +21,7 @@ class FriendsRequestFragment constructor(override val layoutId: Int = R.layout.f
     BaseFragment<FragmentFriendsBinding>(), FriendsRequestItemListener {
 
     companion object {
-        @JvmField
-        val TAG = FriendsRequestFragment::class.java.simpleName
+        const val TAG = "FriendsRequestFragment"
 
         @JvmStatic
         fun getInstance(): Fragment = FriendsRequestFragment()

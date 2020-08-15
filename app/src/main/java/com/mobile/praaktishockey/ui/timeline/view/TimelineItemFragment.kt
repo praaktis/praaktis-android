@@ -2,7 +2,6 @@ package com.mobile.praaktishockey.ui.timeline.view
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -32,7 +31,7 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
     BaseFragment<FragmentItemTimelineBinding>() {
 
     companion object {
-        val TAG = TimelineItemFragment::class.java.simpleName
+        const val TAG = "TimelineItemFragment"
         fun getInstance(timelineDTO: TimelineDTO): Fragment {
             val fragment = TimelineItemFragment()
             val bundle = Bundle()
@@ -97,6 +96,7 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
 
     private val spotlightDelegate = resettableLazy { initGuide() }
     private val spotlight by spotlightDelegate
+    private var isGuideStarted = false
 
     private fun startGuideIfNecessary(listSize: Int) {
         if (!AppGuide.isGuideDone(TAG)) {
@@ -122,7 +122,8 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
     }
 
     private fun closeSpotlight() {
-        spotlight.finish()
+        if (isGuideStarted)
+            spotlight.finish()
     }
 
     private fun initGuide(): Spotlight {
@@ -131,10 +132,12 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
             .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
             .setOnSpotlightListener(object : OnSpotlightListener {
                 override fun onStarted() {
+                    isGuideStarted = true
                     binding.ivInfo.hideAnimWithScale()
                 }
 
                 override fun onEnded() {
+                    isGuideStarted = false
                     binding.ivInfo.showAnimWithScale()
                 }
             })

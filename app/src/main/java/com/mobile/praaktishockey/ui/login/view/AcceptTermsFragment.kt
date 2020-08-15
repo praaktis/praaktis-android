@@ -22,7 +22,7 @@ class AcceptTermsFragment constructor(override val layoutId: Int = R.layout.frag
     BaseFragment<FragmentAcceptTermsBinding>() {
 
     companion object {
-        val TAG = AcceptTermsFragment::class.java.simpleName
+        const val TAG = "AcceptTermsFragment"
         fun getInstance(): Fragment = AcceptTermsFragment()
     }
 

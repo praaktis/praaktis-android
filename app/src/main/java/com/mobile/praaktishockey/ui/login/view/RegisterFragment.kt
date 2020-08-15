@@ -1,8 +1,6 @@
 package com.mobile.praaktishockey.ui.login.view
 
-import android.graphics.Typeface
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.lifecycle.Observer
 import com.afollestad.vvalidator.form
 import com.mobile.praaktishockey.R
@@ -19,7 +17,7 @@ class RegisterFragment constructor(override val layoutId: Int = R.layout.fragmen
     BaseFragment<FragmentRegisterBinding>() {
 
     companion object {
-        val TAG: String = RegisterFragment::class.java.simpleName
+        const val TAG: String = "RegisterFragment"
         fun getInstance(): androidx.fragment.app.Fragment = RegisterFragment()
     }
 

@@ -21,7 +21,7 @@ class FriendsFragment constructor(override val layoutId: Int = R.layout.fragment
     BaseFragment<FragmentFriendsBinding>(), FriendsItemListner {
 
     companion object {
-        val TAG = FriendsFragment::class.java.simpleName
+        const val TAG = "FriendsFragment"
         fun getInstance(): Fragment = FriendsFragment()
     }
 

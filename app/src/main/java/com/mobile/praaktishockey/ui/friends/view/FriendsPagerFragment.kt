@@ -18,7 +18,7 @@ class FriendsPagerFragment constructor(override val layoutId: Int = R.layout.fra
     BaseFragment<FragmentFriendsPagerBinding>() {
 
     companion object {
-        val TAG = FriendsPagerFragment::class.java.simpleName
+        const val TAG = "FriendsPagerFragment"
         fun getInstance(): Fragment = FriendsPagerFragment()
     }
 

@@ -24,8 +24,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     BaseFragment<FragmentResultChallengeBinding>() {
 
     companion object {
-        @JvmField
-        val TAG = ResultChallengeFragment::class.java.simpleName
+        const val TAG = "ResultChallengeFragment"
 
         @JvmStatic
         fun getInstance(challengeItem: ChallengeDTO): Fragment {

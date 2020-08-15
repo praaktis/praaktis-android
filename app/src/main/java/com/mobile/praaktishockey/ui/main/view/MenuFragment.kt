@@ -1,12 +1,12 @@
 package com.mobile.praaktishockey.ui.main.view
 
 import android.app.Application
-import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import com.mobile.praaktishockey.R
-import com.mobile.praaktishockey.base.BaseFragment
+import com.mobile.praaktishockey.base.temp.BaseFragment
+import com.mobile.praaktishockey.databinding.FragmentMenuBinding
 import com.mobile.praaktishockey.databinding.LayoutTargetTimelineBinding
 import com.mobile.praaktishockey.domain.common.AppGuide
 import com.mobile.praaktishockey.domain.extension.*
@@ -14,24 +14,24 @@ import com.mobile.praaktishockey.ui.friends.view.FriendsPagerFragment
 import com.mobile.praaktishockey.ui.login.view.LoginActivity
 import com.mobile.praaktishockey.ui.main.vm.MenuViewModel
 import com.mobile.praaktishockey.ui.settings.view.SettingsFragment
+import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
 import com.takusemba.spotlight.shape.RoundedRectangle
-import kotlinx.android.synthetic.main.fragment_menu.*
 
 
 class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_menu) :
-    BaseFragment() {
+    BaseFragment<FragmentMenuBinding>() {
 
     companion object {
-        val TAG = MenuFragment::class.java.simpleName
+        const val TAG = "MenuFragment"
     }
 
     override val mViewModel: MenuViewModel
         get() = getViewModel { MenuViewModel(Application()) }
 
     override fun initUI(savedInstanceState: Bundle?) {
-        menu_settings.onClick {
+        binding.menuSettings.onClick {
             closeSpotlight()
             activity.addFragment {
                 add(
@@ -43,7 +43,7 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
             }
         }
 
-        menu_friends.onClick {
+        binding.menuFriends.onClick {
             closeSpotlight()
             activity.addFragment {
                 add(
@@ -55,7 +55,7 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
             }
         }
 
-        menu_my_profile.onClick {
+        binding.menuMyProfile.onClick {
             closeSpotlight()
             activity.addFragment {
                 add(
@@ -66,7 +66,7 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
                 addToBackStack(TAG)
             }
         }
-        menu_logout.onClick {
+        binding.menuLogout.onClick {
             closeSpotlight()
             activity.materialAlert {
                 setMessage(getString(R.string.are_you_sure_logout))
@@ -91,18 +91,20 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
     }
 
     private val spotlight by lazy { initGuide() }
+    private var isGuideStarted = false
 
     private fun startGuideIfNecessary() {
         if (!AppGuide.isGuideDone(TAG)) {
             AppGuide.setGuideDone(TAG)
-            ll_top_menu.doOnPreDraw {
+            binding.llTopMenu.doOnPreDraw {
                 spotlight.start()
             }
         }
     }
 
     private fun closeSpotlight() {
-        spotlight.finish()
+        if (isGuideStarted)
+            spotlight.finish()
     }
 
     override fun onDetach() {
@@ -114,6 +116,15 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
         return Spotlight.Builder(activity)
             .setTargets(menuTarget())
             .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
+            .setOnSpotlightListener(object : OnSpotlightListener {
+                override fun onStarted() {
+                    isGuideStarted = true
+                }
+
+                override fun onEnded() {
+                    isGuideStarted = false
+                }
+            })
             .build()
     }
 
@@ -125,20 +136,17 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
             "Check your profile, invite Friends to join you so you can compare performance, complete settings and Log Out at the end of your session "
 
         val rvLocation = IntArray(2)
-        ll_top_menu.getLocationOnScreen(rvLocation)
+        binding.llTopMenu.getLocationOnScreen(rvLocation)
 
-        val rvVisibleRect = Rect()
-        ll_top_menu.getLocalVisibleRect(rvVisibleRect)
-
-        target.customText.updatePadding(top = rvLocation[1] + ll_top_menu.height)
+        target.customText.updatePadding(top = rvLocation[1] + binding.llTopMenu.height)
 
         return Target.Builder()
-            .setAnchor(ll_top_menu)
+            .setAnchor(binding.llTopMenu)
             .setOverlay(target.root)
             .setShape(
                 RoundedRectangle(
-                    ll_top_menu.height.toFloat(),
-                    ll_top_menu.width.toFloat(),
+                    binding.llTopMenu.height.toFloat(),
+                    binding.llTopMenu.width.toFloat(),
                     4.dp.toFloat()
                 )
             )

@@ -13,7 +13,7 @@ import io.paperdb.Paper
 object AppGuide {
 
     private const val APP_GUIDE_MAP = "APP_GUIDE_MAP"
-    private const val DEVELOPER_MODE = true
+    private const val DEVELOPER_MODE = false
 
     fun getGuideList(): HashMap<String, Boolean> {
         return Paper.book().read<HashMap<String, Boolean>>(APP_GUIDE_MAP, defaultMap)

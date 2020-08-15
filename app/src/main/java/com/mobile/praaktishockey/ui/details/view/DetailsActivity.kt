@@ -47,6 +47,20 @@ class DetailsActivity constructor(override val layoutId: Int = R.layout.activity
             })
         }
 
+        supportFragmentManager.addOnBackStackChangedListener {
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
+
+            if (currentFragment is AnalysisFragment) {
+                binding.ivInfo.setOnClickListener {
+                    currentFragment.restartSpotlight()
+                }
+                binding.ivInfo.showAnimWithScale()
+            } else {
+                binding.ivInfo.setOnClickListener(null)
+                binding.ivInfo.hide()
+            }
+        }
+
         when (intent.getStringExtra(INITIAL_FRAGMENT_TAG)) {
             ChallengeInstructionFragment.TAG -> {
                 requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
@@ -79,10 +93,10 @@ class DetailsActivity constructor(override val layoutId: Int = R.layout.activity
                     )
                 }
 
-                binding.ivInfo.show()
                 binding.ivInfo.setOnClickListener {
                     fragment.restartSpotlight()
                 }
+                binding.ivInfo.showAnimWithScale()
             }
             else -> throw IllegalArgumentException("Wrong fragment")
         }
@@ -93,7 +107,9 @@ class DetailsActivity constructor(override val layoutId: Int = R.layout.activity
     }
 
     fun showInfo() {
-        binding.ivInfo.showAnimWithScale()
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
+        if (currentFragment is AnalysisFragment)
+            binding.ivInfo.showAnimWithScale()
     }
 
     private fun changeTitle(title: String) {

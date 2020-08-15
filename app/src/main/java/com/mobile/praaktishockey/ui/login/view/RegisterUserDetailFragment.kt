@@ -31,7 +31,7 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
     BaseFragment<FragmentRegisterUserDetailBinding>() {
 
     companion object {
-        val TAG: String = RegisterUserDetailFragment::class.java.simpleName
+        const val TAG: String = "RegisterUserDetailFragment"
         fun getInstance() = RegisterUserDetailFragment()
     }
 

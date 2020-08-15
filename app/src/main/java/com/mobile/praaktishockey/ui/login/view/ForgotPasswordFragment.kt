@@ -17,7 +17,7 @@ class ForgotPasswordFragment constructor(override val layoutId: Int = R.layout.f
     BaseFragment<FragmentForgotPasswordBinding>() {
 
     companion object {
-        val TAG: String = ForgotPasswordFragment::class.java.simpleName
+        const val TAG: String = "ForgotPasswordFragment"
         fun getInstance() = ForgotPasswordFragment()
     }
 
