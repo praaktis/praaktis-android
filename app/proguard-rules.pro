@@ -28,9 +28,9 @@
 -dontwarn com.google.firebase.crashlytics.**
 # --------------CRASHLYTICS---------------
 
--keep class com.mobile.praaktishockey.data.entities.** {
+-keep class com.mobile.gympraaktis.data.entities.** {
     public protected private *;
 }
--keep class com.mobile.praaktishockey.domain.entities.** {
+-keep class com.mobile.gympraaktis.domain.entities.** {
     public protected private *;
 }

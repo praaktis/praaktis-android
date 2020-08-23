@@ -8,6 +8,93 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:663859859824:android:591f372cddc2ae734dbfb5",
+        "android_client_info": {
+          "package_name": "com.mobile.gympraaktis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663859859824-79ff2qmukgmrpv75v4gjffs30fq4tq0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJMdcEGPbOYZJMjo4tZRAaysc7kGbHzgc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663859859824-79ff2qmukgmrpv75v4gjffs30fq4tq0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663859859824:android:7870cf899d48b06a4dbfb5",
+        "android_client_info": {
+          "package_name": "com.mobile.gympraaktis.demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663859859824-79ff2qmukgmrpv75v4gjffs30fq4tq0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJMdcEGPbOYZJMjo4tZRAaysc7kGbHzgc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663859859824-79ff2qmukgmrpv75v4gjffs30fq4tq0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663859859824:android:58da8d835270364b4dbfb5",
+        "android_client_info": {
+          "package_name": "com.mobile.gympraaktis.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663859859824-79ff2qmukgmrpv75v4gjffs30fq4tq0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJMdcEGPbOYZJMjo4tZRAaysc7kGbHzgc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663859859824-79ff2qmukgmrpv75v4gjffs30fq4tq0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:663859859824:android:4ff75a1c1061428b4dbfb5",
         "android_client_info": {
           "package_name": "com.mobile.praaktishockey"

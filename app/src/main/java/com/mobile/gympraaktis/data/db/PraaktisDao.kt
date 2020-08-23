@@ -1,0 +1,26 @@
+package com.mobile.gympraaktis.data.db
+
+import androidx.room.*
+import com.mobile.gympraaktis.data.entities.UserData
+import io.reactivex.Single
+
+@Dao
+interface PraaktisDao {
+    @Query("SELECT * FROM users")
+    fun getUsers(): Single<List<UserData>>
+
+    @Query("SELECT * FROM users WHERE id=:userId")
+    fun get(userId: Long): Single<UserData>?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveUser(user: UserData)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveAllUsers(users: List<UserData>)
+
+    @Delete
+    fun removeUser(user: UserData)
+
+    @Query("DELETE FROM users")
+    fun clear()
+}

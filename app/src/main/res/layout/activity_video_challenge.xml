@@ -14,7 +14,7 @@
         android:clickable="true"
         android:orientation="vertical">
 
-        <com.mobile.praaktishockey.domain.common.StateBroadcastingVideoView
+        <com.mobile.gympraaktis.domain.common.StateBroadcastingVideoView
             android:id="@+id/videoView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
