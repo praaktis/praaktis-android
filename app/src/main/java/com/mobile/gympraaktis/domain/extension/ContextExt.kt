@@ -83,7 +83,9 @@ fun Activity.showAlertMessage(title: String = "", init: AlertDialog.Builder.() -
 
 fun Fragment.alert(init: AlertDialog.Builder.() -> Unit) = activity?.alert(init)
 
-fun Activity.materialAlert(init: MaterialAlertDialogBuilder.() -> Unit): AlertDialog {
+fun Activity.materialAlert(
+    init: MaterialAlertDialogBuilder.() -> Unit
+): AlertDialog {
     val builder = MaterialAlertDialogBuilder(this)
     builder.init()
     val dialog = builder.create()
@@ -115,6 +117,49 @@ fun Activity.materialAlert(init: MaterialAlertDialogBuilder.() -> Unit): AlertDi
     }
     return dialog
 }
+
+fun Activity.materialAlert(
+    init: MaterialAlertDialogBuilder.() -> Unit,
+    onShow: () -> Unit
+): AlertDialog {
+    val builder = MaterialAlertDialogBuilder(this)
+    builder.init()
+    val dialog = builder.create()
+
+    dialog.setOnShowListener {
+        onShow.invoke()
+        val positiveBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        dialog.findViewById<TextView>(android.R.id.message)?.apply {
+            gravity = Gravity.CENTER
+            setTextSize(Dimension.SP, 18f)
+            setTextColor(ContextCompat.getColor(context, R.color.purple_900_1))
+            setTypeface(ResourcesCompat.getFont(context, R.font.lato))
+            updatePadding(bottom = 16.dp)
+        }
+        (dialog.getButton(AlertDialog.BUTTON_POSITIVE).parent as ButtonBarLayout).updatePadding(
+            bottom = 10.dp
+        )
+        positiveBtn.layoutParams = (positiveBtn.layoutParams as LinearLayout.LayoutParams).apply {
+            weight = 10f
+            gravity = Gravity.CENTER
+            marginEnd = 6.dp
+        }
+
+        val negativeBtn = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+        negativeBtn.layoutParams = (negativeBtn.layoutParams as LinearLayout.LayoutParams).apply {
+            weight = 10f
+            marginEnd = 10.dp
+            gravity = Gravity.CENTER
+        }
+    }
+    return dialog
+}
+
+fun Fragment.materialAlert(
+    init: MaterialAlertDialogBuilder.() -> Unit,
+    onShow: () -> Unit
+) =
+    activity?.materialAlert(init, onShow)
 
 fun Fragment.materialAlert(init: MaterialAlertDialogBuilder.() -> Unit) =
     activity?.materialAlert(init)

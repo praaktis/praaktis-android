@@ -1,6 +1,7 @@
 package com.mobile.gympraaktis.ui.challenge
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -10,10 +11,7 @@ import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseActivity
 import com.mobile.gympraaktis.data.entities.TimelineEntity
 import com.mobile.gympraaktis.domain.entities.ChallengeDTO
-import com.mobile.gympraaktis.domain.extension.getViewModel
-import com.mobile.gympraaktis.domain.extension.setLightNavigationBar
-import com.mobile.gympraaktis.domain.extension.showOrReplace
-import com.mobile.gympraaktis.domain.extension.transparentStatusAndNavigationBar
+import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.details.view.ChallengeInstructionFragment
 import com.mobile.gympraaktis.ui.login.view.LoginActivity
 import com.mobile.gympraaktis.ui.main.vm.MenuViewModel
@@ -36,13 +34,15 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
             activity: Activity,
             challengeItem: ChallengeDTO,
             result: HashMap<String, Any>?,
-            path: String,
-            pathTest: String?
+            path: String?,
+            pathTest: String?,
+            videoId: String?
         ) {
             val intent = Intent(activity, ChallengeActivity::class.java)
             intent.putExtra("challengeItem", challengeItem)
             intent.putExtra(ChallengeInstructionFragment.RAW_VIDEO_PATH, path)
             intent.putExtra(ChallengeInstructionFragment.VIDEO_PATH, pathTest)
+            intent.putExtra(ChallengeInstructionFragment.VIDEO_ID, videoId)
             if (result != null)
                 intent.putExtra(ChallengeInstructionFragment.CHALLENGE_RESULT, result)
             activity.startActivity(intent)
@@ -98,12 +98,11 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d("_RESULT", "REQUEST: " + requestCode)
         if (requestCode == PRAAKTIS_SDK_REQUEST_CODE) {
             when (resultCode) {
                 Activity.RESULT_OK -> {
                     finish()
-                    Log.d("_RESULT", "RESULT_OK")
+                    Timber.d("RESULT_OK")
                     @Suppress("UNCHECKED_CAST")
                     start(
                         this,
@@ -112,7 +111,8 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
                         data.getStringExtra(
                             ChallengeInstructionFragment.RAW_VIDEO_PATH
                         ),
-                        data.getStringExtra(ChallengeInstructionFragment.VIDEO_PATH)
+                        data.getStringExtra(ChallengeInstructionFragment.VIDEO_PATH),
+                        data.getStringExtra(ChallengeInstructionFragment.VIDEO_ID)
                     )
                 }
                 ExerciseEngineActivity.AUTHENTICATION_FAILED -> {
@@ -120,21 +120,42 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
                     mViewModel.logout()
                 }
                 ExerciseEngineActivity.CALIBRATION_FAILED -> {
-                    finish()
+                    showErrorDialog("Calibration failed, please try again!")
                     Timber.d("ERROR EVENT : $resultCode")
                     Timber.d("Result NOT OK ${data?.getSerializableExtra("result")}")
                 }
                 ExerciseEngineActivity.POOR_CONNECTION -> {
-                    finish()
+                    showErrorDialog("Poor connection, please try again!")
                     Timber.d("ERROR EVENT : $resultCode")
                     Timber.d("Result NOT OK ${data?.getSerializableExtra("result")}")
                 }
+                ExerciseEngineActivity.SMTH_WENT_WRONG -> {
+                    showErrorDialog("Something went wrong, please try again!")
+                }
+                Activity.RESULT_CANCELED -> {
+
+                }
                 else -> {
-                    finish()
-                    Log.d("__RESULT", "Result NOT OK $resultCode")
-                    Log.d("__RESULT", "Result NOT OK ${data?.getSerializableExtra("result")}")
+                    showErrorDialog("Something went wrong, please try again!")
                 }
             }
         }
     }
+
+    private fun showErrorDialog(message: String) {
+        materialAlert {
+            setCancelable(false)
+            setMessage(message)
+            setPositiveButton(R.string.try_again) { dialog, which ->
+                val fragment = supportFragmentManager.findFragmentById(R.id.container)
+                if (fragment is ResultChallengeFragment) {
+                    fragment.startExercise()
+                }
+            }
+            setNegativeButton(R.string.cancel) { dialog, which ->
+                finish()
+            }
+        }.show()
+    }
+
 }

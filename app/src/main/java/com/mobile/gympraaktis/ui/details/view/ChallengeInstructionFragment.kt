@@ -4,7 +4,6 @@ package com.mobile.gympraaktis.ui.details.view
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -43,6 +42,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         const val VIDEO_PATH = "VIDEO_PATH"
         const val SINGLE_USER_MODE = "SINGLE_USER_MODE"
         const val SERVER_NAME = "SERVER_NAME"
+        const val VIDEO_ID = "VIDEO_ID"
         private const val AUTO_START_DURATION = 20000L
 
         fun getInstance(item: ChallengeDTO) = ChallengeInstructionFragment().apply {
@@ -160,20 +160,20 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d("__RESULT", "Request: $requestCode")
         if (requestCode == ChallengeActivity.PRAAKTIS_SDK_REQUEST_CODE) {
             when (resultCode) {
                 Activity.RESULT_OK -> {
                     getActivity()?.finish()
                     @Suppress("UNCHECKED_CAST")
                     val result = data!!.getSerializableExtra("result") as HashMap<String, Any>?
-                    Log.d("__RESULT", "Result: $result")
+                    Timber.d("Result: $result")
                     ChallengeActivity.start(
                         requireActivity(),
                         challengeItem,
                         result,
                         data.getStringExtra(RAW_VIDEO_PATH),
-                        data.getStringExtra(VIDEO_PATH)
+                        data.getStringExtra(VIDEO_PATH),
+                        data.getStringExtra(VIDEO_ID)
                     )
                 }
                 ExerciseEngineActivity.AUTHENTICATION_FAILED -> {
@@ -181,42 +181,41 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
                     mViewModel.logout()
                 }
                 ExerciseEngineActivity.CALIBRATION_FAILED -> {
-//                    getActivity()?.finish()
                     showErrorDialog("Calibration failed, please try again!")
                     Timber.d("ERROR EVENT : $resultCode")
                     Timber.d("Result NOT OK ${data?.getSerializableExtra("result")}")
                 }
                 ExerciseEngineActivity.POOR_CONNECTION -> {
                     showErrorDialog("Poor connection, please try again!")
-//                    getActivity()?.finish()
                     Timber.d("ERROR EVENT : $resultCode")
                     Timber.d("Result NOT OK ${data?.getSerializableExtra("result")}")
+                }
+                ExerciseEngineActivity.SMTH_WENT_WRONG -> {
+                    showErrorDialog("Something went wrong, please try again!")
                 }
                 Activity.RESULT_CANCELED -> {
 
                 }
                 else -> {
                     showErrorDialog("Something went wrong, please try again!")
-//                    getActivity()?.finish()
-                    Log.d("__RESULT", "Result NOT OK $resultCode")
-                    Log.d("__RESULT", "Result NOT OK ${data?.getSerializableExtra("result")}")
                 }
             }
         }
     }
 
     private fun showErrorDialog(message: String) {
-        autoStartAnimator.pause()
-        materialAlert {
+        materialAlert({
             setCancelable(false)
             setMessage(message)
-            setPositiveButton(R.string.try_again, DialogInterface.OnClickListener { dialog, which ->
+            setPositiveButton(R.string.try_again) { dialog, which ->
                 startChallengeSteps()
-            })
-            setNegativeButton(R.string.cancel, DialogInterface.OnClickListener { dialog, which ->
+            }
+            setNegativeButton(R.string.cancel) { dialog, which ->
                 activity.finish()
-            })
-        }?.show()
+            }
+        }, {
+            autoStartAnimator.pause()
+        })?.show()
     }
 
     private val spotlightDelegate = resettableLazy { initGuide() }

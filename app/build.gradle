@@ -13,14 +13,14 @@ android {
             keyPassword 'T&mGKc)w2]FB9NW#QBjH'
         }
     }
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.mobile.gympraaktis"
         minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 46
-        versionName "0.9.73"
+        targetSdkVersion 30
+        versionCode 50
+        versionName "0.9.76"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptSupportModeEnabled true
         signingConfig signingConfigs.relese_signing_config
@@ -80,10 +80,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    implementation 'com.google.android.material:material:1.3.0-alpha02'
+    implementation 'com.google.android.material:material:1.3.0-alpha01'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation "androidx.fragment:fragment-ktx:1.3.0-alpha08"
     implementation project(path: ':pocketsphinx')

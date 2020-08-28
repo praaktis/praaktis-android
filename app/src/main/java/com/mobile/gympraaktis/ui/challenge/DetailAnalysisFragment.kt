@@ -145,6 +145,8 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
             )
             llAnalysisContainer.addView(chart)
         }
+
+        startGuideIfNecessary(detailScores.size)
     }
 
     private val spotlightDelegate = resettableLazy { initGuide() }
@@ -214,6 +216,11 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
                 )
             )
             .build()
+    }
+
+    override fun onDetach() {
+        closeSpotlight()
+        super.onDetach()
     }
 
 

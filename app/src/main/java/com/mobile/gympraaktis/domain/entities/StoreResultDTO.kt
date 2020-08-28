@@ -21,5 +21,7 @@ data class StoreResultDTO(
     @SerializedName("credits")
     val credits: Float? = null,
     @SerializedName("detail_result")
-    val detailResult: List<DetailResult>
-): Serializable
+    val detailResult: List<DetailResult>,
+    @SerializedName("video_id")
+    val videoId: String? = null
+) : Serializable

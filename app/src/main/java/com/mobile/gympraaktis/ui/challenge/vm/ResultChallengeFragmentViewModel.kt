@@ -20,7 +20,8 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
         points: Int? = null,
         score: Float,
         credits: Float? = null,
-        detailResults: List<DetailResult>
+        detailResults: List<DetailResult>,
+        videoId: String? = null
     ) {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
         val request = StoreResultDTO(
@@ -31,7 +32,8 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
             score = score,
             credits = credits,
             challengeId = challengeItem.id,
-            detailResult = detailResults
+            detailResult = detailResults,
+            videoId = videoId
         )
         userService.storeResult(request)
             .doOnSubscribe { showHideEvent.postValue(true) }

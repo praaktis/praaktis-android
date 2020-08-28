@@ -43,6 +43,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     private val result by lazy { activity.intent.getSerializableExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) as HashMap<String, Any>? }
     private val path by lazy { activity.intent.getStringExtra(ChallengeInstructionFragment.RAW_VIDEO_PATH) }
     private val pathTest by lazy { activity.intent.getStringExtra(ChallengeInstructionFragment.VIDEO_PATH) }
+    private val videoId by lazy { activity.intent.getStringExtra(ChallengeInstructionFragment.VIDEO_ID) }
 
     private var mediaPlayer2: MediaPlayer? = MediaPlayer()
 
@@ -70,7 +71,8 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             mViewModel.storeResult(
                 challengeItem,
                 score = scoreOverAll,
-                detailResults = detailResults
+                detailResults = detailResults,
+                videoId = videoId
             )
         } else {
             tvYourScore.text = "Your score: 0"
@@ -105,7 +107,6 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
         Timber.d("FILEPATH_TEST " + pathTest)
         Timber.d("RESULT  " + Gson().toJson(result))
 
-        // todo : sdk player integration
         binding.ivPlay.setOnClickListener {
             val intent = Intent(activity, H264RawPlayerActivity::class.java)
             intent.putExtra("FILE_NAME", path)
@@ -126,14 +127,27 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             }
         }
         cvTryAgain.onClick {
-            val intent = Intent(context, ExerciseEngineActivity::class.java)
-            intent.putExtra("LOGIN", mViewModel.getLogin())
-            intent.putExtra("PASSWORD", mViewModel.getPassword())
-            intent.putExtra("EXERCISE", challengeItem.id)
-            intent.putExtra(ChallengeInstructionFragment.SINGLE_USER_MODE, mViewModel.settingsStorage.cameraMode)
-            intent.putExtra(ChallengeInstructionFragment.SERVER_NAME, mViewModel.settingsStorage.praaktisServerName)
-            requireActivity().startActivityForResult(intent, ChallengeActivity.PRAAKTIS_SDK_REQUEST_CODE)
+            startExercise()
         }
+    }
+
+    fun startExercise() {
+        val intent = Intent(context, ExerciseEngineActivity::class.java)
+        intent.putExtra("LOGIN", mViewModel.getLogin())
+        intent.putExtra("PASSWORD", mViewModel.getPassword())
+        intent.putExtra("EXERCISE", challengeItem.id)
+        intent.putExtra(
+            ChallengeInstructionFragment.SINGLE_USER_MODE,
+            mViewModel.settingsStorage.cameraMode
+        )
+        intent.putExtra(
+            ChallengeInstructionFragment.SERVER_NAME,
+            mViewModel.settingsStorage.praaktisServerName
+        )
+        requireActivity().startActivityForResult(
+            intent,
+            ChallengeActivity.PRAAKTIS_SDK_REQUEST_CODE
+        )
     }
 
 }

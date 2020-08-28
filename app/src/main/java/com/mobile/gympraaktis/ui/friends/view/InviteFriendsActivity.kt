@@ -1,7 +1,6 @@
 package com.mobile.gympraaktis.ui.friends.view
 
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -76,12 +75,12 @@ class InviteFriendsActivity constructor(override val layoutId: Int = R.layout.ac
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == 0) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == 0) {
             try {
                 val shareIntent = Intent(Intent.ACTION_SEND)
                 shareIntent.type = "text/plain"
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name")
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "GymPraaktis")
                 var shareMessage = "\nLet me recommend you this application\n\n"
                 shareMessage =
                     shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID
