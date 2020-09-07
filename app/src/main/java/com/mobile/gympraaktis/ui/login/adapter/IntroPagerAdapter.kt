@@ -3,21 +3,24 @@ package com.mobile.gympraaktis.ui.login.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.mobile.gympraaktis.R
+import com.mobile.gympraaktis.databinding.LayoutIntroFirstBinding
+import com.mobile.gympraaktis.databinding.LayoutIntroSecondBinding
+import com.mobile.gympraaktis.databinding.LayoutIntroThirdBinding
 
 class IntroPagerAdapter : androidx.viewpager.widget.PagerAdapter() {
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val layout: View
-        when (position) {
+        val layout: View = when (position) {
             0 -> {
-                layout = LayoutInflater.from(container.context).inflate(R.layout.layout_intro_first, container, false)
+                LayoutIntroFirstBinding.inflate(LayoutInflater.from(container.context), container, false).root
             }
             1 -> {
-                layout = LayoutInflater.from(container.context).inflate(R.layout.layout_intro_second, container, false)
+                LayoutIntroSecondBinding.inflate(LayoutInflater.from(container.context), container, false).root
             }
             else -> {
-                layout = LayoutInflater.from(container.context).inflate(R.layout.layout_intro_third, container, false)
+                LayoutIntroThirdBinding.inflate(LayoutInflater.from(container.context), container, false).root
             }
         }
         container.addView(layout)

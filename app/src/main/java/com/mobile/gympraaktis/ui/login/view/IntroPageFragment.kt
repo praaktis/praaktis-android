@@ -24,14 +24,30 @@ class IntroPageFragment constructor(override val layoutId: Int = R.layout.fragme
 
     override fun initUI(savedInstanceState: Bundle?) {
         binding.btnLogin.onClick {
-            mViewModel.setShowedInroPage(true)
-            val tag = LoginFragment.TAG
-            activity.showOrReplace(tag) {
-                add(R.id.container, LoginFragment.getInstance(), tag)
-            }
+            openLoginPage()
         }
+        binding.btnRegister.onClick {
+            openLoginPage()
+            openRegisterPage()
+        }
+
         binding.vpIntro.adapter = IntroPagerAdapter()
         binding.vpIntro.setPageTransformer(false, FadeTransformation())
+    }
+
+    private fun openLoginPage() {
+        mViewModel.setShowedInroPage(true)
+        val tag = LoginFragment.TAG
+        activity.showOrReplace(tag) {
+            add(R.id.container, LoginFragment.getInstance(), tag)
+        }
+    }
+
+    private fun openRegisterPage() {
+        val tag = RegisterFragment.TAG
+        activity.showOrReplace(tag) {
+            add(R.id.container, RegisterFragment.getInstance(), tag).addToBackStack(tag)
+        }
     }
 
 }

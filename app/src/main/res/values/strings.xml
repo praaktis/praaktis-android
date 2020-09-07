@@ -166,4 +166,5 @@
     <string name="locale_fr" translatable="false">French</string>
     <string name="close">close</string>
     <string name="show_guide">Show guide</string>
+    <string name="don_t_have_an_account_nsign_up"><u>Don\'t have an account?\nSign up</u></string>
 </resources>

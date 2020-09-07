@@ -19,8 +19,8 @@ android {
         applicationId "com.mobile.gympraaktis"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 50
-        versionName "0.9.76"
+        versionCode 52
+        versionName "0.9.78"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptSupportModeEnabled true
         signingConfig signingConfigs.relese_signing_config
@@ -147,9 +147,9 @@ dependencies {
     implementation 'com.kirich1409.svgplugin:svg-glide4-plugin:1.2.1'
 
     // analytics.
-    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx:17.5.0'
     // crashlytics.
-    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:17.2.1'
     // notifications
     implementation 'com.google.firebase:firebase-messaging:20.2.4'
 
