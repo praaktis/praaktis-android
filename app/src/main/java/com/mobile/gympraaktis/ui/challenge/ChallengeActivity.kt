@@ -129,6 +129,11 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
                     Timber.d("ERROR EVENT : $resultCode")
                     Timber.d("Result NOT OK ${data?.getSerializableExtra("result")}")
                 }
+                ExerciseEngineActivity.CANNOT_REACH_SERVER -> {
+                    showErrorDialog("Cannot reach server, please try again!")
+                    Timber.d("ERROR EVENT : $resultCode")
+                    Timber.d("Result NOT OK ${data?.getSerializableExtra("result")}")
+                }
                 ExerciseEngineActivity.SMTH_WENT_WRONG -> {
                     showErrorDialog("Something went wrong, please try again!")
                 }
