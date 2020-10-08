@@ -3,24 +3,72 @@ package com.mobile.gympraaktis.ui.login.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.databinding.LayoutIntroFirstBinding
-import com.mobile.gympraaktis.databinding.LayoutIntroSecondBinding
-import com.mobile.gympraaktis.databinding.LayoutIntroThirdBinding
+import com.mobile.gympraaktis.databinding.*
+import com.mobile.gympraaktis.domain.extension.updatePadding
 
 class IntroPagerAdapter : androidx.viewpager.widget.PagerAdapter() {
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val layout: View = when (position) {
             0 -> {
-                LayoutIntroFirstBinding.inflate(LayoutInflater.from(container.context), container, false).root
+                LayoutIntroFirstBinding.inflate(
+                    LayoutInflater.from(container.context),
+                    container,
+                    false
+                ).apply {
+                    layoutLogo.setOnApplyWindowInsetsListener { v, insets ->
+                        v.updatePadding(top = insets.systemWindowInsetTop)
+                        insets
+                    }
+                }.root
             }
             1 -> {
-                LayoutIntroSecondBinding.inflate(LayoutInflater.from(container.context), container, false).root
+                LayoutIntroSecondBinding.inflate(
+                    LayoutInflater.from(container.context),
+                    container,
+                    false
+                ).apply {
+                    layoutLogo.setOnApplyWindowInsetsListener { v, insets ->
+                        v.updatePadding(top = insets.systemWindowInsetTop)
+                        insets
+                    }
+                }.root
+            }
+            2 -> {
+                LayoutIntroThirdBinding.inflate(
+                    LayoutInflater.from(container.context),
+                    container,
+                    false
+                ).apply {
+                    layoutLogo.setOnApplyWindowInsetsListener { v, insets ->
+                        v.updatePadding(top = insets.systemWindowInsetTop)
+                        insets
+                    }
+                }.root
+            }
+            3 -> {
+                LayoutIntroFourthBinding.inflate(
+                    LayoutInflater.from(container.context),
+                    container,
+                    false
+                ).apply {
+                    layoutLogo.setOnApplyWindowInsetsListener { v, insets ->
+                        v.updatePadding(top = insets.systemWindowInsetTop)
+                        insets
+                    }
+                }.root
             }
             else -> {
-                LayoutIntroThirdBinding.inflate(LayoutInflater.from(container.context), container, false).root
+                LayoutIntroFifthBinding.inflate(
+                    LayoutInflater.from(container.context),
+                    container,
+                    false
+                ).apply {
+                    layoutLogo.setOnApplyWindowInsetsListener { v, insets ->
+                        v.updatePadding(top = insets.systemWindowInsetTop)
+                        insets
+                    }
+                }.root
             }
         }
         container.addView(layout)
@@ -35,5 +83,5 @@ class IntroPagerAdapter : androidx.viewpager.widget.PagerAdapter() {
         return view === `object`
     }
 
-    override fun getCount(): Int = 3
+    override fun getCount(): Int = 5
 }

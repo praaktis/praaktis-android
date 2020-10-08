@@ -259,6 +259,19 @@ fun EditText.hideKeyBord() {
 //  }
 //}
 
+fun View.hideInvisibleAnimWithScale(duration: Long = 200, interpolator: Interpolator = AccelerateDecelerateInterpolator()) {
+    if (this.isVisible()) {
+        this.animate()
+            .alpha(0f)
+            .scaleX(0f)
+            .scaleY(0f)
+            .setDuration(duration)
+            .setInterpolator(interpolator)
+            .withEndAction { this.invisible() }
+            .start()
+    }
+}
+
 fun View.hideAnimWithScale(duration: Long = 200, interpolator: Interpolator = AccelerateDecelerateInterpolator()) {
     if (this.isVisible()) {
         this.animate()

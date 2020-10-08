@@ -18,6 +18,15 @@
             android:scaleType="centerCrop"
             android:src="@drawable/img_intro_3" />
 
+        <include
+            android:id="@+id/layout_logo"
+            layout="@layout/layout_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +43,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="170dp"
             android:fontFamily="@font/lato"
-            android:text="@string/earn_ncredits"
+            android:text="Analyse Your\nPerformance"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="35sp"

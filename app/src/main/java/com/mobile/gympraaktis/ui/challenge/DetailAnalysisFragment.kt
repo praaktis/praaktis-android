@@ -195,26 +195,26 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
     private fun detailsTarget(): Target {
         val target = LayoutTargetTimelineBinding.inflate(layoutInflater)
         target.closeSpotlight.setOnClickListener { closeSpotlight() }
-        target.customText.updateLayoutParams<ConstraintLayout.LayoutParams> { updateMargins(top = binding.toolbar.height + 340.dp) }
+//        target.customText.updateLayoutParams<ConstraintLayout.LayoutParams> { updateMargins(top = binding.toolbar.height + 340.dp) }
         target.customText.text =
-            "Shows your performance on each of the key aspects of the Challenge"
+            "Shows your Score for each of the Key Aspects of the Challenge, as well as your Overall Score and the Count of your repetitions"
 
         val viewLocation = IntArray(2)
         binding.toolbar.getLocationOnScreen(viewLocation)
 
         return Target.Builder()
-            .setAnchor(
+            /*.setAnchor(
                 viewLocation[0] + binding.llAnalysisContainer.width / 2f,
                 viewLocation[1].toFloat() + 220.dp
-            )
+            )*/
             .setOverlay(target.root)
-            .setShape(
+            /*.setShape(
                 RoundedRectangle(
                     320.dp.toFloat(),
                     binding.llAnalysisContainer.width.toFloat() - 32.dp,
                     4.dp.toFloat()
                 )
-            )
+            )*/
             .build()
     }
 

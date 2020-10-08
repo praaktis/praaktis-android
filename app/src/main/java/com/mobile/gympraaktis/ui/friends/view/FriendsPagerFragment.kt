@@ -9,9 +9,14 @@ import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseViewModel
 import com.mobile.gympraaktis.base.temp.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentFriendsPagerBinding
-import com.mobile.gympraaktis.domain.extension.getViewModel
-import com.mobile.gympraaktis.domain.extension.onClick
+import com.mobile.gympraaktis.databinding.LayoutTargetChallengesBinding
+import com.mobile.gympraaktis.domain.common.AppGuide
+import com.mobile.gympraaktis.domain.common.resettableLazy
+import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.friends.vm.FriendsPagerFragmentViewModel
+import com.takusemba.spotlight.OnSpotlightListener
+import com.takusemba.spotlight.Spotlight
+import com.takusemba.spotlight.Target
 import kotlinx.android.synthetic.main.fragment_friends_pager.*
 
 class FriendsPagerFragment constructor(override val layoutId: Int = R.layout.fragment_friends_pager) :
@@ -32,6 +37,10 @@ class FriendsPagerFragment constructor(override val layoutId: Int = R.layout.fra
         ivAddFriends.onClick {
             InviteFriendsActivity.start(activity)
         }
+
+
+        startGuideIfNecessary()
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -57,5 +66,63 @@ class FriendsPagerFragment constructor(override val layoutId: Int = R.layout.fra
             return getString(R.string.requests).toUpperCase()
         }
 
+    }
+
+
+    private val spotlightDelegate = resettableLazy { initGuide() }
+    private val spotlight by spotlightDelegate
+    private var isGuideStarted = false
+
+    private fun startGuideIfNecessary() {
+        if (!AppGuide.isGuideDone(TAG)) {
+            AppGuide.setGuideDone(TAG)
+            binding.root.doOnPreDraw {
+                spotlight.start()
+            }
+        }
+        binding.ivInfo.setOnClickListener {
+            restartSpotlight()
+        }
+    }
+
+    private fun restartSpotlight() {
+        if (spotlightDelegate.isInitialized())
+            spotlightDelegate.reset()
+        spotlight.start()
+    }
+
+    private fun closeSpotlight() {
+        if (isGuideStarted)
+            spotlight.finish()
+    }
+
+    private fun initGuide(): Spotlight {
+        return Spotlight.Builder(activity)
+            .setTargets(challengeTarget())
+            .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
+            .setOnSpotlightListener(object : OnSpotlightListener {
+                override fun onStarted() {
+                    isGuideStarted = true
+                    binding.ivInfo.hideInvisibleAnimWithScale()
+                }
+
+                override fun onEnded() {
+                    isGuideStarted = false
+                    binding.ivInfo.showAnimWithScale()
+                }
+            })
+            .build()
+    }
+
+    private fun challengeTarget(): Target {
+        val target = LayoutTargetChallengesBinding.inflate(layoutInflater)
+        target.closeSpotlight.setOnClickListener { closeSpotlight() }
+
+        target.customText.text =
+            "Invite Friends to join you by supplying their email address"
+
+        return Target.Builder()
+            .setOverlay(target.root)
+            .build()
     }
 }

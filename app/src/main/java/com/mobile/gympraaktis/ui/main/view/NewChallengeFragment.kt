@@ -200,7 +200,7 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
         target.closeSpotlight.setOnClickListener { closeSpotlight() }
 
         target.customText.text =
-            "Discover all the Challenges and Identify which one you want to try"
+            "Discover all the Challenges and Select the one you want to try"
 
         val rvLocation = IntArray(2)
         binding.rvChallenges.getLocationOnScreen(rvLocation)
@@ -209,18 +209,18 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
         binding.rvChallenges.getLocalVisibleRect(rvVisibleRect)
 
         return Target.Builder()
-            .setAnchor(
+            /*.setAnchor(
                 rvLocation[0] + binding.rvChallenges.width / 2f,
                 rvLocation[1] + rvVisibleRect.height() / 2f
-            )
+            )*/
             .setOverlay(target.root)
-            .setShape(
+            /*.setShape(
                 RoundedRectangle(
                     rvVisibleRect.height().toFloat() + 20.dp,
                     binding.rvChallenges.width.toFloat() + 20.dp,
                     4.dp.toFloat()
                 )
-            )
+            )*/
             .build()
     }
 

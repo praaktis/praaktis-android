@@ -53,7 +53,9 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
 
     override fun initUI(savedInstanceState: Bundle?) {
         transparentStatusAndNavigationBar()
-        setLightNavigationBar()
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            setLightNavigationBar()
+        }
 
         mViewModel?.getChallenges()
         mViewModel?.checkFcmToken()

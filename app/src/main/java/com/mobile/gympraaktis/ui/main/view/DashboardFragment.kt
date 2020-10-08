@@ -210,7 +210,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
 
     private fun initDashboardGuide(): Spotlight {
         return Spotlight.Builder(activity)
-            .setTargets(firstTarget(), secondTarget(), (activity as MainActivity).bottomNavTarget())
+            .setTargets((activity as MainActivity).bottomNavTarget(), firstTarget(), secondTarget())
             .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
             .setOnSpotlightListener(object : OnSpotlightListener {
                 override fun onStarted() {
@@ -232,7 +232,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
         firstTarget.closeTarget.setOnClickListener { nextTarget() }
         firstTarget.closeSpotlight.setOnClickListener { closeSpotlight() }
         firstTarget.customText.text =
-            "Shows your current level, points and credits. You earn Points for achieving a score better than 80% on any Challenge up to a maximum of 15 and you earn 1 Credit for each 5 attempts at Challenges"
+            "Shows your current Level, Points and Credits. You earn Points for achieving a score better than 80% on any Challenge up to a maximum of 15 and you earn 1 Credit for each 5 attempts at Challenges"
 
         val progressLocation = IntArray(2)
         binding.progressLevel.getLocationInWindow(progressLocation)

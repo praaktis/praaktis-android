@@ -4,6 +4,7 @@ import com.mobile.gympraaktis.ui.challenge.ChallengeVideoActivity
 import com.mobile.gympraaktis.ui.challenge.DetailAnalysisFragment
 import com.mobile.gympraaktis.ui.details.view.AnalysisFragment
 import com.mobile.gympraaktis.ui.details.view.ChallengeInstructionFragment
+import com.mobile.gympraaktis.ui.friends.view.FriendsPagerFragment
 import com.mobile.gympraaktis.ui.main.view.DashboardFragment
 import com.mobile.gympraaktis.ui.main.view.MenuFragment
 import com.mobile.gympraaktis.ui.main.view.NewChallengeFragment
@@ -27,7 +28,8 @@ object AppGuide {
         Pair(DetailAnalysisFragment.TAG, false),
         Pair(ChallengeInstructionFragment.TAG, false),
         Pair(ChallengeVideoActivity.TAG, false),
-        Pair(MenuFragment.TAG, false)
+        Pair(MenuFragment.TAG, false),
+        Pair(FriendsPagerFragment.TAG, false)
     )
 
     fun setGuideDone(key: String) {

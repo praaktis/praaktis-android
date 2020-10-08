@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_intro_1" />
+            android:src="@drawable/img_intro_5" />
 
         <include
             android:id="@+id/layout_logo"
@@ -43,7 +43,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="170dp"
             android:fontFamily="@font/lato"
-            android:text="Video Your\nChallenge"
+            android:text="Challenge\nFriends"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="35sp"

@@ -133,7 +133,7 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
         target.closeSpotlight.setOnClickListener { closeSpotlight() }
 
         target.customText.text =
-            "Check your profile, invite Friends to join you so you can compare performance, complete settings and Log Out at the end of your session "
+            "Edit your Profile, amend Settings and invite Friends to join you"
 
         val rvLocation = IntArray(2)
         binding.llTopMenu.getLocationOnScreen(rvLocation)

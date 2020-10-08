@@ -18,6 +18,15 @@
             android:scaleType="centerCrop"
             android:src="@drawable/img_intro_4" />
 
+        <include
+            android:id="@+id/layout_logo"
+            layout="@layout/layout_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +42,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="170dp"
-            android:text="@string/challange_nfriends"
+            android:text="Get Your\nScore"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="35sp"
