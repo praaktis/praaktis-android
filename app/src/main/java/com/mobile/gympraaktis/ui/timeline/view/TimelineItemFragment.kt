@@ -2,28 +2,22 @@ package com.mobile.gympraaktis.ui.timeline.view
 
 import android.graphics.Rect
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.data.Result
 import com.mobile.gympraaktis.databinding.FragmentItemTimelineBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetTimelineBinding
 import com.mobile.gympraaktis.domain.common.AppGuide
-import com.mobile.gympraaktis.domain.common.Constants
 import com.mobile.gympraaktis.domain.common.resettableLazy
-import com.mobile.gympraaktis.domain.entities.ScoreDTO
-import com.mobile.gympraaktis.domain.entities.TimelineChallengeItem
-import com.mobile.gympraaktis.domain.entities.TimelineDTO
 import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.challenge.ChallengeActivity
-import com.mobile.gympraaktis.ui.timeline.adapter.TimelineAdapter
+import com.mobile.gympraaktis.ui.timeline.adapter.TimelinePagedAdapter
 import com.mobile.gympraaktis.ui.timeline.vm.TimelineFragmentViewModel
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
 import com.takusemba.spotlight.shape.RoundedRectangle
-import kotlinx.android.synthetic.main.fragment_item_timeline.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -32,21 +26,7 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
 
     companion object {
         const val TAG = "TimelineItemFragment"
-        fun getInstance(timelineDTO: TimelineDTO): Fragment {
-            val fragment = TimelineItemFragment()
-            val bundle = Bundle()
-            bundle.putSerializable(Constants.TIMELINE, timelineDTO)
-            fragment.arguments = bundle
-            return fragment
-        }
-
-        fun getInstance(timelineChallengeItem: TimelineChallengeItem): Fragment {
-            val fragment = TimelineItemFragment()
-            val bundle = Bundle()
-            bundle.putSerializable(Constants.TIMELINE_CHALLENGE_ITEM, timelineChallengeItem)
-            fragment.arguments = bundle
-            return fragment
-        }
+        fun getInstance() = TimelineItemFragment()
     }
 
     override val mViewModel: TimelineFragmentViewModel
@@ -55,43 +35,55 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
         }
 
     override fun initUI(savedInstanceState: Bundle?) {
-        mViewModel.fetchTimelineData()
-
-        if (arguments != null) {
-            if (arguments?.get(Constants.TIMELINE) != null) {
-                val timeline = requireArguments().getSerializable(Constants.TIMELINE) as TimelineDTO
-                val items = mutableListOf<ScoreDTO>()
-                for (challenge in timeline.challenges) {
-                    if (challenge.latest.timePerformed != null && challenge.latest.timePerformed != "") {
-                        challenge.latest.name = challenge.name
-                        items.add(challenge.latest)
-                    }
+        if (activity.isConnected()) {
+            mViewModel.refreshAttemptHistory()
+        }
+        mViewModel.pagingStateLiveData.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Result.Status.LOADING -> {
+                    binding.swipeRefresh.isRefreshing = true
                 }
-            } else if (arguments?.getSerializable(Constants.TIMELINE_CHALLENGE_ITEM) != null) {
-                val challengeItem =
-                    requireArguments().getSerializable(Constants.TIMELINE_CHALLENGE_ITEM) as TimelineChallengeItem
-                challengeItem.scores.forEach {
-                    it.name = challengeItem.name
+                Result.Status.SUCCESS -> {
+                    binding.swipeRefresh.isRefreshing = false
+                    binding.tvNoData.hide()
+                    startGuideIfNecessary(1)
+                }
+                Result.Status.ERROR -> {
+                    binding.swipeRefresh.isRefreshing = false
+                }
+                Result.Status.EMPTY -> {
+                    binding.swipeRefresh.isRefreshing = false
+                    binding.tvNoData.show()
+                    startGuideIfNecessary(0)
                 }
             }
-        } else {
-            val adapter = TimelineAdapter(
-                onItemClick = {
-                    closeSpotlight()
+        })
 
-                    ChallengeActivity.start(activity, it)
-                }
-            )
-            binding.rvTimeline.adapter = adapter
+        val adapter = TimelinePagedAdapter(
+            onItemClick = {
+                closeSpotlight()
+                ChallengeActivity.start(activity, it)
+            }
+        )
+        binding.rvTimeline.adapter = adapter
 
-            mViewModel.observeTimeline().observe(viewLifecycleOwner, Observer {
-                if (it.isNullOrEmpty()) tvNoData.show()
-                else tvNoData.hide()
-                if (it != null) adapter.submitList(it) {
-                    startGuideIfNecessary(it.size)
-                }
-            })
+        var pagedListLiveData = mViewModel.getPagedAttemptHistory()
+
+        pagedListLiveData.observe(viewLifecycleOwner, {
+            adapter.submitList(it)
+        })
+
+        binding.swipeRefresh.setOnRefreshListener {
+            mViewModel.refreshAttemptHistory()
+            if (adapter.currentList.isNullOrEmpty()) {
+                pagedListLiveData.removeObservers(viewLifecycleOwner)
+                pagedListLiveData = mViewModel.getPagedAttemptHistory()
+                pagedListLiveData.observe(viewLifecycleOwner, {
+                    adapter.submitList(it)
+                })
+            }
         }
+
     }
 
     private val spotlightDelegate = resettableLazy { initGuide() }

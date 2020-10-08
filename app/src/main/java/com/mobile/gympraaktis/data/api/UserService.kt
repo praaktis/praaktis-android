@@ -3,10 +3,7 @@ package com.mobile.gympraaktis.data.api
 import com.mobile.gympraaktis.domain.entities.*
 import io.reactivex.Single
 import okhttp3.ResponseBody
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface UserService {
 
@@ -18,6 +15,9 @@ interface UserService {
 
     @GET("user/TimelineData/")
     fun getTimelineData(): Single<TimelineDTO>
+
+    @GET("user/getAttemptHistory/")
+    suspend fun getAttemptHistory(@Query("page") page: Int): AttemptHistoryResponse
 
     @GET("user/logout/")
     fun logout(): Single<ResponseBody>

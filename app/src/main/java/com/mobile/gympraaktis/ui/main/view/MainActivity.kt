@@ -95,7 +95,7 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
             R.id.menu_timeline -> {
                 if (currentFragment == null || currentFragment !is TimelineItemFragment) {
                     val tag = TimelineItemFragment.TAG
-                    supportFragmentManager.switch(R.id.container, TimelineItemFragment(), tag)
+                    supportFragmentManager.switch(R.id.container, TimelineItemFragment.getInstance(), tag)
                 }
             }
             R.id.menu_more -> {

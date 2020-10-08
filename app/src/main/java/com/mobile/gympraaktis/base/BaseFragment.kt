@@ -21,11 +21,7 @@ abstract class BaseFragment : Fragment() {
     val progressLoadingDialog by lazy { ProgressLoadingDialog(context!!) }
 
     val activity by lazy {
-        try {
-            getActivity() as BaseActivity
-        } catch (ex: ClassCastException) {
-            getActivity() as com.mobile.gympraaktis.base.temp.BaseActivity<*>
-        }
+        getActivity() as com.mobile.gympraaktis.base.temp.BaseActivity<*>
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

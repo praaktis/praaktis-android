@@ -10,8 +10,7 @@ class TimelinePagerAdapter (fragmentManager: FragmentManager,
                             val timelineDTO: TimelineDTO): FragmentPagerAdapter(fragmentManager) {
 
     override fun getItem(position: Int): Fragment {
-        if (position == 0) return TimelineItemFragment.getInstance(timelineDTO)
-        return TimelineItemFragment.getInstance(timelineDTO.challenges[position - 1])
+        return TimelineItemFragment.getInstance()
     }
 
     override fun getCount(): Int = 4

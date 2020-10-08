@@ -21,7 +21,8 @@ import com.mobile.gympraaktis.domain.entities.CountryItemDTO
         AttemptChartDataEntity::class,
         ChartDataEntity::class,
         ScoreAnalysisEntity::class,
-        TimelineEntity::class
+        TimelineEntity::class,
+        AttemptEntity::class
     ],
     version = DATABASE_HOCKEY_VERSION,
     exportSchema = false
@@ -56,5 +57,7 @@ abstract class PraaktisDatabase : RoomDatabase() {
     abstract fun getDashboardDao(): DashboardDao
 
     abstract fun getTimelineDao(): TimelineDao
+
+    abstract fun getAttemptHistoryDao(): AttemptHistoryDao
 
 }

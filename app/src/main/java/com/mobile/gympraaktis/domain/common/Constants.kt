@@ -19,7 +19,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 object Constants {
-    const val DATABASE_HOCKEY_VERSION: Int = 2
+    const val DATABASE_HOCKEY_VERSION: Int = 4
     const val TIMELINE = "TIMELINE"
     const val TIMELINE_CHALLENGE_ITEM = "TIMELINE_CHALLENGE_ITEM"
 

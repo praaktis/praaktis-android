@@ -6,28 +6,20 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.BaseActivity
+import com.mobile.gympraaktis.base.temp.BaseActivity
+import com.mobile.gympraaktis.databinding.ActivityLoginBinding
 import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
 import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.login.vm.LoginActivityViewModel
 
 class LoginActivity constructor(override val layoutId: Int = R.layout.activity_login) :
-    BaseActivity(), FragmentManager.OnBackStackChangedListener {
+    BaseActivity<ActivityLoginBinding>(),
+    FragmentManager.OnBackStackChangedListener {
 
     override val mViewModel: LoginActivityViewModel?
         get() = getViewModel { LoginActivityViewModel(application) }
 
     companion object {
-        val REQUEST_LOGIN = 1
-
-        fun start4Result(activity: BaseActivity) {
-            val intent = Intent(activity, LoginActivity::class.java)
-            activity.startActivityForResult(
-                intent,
-                REQUEST_LOGIN
-            )
-        }
-
         fun start(context: Context) {
             val intent = Intent(context, LoginActivity::class.java)
             context.startActivity(intent)

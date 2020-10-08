@@ -7,6 +7,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
+import com.mobile.gympraaktis.domain.common.NetworkMonitorUtil
 import com.mobile.gympraaktis.domain.common.ProgressLoadingDialog
 import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
 import com.mobile.gympraaktis.domain.extension.isTablet
@@ -24,9 +25,13 @@ abstract class BaseActivity : AppCompatActivity() {
         super.attachBaseContext(newBase?.let { SettingsStorage.setLocale(it) })
     }
 
+    private val networkMonitor by lazy { NetworkMonitorUtil(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         requestCorrectOrientation()
         super.onCreate(savedInstanceState)
+        observeNetworkConnection()
+
         if (shouldOverridePendingTransition()) {
             enterPendingTransition()
         }
@@ -46,6 +51,16 @@ abstract class BaseActivity : AppCompatActivity() {
                 if (it) showProgress()
                 else hideProgress()
             })
+        }
+    }
+
+    private var isConnected: Boolean = false
+
+    fun isConnected() = isConnected
+
+    private fun observeNetworkConnection() {
+        networkMonitor.result = { isAvailable, type ->
+            isConnected = isAvailable
         }
     }
 
@@ -69,6 +84,16 @@ abstract class BaseActivity : AppCompatActivity() {
         } else {
             ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        networkMonitor.register()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        networkMonitor.unregister()
     }
 
     override fun finish() {

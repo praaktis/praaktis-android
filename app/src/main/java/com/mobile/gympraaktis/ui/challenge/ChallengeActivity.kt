@@ -1,15 +1,16 @@
 package com.mobile.gympraaktis.ui.challenge
 
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.BaseActivity
+import com.mobile.gympraaktis.base.temp.BaseActivity
+import com.mobile.gympraaktis.data.entities.AttemptEntity
 import com.mobile.gympraaktis.data.entities.TimelineEntity
+import com.mobile.gympraaktis.databinding.ActivityChallengeBinding
 import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.details.view.ChallengeInstructionFragment
@@ -19,7 +20,7 @@ import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
 import timber.log.Timber
 
 class ChallengeActivity constructor(override val layoutId: Int = R.layout.activity_challenge) :
-    BaseActivity() {
+    BaseActivity<ActivityChallengeBinding>() {
 
     companion object {
         const val PRAAKTIS_SDK_REQUEST_CODE = 333
@@ -53,6 +54,13 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
             intent.putExtra("score", scoreDTO)
             activity.startActivity(intent)
         }
+
+        fun start(activity: Activity, attemptEntity: AttemptEntity) {
+            val intent = Intent(activity, ChallengeActivity::class.java)
+            intent.putExtra("score", attemptEntity)
+            activity.startActivity(intent)
+        }
+
     }
 
     private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as ChallengeDTO }
@@ -70,7 +78,7 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
             showOrReplace(tag) {
                 add(
                     R.id.container,
-                    DetailAnalysisFragment.getInstance(intent.getSerializableExtra("score") as TimelineEntity),
+                    DetailAnalysisFragment.getInstance(intent.getSerializableExtra("score") as AttemptEntity),
                     tag
                 )
             }

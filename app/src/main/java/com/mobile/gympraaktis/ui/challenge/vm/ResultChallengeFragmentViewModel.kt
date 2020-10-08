@@ -1,6 +1,7 @@
 package com.mobile.gympraaktis.ui.challenge.vm
 
 import android.app.Application
+import androidx.lifecycle.viewModelScope
 import com.mobile.gympraaktis.base.BaseViewModel
 import com.mobile.gympraaktis.data.db.PraaktisDatabase
 import com.mobile.gympraaktis.data.repository.UserServiceRepository
@@ -40,7 +41,8 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
             .doAfterTerminate { showHideEvent.postValue(false) }
             .subscribe({
                 fetchDashboardData()
-                fetchTimelineData()
+                refreshAttemptHistory()
+//                fetchTimelineData()
             }, ::onError)
     }
 
@@ -79,5 +81,11 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
             }, ::onError)
     }
 
+    private fun refreshAttemptHistory() {
+        viewModelScope.launch(Dispatchers.IO) {
+            PraaktisDatabase.getInstance(getApplication()).getAttemptHistoryDao()
+                .removeAttemptHistory()
+        }
+    }
 
 }

@@ -12,6 +12,7 @@ interface UserServiceRepository {
     fun getDashboardData(): Single<DashboardDTO>
     fun getProfile(): Single<UserDTO>
     fun getTimelineData(): Single<TimelineDTO>
+    suspend fun getAttemptHistory(page: Int): AttemptHistoryResponse
     fun getDetailResult(attemptId: Int): Single<List<DetailScoreDTO>>
     fun storeResult(storeResultDTO: StoreResultDTO): Single<ResponseBody>
     fun getChallenges(): Single<List<ChallengeDTO>>
@@ -48,6 +49,10 @@ interface UserServiceRepository {
 
         override fun getTimelineData(): Single<TimelineDTO> {
             return userService.getTimelineData().compose(ASyncTransformer<TimelineDTO>())
+        }
+
+        override suspend fun getAttemptHistory(page: Int): AttemptHistoryResponse {
+            return userService.getAttemptHistory(page)
         }
 
         override fun getDetailResult(attemptId: Int): Single<List<DetailScoreDTO>> {

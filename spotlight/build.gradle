@@ -51,7 +51,7 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath deps.androidPlugin
+    classpath 'com.android.tools.build:gradle:4.0.2'
     classpath deps.bintrayPlugin
     classpath deps.kotlin.plugin
   }

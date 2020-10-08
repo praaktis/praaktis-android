@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.mobile.gympraaktis.base.BaseActivity
 import com.mobile.gympraaktis.base.BaseViewModel
 import com.mobile.gympraaktis.domain.common.ProgressLoadingDialog
 import com.mobile.gympraaktis.domain.extension.makeToast
@@ -26,13 +25,7 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
 
     val progressLoadingDialog by lazy { ProgressLoadingDialog(context!!) }
 
-    val activity by lazy {
-        try {
-            getActivity() as BaseActivity
-        } catch (ex: ClassCastException) {
-            getActivity() as com.mobile.gympraaktis.base.temp.BaseActivity<*>
-        }
-    }
+    val activity by lazy { getActivity() as BaseActivity<*> }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val fade = Fade()

@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.temp.BaseFragment
-import com.mobile.gympraaktis.data.entities.TimelineEntity
+import com.mobile.gympraaktis.data.entities.AttemptEntity
 import com.mobile.gympraaktis.databinding.FragmentDetailedAnalysisBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetTimelineBinding
 import com.mobile.gympraaktis.domain.common.AnalysisLineChart
@@ -42,7 +42,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
         fun getInstance(): Fragment = DetailAnalysisFragment()
 
         @JvmStatic
-        fun getInstance(score: TimelineEntity): Fragment {
+        fun getInstance(score: AttemptEntity): Fragment {
             val fragment = DetailAnalysisFragment()
             val bundle = Bundle()
             bundle.putSerializable("score", score)
@@ -63,7 +63,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
     override val mViewModel: DetailAnalysisFragmentViewModel
         get() = getViewModel { DetailAnalysisFragmentViewModel(activity.application) }
 
-    private val scoreDTO by lazy { arguments?.getSerializable("score") as TimelineEntity }
+    private val scoreDTO by lazy { arguments?.getSerializable("score") as AttemptEntity }
     private val challengeItem by lazy { arguments?.getSerializable("challengeItem") as ChallengeDTO }
     private val result by lazy { activity.intent.getSerializableExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) as HashMap<String, Any>? }
 
