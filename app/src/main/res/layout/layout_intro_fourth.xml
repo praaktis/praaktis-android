@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_intro_2_mod" />
+            android:src="@drawable/img_intro_2" />
 
         <include
             android:id="@+id/layout_logo"
