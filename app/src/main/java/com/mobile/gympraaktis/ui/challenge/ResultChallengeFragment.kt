@@ -18,7 +18,6 @@ import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
 import com.praaktis.exerciseengine.RawPlayer.H264RawPlayerActivity
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
 import timber.log.Timber
-import java.util.*
 
 class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_result_challenge) :
     BaseFragment<FragmentResultChallengeBinding>() {

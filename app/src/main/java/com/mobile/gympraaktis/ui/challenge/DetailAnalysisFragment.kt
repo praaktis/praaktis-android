@@ -6,9 +6,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.annotation.Dimension
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.updateMargins
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
@@ -29,8 +27,9 @@ import com.mobile.gympraaktis.ui.details.view.ChallengeInstructionFragment
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
-import com.takusemba.spotlight.shape.RoundedRectangle
 import kotlinx.android.synthetic.main.fragment_detailed_analysis.*
+import java.util.*
+import kotlin.collections.HashMap
 
 class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.fragment_detailed_analysis) :
     BaseFragment<FragmentDetailedAnalysisBinding>() {
@@ -80,23 +79,30 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
         })
     }
 
-    private fun collectDetailScores(): MutableList<DetailScoreDTO> {
-        val detailScores: MutableList<DetailScoreDTO> = mutableListOf()
+    private fun collectDetailScores(): List<DetailScoreDTO> {
+        val scoresMap = TreeMap<Int, DetailScoreDTO>()
+//        val detailScores: MutableList<DetailScoreDTO> = mutableListOf()
+
         result?.forEach { (key, value) ->
             when (value) {
                 is com.praaktis.exerciseengine.Engine.DetailPoint -> {
                     if (key != "Overall") {
-                        detailScores.add(
+                        scoresMap[value.priority] = DetailScoreDTO(
+                            DetailPoint(value.id, key),
+                            value.value.toDouble()
+                        )
+                        /*detailScores.add(
                             DetailScoreDTO(
                                 DetailPoint(value.id, key),
                                 value.value.toDouble()
                             )
-                        )
+                        )*/
                     }
                 }
             }
         }
-        return detailScores
+
+        return scoresMap.map { it.value }
     }
 
     private fun initToolbar() {

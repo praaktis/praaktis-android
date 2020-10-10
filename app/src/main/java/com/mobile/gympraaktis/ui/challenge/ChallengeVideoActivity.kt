@@ -60,12 +60,12 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
         supportFragmentManager.addOnBackStackChangedListener(this)
 
         val video = when (challengeItem.id) {
-            4 -> R.raw.handsup1
-            5 -> R.raw.squats1
-            6 -> R.raw.curl1
-            7 -> R.raw.fw_lunge
-            8 -> R.raw.bw_lunge
-            else -> R.raw.challenge_video
+            4 -> R.raw.handsup2
+            5 -> R.raw.squats2
+            6 -> R.raw.curl2
+            7 -> R.raw.fw_lunge2
+            8 -> R.raw.bw_lunge2
+            else -> R.raw.handsup2
         }
 
         binding.videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + video))
@@ -83,7 +83,8 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
             false
         }*/
 
-        binding.videoView.setPlayPauseListener(object : StateBroadcastingVideoView.PlayPauseListener {
+        binding.videoView.setPlayPauseListener(object :
+            StateBroadcastingVideoView.PlayPauseListener {
             override fun onPlay() {
                 binding.ivPlayReply.invisible()
             }
@@ -185,7 +186,13 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
         target.customText.text =
             "Play the video to see how the Challenge should be completed. Then click Next to get instructions on setting yourself up for the Challenge"
 
-        target.root.updatePadding(bottom = binding.ivPlayReply.bottom)
+        target.customText2.text = challengeItem.videoGuide?.joinToString(separator = "\n") {
+            it
+        }
+
+//        target.root.updatePadding(bottom = binding.ivPlayReply.bottom)
+        target.customText.updatePadding(bottom = binding.ivPlayReply.bottom)
+        target.customText2.updatePadding(top = binding.ivPlayReply.top - binding.ivPlayReply.height + 24.dp)
 
         return Target.Builder()
             .setAnchor(binding.ivPlayReply)
@@ -206,10 +213,10 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
                 override fun onEnded() {
                     isGuideStarted = false
                     binding.ivInfo.showAnimWithScale()
-                    lifecycleScope.launch(Dispatchers.Main) {
+                    /*lifecycleScope.launch(Dispatchers.Main) {
                         delay(1000)
                         binding.videoView.start()
-                    }
+                    }*/
                 }
             })
             .build()
