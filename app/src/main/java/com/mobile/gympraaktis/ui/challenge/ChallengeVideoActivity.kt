@@ -150,8 +150,8 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
     private var isGuideStarted = false
 
     private fun startGuideIfNecessary() {
-        if (!AppGuide.isGuideDone(TAG)) {
-            AppGuide.setGuideDone(TAG)
+        if (!AppGuide.isGuideDone(TAG + challengeItem.id)) {
+            AppGuide.setGuideDone(TAG + challengeItem.id)
             binding.ivPlayReply.doOnPreDraw {
                 spotlight.start()
             }

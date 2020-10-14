@@ -102,10 +102,6 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     }
 
     private fun initClicks() {
-        Timber.d("FILEPATH " + path)
-        Timber.d("FILEPATH_TEST " + pathTest)
-        Timber.d("RESULT  " + Gson().toJson(result))
-
         binding.ivPlay.setOnClickListener {
             val intent = Intent(activity, H264RawPlayerActivity::class.java)
             intent.putExtra("FILE_NAME", path)

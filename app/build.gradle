@@ -19,8 +19,8 @@ android {
         applicationId "com.mobile.gympraaktis"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 63
-        versionName "0.9.89"
+        versionCode 65
+        versionName "0.9.90.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptSupportModeEnabled true
         signingConfig signingConfigs.relese_signing_config
