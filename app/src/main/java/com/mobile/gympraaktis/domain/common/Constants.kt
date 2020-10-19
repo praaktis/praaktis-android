@@ -65,26 +65,6 @@ object Constants {
         return builder.build()
     }
 
-    fun createImageUri(context: Context): Uri? {
-        val contentResolver = context.contentResolver
-        val cv = ContentValues()
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        cv.put(MediaStore.Images.Media.TITLE, timeStamp)
-        return contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv)
-    }
-
-    fun getImageUri(): Uri? {
-        var m_imgUri: Uri? = null
-        try {
-            val cacheDir = Environment.getExternalStorageDirectory()
-            val imageFile = File.createTempFile("img", ".jpg", cacheDir)
-            m_imgUri = Uri.fromFile(imageFile)
-        } catch (ignored: Exception) {
-        }
-
-        return m_imgUri
-    }
-
 }
 typealias BoolLV = LiveEvent<Boolean>
 typealias StringLV = LiveEvent<String>

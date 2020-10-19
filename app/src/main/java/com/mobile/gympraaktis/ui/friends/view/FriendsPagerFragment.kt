@@ -5,15 +5,15 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.viewModels
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseViewModel
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentFriendsPagerBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetChallengesBinding
 import com.mobile.gympraaktis.domain.common.AppGuide
 import com.mobile.gympraaktis.domain.common.resettableLazy
 import com.mobile.gympraaktis.domain.extension.*
-import com.mobile.gympraaktis.ui.friends.vm.FriendsPagerFragmentViewModel
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
@@ -27,8 +27,7 @@ class FriendsPagerFragment constructor(override val layoutId: Int = R.layout.fra
         fun getInstance(): Fragment = FriendsPagerFragment()
     }
 
-    override val mViewModel: BaseViewModel
-        get() = getViewModel { FriendsPagerFragmentViewModel(activity.application) }
+    override val mViewModel: BaseViewModel by viewModels()
 
     override fun initUI(savedInstanceState: Bundle?) {
         tlFriends.setupWithViewPager(vpFriends)

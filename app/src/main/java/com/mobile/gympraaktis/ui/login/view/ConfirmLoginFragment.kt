@@ -4,18 +4,18 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentConfirmLoginBinding
 import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
 import com.mobile.gympraaktis.domain.common.shape.CurvedEdgeTreatment
 import com.mobile.gympraaktis.domain.entities.LanguageItem
 import com.mobile.gympraaktis.domain.entities.UserDTO
 import com.mobile.gympraaktis.domain.extension.dp
-import com.mobile.gympraaktis.domain.extension.getViewModel
 import com.mobile.gympraaktis.domain.extension.makeToast
 import com.mobile.gympraaktis.domain.extension.onClick
 import com.mobile.gympraaktis.ui.login.vm.ConfirmLoginFragmentViewModel
@@ -35,8 +35,7 @@ class ConfirmLoginFragment constructor(override val layoutId: Int = R.layout.fra
         }
     }
 
-    override val mViewModel: ConfirmLoginFragmentViewModel
-        get() = getViewModel { ConfirmLoginFragmentViewModel(activity.application!!) }
+    override val mViewModel: ConfirmLoginFragmentViewModel by viewModels()
 
     private var user: UserDTO? = null
 

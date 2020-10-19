@@ -8,9 +8,10 @@ import androidx.annotation.Dimension
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.data.entities.AttemptEntity
 import com.mobile.gympraaktis.databinding.FragmentDetailedAnalysisBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetTimelineBinding
@@ -59,8 +60,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
         }
     }
 
-    override val mViewModel: DetailAnalysisFragmentViewModel
-        get() = getViewModel { DetailAnalysisFragmentViewModel(activity.application) }
+    override val mViewModel: DetailAnalysisFragmentViewModel by viewModels()
 
     private val scoreDTO by lazy { arguments?.getSerializable("score") as AttemptEntity }
     private val challengeItem by lazy { arguments?.getSerializable("challengeItem") as ChallengeDTO }

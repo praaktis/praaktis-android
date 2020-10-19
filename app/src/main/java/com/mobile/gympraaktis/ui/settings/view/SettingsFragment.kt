@@ -3,11 +3,11 @@ package com.mobile.gympraaktis.ui.settings.view
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentSettingsBinding
-import com.mobile.gympraaktis.domain.extension.getViewModel
 import com.mobile.gympraaktis.ui.SplashScreenActivity
 import com.mobile.gympraaktis.ui.settings.adapter.LanguageAdapter
 import com.mobile.gympraaktis.ui.settings.vm.SettingsFragmentViewModel
@@ -23,8 +23,7 @@ class SettingsFragment constructor(override val layoutId: Int = R.layout.fragmen
         fun getInstance(): Fragment = SettingsFragment()
     }
 
-    override val mViewModel: SettingsFragmentViewModel
-        get() = getViewModel { SettingsFragmentViewModel(activity.application) }
+    override val mViewModel: SettingsFragmentViewModel by viewModels()
 
     override fun initUI(savedInstanceState: Bundle?) {
         initLanguageSettings()

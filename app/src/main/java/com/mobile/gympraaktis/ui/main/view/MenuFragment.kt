@@ -1,11 +1,11 @@
 package com.mobile.gympraaktis.ui.main.view
 
-import android.app.Application
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentMenuBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetTimelineBinding
 import com.mobile.gympraaktis.domain.common.AppGuide
@@ -27,8 +27,7 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
         const val TAG = "MenuFragment"
     }
 
-    override val mViewModel: MenuViewModel
-        get() = getViewModel { MenuViewModel(Application()) }
+    override val mViewModel: MenuViewModel by viewModels()
 
     override fun initUI(savedInstanceState: Bundle?) {
         binding.menuSettings.onClick {

@@ -4,10 +4,11 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import androidx.fragment.app.viewModels
 import com.afollestad.vvalidator.form
 import com.bumptech.glide.Glide
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentRegisterUserDetailBinding
 import com.mobile.gympraaktis.domain.common.PhotoDelegate
 import com.mobile.gympraaktis.domain.entities.CountryItemDTO
@@ -35,8 +36,7 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
         fun getInstance() = RegisterUserDetailFragment()
     }
 
-    override val mViewModel: RegisterUserDetailViewModel
-        get() = getViewModel { RegisterUserDetailViewModel(activity.application!!) }
+    override val mViewModel: RegisterUserDetailViewModel by viewModels()
 
     private var dateOfBirthCal: GregorianCalendar? = null
     private var photoDelegate: PhotoDelegate? = null

@@ -1,17 +1,17 @@
 package com.mobile.gympraaktis.ui.main.view
 
 import android.app.Activity
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.afollestad.vvalidator.form
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentProfileBinding
 import com.mobile.gympraaktis.domain.common.ImageUtils
 import com.mobile.gympraaktis.domain.entities.CountryItemDTO
@@ -38,7 +38,7 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) :
         const val TAG: String = "ProfileFragment"
     }
 
-    override val mViewModel: ProfileViewModel get() = getViewModel { ProfileViewModel(Application()) }
+    override val mViewModel: ProfileViewModel by viewModels()
 
     private lateinit var oldUserInfo: UserDTO
     private lateinit var newUserInfo: UserDTO

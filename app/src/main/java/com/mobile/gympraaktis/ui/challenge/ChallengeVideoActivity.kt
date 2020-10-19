@@ -11,7 +11,7 @@ import androidx.core.app.NavUtils
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseActivity
+import com.mobile.gympraaktis.base.BaseActivity
 import com.mobile.gympraaktis.databinding.ActivityVideoChallengeBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBottomBinding
 import com.mobile.gympraaktis.domain.common.AppGuide

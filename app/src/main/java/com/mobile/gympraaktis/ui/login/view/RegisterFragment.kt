@@ -1,12 +1,12 @@
 package com.mobile.gympraaktis.ui.login.view
 
 import android.os.Bundle
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.afollestad.vvalidator.form
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentRegisterBinding
-import com.mobile.gympraaktis.domain.extension.getViewModel
 import com.mobile.gympraaktis.domain.extension.hideKeyboard
 import com.mobile.gympraaktis.domain.extension.onClick
 import com.mobile.gympraaktis.domain.extension.showOrReplace
@@ -21,8 +21,7 @@ class RegisterFragment constructor(override val layoutId: Int = R.layout.fragmen
         fun getInstance(): androidx.fragment.app.Fragment = RegisterFragment()
     }
 
-    override val mViewModel: RegisterViewModel
-        get() = getViewModel { RegisterViewModel(activity.application!!) }
+    override val mViewModel: RegisterViewModel by viewModels()
 
     override fun initUI(savedInstanceState: Bundle?) {
         initClicks()

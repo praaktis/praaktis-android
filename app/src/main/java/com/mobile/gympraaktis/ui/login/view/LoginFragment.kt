@@ -2,9 +2,10 @@ package com.mobile.gympraaktis.ui.login.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentLoginBinding
 import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
 import com.mobile.gympraaktis.domain.entities.LanguageItem
@@ -22,8 +23,7 @@ class LoginFragment constructor(override val layoutId: Int = R.layout.fragment_l
         fun getInstance(): Fragment = LoginFragment()
     }
 
-    override val mViewModel: LoginFragmentViewModel
-        get() = getViewModel { LoginFragmentViewModel(activity.application!!) }
+    override val mViewModel: LoginFragmentViewModel by viewModels()
 
     override fun initUI(savedInstanceState: Bundle?) {
         initClicks()

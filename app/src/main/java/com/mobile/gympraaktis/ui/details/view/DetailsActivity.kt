@@ -4,10 +4,11 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseActivity
+import com.mobile.gympraaktis.base.BaseActivity
 import com.mobile.gympraaktis.data.entities.AnalysisComplete
 import com.mobile.gympraaktis.databinding.ActivityDetailsBinding
 import com.mobile.gympraaktis.domain.entities.ChallengeDTO
@@ -28,7 +29,7 @@ class DetailsActivity constructor(override val layoutId: Int = R.layout.activity
             }
     }
 
-    override val mViewModel: DetailsViewModel? get() = getViewModel { DetailsViewModel(application) }
+    override val mViewModel: DetailsViewModel by viewModels()
 
     override fun initUI(savedInstanceState: Bundle?) {
         transparentStatusAndNavigationBar()

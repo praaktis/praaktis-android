@@ -10,10 +10,11 @@ import android.provider.Settings
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentNewChallengeBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetChallengesBinding
 import com.mobile.gympraaktis.domain.common.AppGuide
@@ -27,7 +28,6 @@ import com.mobile.gympraaktis.ui.main.vm.NewChallengeViewModel
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
-import com.takusemba.spotlight.shape.RoundedRectangle
 import kotlinx.android.synthetic.main.fragment_new_challenge.*
 
 
@@ -43,8 +43,7 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
         const val PRAAKTIS_SDK_PERMISSIONS = 111
     }
 
-    override val mViewModel: NewChallengeViewModel
-        get() = getViewModel { NewChallengeViewModel(activity.application) }
+    override val mViewModel: NewChallengeViewModel by viewModels()
 
     private lateinit var mainViewModel: MainViewModel
 

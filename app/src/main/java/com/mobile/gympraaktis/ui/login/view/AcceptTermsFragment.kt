@@ -4,13 +4,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentAcceptTermsBinding
 import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
 import com.mobile.gympraaktis.domain.entities.LanguageItem
-import com.mobile.gympraaktis.domain.extension.getViewModel
 import com.mobile.gympraaktis.domain.extension.makeToast
 import com.mobile.gympraaktis.domain.extension.onClick
 import com.mobile.gympraaktis.domain.extension.showOrReplace
@@ -26,8 +26,7 @@ class AcceptTermsFragment constructor(override val layoutId: Int = R.layout.frag
         fun getInstance(): Fragment = AcceptTermsFragment()
     }
 
-    override val mViewModel: RegisterUserDetailViewModel
-        get() = getViewModel { RegisterUserDetailViewModel(activity.application!!) }
+    override val mViewModel: RegisterUserDetailViewModel by viewModels()
 
     override fun initUI(savedInstanceState: Bundle?) {
         tvFinish.onClick {

@@ -7,13 +7,14 @@ import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.viewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.data.entities.DashboardWithAnalysis
 import com.mobile.gympraaktis.databinding.FragmentDashboardBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBinding
@@ -44,8 +45,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
         const val TAG: String = "DashboardFragment"
     }
 
-    override val mViewModel: DashboardViewModel
-        get() = getViewModel { DashboardViewModel(activity.application) }
+    override val mViewModel: DashboardViewModel by viewModels()
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var analysisAdapter: AnalysisAdapter

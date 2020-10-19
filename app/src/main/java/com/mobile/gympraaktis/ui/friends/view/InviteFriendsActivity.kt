@@ -6,13 +6,14 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.afollestad.vvalidator.form
 import com.mobile.gympraaktis.BuildConfig
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseActivity
+import com.mobile.gympraaktis.base.BaseActivity
 import com.mobile.gympraaktis.databinding.ActivityInviteFriendsBinding
 import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.friends.vm.InviteFriendsActivityViewModel
@@ -32,8 +33,7 @@ class InviteFriendsActivity constructor(override val layoutId: Int = R.layout.ac
         }
     }
 
-    override val mViewModel: InviteFriendsActivityViewModel?
-        get() = getViewModel { InviteFriendsActivityViewModel(application) }
+    override val mViewModel: InviteFriendsActivityViewModel by viewModels()
 
     override fun initUI(savedInstanceState: Bundle?) {
         transparentStatusAndNavigationBar()

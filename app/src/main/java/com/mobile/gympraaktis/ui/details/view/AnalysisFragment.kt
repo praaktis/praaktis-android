@@ -3,6 +3,7 @@ package com.mobile.gympraaktis.ui.details.view
 import android.graphics.Color
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
@@ -11,7 +12,7 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.github.mikephil.charting.utils.EntryXComparator
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.data.entities.AnalysisComplete
 import com.mobile.gympraaktis.databinding.FragmentAnalysisBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBottomBinding
@@ -43,8 +44,7 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
         }
     }
 
-    override val mViewModel: AnalysisViewModel
-        get() = getViewModel { AnalysisViewModel(activity.application) }
+    override val mViewModel: AnalysisViewModel by viewModels()
 
     private lateinit var detailsViewModel: DetailsViewModel
     private val analysisData: AnalysisComplete by lazy {

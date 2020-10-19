@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.Entry
@@ -11,13 +12,12 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.utils.EntryXComparator
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.data.entities.AnalysisComplete
 import com.mobile.gympraaktis.databinding.FragmentMeVsFriendsBinding
 import com.mobile.gympraaktis.domain.entities.ComparisonDTO
 import com.mobile.gympraaktis.domain.entities.MeVsOtherChallenge
 import com.mobile.gympraaktis.domain.extension.dpToPx
-import com.mobile.gympraaktis.domain.extension.getViewModel
 import com.mobile.gympraaktis.domain.extension.makeToast
 import com.mobile.gympraaktis.domain.extension.show
 import com.mobile.gympraaktis.ui.details.adapter.ScoresAdapter
@@ -43,10 +43,9 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
         }
     }
 
-    override val mViewModel: ComparisonViewModel
-        get() = getViewModel { ComparisonViewModel(activity.application) }
+    override val mViewModel: ComparisonViewModel by viewModels()
 
-    private val analysisDTO by lazy { arguments!!.getSerializable("data") as AnalysisComplete }
+    private val analysisDTO by lazy { requireArguments().getSerializable("data") as AnalysisComplete }
     private var comparisonData: ComparisonDTO? = null
     private var meVsFriendsChallenge: MeVsOtherChallenge? = null
 
@@ -64,7 +63,8 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
                 progressLoadingDialog.dismiss()
                 return@Observer
             }
-            meVsFriendsChallenge = it.friends.challenges.find { it.id == analysisDTO.analysisEntity.id }
+            meVsFriendsChallenge =
+                it.friends.challenges.find { it.id == analysisDTO.analysisEntity.id }
             initInfo()
             initChart()
             initFriendsScoreList()
@@ -110,7 +110,7 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
         with(lineChart.axisLeft) {
             isInverted = false
             axisMinimum = 0f // this replaces setStartAtZero(true)
-            spaceMin = context!!.dpToPx(40).toFloat()
+            spaceMin = requireContext().dpToPx(40).toFloat()
             labelCount = 4
             mAxisRange = 20f
             setDrawGridLines(false)

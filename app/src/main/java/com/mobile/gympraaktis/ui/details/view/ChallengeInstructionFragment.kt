@@ -9,10 +9,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.mobile.gympraaktis.PraaktisApp
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentChallengeInstructionBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBottomBinding
@@ -52,7 +52,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         }
     }
 
-    override val mViewModel: MenuViewModel get() = getViewModel { MenuViewModel(PraaktisApp.getApplication()) }
+    override val mViewModel: MenuViewModel by viewModels()
 
     private val challengeItem by lazy { requireArguments().getSerializable(CHALLENGE_ITEM) as ChallengeDTO }
     private val autoStartAnimator by lazy { ValueAnimator.ofFloat(0f, 1f) }

@@ -5,9 +5,10 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseActivity
+import com.mobile.gympraaktis.base.BaseActivity
 import com.mobile.gympraaktis.data.entities.AttemptEntity
 import com.mobile.gympraaktis.data.entities.TimelineEntity
 import com.mobile.gympraaktis.databinding.ActivityChallengeBinding
@@ -24,12 +25,6 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
 
     companion object {
         const val PRAAKTIS_SDK_REQUEST_CODE = 333
-
-        fun start(activity: Activity) {
-            val intent = Intent(activity, ChallengeActivity::class.java)
-            //todo
-            activity.startActivity(intent)
-        }
 
         fun start(
             activity: Activity,
@@ -65,7 +60,7 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
 
     private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as ChallengeDTO }
 
-    override val mViewModel: MenuViewModel get() = getViewModel { MenuViewModel(application) }
+    override val mViewModel: MenuViewModel by viewModels()
 
     override fun initUI(savedInstanceState: Bundle?) {
         transparentStatusAndNavigationBar()

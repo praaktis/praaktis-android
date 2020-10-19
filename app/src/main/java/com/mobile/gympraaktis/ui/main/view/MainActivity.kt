@@ -3,17 +3,15 @@ package com.mobile.gympraaktis.ui.main.view
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseActivity
+import com.mobile.gympraaktis.base.BaseActivity
 import com.mobile.gympraaktis.databinding.ActivityMainBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBottomBinding
 import com.mobile.gympraaktis.domain.extension.*
@@ -46,8 +44,7 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
         }
     }
 
-    override val mViewModel: MainViewModel?
-        get() = getViewModel { MainViewModel(application) }
+    override val mViewModel: MainViewModel by viewModels()
 
     private var notificationBadge: View? = null
 

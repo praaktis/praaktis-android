@@ -11,9 +11,6 @@ import androidx.asynclayoutinflater.view.AsyncLayoutInflater
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.mobile.gympraaktis.base.BaseViewModelFactory
 
 fun AppCompatActivity.hideKeyboard(view: View) {
     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -108,15 +105,4 @@ fun AppCompatActivity.getVisibleFragment(): Fragment? {
         }
     }
     return null
-}
-
-
-inline fun <reified T : ViewModel> Fragment.getViewModel(noinline creator: (() -> T)? = null): T {
-    return if (creator == null) ViewModelProvider(this).get(T::class.java)
-    else ViewModelProvider(this, BaseViewModelFactory(activity?.application!!, creator)).get(T::class.java)
-}
-
-inline fun <reified T : ViewModel> AppCompatActivity.getViewModel(noinline creator: (() -> T)? = null): T {
-    return if (creator == null) ViewModelProvider(this).get(T::class.java)
-    else ViewModelProvider(this, BaseViewModelFactory(application, creator)).get(T::class.java)
 }

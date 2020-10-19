@@ -4,9 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.fragment.app.FragmentManager
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseActivity
+import com.mobile.gympraaktis.base.BaseActivity
 import com.mobile.gympraaktis.databinding.ActivityLoginBinding
 import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
 import com.mobile.gympraaktis.domain.extension.*
@@ -16,8 +17,7 @@ class LoginActivity constructor(override val layoutId: Int = R.layout.activity_l
     BaseActivity<ActivityLoginBinding>(),
     FragmentManager.OnBackStackChangedListener {
 
-    override val mViewModel: LoginActivityViewModel?
-        get() = getViewModel { LoginActivityViewModel(application) }
+    override val mViewModel: LoginActivityViewModel by viewModels()
 
     companion object {
         fun start(context: Context) {

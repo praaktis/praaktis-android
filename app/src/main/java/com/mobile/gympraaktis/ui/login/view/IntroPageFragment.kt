@@ -1,11 +1,11 @@
 package com.mobile.gympraaktis.ui.login.view
 
 import android.os.Bundle
+import androidx.fragment.app.viewModels
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentIntroPageBinding
 import com.mobile.gympraaktis.domain.common.FadeTransformation
-import com.mobile.gympraaktis.domain.extension.getViewModel
 import com.mobile.gympraaktis.domain.extension.onClick
 import com.mobile.gympraaktis.domain.extension.showOrReplace
 import com.mobile.gympraaktis.ui.login.adapter.IntroPagerAdapter
@@ -19,8 +19,7 @@ class IntroPageFragment constructor(override val layoutId: Int = R.layout.fragme
         fun getInstance() = IntroPageFragment()
     }
 
-    override val mViewModel: IntroPageViewModel
-        get() = getViewModel { IntroPageViewModel(activity.application!!) }
+    override val mViewModel: IntroPageViewModel by viewModels()
 
     override fun initUI(savedInstanceState: Bundle?) {
         binding.btnLogin.onClick {

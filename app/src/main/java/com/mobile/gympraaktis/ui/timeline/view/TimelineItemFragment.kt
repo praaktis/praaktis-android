@@ -2,9 +2,10 @@ package com.mobile.gympraaktis.ui.timeline.view
 
 import android.graphics.Rect
 import android.os.Bundle
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.temp.BaseFragment
+import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.data.Result
 import com.mobile.gympraaktis.databinding.FragmentItemTimelineBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetTimelineBinding
@@ -29,10 +30,7 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
         fun getInstance() = TimelineItemFragment()
     }
 
-    override val mViewModel: TimelineFragmentViewModel
-        get() = getViewModel {
-            TimelineFragmentViewModel(activity.application)
-        }
+    override val mViewModel: TimelineFragmentViewModel by viewModels()
 
     override fun initUI(savedInstanceState: Bundle?) {
         if (activity.isConnected()) {

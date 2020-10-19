@@ -5,6 +5,8 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.domain.common.NetworkMonitorUtil
@@ -13,10 +15,12 @@ import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
 import com.mobile.gympraaktis.domain.extension.isTablet
 import com.mobile.gympraaktis.domain.extension.makeToast
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
 
     @get:LayoutRes
     protected abstract val layoutId: Int
+
+    protected lateinit var binding: B
 
     protected open val mViewModel: BaseViewModel? = null
     val progressLoadingDialog by lazy { ProgressLoadingDialog(this) }
@@ -35,7 +39,7 @@ abstract class BaseActivity : AppCompatActivity() {
         if (shouldOverridePendingTransition()) {
             enterPendingTransition()
         }
-        setContentView(layoutId)
+        binding = DataBindingUtil.setContentView(this, layoutId)
         initUI(savedInstanceState)
 
         mViewModel?.let {
@@ -64,6 +68,12 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    abstract fun initUI(savedInstanceState: Bundle?)
+
+    open fun shouldOverridePendingTransition() = true
+    open fun enterPendingTransition() = overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+    open fun exitPendingTransition() = overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
     open fun showProgress() {
         progressLoadingDialog.show()
     }
@@ -71,12 +81,6 @@ abstract class BaseActivity : AppCompatActivity() {
     open fun hideProgress() {
         progressLoadingDialog.dismiss()
     }
-
-    abstract fun initUI(savedInstanceState: Bundle?)
-
-    open fun shouldOverridePendingTransition() = true
-    open fun enterPendingTransition() = overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-    open fun exitPendingTransition() = overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
     protected fun requestCorrectOrientation() {
         requestedOrientation = if (isTablet()) {
