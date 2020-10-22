@@ -11,20 +11,31 @@
         android:layout_height="match_parent"
         android:background="@drawable/app_gradient">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vpIntro"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <!--
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/vpIntro"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+        -->
 
-        <com.itsronald.widget.ViewPagerIndicator
+        <com.asksira.loopingviewpager.LoopingViewPager
+            android:id="@+id/vpLoop"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:autoScroll="true"
+            app:isInfinite="true"
+            app:scrollInterval="3000" />
+
+        <com.asksira.loopingviewpager.indicator.CustomShapePagerIndicator
+            android:id="@+id/vpIndicator"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="17dp"
             android:gravity="bottom"
+            app:indicator_spacing="6dp"
             app:layout_constraintBottom_toTopOf="@id/btn_login"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:viewPagerId="@id/vpIntro" />
+            app:layout_constraintRight_toRightOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login"

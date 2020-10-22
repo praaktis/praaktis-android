@@ -13,10 +13,11 @@
         tools:background="@drawable/app_gradient">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_background_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_intro_1" />
+            tools:src="@drawable/img_intro_1" />
 
         <include
             android:id="@+id/layout_logo"
@@ -43,7 +44,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="170dp"
             android:fontFamily="@font/lato"
-            android:text="Video Your\nChallenge"
+            tools:text="Video Your\nChallenge"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="35sp"

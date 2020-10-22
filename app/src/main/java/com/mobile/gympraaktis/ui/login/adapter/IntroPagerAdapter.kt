@@ -9,7 +9,9 @@ import com.mobile.gympraaktis.domain.extension.updatePadding
 class IntroPagerAdapter : androidx.viewpager.widget.PagerAdapter() {
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val layout: View = when (position) {
+        val pos = position % 5
+
+        val layout: View = when (pos) {
             0 -> {
                 LayoutIntroFirstBinding.inflate(
                     LayoutInflater.from(container.context),
@@ -83,5 +85,5 @@ class IntroPagerAdapter : androidx.viewpager.widget.PagerAdapter() {
         return view === `object`
     }
 
-    override fun getCount(): Int = 5
+    override fun getCount(): Int = Int.MAX_VALUE/*5*/
 }
