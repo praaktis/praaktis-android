@@ -80,7 +80,6 @@ class LoginFragment constructor(override val layoutId: Int = R.layout.fragment_l
                 val fragment = when (tag) {
                     RegisterUserDetailFragment.TAG -> RegisterUserDetailFragment.getInstance()
                     AcceptTermsFragment.TAG -> AcceptTermsFragment.getInstance()
-//                    CalibrateFragment.TAG -> CalibrateFragment.getInstance(true)
                     ConfirmLoginFragment.TAG -> ConfirmLoginFragment.getInstance()
                     else -> null
                 }
@@ -112,22 +111,17 @@ class LoginFragment constructor(override val layoutId: Int = R.layout.fragment_l
     }
 
     private fun showTagAccordingly(user: UserDTO): String? {
-        if (user.firstName.isNullOrBlank()) {
-            return RegisterUserDetailFragment.TAG
+        return if (user.firstName.isNullOrBlank()) {
+            RegisterUserDetailFragment.TAG
         } else {
-            return if (!user.termsAccepted!!) {
+            if (!user.termsAccepted!!) {
                 AcceptTermsFragment.TAG
             } else {
-                /*if (user.scalingFactor == null) {
-//                    CalibrateFragment.TAG
-                    null
-                } else {*/
                 if (user.praaktisRegistered == true) {
                     null
                 } else {
                     ConfirmLoginFragment.TAG
                 }
-//                }
             }
         }
     }

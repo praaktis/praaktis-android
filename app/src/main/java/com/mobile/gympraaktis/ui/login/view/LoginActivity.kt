@@ -10,7 +10,10 @@ import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseActivity
 import com.mobile.gympraaktis.databinding.ActivityLoginBinding
 import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
-import com.mobile.gympraaktis.domain.extension.*
+import com.mobile.gympraaktis.domain.extension.clearLightNavigationBar
+import com.mobile.gympraaktis.domain.extension.setLightNavigationBar
+import com.mobile.gympraaktis.domain.extension.showOrReplace
+import com.mobile.gympraaktis.domain.extension.transparentStatusAndNavigationBar
 import com.mobile.gympraaktis.ui.login.vm.LoginActivityViewModel
 
 class LoginActivity constructor(override val layoutId: Int = R.layout.activity_login) :
@@ -38,7 +41,7 @@ class LoginActivity constructor(override val layoutId: Int = R.layout.activity_l
 
         supportFragmentManager.addOnBackStackChangedListener(this)
 
-        if (mViewModel?.isShowedInroPage() == true) {
+        if (mViewModel.isShowedInroPage()) {
             val tag = LoginFragment.TAG
             showOrReplace(tag) {
                 replace(R.id.container, LoginFragment.getInstance(), tag)
@@ -83,13 +86,16 @@ class LoginActivity constructor(override val layoutId: Int = R.layout.activity_l
     }
 
     override fun onBackStackChanged() {
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
-        when (currentFragment) {
+        when (supportFragmentManager.findFragmentById(R.id.container)) {
             is ConfirmLoginFragment -> {
-                setLightNavigationBar()
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    setLightNavigationBar()
+                }
             }
             else -> {
-                clearLightNavigationBar()
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    clearLightNavigationBar()
+                }
             }
         }
     }

@@ -56,17 +56,15 @@ class SplashScreenActivity constructor(override val layoutId: Int = R.layout.lay
         SettingsStorage.instance.lang = localeKey
     }
 
-    private fun getSplashScreenDuration() = 1500L
+    private fun getSplashScreenDuration() = 500L
 
     private fun routeToAppropriatePage(user: UserDTO?) {
         // Example routing
-        when {
-            user == null -> LoginActivity.startAndFinishAll(this)
+        when (user) {
+            null -> LoginActivity.startAndFinishAll(this)
             else -> {
                 mViewModel.getProfile()?.let {
-//                    if (it.language != null)
                     MainActivity.startAndFinishAll(this)
-//                    else LoginActivity.start(this)
                 }
             }
         }

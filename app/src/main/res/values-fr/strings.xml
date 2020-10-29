@@ -142,5 +142,4 @@
     <string name="enter_valid_password">Entrez un mot de passe valide</string>
     <string name="at_least_8_characters">Au moins 8 caractères</string>
     <string name="password_donot_match">Les mots de passe ne correspondent pas</string>
-    <string name="squats">SQUATS</string>
 </resources>

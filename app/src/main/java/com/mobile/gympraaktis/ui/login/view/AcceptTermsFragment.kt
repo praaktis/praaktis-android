@@ -41,24 +41,16 @@ class AcceptTermsFragment constructor(override val layoutId: Int = R.layout.frag
             mViewModel.getTermsConditions()
         }
 
-        mViewModel.acceptTermsEvent.observe(this, Observer {
-//            val tag = CalibrateFragment.TAG
-//            activity.showOrReplace(tag) {
-//                add(
-//                    R.id.container,
-//                    CalibrateFragment.getInstance(true),
-//                    tag
-//                ).addToBackStack(tag)
-//            }
+        mViewModel.acceptTermsEvent.observe(viewLifecycleOwner, {
             mViewModel.loadProfile()
         })
-        mViewModel.getAcceptTermsEvent.observe(this, Observer {
+        mViewModel.getAcceptTermsEvent.observe(viewLifecycleOwner, {
             val url = it
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             activity.startActivity(browserIntent)
         })
 
-        mViewModel.profileInfoEvent.observe(this, Observer {
+        mViewModel.profileInfoEvent.observe(viewLifecycleOwner, {
             if (it.praaktisRegistered!!) {
                 if (it.language != null)
                     setLanguageAccordingly(mViewModel.getLanguageObject()!!)

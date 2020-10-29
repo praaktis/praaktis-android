@@ -17,12 +17,12 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
-        tools:replace="android:allowBackup,android:roundIcon,android:icon">
+        tools:replace="android:allowBackup">
 
         <!--
  Set custom default icon. This is used when no icon is set for incoming notification messages.
@@ -75,7 +75,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
 
-        <service android:name="com.mobile.gympraaktis.domain.common.firebase.PraaktisFCMService">
+        <service
+            android:name="com.mobile.gympraaktis.domain.common.firebase.PraaktisFCMService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

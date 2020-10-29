@@ -21,6 +21,7 @@ import com.mobile.gympraaktis.domain.extension.onClick
 import com.mobile.gympraaktis.ui.login.vm.ConfirmLoginFragmentViewModel
 import com.mobile.gympraaktis.ui.main.view.MainActivity
 import kotlinx.android.synthetic.main.fragment_confirm_login.*
+import timber.log.Timber
 
 class ConfirmLoginFragment constructor(override val layoutId: Int = R.layout.fragment_confirm_login) :
     BaseFragment<FragmentConfirmLoginBinding>() {
@@ -44,7 +45,7 @@ class ConfirmLoginFragment constructor(override val layoutId: Int = R.layout.fra
 
         mViewModel.loadProfile()
 
-        mViewModel.profileInfoEvent.observe(this, Observer {
+        mViewModel.profileInfoEvent.observe(viewLifecycleOwner, Observer {
             user = it
             setInfo(user!!)
         })
@@ -54,7 +55,7 @@ class ConfirmLoginFragment constructor(override val layoutId: Int = R.layout.fra
         }
 
         mViewModel.resendActivationEvent.observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, it.toString())
+            Timber.d(it.toString())
             activity.makeToast("Activation message sent")
         })
 

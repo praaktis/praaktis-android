@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentRegisterUserDetailBinding
-import com.mobile.gympraaktis.domain.common.PhotoDelegate
 import com.mobile.gympraaktis.domain.entities.CountryItemDTO
 import com.mobile.gympraaktis.domain.entities.Gender
 import com.mobile.gympraaktis.domain.entities.UserDTO
@@ -39,14 +38,12 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
     override val mViewModel: RegisterUserDetailViewModel by viewModels()
 
     private var dateOfBirthCal: GregorianCalendar? = null
-    private var photoDelegate: PhotoDelegate? = null
     private lateinit var user: UserDTO
 
     private var selectedCountry: CountryItemDTO? = null
     private var countryPicker: CountryPicker? = null
 
     override fun initUI(savedInstanceState: Bundle?) {
-        photoDelegate = PhotoDelegate(this)
         initClicks()
 
         val genderAdapter = ArrayAdapter(
@@ -172,23 +169,8 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
         if (dateOfBirthCal == null) {
             dateOfBirthCal = GregorianCalendar()
         }
-//
-//        val datePicker = DatePickerDialog(
-//            Objects.requireNonNull<FragmentActivity>(activity),
-//            R.style.MyDatePickerDialogTheme,
-//            { view, year, monthOfYear, dayOfMonth -> },
-//            dateOfBirthCal?.get(Calendar.YEAR)!!,
-//            dateOfBirthCal?.get(Calendar.MONTH)!!,
-//            dateOfBirthCal?.get(
-//                Calendar.DAY_OF_MONTH
-//            )!!
-//        )
-        var initDate = LocalDate.now()
-        if (etDateOfBirth.isNotEmpty()) {
-            initDate = etDateOfBirth.stringText().MMMddYYYYtoLocalDate()
-        }
-        val picker = SpinnerDatePickerDialogBuilder()
-            .context(context!!)
+        SpinnerDatePickerDialogBuilder()
+            .context(requireContext())
             .callback { view, year, monthOfYear, dayOfMonth ->
                 dateOfBirthCal?.set(year, monthOfYear, dayOfMonth)
                 etDateOfBirth.setText(
@@ -203,42 +185,8 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
             .maxDate(2020, 0, 1)
             .minDate(1950, 0, 1)
             .build()
-
-        /* picker.setButton(0, "Ok", object : DialogInterface.OnClickListener {
-             override fun onClick(dialog: DialogInterface?, which: Int) {
-
-             }
-         })*/
-        picker.show()
-
-//        datePicker.datePicker.maxDate = System.currentTimeMillis()
-//        datePicker.show()
-//        val ok = datePicker.getButton(AlertDialog.BUTTON_POSITIVE)
-//        ok.setBackgroundColor(ContextCompat.getColor(context!!, R.color.transparent))
-//        ok.setTextColor(ContextCompat.getColor(context!!, R.color.main_bg))
-//        datePicker.getButton(AlertDialog.BUTTON_NEGATIVE)
-//            .setBackgroundColor(ContextCompat.getColor(context!!, R.color.transparent))
-//        datePicker.getButton(AlertDialog.BUTTON_NEGATIVE)
-//            .setTextColor(ContextCompat.getColor(context!!, R.color.main_bg))
-//        ok.setOnClickListener { v ->
-//            dateOfBirthCal?.set(Calendar.YEAR, datePicker.datePicker.year)
-//            dateOfBirthCal?.set(Calendar.MONTH, datePicker.datePicker.month)
-//            dateOfBirthCal?.set(Calendar.DAY_OF_MONTH, datePicker.datePicker.dayOfMonth)
-//            etDateOfBirth.setText(LocalDate.parse(dateOfBirthCal?.dateYYYY_MM_DD()).formatMMMddYYYY())
-//            etDateOfBirth.setText(dateOfBirthCal?.dateYYYY_MM_DD())
-//            datePicker.dismiss()
-//        }
+            .show()
     }
-
-    /*override fun onStart() {
-        super.onStart()
-        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
-    }*/
 
     override fun onDestroy() {
         countryPicker = null

@@ -64,8 +64,8 @@ class RegisterFragment constructor(override val layoutId: Int = R.layout.fragmen
     }
 
     private fun initEvents() {
-        mViewModel.createUserEvent.observe(this, Observer {})
-        mViewModel.loginEvent.observe(this, Observer {
+        mViewModel.createUserEvent.observe(this, {})
+        mViewModel.loginEvent.observe(this, {
             val tag = RegisterUserDetailFragment.TAG
             activity.showOrReplace(tag) {
                 add(

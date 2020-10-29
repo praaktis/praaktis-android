@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
-import com.itsronald.widget.ViewPagerIndicator
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentIntroPageBinding
@@ -18,9 +17,6 @@ import com.mobile.gympraaktis.domain.extension.onClick
 import com.mobile.gympraaktis.domain.extension.showOrReplace
 import com.mobile.gympraaktis.ui.login.adapter.IntroInfiniteAdapter
 import com.mobile.gympraaktis.ui.login.vm.IntroPageViewModel
-import timber.log.Timber
-import kotlin.reflect.full.declaredMemberFunctions
-import kotlin.reflect.jvm.isAccessible
 
 class IntroPageFragment constructor(override val layoutId: Int = R.layout.fragment_intro_page) :
     BaseFragment<FragmentIntroPageBinding>() {
@@ -31,7 +27,6 @@ class IntroPageFragment constructor(override val layoutId: Int = R.layout.fragme
     }
 
     override val mViewModel: IntroPageViewModel by viewModels()
-
 
     override fun onResume() {
         binding.vpLoop.resumeAutoScroll()
