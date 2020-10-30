@@ -46,16 +46,14 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
 
     override val mViewModel: MainViewModel by viewModels()
 
-    private var notificationBadge: View? = null
-
     override fun initUI(savedInstanceState: Bundle?) {
         transparentStatusAndNavigationBar()
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             setLightNavigationBar()
         }
 
-        mViewModel?.getChallenges()
-        mViewModel?.checkFcmToken()
+        mViewModel.getChallenges()
+        mViewModel.checkFcmToken()
 
         supportFragmentManager.addOnBackStackChangedListener(this)
 
@@ -65,7 +63,6 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
                 selectedItemId = R.id.menu_dashboard
             }
         }
-        setMoreItemBadge()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -126,13 +123,6 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
             )
         }
         return true
-    }
-
-    private fun setMoreItemBadge() {
-//        val menuView = bottom_navigation.getChildAt(0) as BottomNavigationMenuView
-//        val itemView = menuView.getChildAt(3) as BottomNavigationItemView
-//        notificationBadge = LayoutInflater.from(this).inflate(R.layout.view_notification_badge, menuView, false)
-//        itemView.addView(notificationBadge)
     }
 
     override fun onBackStackChanged() {

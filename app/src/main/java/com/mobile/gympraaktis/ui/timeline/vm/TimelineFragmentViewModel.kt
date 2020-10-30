@@ -2,11 +2,9 @@ package com.mobile.gympraaktis.ui.timeline.vm
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.amitshekhar.utils.NetworkUtils
 import com.mobile.gympraaktis.base.BaseViewModel
 import com.mobile.gympraaktis.data.Result
 import com.mobile.gympraaktis.data.datasource.AttemptHistoryBoundaryCallback
@@ -16,9 +14,7 @@ import com.mobile.gympraaktis.data.repository.UserServiceRepository
 import com.mobile.gympraaktis.domain.common.LiveEvent
 import com.mobile.gympraaktis.domain.entities.AttemptDTO
 import com.mobile.gympraaktis.domain.entities.toEntity
-import com.mobile.gympraaktis.domain.entities.toTimelineEntities
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.HttpException
@@ -28,26 +24,6 @@ import timber.log.Timber
 class TimelineFragmentViewModel(app: Application) : BaseViewModel(app) {
 
     val userService by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
-
-    init {
-//        fetchTimelineData()
-    }
-
-    fun observeTimeline() =
-        PraaktisDatabase.getInstance(getApplication()).getTimelineDao().getAllTimeline()
-            .asLiveData()
-
-    fun fetchTimelineData() {
-        userService.getTimelineData()
-            .doOnSubscribe { showHideEvent.postValue(true) }
-            .doAfterTerminate { showHideEvent.postValue(false) }
-            .subscribe({
-                GlobalScope.launch(Dispatchers.IO) {
-                    PraaktisDatabase.getInstance(getApplication()).getTimelineDao()
-                        .removeAndInsertTimeline(it.toTimelineEntities())
-                }
-            }, ::onError)
-    }
 
     private val _pagingStateLiveData = LiveEvent<Result<Nothing>>()
     val pagingStateLiveData: LiveData<Result<Nothing>> get() = _pagingStateLiveData

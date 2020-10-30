@@ -31,8 +31,7 @@
 
         <item name="textInputStyle">@style/Widget.AppTheme.TextInputLayout</item>
 
-        <item name="materialAlertDialogTheme">@style/ThemeOverlay.AppTheme.MaterialAlertDialog
-        </item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.AppTheme.MaterialAlertDialog</item>
     </style>
 
     <style name="SplashScreenTheme" parent="AppTheme.TransparentStatusBarNavigationBar">
