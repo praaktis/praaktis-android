@@ -142,14 +142,9 @@
     <string name="at_least_8_characters">At least 8 characters</string>
     <string name="password_donot_match">Passwords do not match</string>
     <string name="no_chart_data_available">No chart data available</string>
-
     <string name="gender">Gender</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="me_vs_friends">Me vs friends</string>
     <string name="me_vs_others">Me vs others</string>
-
-    <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="confirm_new_password">Confirm new password</string>
     <string name="my_friends">My friends</string>
 
@@ -158,4 +153,9 @@
     <string name="close">close</string>
     <string name="show_guide">Show guide</string>
     <string name="don_t_have_an_account_nsign_up"><u>Don\'t have an account?\nSign up</u></string>
+    <string name="intro_text_1">Video Your\nChallenge</string>
+    <string name="intro_text_2">Get Your\nScore</string>
+    <string name="intro_text_3">Analyse Your\nPerformance</string>
+    <string name="intro_text_4">Repeat and\nImprove</string>
+    <string name="intro_text_5">Challenge\nFriends</string>
 </resources>

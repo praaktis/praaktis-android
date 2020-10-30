@@ -142,4 +142,18 @@
     <string name="enter_valid_password">Entrez un mot de passe valide</string>
     <string name="at_least_8_characters">Au moins 8 caractères</string>
     <string name="password_donot_match">Les mots de passe ne correspondent pas</string>
+    <string name="no_chart_data_available">Aucune donnée graphique disponible</string>
+    <string name="gender">Le genre</string>
+    <string name="me_vs_friends">Moi vs amis</string>
+    <string name="me_vs_others">Moi contre les autres</string>
+    <string name="confirm_new_password">Confirmer le nouveau mot de passe</string>
+    <string name="my_friends">Mes amies</string>
+    <string name="close">Fermer</string>
+    <string name="show_guide">Afficher le guide</string>
+    <string name="don_t_have_an_account_nsign_up"><u>Vous n\'avez pas de compte? S\'inscrire</u></string>
+    <string name="intro_text_1">Vidéo votre\ndéfi</string>
+    <string name="intro_text_2">Obtenez votre\nscore</string>
+    <string name="intro_text_3">Analysez vos\nperformances</string>
+    <string name="intro_text_4">Répétez et\naméliorez</string>
+    <string name="intro_text_5">Défiez vos\namis</string>
 </resources>

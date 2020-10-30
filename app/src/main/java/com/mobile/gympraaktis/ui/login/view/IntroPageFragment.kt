@@ -51,11 +51,11 @@ class IntroPageFragment constructor(override val layoutId: Int = R.layout.fragme
         binding.vpLoop.setPageTransformer(true, FadeTransformation())
         binding.vpLoop.adapter = IntroInfiniteAdapter(
             requireContext(), listOf(
-                Pair("Video Your\nChallenge", R.drawable.img_intro_1),
-                Pair("Get Your\nScore", R.drawable.img_intro_4),
-                Pair("Analyse Your\nPerformance", R.drawable.img_intro_3),
-                Pair("Repeat and\nImprove", R.drawable.img_intro_2),
-                Pair("Challenge\nFriends", R.drawable.img_intro_5),
+                Pair(getString(R.string.intro_text_1), R.drawable.img_intro_1),
+                Pair(getString(R.string.intro_text_2), R.drawable.img_intro_4),
+                Pair(getString(R.string.intro_text_3), R.drawable.img_intro_3),
+                Pair(getString(R.string.intro_text_4), R.drawable.img_intro_2),
+                Pair(getString(R.string.intro_text_5), R.drawable.img_intro_5),
             )
         )
 

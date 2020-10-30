@@ -25,8 +25,8 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
     protected open val mViewModel: BaseViewModel? = null
     val progressLoadingDialog by lazy { ProgressLoadingDialog(this) }
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(newBase?.let { SettingsStorage.setLocale(it) })
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(SettingsStorage.setLocale(newBase))
     }
 
     private val networkMonitor by lazy { NetworkMonitorUtil(this) }
