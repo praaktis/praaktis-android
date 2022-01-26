@@ -28,8 +28,11 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
             .doOnSubscribe { showHideEvent.postValue(true) }
             .doAfterTerminate { showHideEvent.postValue(false) }
             .subscribe({
-                this._challengesLiveData.postValue(it)
-                settingsStorage.setChallenges(it)
+                val item = ChallengeDTO("BOXING JAB", 34, "https://www.svgrepo.com/download/103667/boxing-fighter.svg", null, null)
+                val list = it.toMutableList()
+                list.add(0, item)
+                this._challengesLiveData.postValue(list)
+                settingsStorage.setChallenges(list)
             }, ::onError)
         addDisposable(challengesDisposable!!)
     }
