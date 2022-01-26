@@ -8,13 +8,13 @@ import kotlinx.coroutines.flow.Flow
 interface TimelineDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTimeline(list: List<TimelineEntity>)
+    fun insertTimeline(list: List<TimelineEntity>)
 
     @Query("DELETE FROM timeline")
-    suspend fun removeAllTimeline()
+    fun removeAllTimeline()
 
     @Transaction
-    suspend fun removeAndInsertTimeline(list: List<TimelineEntity>) {
+    fun removeAndInsertTimeline(list: List<TimelineEntity>) {
         removeAllTimeline()
         insertTimeline(list)
     }

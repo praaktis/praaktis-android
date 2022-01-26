@@ -8,34 +8,34 @@ import kotlinx.coroutines.flow.Flow
 interface DashboardDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDashboard(dashboardEntity: DashboardEntity)
+    fun insertDashboard(dashboardEntity: DashboardEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAnalysis(analysisEntity: List<AnalysisEntity>)
+    fun insertAnalysis(analysisEntity: List<AnalysisEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAttemptChart(attemptChartDataEntity: List<AttemptChartDataEntity>)
+    fun insertAttemptChart(attemptChartDataEntity: List<AttemptChartDataEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertChartData(chartData: List<ChartDataEntity>)
+    fun insertChartData(chartData: List<ChartDataEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertScoreAnalysis(score: List<ScoreAnalysisEntity>)
+    fun insertScoreAnalysis(score: List<ScoreAnalysisEntity>)
 
     @Query("DELETE FROM challenge_analysis")
-    suspend fun removeAllAnalysis()
+    fun removeAllAnalysis()
 
     @Query("DELETE FROM attempt_chartData")
-    suspend fun removeAllAttemptChartData()
+    fun removeAllAttemptChartData()
 
     @Query("DELETE FROM chartData")
-    suspend fun removeAllChartData()
+    fun removeAllChartData()
 
     @Query("DELETE FROM score_analysis")
-    suspend fun removeAllScoreAnalysis()
+    fun removeAllScoreAnalysis()
 
     @Transaction
-    suspend fun setDashboardData(
+    fun setDashboardData(
         dashboardEntity: DashboardEntity,
         list: List<AnalysisEntity>,
         attemptChartList: List<AttemptChartDataEntity>,

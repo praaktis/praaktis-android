@@ -7,18 +7,18 @@ apply plugin: 'com.google.firebase.crashlytics'
 android {
     signingConfigs {
         relese_signing_config {
-            storeFile file('C:\\Users\\Saidjamol\\AndroidStudioProjects\\praaktis-android\\keys\\keystore.jks')
+            storeFile file('\\keys\\keystore.jks')
             storePassword 'Uu9DVnC!PShqGv-uM?93'
             keyAlias 'key0'
             keyPassword 'T&mGKc)w2]FB9NW#QBjH'
         }
     }
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.mobile.gympraaktis"
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion 24
+        targetSdkVersion 31
         versionCode 81
         versionName "0.9.91.13"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -79,20 +79,21 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.3'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     implementation 'com.google.android.material:material:1.3.0-alpha03'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation "androidx.fragment:fragment-ktx:1.3.0-beta01"
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation "androidx.fragment:fragment-ktx:1.4.0"
 
     // praaktis sdk
     implementation project(path: ':praaktis_sdk')
-    implementation project(path: ':pocketsphinx')
-    implementation 'com.google.mlkit:pose-detection-accurate:17.0.0'
+//    implementation project(path: ':pocketsphinx')
+    implementation 'com.google.mlkit:pose-detection:17.0.1-beta6'
+//    implementation 'com.google.mlkit:pose-detection-accurate:17.0.1-beta6'
 
-    def lifecycle_version = "2.2.0"
+    def lifecycle_version = "2.4.0"
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     // LiveData
@@ -111,14 +112,14 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
 
     // coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
     // room
-    implementation 'androidx.room:room-runtime:2.2.5'
-    kapt 'androidx.room:room-compiler:2.2.5'
-    implementation "androidx.room:room-ktx:2.2.5"
-    implementation 'androidx.room:room-rxjava2:2.2.5'
+    implementation 'androidx.room:room-runtime:2.3.0'
+    kapt 'androidx.room:room-compiler:2.3.0'
+    implementation "androidx.room:room-ktx:2.3.0"
+    implementation 'androidx.room:room-rxjava2:2.3.0'
 
     // paging
     implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
@@ -128,7 +129,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 
     // rxjava
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
@@ -137,18 +138,19 @@ dependencies {
     // image load
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
-    implementation 'com.kirich1409.svgplugin:svg-glide4-plugin:1.2.1'
+//    implementation 'com.kirich1409.svgplugin:svg-glide4-plugin:1.2.1'
+    implementation 'com.github.androidbroadcast:SvgGlidePlugins:1.2.1'
 
     // firebase
-    implementation 'com.google.firebase:firebase-analytics-ktx:18.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:17.2.2'
-    implementation 'com.google.firebase:firebase-messaging:21.0.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx:20.0.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.4'
+    implementation 'com.google.firebase:firebase-messaging:23.0.0'
 
     // chart lib
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     // date / time
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.3.0'
 
     // form validator
     implementation 'com.afollestad:vvalidator:0.5.2'
@@ -172,9 +174,9 @@ dependencies {
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation 'com.jakewharton.timber:timber:5.0.1'
 
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
 }
 
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin

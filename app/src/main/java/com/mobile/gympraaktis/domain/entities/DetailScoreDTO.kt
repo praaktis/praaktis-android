@@ -7,5 +7,7 @@ data class DetailScoreDTO(
     @SerializedName("detail_point")
     val detailPoint: DetailPoint,
     @SerializedName("detail_point_score")
-    val detailPointScore: Double
+    val detailPointScore: Float,
+    @SerializedName("max_value")
+    val maxValue: Float,
 ) : Serializable

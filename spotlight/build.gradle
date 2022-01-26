@@ -6,8 +6,6 @@ android {
   defaultConfig {
     minSdkVersion configs.minSdkVersion
     targetSdkVersion configs.targetSdkVersion
-    versionCode configs.libraryVersionCode
-    versionName configs.libraryVersionName
   }
 }
 
@@ -51,7 +49,7 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:4.1.0'
+    classpath 'com.android.tools.build:gradle:7.0.4'
     classpath deps.bintrayPlugin
     classpath deps.kotlin.plugin
   }

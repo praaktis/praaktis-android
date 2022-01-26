@@ -19,7 +19,7 @@ class LiveEvent<T> : MediatorLiveData<T>() {
 
     @MainThread
     override fun removeObserver(observer: Observer<in T>) {
-        if (!observers.remove(observer)) {
+        if (!observers.remove<Any>(observer)) {
             val iterator = observers.iterator()
             while (iterator.hasNext()) {
                 if (iterator.next().observer == observer) {

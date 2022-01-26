@@ -8,13 +8,13 @@ import com.mobile.gympraaktis.data.entities.AttemptEntity
 interface AttemptHistoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAttempts(list: List<AttemptEntity>)
+    fun insertAttempts(list: List<AttemptEntity>)
 
     @Query("DELETE FROM attempt")
-    suspend fun removeAttemptHistory()
+    fun removeAttemptHistory()
 
     @Transaction
-    suspend fun removeAndInsertAttempts(list: List<AttemptEntity>) {
+    fun removeAndInsertAttempts(list: List<AttemptEntity>) {
         removeAttemptHistory()
         insertAttempts(list)
     }

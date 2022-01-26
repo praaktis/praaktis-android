@@ -108,6 +108,8 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
                     permissionsGrantedList.add(it == PackageManager.PERMISSION_GRANTED)
                 }
 
+                openChallengeVideo()
+                return
                 if (!permissionsGrantedList.contains(false)) {
                     openChallengeVideo()
                 } else {

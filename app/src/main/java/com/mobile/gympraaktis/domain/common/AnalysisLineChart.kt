@@ -17,7 +17,8 @@ class AnalysisLineChart(
     context: Context,
     val value: Float,
     val title: String,
-    val progressBackground: Int
+    val progressBackground: Int,
+    val maxValue: Float,
 ) : LinearLayout(context) {
 
     init {
@@ -37,7 +38,7 @@ class AnalysisLineChart(
 
         val lineView = LinearLayout(context)
         lineView.setBackgroundResource(R.drawable.shape_progress_bg)
-        lineView.weightSum = 100F
+        lineView.weightSum = if(maxValue > 0) maxValue else 100f
         val lineLayoutParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 15.dp)
         lineLayoutParams.setMargins(0, context.dpToPx(10), 0, 0)
         lineView.layoutParams = lineLayoutParams

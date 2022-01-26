@@ -2,7 +2,7 @@ package com.mobile.gympraaktis.ui.main.vm
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import com.mobile.gympraaktis.base.BaseViewModel
 import com.mobile.gympraaktis.data.db.PraaktisDatabase
 import com.mobile.gympraaktis.data.repository.UserServiceRepository
@@ -20,8 +20,8 @@ class MenuViewModel(app: Application) : BaseViewModel(app) {
             .doOnSubscribe { showHideEvent.postValue(true) }
             .doAfterTerminate { showHideEvent.postValue(false) }
             .subscribe({
-                FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
-                    loginStorage.fcmToken = it.token
+                FirebaseMessaging.getInstance().token.addOnSuccessListener {
+                    loginStorage.fcmToken = it
                     loginStorage.isSentFcmToken = false
                 }
                 viewModelScope.launch(Dispatchers.IO) {

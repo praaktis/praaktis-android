@@ -1,3 +1,2 @@
 include ':spotlight'
-include ':pocketsphinx'
 include ':app', ':countrypicker', ':praaktisinstructionsview', ':praaktis_sdk'

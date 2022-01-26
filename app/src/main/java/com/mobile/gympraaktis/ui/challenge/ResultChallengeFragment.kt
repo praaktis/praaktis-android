@@ -15,7 +15,7 @@ import com.mobile.gympraaktis.ui.challenge.vm.ResultChallengeFragmentViewModel
 import com.mobile.gympraaktis.ui.details.view.ChallengeInstructionFragment
 import com.praaktis.exerciseengine.Engine.DetailPoint
 import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
-import com.praaktis.exerciseengine.RawPlayer.H264RawPlayerActivity
+import com.praaktis.exerciseengine.Player.VideoReplayActivity
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
 
 class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_result_challenge) :
@@ -101,7 +101,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
 
     private fun initClicks() {
         binding.ivPlay.setOnClickListener {
-            val intent = Intent(activity, H264RawPlayerActivity::class.java)
+            val intent = Intent(activity, VideoReplayActivity::class.java)
             intent.putExtra("FILE_NAME", path)
             intent.putExtra("PLAYER", result)
             startActivity(intent)

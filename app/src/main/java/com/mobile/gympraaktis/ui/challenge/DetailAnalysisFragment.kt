@@ -29,6 +29,7 @@ import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
 import kotlinx.android.synthetic.main.fragment_detailed_analysis.*
+import timber.log.Timber
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -89,7 +90,8 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
                     if (key != "Overall") {
                         scoresMap[value.priority] = DetailScoreDTO(
                             DetailPoint(value.id, key),
-                            value.value.toDouble()
+                            value.value,
+                            if(value.maxValue != null) value.maxValue else 100f,
                         )
                         /*detailScores.add(
                             DetailScoreDTO(
@@ -143,11 +145,14 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
                     gradientIterator.next()
                 }
 
+            Timber.d(detailScores.toString())
+
             val chart = AnalysisLineChart(
                 requireContext(),
-                detailScores[i].detailPointScore.toFloat(),
+                detailScores[i].detailPointScore,
                 detailScores[i].detailPoint.name,
-                progressBackground
+                progressBackground,
+                detailScores[i].maxValue
             )
             llAnalysisContainer.addView(chart)
         }
