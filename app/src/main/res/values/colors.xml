@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#661ff5</color>
+    <color name="primaryColor">#0A4C85</color>
     <color name="primaryLightColor">#a155ff</color>
     <color name="primaryDarkColor">#1300c1</color>
-    <color name="secondaryColor">#4c8dfa</color>
+    <color name="secondaryColor">#000C22</color>
     <color name="secondaryLightColor">#88bdff</color>
     <color name="secondaryDarkColor">#0060c6</color>
     <color name="primaryTextColor">#ffffff</color>
@@ -17,7 +17,7 @@
     <color name="deep_purple_a400_alpha_90">#E6661FF5</color>
 
     <color name="blue_grey_900">#282829</color>
-    <color name="amber_300">#FFCE51</color>
+    <color name="amber_300">#FCC22F</color>
     <color name="amber_300_alpha_90">#E6FFCE51</color>
     <color name="purple_900">#300686</color>
     <color name="purple_900_1">#43146E</color>

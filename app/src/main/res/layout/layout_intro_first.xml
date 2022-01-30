@@ -44,14 +44,14 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="170dp"
             android:fontFamily="@font/lato"
-            tools:text="Video Your\nChallenge"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="35sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:paddingBottomSystemWindowInsets="@{true}" />
+            app:paddingBottomSystemWindowInsets="@{true}"
+            tools:text="Video Your\nChallenge" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

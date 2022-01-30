@@ -18,7 +18,7 @@
             android:id="@+id/iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerInside"
+            android:scaleType="centerCrop"
             app:srcCompat="@drawable/img_backg1" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -156,6 +156,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
+            android:alpha=".6"
             android:text="@string/create_account"
             app:icon="@drawable/ic_user"
             app:iconGravity="textStart"
