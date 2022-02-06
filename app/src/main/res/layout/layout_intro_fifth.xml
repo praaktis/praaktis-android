@@ -18,22 +18,14 @@
             android:scaleType="centerCrop"
             android:src="@drawable/img_intro_5" />
 
-        <include
-            android:id="@+id/layout_logo"
-            layout="@layout/layout_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/layout_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@id/tv_title"
-            app:layout_constraintStart_toStartOf="@id/tv_title"
-            app:srcCompat="@drawable/ic_logo_2" />
+            android:layout_margin="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_logo_with_text" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_title"
@@ -43,7 +35,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="170dp"
             android:fontFamily="@font/lato"
-            android:text="Challenge\nFriends"
+            tools:text="Challenge\nFriends"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="35sp"

@@ -10,15 +10,23 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/app_gradient2"
-        android:clickable="true"
-        app:paddingBottomSystemWindowInsets="@{true}">
+        android:background="@drawable/app_gradient"
+        android:clickable="true">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/img_backg1" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="27dp"
             android:text="@string/registration"
+            android:drawablePadding="33dp"
+            app:drawableTopCompat="@drawable/ic_logo_with_text"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -153,10 +161,12 @@
             android:text="@string/back_to_login"
             app:icon="@drawable/ic_arrow_left"
             app:iconGravity="textStart"
+            android:alpha=".5"
             app:iconPadding="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:marginBottomSystemWindowInsets="@{true}"
             app:layout_constraintWidth_max="276dp"
             tools:textSize="17sp" />
 

@@ -153,9 +153,9 @@
     <string name="close">close</string>
     <string name="show_guide">Show guide</string>
     <string name="don_t_have_an_account_nsign_up"><u>Don\'t have an account?\nSign up</u></string>
-    <string name="intro_text_1">Video Your\nChallenge</string>
+    <string name="intro_text_1">Video Your\nRoutine</string>
     <string name="intro_text_2">Get Your\nScore</string>
-    <string name="intro_text_3">Analyse Your\nPerformance</string>
-    <string name="intro_text_4">Repeat and\nImprove</string>
-    <string name="intro_text_5">Challenge\nFriends</string>
+    <string name="intro_text_3">Analyse\nPerformance</string>
+    <string name="intro_text_4">Review\nand Assess</string>
+    <string name="intro_text_5">Compare\nand Contrast</string>
 </resources>
