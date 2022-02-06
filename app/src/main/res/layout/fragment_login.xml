@@ -67,7 +67,7 @@
                     app:errorEnabled="false"
                     app:hintEnabled="false"
                     app:startIconDrawable="@drawable/ic_login"
-                    app:startIconTint="@color/secondaryColor">
+                    app:startIconTint="@color/primaryColor">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmail"
@@ -101,7 +101,7 @@
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/grey_400_1"
                     app:startIconDrawable="@drawable/ic_password"
-                    app:startIconTint="@color/secondaryColor">
+                    app:startIconTint="@color/primaryColor">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"

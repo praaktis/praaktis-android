@@ -24,12 +24,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="27dp"
-            android:text="@string/registration"
             android:drawablePadding="33dp"
-            app:drawableTopCompat="@drawable/ic_logo_with_text"
+            android:text="@string/registration"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="18sp"
+            app:drawableTopCompat="@drawable/ic_logo_with_text"
             app:layout_constraintBottom_toTopOf="@id/cvLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -58,7 +58,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:errorEnabled="false"
-                    app:startIconDrawable="@drawable/ic_login">
+                    app:startIconDrawable="@drawable/ic_login"
+                    app:startIconTint="@color/primaryColor">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmail"
@@ -86,7 +87,8 @@
                     android:layout_height="wrap_content"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/grey_400_1"
-                    app:startIconDrawable="@drawable/ic_password">
+                    app:startIconDrawable="@drawable/ic_password"
+                    app:startIconTint="@color/primaryColor">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"
@@ -114,7 +116,8 @@
                     android:layout_height="wrap_content"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/grey_400_1"
-                    app:startIconDrawable="@drawable/ic_password">
+                    app:startIconDrawable="@drawable/ic_password"
+                    app:startIconTint="@color/primaryColor">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etRePassword"
@@ -158,16 +161,16 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="22dp"
+            android:alpha=".5"
             android:text="@string/back_to_login"
             app:icon="@drawable/ic_arrow_left"
             app:iconGravity="textStart"
-            android:alpha=".5"
             app:iconPadding="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:marginBottomSystemWindowInsets="@{true}"
             app:layout_constraintWidth_max="276dp"
+            app:marginBottomSystemWindowInsets="@{true}"
             tools:textSize="17sp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
