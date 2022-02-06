@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/app_gradient2"
+        android:background="@drawable/app_gradient"
         android:clickable="true"
         android:clipChildren="false"
         android:clipToPadding="false">
@@ -28,7 +28,6 @@
             android:layout_height="wrap_content"
             android:drawablePadding="26dp"
             android:gravity="center"
-            tools:text="Thank you, Saidjamol"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -36,7 +35,8 @@
             app:drawableTopCompat="@drawable/ic_smile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/guide_top" />
+            app:layout_constraintTop_toTopOf="@id/guide_top"
+            tools:text="Thank you, Saidjamol" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_curved_layout"
@@ -77,8 +77,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        tools:text="@string/account_activation_summary"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="@string/account_activation_summary" />
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -89,7 +89,7 @@
                     android:layout_marginTop="32dp"
                     android:gravity="center"
                     android:text="@string/already_activated"
-                    android:textColor="@color/purple_900_1"
+                    android:textColor="@color/primaryColor"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -116,6 +116,7 @@
                     android:paddingStart="39dp"
                     android:paddingEnd="39dp"
                     android:text="@string/resend_link"
+                    app:backgroundTint="@color/primaryColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

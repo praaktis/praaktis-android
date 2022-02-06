@@ -84,9 +84,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:backgroundTint="@color/toggle_group_item_color"
+                        android:insetRight="9dp"
                         android:text="@string/beginner"
-                        android:textColor="@color/purple_900_1"
-                        android:textSize="12sp" />
+                        android:textColor="@color/primaryColor"
+                        android:textSize="12sp"
+                        app:cornerRadius="5dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_intermediate"
@@ -95,9 +97,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:backgroundTint="@color/toggle_group_item_color"
+                        android:insetRight="9dp"
                         android:text="@string/intermediate"
-                        android:textColor="@color/purple_900_1"
-                        android:textSize="12sp" />
+                        android:textColor="@color/primaryColor"
+                        android:textSize="12sp"
+                        app:cornerRadius="5dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_expert"
@@ -107,8 +111,9 @@
                         android:layout_weight="1"
                         android:backgroundTint="@color/toggle_group_item_color"
                         android:text="@string/expert"
-                        android:textColor="@color/purple_900_1"
-                        android:textSize="12sp" />
+                        android:textColor="@color/primaryColor"
+                        android:textSize="12sp"
+                        app:cornerRadius="5dp" />
 
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -198,9 +203,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/first_name"
-                                android:nextFocusDown="@id/etLastName"
                                 android:inputType="textEmailAddress"
-                                android:maxLength="40" />
+                                android:maxLength="40"
+                                android:nextFocusDown="@id/etLastName" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -218,9 +223,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/last_name"
-                                android:nextFocusDown="@id/etUsername"
                                 android:inputType="textPersonName"
-                                android:maxLength="40" />
+                                android:maxLength="40"
+                                android:nextFocusDown="@id/etUsername" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -237,10 +242,10 @@
                                 android:id="@+id/etUsername"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:nextFocusDown="@id/etCountry"
                                 android:hint="@string/how_would_you_like_to_be_known"
                                 android:inputType="text"
-                                android:maxLength="40" />
+                                android:maxLength="40"
+                                android:nextFocusDown="@id/etCountry" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -276,36 +281,33 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/tvBackLogin"
                     style="@style/AppTheme.MaterialButton.Secondary"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="17dp"
                     android:layout_marginBottom="30dp"
                     android:alpha=".5"
-                    android:paddingStart="25dp"
-                    android:paddingEnd="25dp"
                     android:text="@string/back"
                     app:icon="@drawable/ic_arrow_left"
                     app:iconGravity="textStart"
-                    app:iconPadding="20dp"
+                    app:iconPadding="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tvNextStep"
+                    app:layout_constraintStart_toStartOf="@id/cv_form"
                     tools:textSize="17sp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/tvNextStep"
                     style="@style/AppTheme.MaterialButton.Secondary"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="30dp"
-                    android:paddingStart="25dp"
-                    android:paddingEnd="25dp"
                     android:text="@string/next_step"
                     app:icon="@drawable/ic_arrow_right"
                     app:iconGravity="textEnd"
-                    app:iconPadding="20dp"
+                    app:iconPadding="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/cv_form"
+                    app:layout_constraintStart_toEndOf="@id/tvBackLogin"
                     tools:textSize="17sp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

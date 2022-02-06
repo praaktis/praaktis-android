@@ -10,11 +10,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/app_gradient2"
+        android:background="@drawable/app_gradient"
         android:clickable="true"
         app:paddingBottomSystemWindowInsets="@{true}">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_terms"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -43,7 +44,7 @@
                     android:gravity="center"
                     android:text="@string/read_and_accept_our_terms"
                     android:textAllCaps="true"
-                    android:textColor="@color/purple_900_1"
+                    android:textColor="@color/primaryColor"
                     android:textSize="18sp" />
 
                 <EditText
@@ -74,36 +75,34 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/tvBack"
             style="@style/AppTheme.MaterialButton.Secondary"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="17dp"
             android:layout_marginBottom="30dp"
             android:alpha=".5"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp"
             android:text="@string/back"
             app:icon="@drawable/ic_arrow_left"
             app:iconGravity="textStart"
-            app:iconPadding="20dp"
+            app:iconPadding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvFinish"
+            app:layout_constraintStart_toStartOf="@id/cv_terms"
             tools:textSize="17sp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/tvFinish"
             style="@style/AppTheme.MaterialButton.Secondary"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="30dp"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp"
             android:text="@string/finish"
             app:icon="@drawable/ic_arrow_right"
             app:iconGravity="textEnd"
-            app:iconPadding="20dp"
+            app:iconPadding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/cv_terms"
+            app:layout_constraintStart_toEndOf="@id/tvBack"
             tools:textSize="17sp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
