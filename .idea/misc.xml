@@ -39,6 +39,8 @@
         <entry key="app/src/main/res/layout/layout_intro_third.xml" value="0.13583333333333333" />
         <entry key="app/src/main/res/layout/layout_logo.xml" value="0.21223958333333334" />
         <entry key="app/src/main/res/layout/layout_start_page.xml" value="0.27166666666666667" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1695" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1695" />
         <entry key="praaktisinstructionsview/src/main/res/drawable/ic_boxing_jab.xml" value="0.2324074074074074" />
       </map>
     </option>
