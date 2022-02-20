@@ -3,15 +3,16 @@ package com.mobile.gympraaktis.ui.main.view
 import android.graphics.Point
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
+import androidx.core.view.get
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
@@ -25,7 +26,8 @@ import com.mobile.gympraaktis.domain.common.shape.CurvedEdgeTreatment
 import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.details.view.AnalysisFragment
 import com.mobile.gympraaktis.ui.details.view.DetailsActivity
-import com.mobile.gympraaktis.ui.main.adapter.AnalysisAdapter
+import com.mobile.gympraaktis.ui.main.adapter.AnalysisPagerAdapter
+import com.mobile.gympraaktis.ui.main.adapter.ExerciseAnalysisAdapter
 import com.mobile.gympraaktis.ui.main.vm.DashboardViewModel
 import com.mobile.gympraaktis.ui.main.vm.MainViewModel
 import com.takusemba.spotlight.OnSpotlightListener
@@ -48,25 +50,37 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
     override val mViewModel: DashboardViewModel by viewModels()
 
     private lateinit var mainViewModel: MainViewModel
-    private lateinit var analysisAdapter: AnalysisAdapter
+//    private lateinit var exerciseAnalysisAdapter: ExerciseAnalysisAdapter
 
     override fun initUI(savedInstanceState: Bundle?) {
         mViewModel.fetchDashboardData()
 
-        mainViewModel = ViewModelProvider(activity).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(activity)[MainViewModel::class.java]
 
         setupCurvedLayout()
 
         initEvents()
 
-        analysisAdapter = AnalysisAdapter {
-            spotlight.finish()
-            startActivity(
-                DetailsActivity.start(activity, AnalysisFragment.TAG)
-                    .putExtra(AnalysisFragment.TAG, it)
-            )
+//        exerciseAnalysisAdapter = ExerciseAnalysisAdapter {
+//            spotlight.finish()
+//            startActivity(
+//                DetailsActivity.start(activity, AnalysisFragment.TAG)
+//                    .putExtra(AnalysisFragment.TAG, it)
+//            )
+//        }
+        binding.vpAnalysis.adapter = AnalysisPagerAdapter(childFragmentManager, lifecycle)
+        binding.vpAnalysis.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                binding.btgAnalysis.check(binding.btgAnalysis.get(position).id)
+            }
+        })
+
+        binding.btgAnalysis.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            if(isChecked) {
+                binding.vpAnalysis.currentItem = group.indexOfChild(group.findViewById(checkedId))
+            }
         }
-        binding.rvAnalysis.adapter = analysisAdapter
 
     }
 
@@ -79,7 +93,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
 
     private fun setDashboardData(dashboardData: DashboardWithAnalysis) {
         with(dashboardData) {
-            analysisAdapter.submitList(dashboardData.analysis)
+//            exerciseAnalysisAdapter.submitList(dashboardData.analysis)
             binding.apply {
                 tvLevel.text = "${dashboard.level}"
                 tvPoints.text = "${dashboard.totalPoints}"
@@ -147,9 +161,6 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
                 lifecycleScope.launch(Dispatchers.Default) {
                     val percentage =
                         abs(scrollY).toFloat() / (binding.clContent.getChildAt(0).top - 16.dp)/*v.maxScrollAmount*/ // calculate offset percentage
-                    Log.d(TAG, "SCROLLY: $scrollY")
-                    Log.d(TAG, "MAXSCROLLAMOUNT: ${v.maxScrollAmount}")
-                    Log.d(TAG, percentage.toString())
 
                     if (percentage <= 1) {
                         setCurvedLayout(1 - percentage)
@@ -259,10 +270,10 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
         val secondTarget = LayoutTargetBottomBinding.inflate(layoutInflater)
 
         val rvAnalysisLocation = IntArray(2)
-        binding.rvAnalysis.getLocationOnScreen(rvAnalysisLocation)
+        binding.vpAnalysis.getLocationOnScreen(rvAnalysisLocation)
 
         val rvAnalysisVisibleRect = Rect()
-        binding.rvAnalysis.getLocalVisibleRect(rvAnalysisVisibleRect)
+        binding.vpAnalysis.getLocalVisibleRect(rvAnalysisVisibleRect)
 
         val tvAnalysisLocation = IntArray(2)
         binding.tvAnalysisTitle.getLocationInWindow(tvAnalysisLocation)
@@ -276,14 +287,14 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
 
         return Target.Builder()
             .setAnchor(
-                rvAnalysisLocation[0] + binding.rvAnalysis.width / 2f,
+                rvAnalysisLocation[0] + binding.vpAnalysis.width / 2f,
                 tvAnalysisLocation[1] + binding.tvAnalysisTitle.height / 2f + rvAnalysisVisibleRect.height() / 2f
             )
             .setOverlay(secondTarget.root)
             .setShape(
                 RoundedRectangle(
                     (rvAnalysisVisibleRect.height() + binding.tvAnalysisTitle.height).toFloat() + 20.dp,
-                    binding.rvAnalysis.width.toFloat() + 20.dp,
+                    binding.vpAnalysis.width.toFloat() + 20.dp,
                     4.dp.toFloat()
                 )
             )

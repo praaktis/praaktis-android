@@ -11,8 +11,8 @@ import com.mobile.gympraaktis.data.entities.AnalysisComplete
 import com.mobile.gympraaktis.domain.extension.listen
 import kotlinx.android.synthetic.main.item_analysis.view.*
 
-class AnalysisAdapter(private val onItemClick: (AnalysisComplete) -> Unit) :
-    ListAdapter<AnalysisComplete, AnalysisAdapter.ViewHolder>(DIFF_CALLBACK) {
+class ExerciseAnalysisAdapter(private val onItemClick: (AnalysisComplete) -> Unit) :
+    ListAdapter<AnalysisComplete, ExerciseAnalysisAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent).listen { position, _ ->

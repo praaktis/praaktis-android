@@ -36,9 +36,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:contentDescription="@string/show_guide"
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
+            android:contentDescription="@string/show_guide"
             android:focusable="true"
             android:padding="4dp"
             app:layout_constraintBottom_toBottomOf="@id/tv_title"
@@ -299,25 +299,53 @@
                         android:layout_marginTop="45dp"
                         android:layout_marginEnd="3dp"
                         android:text="@string/analysis"
+                        android:textAlignment="center"
                         android:textAllCaps="true"
-                        android:textColor="@color/purple_900_1"
+                        android:textColor="@color/primaryColor"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="@id/guide_end"
                         app:layout_constraintStart_toStartOf="@id/guide_start"
                         app:layout_constraintTop_toBottomOf="@id/progress_level" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_analysis"
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/btg_analysis"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:nestedScrollingEnabled="false"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintEnd_toEndOf="@id/tv_analysis_title"
-                        app:layout_constraintStart_toStartOf="@id/tv_analysis_title"
+                        app:checkedButton="@+id/btn_exercise"
+                        app:layout_constraintEnd_toEndOf="@id/guide_end"
+                        app:layout_constraintStart_toStartOf="@id/guide_start"
                         app:layout_constraintTop_toBottomOf="@id/tv_analysis_title"
-                        tools:itemCount="3"
-                        tools:listitem="@layout/item_analysis" />
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_exercise"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/exercise"
+                            android:textColor="@color/blue_grey_900"
+                            app:backgroundTint="@color/toggle_group_item_color_yellow_blue" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_player"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/player"
+                            android:textColor="@color/blue_grey_900"
+                            app:backgroundTint="@color/toggle_group_item_color_yellow_blue" />
+
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/vp_analysis"
+                        android:layout_width="0dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/btg_analysis" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
