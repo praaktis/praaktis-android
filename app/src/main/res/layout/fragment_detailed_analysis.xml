@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -67,7 +68,60 @@
                 android:paddingTop="24dp"
                 android:paddingEnd="30dp"
                 android:paddingBottom="30dp"
-                app:paddingBottomSystemWindowInsets="@{true}" />
+                app:paddingBottomSystemWindowInsets="@{true}">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_exercise_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="18sp"
+                    app:textAllCaps="true"
+                    tools:text="Stretching Arms up" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_select_player"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="12dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/topPanel"
+                    app:shapeAppearance="@style/ShapeAppearance.AppTheme.Circle">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_select_player"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:elevation="12dp"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:endIconDrawable="@drawable/ic_dropdown"
+                        app:endIconTint="@color/primaryColor"
+                        app:shapeAppearance="@style/ShapeAppearance.AppTheme.Circle">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/et_select_player"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/lato_bold"
+                            android:hint="@string/select_player"
+                            android:inputType="none"
+                            android:textColorHint="@color/secondaryColor"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 

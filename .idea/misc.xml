@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/drawable/bg_unselected_nav.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/bottomnav_item_background.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/gradient_progress.xml" value="0.185" />
+        <entry key="app/src/main/res/drawable/gradient_progress_2.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/gradient_timeline.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/ic_arrow_drop_down.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/ic_checkbox_checked.xml" value="0.185" />
@@ -25,6 +26,7 @@
         <entry key="app/src/main/res/layout/fragment_challenge_instruction.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/fragment_confirm_login.xml" value="0.30185185185185187" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.30213160333642264" />
+        <entry key="app/src/main/res/layout/fragment_detailed_analysis.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/fragment_exercise_analysis.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.21223958333333334" />
         <entry key="app/src/main/res/layout/fragment_item_timeline.xml" value="0.211306765523633" />
