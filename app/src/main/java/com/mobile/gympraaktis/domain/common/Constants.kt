@@ -1,11 +1,8 @@
 package com.mobile.gympraaktis.domain.common
 
-import android.content.ContentValues
-import android.content.Context
-import android.net.Uri
-import android.os.Environment
-import android.provider.MediaStore
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.google.gson.Gson
+import com.mobile.gympraaktis.PraaktisApp
 import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
@@ -13,13 +10,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 object Constants {
-    const val DATABASE_HOCKEY_VERSION: Int = 4
+    const val DATABASE_HOCKEY_VERSION: Int = 7
     const val TIMELINE = "TIMELINE"
     const val TIMELINE_CHALLENGE_ITEM = "TIMELINE_CHALLENGE_ITEM"
 
@@ -44,6 +38,7 @@ object Constants {
     private fun buildClient(): OkHttpClient {
         val loginSettings = SettingsStorage.instance
         val builder = OkHttpClient.Builder()
+        builder.addInterceptor(ChuckerInterceptor.Builder(PraaktisApp.getApplication()).build())
         builder.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
 
         builder.addInterceptor { chain ->

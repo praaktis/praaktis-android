@@ -3,14 +3,16 @@ package com.mobile.gympraaktis.ui.friends.vm
 import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.mobile.gympraaktis.base.BaseViewModel
+import com.mobile.gympraaktis.data.db.PraaktisDatabase
 import com.mobile.gympraaktis.data.repository.UserServiceRepository
 import com.mobile.gympraaktis.domain.common.LiveEvent
 import com.mobile.gympraaktis.domain.entities.FriendDTO
+import com.mobile.gympraaktis.domain.entities.toEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class FriendsFragmentViewModel (application: Application): BaseViewModel(application) {
+class FriendsFragmentViewModel(application: Application) : BaseViewModel(application) {
 
     private val userServiceRepository: UserServiceRepository by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
 
@@ -19,10 +21,12 @@ class FriendsFragmentViewModel (application: Application): BaseViewModel(applica
 
     fun getFriends() {
         userServiceRepository.getFriends()
-            .doOnSubscribe { showHideEvent.postValue(true)}
+            .doOnSubscribe { showHideEvent.postValue(true) }
             .doAfterTerminate { showHideEvent.postValue(false) }
             .subscribe({
-                viewModelScope.launch {
+                viewModelScope.launch(Dispatchers.IO) {
+                    PraaktisDatabase.getInstance(getApplication()).getFriendsDao()
+                        .insertFriends(it.map { it.toEntity() })
                     val confirmedFriends = it.filter {
                         it.friendStatus == "Confirmed"
                     }
@@ -36,7 +40,7 @@ class FriendsFragmentViewModel (application: Application): BaseViewModel(applica
     fun deleteFriend(email: String) {
         userServiceRepository.deleteFriend(email)
             .doOnSubscribe { showHideEvent.postValue(true) }
-            .doAfterTerminate { showHideEvent.postValue(false)}
+            .doAfterTerminate { showHideEvent.postValue(false) }
             .subscribe({
                 deleteFriendEvent.postValue(true)
             }, ::onError)

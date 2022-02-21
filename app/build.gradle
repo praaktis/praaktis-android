@@ -175,6 +175,9 @@ dependencies {
 
     implementation 'com.jakewharton.timber:timber:5.0.1'
 
+    debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
+
     testImplementation 'junit:junit:4.13.2'
 }
 
