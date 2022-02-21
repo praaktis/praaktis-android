@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/app_gradient2_alpha"
+        android:background="@drawable/app_gradient"
         android:clickable="true">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -21,190 +21,145 @@
             android:textAllCaps="true"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@id/ll_top_menu"
+            app:layout_constraintBottom_toTopOf="@id/space1"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".45"
+            app:layout_constraintVertical_bias=".25"
             app:layout_constraintVertical_chainStyle="packed" />
+
+        <Space
+            android:id="@+id/space1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/cv_select_player"
+            app:layout_constraintHeight_percent=".05"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_select_player"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="12dp"
+            app:cardElevation="8dp"
+            app:layout_constraintBottom_toTopOf="@id/space2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/space1"
+            app:layout_constraintWidth_max="400dp"
+            app:shapeAppearance="@style/ShapeAppearance.AppTheme.Circle">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_select_player"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="12dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconDrawable="@drawable/ic_dropdown"
+                app:endIconTint="@color/primaryColor"
+                app:shapeAppearance="@style/ShapeAppearance.AppTheme.Circle">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/et_select_player"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato_bold"
+                    android:hint="@string/select_player"
+                    android:inputType="none"
+                    android:textColorHint="@color/secondaryColor"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <Space
+            android:id="@+id/space2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/ll_top_menu"
+            app:layout_constraintHeight_percent=".075"
+            app:layout_constraintTop_toBottomOf="@id/cv_select_player" />
 
         <LinearLayout
             android:id="@+id/ll_top_menu"
             android:layout_width="0dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginEnd="44dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/menu_logout"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/space2"
             app:layout_constraintWidth_max="400dp">
 
-            <LinearLayout
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/menu_activate_new_player"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:letterSpacing="0"
+                android:minHeight="0dp"
+                android:padding="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="32dp"
+                android:text="@string/activate_new_player"
+                android:textSize="17sp"
+                app:backgroundTint="@android:color/white"
+                app:icon="@drawable/ic_add_circle"
+                app:iconSize="32dp"
+                app:iconTint="@color/transparent"
+                app:iconTintMode="src_over"
+                app:rippleColor="@color/primaryColor"
+                app:shapeAppearance="@style/ShapeAppearance.AppTheme.Circle" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_my_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:padding="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title">
+                android:layout_marginBottom="8dp"
+                android:letterSpacing="0"
+                android:minHeight="0dp"
+                android:padding="10dp"
+                android:paddingEnd="32dp"
+                android:paddingStart="10dp"
+                android:text="@string/my_profile"
+                android:textSize="17sp"
+                app:backgroundTint="@android:color/white"
+                app:icon="@drawable/ic_user_circle"
+                app:iconSize="32dp"
+                app:iconTint="@color/primaryColor"
+                app:rippleColor="@color/primaryColor"
+                app:shapeAppearance="@style/ShapeAppearance.AppTheme.Circle" />
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="46dp"
-                    android:layout_height="46dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@android:color/white"
-                    android:scaleType="center"
-                    android:tint="@color/secondaryColor"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.AppTheme.Circle"
-                    app:srcCompat="@drawable/ic_user" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/my_profile"
-                    android:textAllCaps="true"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="78dp"
-                android:background="@android:color/white" />
-
-            <LinearLayout
-                android:id="@+id/menu_friends"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:padding="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/menu_my_profile">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="46dp"
-                    android:layout_height="46dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@android:color/white"
-                    android:scaleType="center"
-                    android:tint="@color/secondaryColor"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.AppTheme.Circle"
-                    app:srcCompat="@drawable/ic_friends" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/friends"
-                    android:textAllCaps="true"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/badge"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="top|center_horizontal"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="3dp"
-                    android:background="@drawable/notification_badge"
-                    android:gravity="center"
-                    android:padding="3dp"
-                    android:text="2"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="78dp"
-                android:background="@android:color/white" />
-
-            <LinearLayout
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:padding="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/menu_friends">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="46dp"
-                    android:layout_height="46dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@android:color/white"
-                    android:scaleType="center"
-                    android:tint="@color/secondaryColor"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.AppTheme.Circle"
-                    app:srcCompat="@drawable/ic_gear" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/settings"
-                    android:textAllCaps="true"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="78dp"
-                android:background="@android:color/white" />
+                android:layout_marginBottom="8dp"
+                android:letterSpacing="0"
+                android:minHeight="0dp"
+                android:padding="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="32dp"
+                android:text="@string/settings"
+                android:textSize="17sp"
+                app:backgroundTint="@android:color/white"
+                app:icon="@drawable/ic_settings_circle"
+                app:iconSize="32dp"
+                app:iconTint="@color/transparent"
+                app:iconTintMode="src_over"
+                app:rippleColor="@color/primaryColor"
+                app:shapeAppearance="@style/ShapeAppearance.AppTheme.Circle" />
 
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/menu_logout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="?selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/ll_top_menu"
-            app:layout_constraintStart_toStartOf="@id/ll_top_menu">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="46dp"
-                android:layout_height="46dp"
-                android:layout_marginEnd="16dp"
-                android:background="@android:color/white"
-                android:scaleType="center"
-                android:tint="@color/secondaryColor"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.AppTheme.Circle"
-                app:srcCompat="@drawable/ic_logout" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/log_out"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

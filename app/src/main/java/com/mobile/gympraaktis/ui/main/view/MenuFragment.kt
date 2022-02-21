@@ -10,7 +10,6 @@ import com.mobile.gympraaktis.databinding.FragmentMenuBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetTimelineBinding
 import com.mobile.gympraaktis.domain.common.AppGuide
 import com.mobile.gympraaktis.domain.extension.*
-import com.mobile.gympraaktis.ui.friends.view.FriendsPagerFragment
 import com.mobile.gympraaktis.ui.login.view.LoginActivity
 import com.mobile.gympraaktis.ui.main.vm.MenuViewModel
 import com.mobile.gympraaktis.ui.settings.view.SettingsFragment
@@ -42,7 +41,7 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
             }
         }
 
-        binding.menuFriends.onClick {
+        /*binding.menuFriends.onClick {
             closeSpotlight()
             activity.addFragment {
                 add(
@@ -52,7 +51,7 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
                 )
                 addToBackStack(FriendsPagerFragment.TAG)
             }
-        }
+        }*/
 
         binding.menuMyProfile.onClick {
             closeSpotlight()
@@ -65,7 +64,7 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
                 addToBackStack(TAG)
             }
         }
-        binding.menuLogout.onClick {
+        /*binding.menuLogout.onClick {
             closeSpotlight()
             activity.materialAlert {
                 setMessage(getString(R.string.are_you_sure_logout))
@@ -75,7 +74,7 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
                 setNegativeButton(R.string.cancel) { dialog, which -> }
             }.show()
         }
-
+*/
         mViewModel.logoutEvent.observe(viewLifecycleOwner, Observer {
             if (it) {
                 Log.d("HERELOGOUT", "LOGOUT")
