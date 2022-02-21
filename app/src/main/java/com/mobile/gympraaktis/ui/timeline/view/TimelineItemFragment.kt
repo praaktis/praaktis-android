@@ -2,6 +2,7 @@ package com.mobile.gympraaktis.ui.timeline.view
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.mobile.gympraaktis.R
@@ -36,7 +37,7 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
         if (activity.isConnected()) {
             mViewModel.refreshAttemptHistory()
         }
-        mViewModel.pagingStateLiveData.observe(viewLifecycleOwner, {
+        mViewModel.pagingStateLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
                 Result.Status.LOADING -> {
                     binding.swipeRefresh.isRefreshing = true
@@ -55,7 +56,7 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
                     startGuideIfNecessary(0)
                 }
             }
-        })
+        }
 
         val adapter = TimelinePagedAdapter(
             onItemClick = {
@@ -67,20 +68,30 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
 
         var pagedListLiveData = mViewModel.getPagedAttemptHistory()
 
-        pagedListLiveData.observe(viewLifecycleOwner, {
+        pagedListLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-        })
+        }
 
         binding.swipeRefresh.setOnRefreshListener {
             mViewModel.refreshAttemptHistory()
             if (adapter.currentList.isNullOrEmpty()) {
                 pagedListLiveData.removeObservers(viewLifecycleOwner)
                 pagedListLiveData = mViewModel.getPagedAttemptHistory()
-                pagedListLiveData.observe(viewLifecycleOwner, {
+                pagedListLiveData.observe(viewLifecycleOwner) {
                     adapter.submitList(it)
-                })
+                }
             }
         }
+
+        binding.etSelectPlayer.setAdapter(
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_list_item_1,
+                listOf("Option 1", "Option 2", "Option 3", "Option 4")
+            )
+        )
+        binding.etSelectPlayer.setDropDownBackgroundResource(R.drawable.shape_popup_menu)
+        binding.etSelectPlayer.dropDownVerticalOffset = 8.dp
 
     }
 

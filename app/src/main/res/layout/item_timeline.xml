@@ -33,8 +33,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:textColor="@color/blue_grey_900"
-                android:textSize="18sp"
+                android:textAllCaps="true"
+                android:textColor="@color/primaryColor"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@id/tv_time"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -46,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:textColor="@color/grey_600"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_date"
                 app:layout_constraintTop_toTopOf="parent"
@@ -59,8 +60,8 @@
                 android:layout_marginTop="22dp"
                 android:gravity="center"
                 android:textAllCaps="true"
-                android:textColor="@color/purple_900_1"
-                android:textSize="18sp"
+                android:textColor="@color/primaryColor"
+                android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_date"
@@ -167,11 +168,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="0%"
+                        android:text="0.0"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="24sp"
-                        tools:text="78%" />
+                        tools:text="71.44" />
 
                 </LinearLayout>
 
@@ -187,7 +188,7 @@
                 app:layout_constraintEnd_toEndOf="@id/cv_score"
                 app:layout_constraintStart_toStartOf="@id/cv_points"
                 app:layout_constraintTop_toBottomOf="@id/cv_points"
-                tools:textSize="17sp" />
+                tools:textSize="16sp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -9,13 +9,17 @@
         <entry key="app/src/main/res/drawable/bg_unselected_nav.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/bottomnav_item_background.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/gradient_progress.xml" value="0.185" />
+        <entry key="app/src/main/res/drawable/gradient_timeline.xml" value="0.1695" />
+        <entry key="app/src/main/res/drawable/ic_arrow_drop_down.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/ic_checkbox_checked.xml" value="0.185" />
+        <entry key="app/src/main/res/drawable/ic_dropdown.xml" value="0.136" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.136" />
         <entry key="app/src/main/res/drawable/ic_login.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/ic_logo.xml" value="0.136" />
         <entry key="app/src/main/res/drawable/ic_logo_2.xml" value="0.136" />
         <entry key="app/src/main/res/drawable/ic_logo_with_text.xml" value="0.136" />
         <entry key="app/src/main/res/drawable/selector_checkbox.xml" value="0.185" />
+        <entry key="app/src/main/res/drawable/shape_popul_menu.xml" value="0.1695" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/fragment_accept_terms.xml" value="0.13583333333333333" />
         <entry key="app/src/main/res/layout/fragment_challenge_instruction.xml" value="0.34843950406156476" />
@@ -23,6 +27,7 @@
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.30213160333642264" />
         <entry key="app/src/main/res/layout/fragment_exercise_analysis.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.21223958333333334" />
+        <entry key="app/src/main/res/layout/fragment_item_timeline.xml" value="0.211306765523633" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.30185185185185187" />
         <entry key="app/src/main/res/layout/fragment_player_analysis.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.34843950406156476" />
