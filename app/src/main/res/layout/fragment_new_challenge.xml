@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 android:gravity="center"
-                android:text="@string/new_challenge"
+                android:text="@string/new_routine"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -71,7 +71,7 @@
                     android:gravity="center"
                     android:text="@string/what_do_you_feel_like_trying"
                     android:textAllCaps="true"
-                    android:textColor="@color/purple_900_1"
+                    android:textColor="@color/primaryColor"
                     android:textSize="16sp" />
 
                 <androidx.recyclerview.widget.RecyclerView

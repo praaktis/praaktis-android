@@ -167,4 +167,5 @@
     <string name="activate_new_player_message">To activate players you need to have either a team subscription or an expert subscription. If you already have a team or expert subscription</string>
     <string name="subscribe_message">IF YOU DO NOT HAVE A SUBSCRIPTION CLICK HERE TO <font color="#0A4C85"><u>SUBSCRIBE</u></font></string>
     <string name="create_player">Create player</string>
+    <string name="new_routine">New Routine</string>
 </resources>
