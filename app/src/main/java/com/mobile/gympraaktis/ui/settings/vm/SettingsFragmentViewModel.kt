@@ -26,7 +26,7 @@ class SettingsFragmentViewModel(app: Application) : BaseViewModel(app) {
             else -> 1
         }
 
-        repo.updateProfile(UserDTO(language = languageKey))
+        repo.updateProfile(UserDTO(language = languageKey), null)
             .doOnSubscribe { showHideEvent.postValue(true) }
             .doAfterTerminate { showHideEvent.postValue(false) }
             .subscribe({

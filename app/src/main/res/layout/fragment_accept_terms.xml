@@ -43,7 +43,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/read_and_accept_our_terms"
-                    android:textAllCaps="true"
+                    app:textAllCaps="true"
                     android:textColor="@color/primaryColor"
                     android:textSize="18sp" />
 

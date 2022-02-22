@@ -1,7 +1,6 @@
 package com.mobile.gympraaktis.ui.main.view
 
-import android.app.Activity
-import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
@@ -13,7 +12,6 @@ import com.google.gson.Gson
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentProfileBinding
-import com.mobile.gympraaktis.domain.common.ImageUtils
 import com.mobile.gympraaktis.domain.entities.CountryItemDTO
 import com.mobile.gympraaktis.domain.entities.Gender
 import com.mobile.gympraaktis.domain.entities.UserDTO
@@ -21,14 +19,11 @@ import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.main.vm.ProfileViewModel
 import com.mukesh.countrypicker.Country
 import com.mukesh.countrypicker.CountryPicker
-import com.nguyenhoanglam.imagepicker.model.Config
-import com.nguyenhoanglam.imagepicker.model.Image
-import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker
+import com.nguyenhoanglam.imagepicker.ui.imagepicker.registerImagePicker
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.json.JSONObject
 import org.threeten.bp.LocalDate
-import java.io.File
 import java.util.*
 
 class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) :
@@ -48,7 +43,17 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) :
     private var selectedCountry: CountryItemDTO? = null
     private lateinit var countryPicker: CountryPicker
 
-    private var userImageUri: String? = null
+    private var userImageUri: Uri? = null
+
+    private val pickerLauncher = registerImagePicker { images ->
+        if (images.isNotEmpty()) {
+            userImageUri = images.first().uri
+            Glide.with(this)
+                .load(userImageUri)
+                .centerCrop()
+                .into(binding.ivAvatar)
+        }
+    }
 
     override fun initUI(savedInstanceState: Bundle?) {
         mViewModel.profileInfoEvent.observe(this, Observer {
@@ -56,7 +61,7 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) :
         })
 
         ivAvatar.onClick {
-            openImagePicker()
+            pickerLauncher.launch(IMAGE_PICKER_CONFIG)
         }
 
         mViewModel.countriesEvent.observe(this, Observer { countries ->
@@ -167,14 +172,14 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) :
                     nickname = etNickname.stringText(),
                     country = selectedCountry?.key,
                     password = etPassword.stringText(),
-                    profileImage = userImageUri
+//                    profileImage = userImageUri
                 )
 
                 val diffUser = returnDiffUserDTO()
                 if (JSONObject(Gson().toJson(diffUser)).length() == 0)
                     activity.makeToast("no changes")
                 else
-                    mViewModel.updateProfile(diffUser)
+                    mViewModel.updateProfile(diffUser, userImageUri)
 
                 Log.d("DIFFUSER", Gson().toJson(diffUser))
             }
@@ -191,12 +196,12 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) :
             nickname = oldUserInfo.nickname!!.returnDiff(newUserInfo.nickname),
             password = oldUserInfo.password!!.returnDiff(newUserInfo.password),
             country = oldUserInfo.country.toString().returnDiff(newUserInfo.country.toString()),
-            profileImage = userImageUri
+            profileImage = userImageUri?.toString()
         )
     }
 
     private fun initCountryPicker(customCountryList: Array<Country>?) {
-        val countryPickerBuilder = CountryPicker.Builder().with(context!!).listener {
+        val countryPickerBuilder = CountryPicker.Builder().with(requireContext()).listener {
             selectedCountry = CountryItemDTO(it.code, it.name)
             etCountry.setText(it.name)
             activity.hideKeyboard(etCountry)
@@ -208,17 +213,6 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) :
         etCountry.onClick {
             countryPicker.showBottomSheet(activity)
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == Config.RC_PICK_IMAGES && resultCode == Activity.RESULT_OK && data != null) {
-            val images: ArrayList<Image> = ImagePicker.getImages(data)
-            userImageUri = images.first().path
-            Glide.with(this)
-                .load(ImageUtils.convertToBitmap2(File(userImageUri), 300, 300))
-                .into(ivAvatar)
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun showBirthdayDialog() {
@@ -258,7 +252,7 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) :
 //        }
 
         val picker = SpinnerDatePickerDialogBuilder()
-            .context(context!!)
+            .context(requireContext())
             .callback { view, year, monthOfYear, dayOfMonth ->
                 dateOfBirthCal?.set(year, monthOfYear, dayOfMonth)
                 etDateOfBirth.setText(

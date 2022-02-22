@@ -19,7 +19,7 @@ interface AuthSeriviceRepository {
 
     fun login(userName: String, password: String): Single<ResponseBody>
     fun createUser(email: String, password: String): Single<ResponseBody>
-    fun updateProfile(userDTO: UserDTO): Single<ResponseBody>
+    fun updateProfile(userDTO: UserDTO, userImage: File?): Single<ResponseBody>
     fun getProfile(): Single<UserDTO>
     fun getProfileImage(): Single<ResponseBody>
     fun acceptTerms(): Single<ResponseBody>
@@ -53,10 +53,10 @@ interface AuthSeriviceRepository {
         }
 
 
-        override fun updateProfile(userDTO: UserDTO): Single<ResponseBody> {
+        override fun updateProfile(userDTO: UserDTO, userImage: File?): Single<ResponseBody> {
             val user: MutableList<MultipartBody.Part> = mutableListOf()
-            userDTO.profileImage?.let {
-                val file = ImageUtils.convertToBitmap2(File(it), 300, 300)
+            userImage?.let {
+                val file = ImageUtils.convertToBitmap2(it, 300, 300)
                 val imagePart = MultipartBody.Part.createFormData(
                     "profileImage", file.name, file
                         .asRequestBody("multipart/form-data".toMediaTypeOrNull())

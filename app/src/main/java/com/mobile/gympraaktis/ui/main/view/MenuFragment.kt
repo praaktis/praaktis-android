@@ -12,6 +12,7 @@ import com.mobile.gympraaktis.domain.common.AppGuide
 import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.login.view.LoginActivity
 import com.mobile.gympraaktis.ui.main.vm.MenuViewModel
+import com.mobile.gympraaktis.ui.new_player.view.NewPlayerFragment
 import com.mobile.gympraaktis.ui.settings.view.SettingsFragment
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
@@ -52,6 +53,18 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
                 addToBackStack(FriendsPagerFragment.TAG)
             }
         }*/
+
+        binding.menuActivateNewPlayer.setOnClickListener {
+            closeSpotlight()
+            activity.addFragment {
+                add(
+                    R.id.menu_container,
+                    NewPlayerFragment.newInstance(),
+                    NewPlayerFragment.TAG
+                )
+                addToBackStack(TAG)
+            }
+        }
 
         binding.menuMyProfile.onClick {
             closeSpotlight()

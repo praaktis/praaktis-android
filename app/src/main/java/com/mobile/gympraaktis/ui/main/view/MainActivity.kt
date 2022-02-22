@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
@@ -17,6 +16,7 @@ import com.mobile.gympraaktis.databinding.LayoutTargetBottomBinding
 import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.friends.view.FriendsPagerFragment
 import com.mobile.gympraaktis.ui.main.vm.MainViewModel
+import com.mobile.gympraaktis.ui.new_player.view.NewPlayerFragment
 import com.mobile.gympraaktis.ui.settings.view.SettingsFragment
 import com.mobile.gympraaktis.ui.timeline.view.TimelineItemFragment
 import com.takusemba.spotlight.Target
@@ -91,7 +91,11 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
             R.id.menu_timeline -> {
                 if (currentFragment == null || currentFragment !is TimelineItemFragment) {
                     val tag = TimelineItemFragment.TAG
-                    supportFragmentManager.switch(R.id.container, TimelineItemFragment.getInstance(), tag)
+                    supportFragmentManager.switch(
+                        R.id.container,
+                        TimelineItemFragment.getInstance(),
+                        tag
+                    )
                 }
             }
             R.id.menu_more -> {
@@ -99,6 +103,7 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
                     if (supportFragmentManager.findFragmentById(R.id.menu_container) is FriendsPagerFragment
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is ProfileFragment
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is SettingsFragment
+                        || supportFragmentManager.findFragmentById(R.id.menu_container) is NewPlayerFragment
                     ) {
                         onBackPressed()
                         return true
@@ -180,7 +185,7 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
         return Target.Builder()
             .setAnchor(
                 binding.bottomNavigation.x + binding.bottomNavigation.width / 2,
-                (binding.bottomNavigation.y +binding.bottomNavigation.height/2) - binding.bottomNavigation.paddingBottom/2
+                (binding.bottomNavigation.y + binding.bottomNavigation.height / 2) - binding.bottomNavigation.paddingBottom / 2
             )
             .setOverlay(target.root)
             .setShape(

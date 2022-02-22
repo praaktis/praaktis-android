@@ -1,6 +1,5 @@
-package com.mobile.gympraaktis.ui.login.view
+package com.mobile.gympraaktis.ui.new_player.view
 
-import android.net.Uri
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
@@ -8,13 +7,12 @@ import com.afollestad.vvalidator.form
 import com.bumptech.glide.Glide
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
-import com.mobile.gympraaktis.databinding.FragmentRegisterUserDetailBinding
+import com.mobile.gympraaktis.databinding.FragmentNewPlayerProfileBinding
 import com.mobile.gympraaktis.domain.entities.CountryItemDTO
 import com.mobile.gympraaktis.domain.entities.Gender
 import com.mobile.gympraaktis.domain.entities.UserDTO
-import com.mobile.gympraaktis.domain.entities.UserLevel
 import com.mobile.gympraaktis.domain.extension.*
-import com.mobile.gympraaktis.ui.login.vm.RegisterUserDetailViewModel
+import com.mobile.gympraaktis.ui.new_player.vm.NewPlayerProfileViewModel
 import com.mukesh.countrypicker.Country
 import com.mukesh.countrypicker.CountryPicker
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.registerImagePicker
@@ -23,16 +21,21 @@ import kotlinx.android.synthetic.main.fragment_register_user_detail.*
 import org.threeten.bp.LocalDate
 import java.util.*
 
-
-class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layout.fragment_register_user_detail) :
-    BaseFragment<FragmentRegisterUserDetailBinding>() {
+class NewPlayerProfileFragment(override val layoutId: Int = R.layout.fragment_new_player_profile) :
+    BaseFragment<FragmentNewPlayerProfileBinding>() {
 
     companion object {
-        const val TAG: String = "RegisterUserDetailFragment"
-        fun getInstance() = RegisterUserDetailFragment()
+        @JvmStatic
+        fun newInstance() =
+            NewPlayerProfileFragment().apply {
+                arguments = Bundle().apply {
+                }
+            }
+
+        const val TAG = "NewPlayerProfileFragment"
     }
 
-    override val mViewModel: RegisterUserDetailViewModel by viewModels()
+    override val mViewModel: NewPlayerProfileViewModel by viewModels()
 
     private var dateOfBirthCal: GregorianCalendar? = null
     private lateinit var user: UserDTO
@@ -40,7 +43,11 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
     private var selectedCountry: CountryItemDTO? = null
     private var countryPicker: CountryPicker? = null
 
+    private var userImageUri: String? = null
+
+
     override fun initUI(savedInstanceState: Bundle?) {
+
         initClicks()
 
         val genderAdapter = ArrayAdapter(
@@ -50,29 +57,29 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
         )
         binding.etGender.setAdapter(genderAdapter)
 
+
         form {
             inputLayout(binding.tilGender) {
                 isNotEmpty().description("Select your gender")
             }
-            inputLayout(tilFirstName) {
+            inputLayout(binding.tilFirstName) {
                 isNotEmpty().description("Enter your First Name")
             }
-            inputLayout(tilLastName) {
+            inputLayout(binding.tilLastName) {
                 isNotEmpty().description("Enter your Last Name")
             }
-            inputLayout(tilDateOfBirth) {
+            inputLayout(binding.tilDateOfBirth) {
                 isNotEmpty().description("Set your date of birth")
             }
-            inputLayout(tilCountry) {
+            inputLayout(binding.tilCountry) {
                 isNotEmpty().description("Choose country")
             }
-            inputLayout(tilUsername) {
+            inputLayout(binding.tilUsername) {
                 isNotEmpty().description("Enter your nickname")
             }
-            submitWith(tvNextStep) {
-                activity.hideKeyboard(tvNextStep)
+            submitWith(binding.btnCreate) {
+                activity.hideKeyboard(binding.btnCreate)
                 user = UserDTO(
-                    ability = userLevel,
                     gender = Gender.values()[resources.getStringArray(R.array.genders)
                         .indexOf(binding.etGender.text.toString())],
                     firstName = etFirstName.stringText(),
@@ -80,14 +87,15 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
                     nickname = etUsername.stringText(),
                     country = selectedCountry?.key,
                     dateOfBirth = dateOfBirthCal?.dateYYYY_MM_DD(),
-                    profileImage = userImageUri.toString()
+                    profileImage = userImageUri
                 )
 
-                mViewModel.updateProfile(user, userImageUri)
+                mViewModel.createPlayer(user)
             }
         }
 
-        mViewModel.countriesEvent.observe(this, androidx.lifecycle.Observer { countries ->
+
+        mViewModel.countriesEvent.observe(viewLifecycleOwner) { countries ->
             val countryArray: Array<Country> = Array(countries.size) { index ->
                 val countryMatch = CountryPicker.COUNTRIES.find { it.code == countries[index].key }
                 Country(
@@ -99,23 +107,38 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
                 )
             }
             initCountryPicker(countryArray)
-        })
+        }
 
         mViewModel.getCountries()
 
-        mViewModel.updateProfileEvent.observe(this, androidx.lifecycle.Observer {
-            activity.makeToast(it)
-            val tag = AcceptTermsFragment.TAG
-            activity.showOrReplace(tag) {
-                add(
-                    R.id.container,
-                    AcceptTermsFragment.getInstance(),
-                    tag
-                ).addToBackStack(tag)
-            }
-        })
-
         initCountryPicker(null)
+    }
+
+
+    private val pickerLauncher = registerImagePicker { images ->
+        if (images.isNotEmpty()) {
+            userImageUri = images.first().uri.path
+            Glide.with(this)
+                .load(images.first().uri)
+                .centerCrop()
+                .into(binding.ivAvatar)
+        }
+    }
+
+    private fun initClicks() {
+
+        binding.etCountry.onClick {
+            countryPicker?.showBottomSheet(activity)
+        }
+
+        binding.ivAvatar.onClick {
+            pickerLauncher.launch(IMAGE_PICKER_CONFIG)
+        }
+
+        etDateOfBirth.onClick {
+            showBirthdayDialog()
+        }
+
     }
 
     private fun initCountryPicker(customCountryList: Array<Country>?) {
@@ -127,48 +150,6 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
         }
         customCountryList?.let { countryPickerBuilder.setCountryList(it) }
         countryPicker = countryPickerBuilder.build()
-    }
-
-    private var userLevel = UserLevel.B
-
-    private var userImageUri: Uri? = null
-
-    private val pickerLauncher = registerImagePicker { images ->
-        if (images.isNotEmpty()) {
-            userImageUri = images.first().uri
-            Glide.with(this)
-                .load(userImageUri)
-                .into(binding.ivAvatar)
-        }
-    }
-
-    private fun initClicks() {
-
-        etCountry.onClick {
-            countryPicker?.showBottomSheet(activity)
-        }
-
-        ivAvatar.onClick {
-            pickerLauncher.launch(IMAGE_PICKER_CONFIG)
-        }
-
-        tvBackLogin.onClick {
-            activity.supportFragmentManager.popBackStack()
-            activity.supportFragmentManager.popBackStack()
-        }
-
-        etDateOfBirth.onClick {
-            showBirthdayDialog()
-        }
-
-        binding.toggleGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            userLevel = when (checkedId) {
-                R.id.btn_beginner -> UserLevel.B
-                R.id.btn_intermediate -> UserLevel.I
-                R.id.btn_expert -> UserLevel.E
-                else -> UserLevel.E
-            }
-        }
     }
 
     private fun showBirthdayDialog() {
@@ -198,5 +179,4 @@ class RegisterUserDetailFragment constructor(override val layoutId: Int = R.layo
         countryPicker = null
         super.onDestroy()
     }
-
 }
