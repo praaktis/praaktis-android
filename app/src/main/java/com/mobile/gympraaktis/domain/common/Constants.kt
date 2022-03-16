@@ -13,14 +13,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object Constants {
-    const val DATABASE_HOCKEY_VERSION: Int = 7
+    const val DATABASE_HOCKEY_VERSION: Int = 14
     const val TIMELINE = "TIMELINE"
     const val TIMELINE_CHALLENGE_ITEM = "TIMELINE_CHALLENGE_ITEM"
 
     var retrofit: Retrofit? = null
 
     inline fun <reified S> createService(): S {
-        return getRetrofit("https://api.praaktis.fuzzydigital.com/api/").create(S::class.java)
+        return getRetrofit("https://api.praaktis.com/api/").create(S::class.java)
     }
 
     fun getRetrofit(endpoint: String): Retrofit {

@@ -5,10 +5,11 @@ import androidx.fragment.app.viewModels
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentExerciseAnalysisBinding
-import com.mobile.gympraaktis.ui.details.view.AnalysisFragment
 import com.mobile.gympraaktis.ui.details.view.DetailsActivity
+import com.mobile.gympraaktis.ui.details.view.PlayerAnalysisDetailsFragment
 import com.mobile.gympraaktis.ui.main.adapter.PlayersAnalysisAdapter
-import com.mobile.gympraaktis.ui.main.vm.PlayersAnalysisViewModel
+import com.mobile.gympraaktis.ui.main.vm.ExerciseAnalysisViewModel
+import timber.log.Timber
 
 class PlayerAnalysisFragment(override val layoutId: Int = R.layout.fragment_exercise_analysis) :
     BaseFragment<FragmentExerciseAnalysisBinding>() {
@@ -21,19 +22,30 @@ class PlayerAnalysisFragment(override val layoutId: Int = R.layout.fragment_exer
             }
     }
 
-    override val mViewModel: PlayersAnalysisViewModel by viewModels()
+    //    override val mViewModel: PlayersAnalysisViewModel by viewModels()
+    override val mViewModel: ExerciseAnalysisViewModel by viewModels()
 
     override fun initUI(savedInstanceState: Bundle?) {
-        mViewModel.getFriends()
+
         val adapter = PlayersAnalysisAdapter {
             startActivity(
-                DetailsActivity.start(activity, AnalysisFragment.TAG)
-                    .putExtra(AnalysisFragment.TAG, it)
+                DetailsActivity.start(activity, PlayerAnalysisDetailsFragment.TAG)
+                    .putExtra(PlayerAnalysisDetailsFragment.TAG, it)
             )
         }
-        binding.rvAnalysis.adapter = adapter
-        mViewModel.observeFriends().observe(viewLifecycleOwner) {
+
+        mViewModel.observePlayerAnalysis().observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            Timber.d("DASHBOARD_ENTITY2 $it")
         }
+
+        binding.rvAnalysis.adapter = adapter
+
     }
+
+    override fun onResume() {
+        super.onResume()
+        binding.rvAnalysis.requestLayout()
+    }
+
 }

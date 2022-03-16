@@ -1,0 +1,41 @@
+package com.mobile.gympraaktis.domain.entities
+
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+
+class PlayerAnalysisDTO(
+    @SerializedName("playerid")
+    val playerId: Long,
+    @SerializedName("playername")
+    val playerName: String,
+    @SerializedName("routines")
+    val analysis: List<AnalysisDTO>
+)
+
+data class PlayerCreateModel(
+    @SerializedName("player_name")
+    val playerName: String? = null,
+    @SerializedName("nickname")
+    val nickname: String? = null,
+    @SerializedName("gender")
+    val gender: Gender? = null,
+    @SerializedName("ability")
+    val ability: UserLevel? = null,
+    @SerializedName("age_group")
+    val ageGroup: Int? = null,
+    @SerializedName("weight_range")
+    val weightRange: Int? = null,
+    @SerializedName("height_range")
+    val heightRange: Int? = null,
+    @SerializedName("udf_1")
+    val udf1: String? = null,
+    @SerializedName("udf_2")
+    val udf2: String? = null,
+) : Serializable
+
+data class KeyValueDTO(
+    @SerializedName("key")
+    val key: Any,
+    @SerializedName("name")
+    val name: String,
+) : Serializable

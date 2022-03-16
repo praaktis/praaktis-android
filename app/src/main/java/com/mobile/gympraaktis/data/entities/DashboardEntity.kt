@@ -10,10 +10,11 @@ import java.io.Serializable
 data class DashboardEntity(
     @PrimaryKey
     val id: Int,
-    val totalPoints: Long,
-    val totalCredits: Long,
+    val allowedPlayers: Long,
+    val activePlayers: Long,
     val level: Long,
-    val pointsToNextLevel: Long
+    val attemptsAvailable: Long,
+    val recordedAttempts: Long,
 ) : Serializable
 
 data class DashboardWithAnalysis(
@@ -27,3 +28,13 @@ data class DashboardWithAnalysis(
     val analysis: List<AnalysisComplete>
 ) : Serializable
 
+data class DashboardWithPlayers(
+    @Embedded
+    val dashboard: PlayerAnalysis,
+    @Relation(
+        entity = PlayerEntity::class,
+        parentColumn = "id",
+        entityColumn = "id"
+    )
+    val analysis: List<PlayerAnalysis>
+) : Serializable

@@ -32,7 +32,7 @@ interface UserService {
         @Body storeResult: StoreResultDTO
     ): Single<ResponseBody>
 
-    @GET("getChallenges/")
+    @GET("getRoutines/")
     fun getChallenges(): Single<List<ChallengeDTO>>
 
     @GET("user/getComparison")
@@ -68,4 +68,25 @@ interface UserService {
     fun registerDevice(
         @Body request: RegisterDeviceDTO
     ): Single<ResponseBody>
+
+    @POST("user/createPlayer/")
+    fun createPlayer(
+        @Body playerModel: PlayerCreateModel
+    ): Single<ResponseBody>
+
+    @GET("api/getHeights/")
+    fun fetchHeightOptions(): Single<List<KeyValueDTO>>
+
+    @GET("api/getWeights/")
+    fun fetchWeightOptions(): Single<List<KeyValueDTO>>
+
+    @GET("api/getAbilities/")
+    fun fetchAbilityOptions(): Single<List<KeyValueDTO>>
+
+    @GET("api/getAgeGroups/")
+    fun fetchAgeOptions(): Single<List<KeyValueDTO>>
+
+    @GET("api/getGenders/")
+    fun fetchGenderOptions(): Single<List<KeyValueDTO>>
+
 }

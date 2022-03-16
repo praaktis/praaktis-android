@@ -77,7 +77,7 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
                 addToBackStack(TAG)
             }
         }
-        /*binding.menuLogout.onClick {
+        binding.menuLogout.onClick {
             closeSpotlight()
             activity.materialAlert {
                 setMessage(getString(R.string.are_you_sure_logout))
@@ -87,7 +87,6 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
                 setNegativeButton(R.string.cancel) { dialog, which -> }
             }.show()
         }
-*/
         mViewModel.logoutEvent.observe(viewLifecycleOwner, Observer {
             if (it) {
                 Log.d("HERELOGOUT", "LOGOUT")
@@ -126,7 +125,7 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
     private fun initGuide(): Spotlight {
         return Spotlight.Builder(activity)
             .setTargets(menuTarget())
-            .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
+            .setBackgroundColor(R.color.primaryColor_alpha_90)
             .setOnSpotlightListener(object : OnSpotlightListener {
                 override fun onStarted() {
                     isGuideStarted = true

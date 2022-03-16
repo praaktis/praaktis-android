@@ -2,42 +2,60 @@ package com.mobile.gympraaktis.domain.entities
 
 import com.google.gson.annotations.SerializedName
 import com.mobile.gympraaktis.data.entities.*
-import com.mobile.gympraaktis.domain.common.Quadruple
+import com.mobile.gympraaktis.domain.common.Quintuple
 import java.io.Serializable
 
 data class DashboardDTO(
-    @SerializedName("total_points")
-    val totalPoints: Long,
-    @SerializedName("total_credits")
-    val totalCredits: Long,
+    @SerializedName("allowed_players")
+    val allowedPlayers: Long,
+    @SerializedName("activated_players")
+    val activatedPlayers: Long,
     @SerializedName("level")
     val level: Long,
-    @SerializedName("points_to_next_level")
-    val pointsToNextLevel: Long,
-    @SerializedName("challenges")
-    val challenges: List<AnalysisDTO>
+    @SerializedName("videos_available")
+    val videosAvailable: Long,
+    @SerializedName("videos_recorded")
+    val videosRecorded: Long,
+    @SerializedName("routines")
+    val routines: List<RoutineDTO>,
+    @SerializedName("players")
+    val players: List<PlayerAnalysisDTO>
+
 ) : Serializable
 
 fun DashboardDTO.toDashboardEntity() =
-    DashboardEntity(1, totalPoints, totalCredits, level, pointsToNextLevel)
+    DashboardEntity(1, allowedPlayers, activatedPlayers, level, videosAvailable, videosRecorded)
 
-fun DashboardDTO.toAnalysisEntityList(): Quadruple<List<AnalysisEntity>, List<AttemptChartDataEntity>, List<ChartDataEntity>, List<ScoreAnalysisEntity>> {
+fun RoutineDTO.toRoutineEntity() = RoutineEntity(id, name, null)
+
+fun DashboardDTO.toAnalysisEntityList(): Quintuple<List<AnalysisEntity>, List<AttemptChartDataEntity>, List<ChartDataEntity>, List<ScoreAnalysisEntity>, List<PlayerEntity>> {
     val analysisEntityList: MutableList<AnalysisEntity> = mutableListOf()
     val attemptChartDataEntityList: MutableList<AttemptChartDataEntity> = mutableListOf()
     val chartDataEntityList: MutableList<ChartDataEntity> = mutableListOf()
     val scoreAnalysisEntityList: MutableList<ScoreAnalysisEntity> = mutableListOf()
+    val playerEntityList: MutableList<PlayerEntity> = mutableListOf()
 
-    challenges.forEach {
-        analysisEntityList.add(it.toAnalysisEntity())
-        attemptChartDataEntityList.add(it.toAttemptChartDataEntity())
-        chartDataEntityList.add(it.toChartDataEntity())
-        scoreAnalysisEntityList.addAll(it.scores.map { score -> score.toScoreAnalysisEntity(it.id) })
+    players.forEach { player ->
+        playerEntityList.add(player.toPlayerEntity())
+        analysisEntityList.addAll(player.analysis.map { it.toAnalysisEntity(player.playerId) })
+        attemptChartDataEntityList.addAll(player.analysis.map { it.toAttemptChartDataEntity(player.playerId) })
+        chartDataEntityList.addAll(player.analysis.map { it.toChartDataEntity(player.playerId) })
+        player.analysis.forEach {
+            scoreAnalysisEntityList.addAll(it.scores.map { score ->
+                score.toScoreAnalysisEntity(
+                    it.id,
+                    player.playerId
+                )
+            })
+        }
     }
-    return Quadruple(
+
+    return Quintuple(
         analysisEntityList,
         attemptChartDataEntityList,
         chartDataEntityList,
-        scoreAnalysisEntityList
+        scoreAnalysisEntityList,
+        playerEntityList,
     )
 }
 

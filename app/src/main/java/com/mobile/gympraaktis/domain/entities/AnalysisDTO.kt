@@ -32,10 +32,10 @@ data class AttemptChartData(
     val series: List<Double>
 ) : Serializable
 
-fun AnalysisDTO.toAttemptChartDataEntity() =
-    AttemptChartDataEntity(id, attemptChart.keys, attemptChart.series)
+fun AnalysisDTO.toAttemptChartDataEntity(playerId: Long) =
+    AttemptChartDataEntity(id, attemptChart.keys, attemptChart.series, playerId)
 
-fun AnalysisDTO.toChartDataEntity() = ChartDataEntity(id, chartData.series, chartData.keys)
+fun AnalysisDTO.toChartDataEntity(playerId: Long) = ChartDataEntity(id, chartData.series, chartData.keys, playerId)
 
-fun AnalysisDTO.toAnalysisEntity() = AnalysisEntity(id, name, 1, maxScore, averageScore, noAttempts)
+fun AnalysisDTO.toAnalysisEntity(playerId: Long) = AnalysisEntity(id, playerId, name, 1, maxScore, averageScore, noAttempts)
 

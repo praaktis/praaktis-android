@@ -20,7 +20,10 @@ import com.mobile.gympraaktis.databinding.LayoutTargetChallengesBinding
 import com.mobile.gympraaktis.domain.common.AppGuide
 import com.mobile.gympraaktis.domain.common.resettableLazy
 import com.mobile.gympraaktis.domain.entities.ChallengeDTO
-import com.mobile.gympraaktis.domain.extension.*
+import com.mobile.gympraaktis.domain.extension.doOnPreDraw
+import com.mobile.gympraaktis.domain.extension.hideAnimWithScale
+import com.mobile.gympraaktis.domain.extension.materialAlert
+import com.mobile.gympraaktis.domain.extension.showAnimWithScale
 import com.mobile.gympraaktis.ui.challenge.ChallengeVideoActivity
 import com.mobile.gympraaktis.ui.main.adapter.ChallengesAdapter
 import com.mobile.gympraaktis.ui.main.vm.MainViewModel
@@ -181,7 +184,7 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
     private fun initGuide(): Spotlight {
         return Spotlight.Builder(activity)
             .setTargets(challengeTarget())
-            .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
+            .setBackgroundColor(R.color.primaryColor_alpha_90)
             .setOnSpotlightListener(object : OnSpotlightListener {
                 override fun onStarted() {
                     isGuideStarted = true

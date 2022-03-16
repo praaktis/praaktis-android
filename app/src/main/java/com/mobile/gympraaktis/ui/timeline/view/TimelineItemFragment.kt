@@ -130,7 +130,7 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
     private fun initGuide(): Spotlight {
         return Spotlight.Builder(activity)
             .setTargets(challengeTarget())
-            .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
+            .setBackgroundColor(R.color.primaryColor_alpha_90)
             .setOnSpotlightListener(object : OnSpotlightListener {
                 override fun onStarted() {
                     isGuideStarted = true

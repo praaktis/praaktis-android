@@ -27,9 +27,9 @@
                 android:id="@+id/tvMe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/me"
+                android:text="@string/player_tag"
                 android:textAllCaps="true"
-                android:textColor="@color/purple_900_1"
+                android:textColor="@color/primaryColor"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +39,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="13dp"
+                android:layout_marginEnd="13dp"
                 app:cardElevation="6dp"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toStartOf="@id/llAverage"
@@ -60,7 +60,7 @@
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:maxLines="1"
-                        android:text="@string/highest"
+                        android:text="@string/best"
                         android:textAllCaps="true"
                         android:textColor="@color/grey_600"
                         android:textSize="11sp" />
@@ -127,7 +127,7 @@
                 android:id="@+id/llRank"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginLeft="13dp"
+                android:layout_marginStart="13dp"
                 app:cardElevation="6dp"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -172,20 +172,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="@string/ability_gender_age_group"
+                android:text="@string/universe"
                 android:textAllCaps="true"
-                android:textColor="@color/purple_900_1"
+                android:textColor="@color/primaryColor"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/llAverage"
-                tools:text="@string/ability_gender_age_group" />
+                app:layout_constraintTop_toBottomOf="@+id/llAverage" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/llHighestFriends"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="18dp"
-                android:layout_marginRight="13dp"
+                android:layout_marginEnd="13dp"
                 app:cardElevation="6dp"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toStartOf="@id/llAverageFriends"
@@ -205,7 +204,7 @@
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:maxLines="1"
-                        android:text="@string/highest"
+                        android:text="@string/best"
                         android:textAllCaps="true"
                         android:textColor="@color/grey_600"
                         android:textSize="11sp" />
@@ -292,7 +291,7 @@
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:maxLines="1"
-                        android:text="@string/lowest"
+                        android:text="@string/players"
                         android:textAllCaps="true"
                         android:textColor="@color/grey_600"
                         android:textSize="11sp" />
@@ -335,7 +334,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/scores"
                         android:textAllCaps="true"
-                        android:textColor="@color/purple_900_1"
+                        android:textColor="@color/primaryColor"
                         android:textSize="16sp" />
 
                     <FrameLayout
@@ -346,7 +345,7 @@
                             android:id="@+id/lineChart"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:visibility="gone" />
 
                         <TextView
@@ -354,7 +353,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:gravity="center"
                             android:text="@string/no_chart_data_available"
                             android:textColor="@color/black_text"
@@ -388,7 +387,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/attempts"
                         android:textAllCaps="true"
-                        android:textColor="@color/purple_900_1"
+                        android:textColor="@color/primaryColor"
                         android:textSize="16sp" />
 
                     <FrameLayout
@@ -399,7 +398,7 @@
                             android:id="@+id/pieChart"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:visibility="gone" />
 
                         <TextView
@@ -407,7 +406,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:gravity="center"
                             android:text="@string/no_chart_data_available"
                             android:textColor="@color/black_text"

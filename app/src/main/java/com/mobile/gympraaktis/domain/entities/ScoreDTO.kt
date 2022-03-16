@@ -18,8 +18,8 @@ data class ScoreDTO(
     val score: Double
 ) : Serializable
 
-fun ScoreDTO.toScoreAnalysisEntity(challengeId: Int) =
-    ScoreAnalysisEntity(attemptId, challengeId, score, timePerformed)
+fun ScoreDTO.toScoreAnalysisEntity(challengeId: Int, playerId: Long) =
+    ScoreAnalysisEntity(attemptId, challengeId, score, timePerformed, playerId)
 
 fun ScoreDTO.toTimelineEntity(challengeId: Int, challengeName: String) =
     TimelineEntity(attemptId, points, score, timePerformed, challengeId, challengeName)

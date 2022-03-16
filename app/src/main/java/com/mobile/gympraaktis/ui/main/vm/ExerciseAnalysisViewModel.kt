@@ -7,7 +7,11 @@ import com.mobile.gympraaktis.data.db.PraaktisDatabase
 
 class ExerciseAnalysisViewModel(app: Application) : BaseViewModel(app) {
 
-    fun observeDashboard() =
-        PraaktisDatabase.getInstance(getApplication()).getDashboardDao().getDashboardData()
+    fun observePlayerAnalysis() =
+        PraaktisDatabase.getInstance(getApplication()).getDashboardDao().getPlayersAnalysis()
+            .asLiveData()
+
+    fun observeRoutineAnalysis() =
+        PraaktisDatabase.getInstance(getApplication()).getDashboardDao().getRoutineAnalysis()
             .asLiveData()
 }

@@ -10,7 +10,10 @@ import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentResultChallengeBinding
 import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.entities.DetailResult
-import com.mobile.gympraaktis.domain.extension.*
+import com.mobile.gympraaktis.domain.extension.makeToast
+import com.mobile.gympraaktis.domain.extension.onClick
+import com.mobile.gympraaktis.domain.extension.show
+import com.mobile.gympraaktis.domain.extension.showOrReplace
 import com.mobile.gympraaktis.ui.challenge.vm.ResultChallengeFragmentViewModel
 import com.mobile.gympraaktis.ui.details.view.ChallengeInstructionFragment
 import com.praaktis.exerciseengine.Engine.DetailPoint
@@ -102,8 +105,8 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     private fun initClicks() {
         binding.ivPlay.setOnClickListener {
             val intent = Intent(activity, VideoReplayActivity::class.java)
-            intent.putExtra("FILE_NAME", path)
-            intent.putExtra("PLAYER", result)
+            intent.putExtra("PLAYER", 1)
+            intent.putExtra("EXERCISE", challengeItem.id)
             startActivity(intent)
         }
 
@@ -126,16 +129,11 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
 
     fun startExercise() {
         val intent = Intent(context, ExerciseEngineActivity::class.java)
-        intent.putExtra("LOGIN", mViewModel.getLogin())
-        intent.putExtra("PASSWORD", mViewModel.getPassword())
         intent.putExtra("EXERCISE", challengeItem.id)
+        intent.putExtra("PLAYER", 1)
         intent.putExtra(
             ChallengeInstructionFragment.SINGLE_USER_MODE,
             mViewModel.settingsStorage.cameraMode
-        )
-        intent.putExtra(
-            ChallengeInstructionFragment.SERVER_NAME,
-            mViewModel.settingsStorage.praaktisServerName
         )
         requireActivity().startActivityForResult(
             intent,

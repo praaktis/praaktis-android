@@ -1,12 +1,10 @@
 package com.mobile.gympraaktis.ui.challenge.vm
 
 import android.app.Application
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.mobile.gympraaktis.base.BaseViewModel
 import com.mobile.gympraaktis.data.db.PraaktisDatabase
 import com.mobile.gympraaktis.data.repository.UserServiceRepository
-import com.mobile.gympraaktis.domain.common.LiveEvent
 import com.mobile.gympraaktis.domain.entities.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -62,7 +60,8 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
                                 analysis.first,
                                 analysis.second,
                                 analysis.third,
-                                analysis.fourth
+                                analysis.fourth,
+                                analysis.fifth,
                             )
                         }
                     }

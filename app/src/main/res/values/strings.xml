@@ -159,6 +159,7 @@
     <string name="intro_text_4">Review\nand Assess</string>
     <string name="intro_text_5">Compare\nand Contrast</string>
     <string name="player">Player</string>
+    <string name="player_tag">Player #</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="attempts_available">Attempts available</string>
@@ -168,4 +169,11 @@
     <string name="subscribe_message">IF YOU DO NOT HAVE A SUBSCRIPTION CLICK HERE TO <font color="#0A4C85"><u>SUBSCRIBE</u></font></string>
     <string name="create_player">Create player</string>
     <string name="new_routine">New Routine</string>
+    <string name="player_vs_club">Player vs Club</string>
+    <string name="players">Players</string>
+    <string name="best">Best</string>
+    <string name="universe">Universe</string>
+    <string name="exercise_analysis">Exercise analysis</string>
+    <string name="players_available">Players available</string>
+    <string name="player_analysis">Player analysis</string>
 </resources>

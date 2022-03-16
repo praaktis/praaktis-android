@@ -24,10 +24,7 @@ import com.mobile.gympraaktis.domain.common.AppGuide
 import com.mobile.gympraaktis.domain.common.resettableLazy
 import com.mobile.gympraaktis.domain.common.shape.CurvedEdgeTreatment
 import com.mobile.gympraaktis.domain.extension.*
-import com.mobile.gympraaktis.ui.details.view.AnalysisFragment
-import com.mobile.gympraaktis.ui.details.view.DetailsActivity
 import com.mobile.gympraaktis.ui.main.adapter.AnalysisPagerAdapter
-import com.mobile.gympraaktis.ui.main.adapter.ExerciseAnalysisAdapter
 import com.mobile.gympraaktis.ui.main.vm.DashboardViewModel
 import com.mobile.gympraaktis.ui.main.vm.MainViewModel
 import com.takusemba.spotlight.OnSpotlightListener
@@ -77,7 +74,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
         })
 
         binding.btgAnalysis.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            if(isChecked) {
+            if (isChecked) {
                 binding.vpAnalysis.currentItem = group.indexOfChild(group.findViewById(checkedId))
             }
         }
@@ -96,22 +93,22 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
 //            exerciseAnalysisAdapter.submitList(dashboardData.analysis)
             binding.apply {
                 tvLevel.text = "${dashboard.level}"
-                tvPoints.text = "${dashboard.totalPoints}"
-                tvCredits.text = "${dashboard.totalCredits}"
+                tvPlayers.text = "${dashboard.activePlayers}"
+                tvAttempts.text = "${dashboard.recordedAttempts}"
             }
             updateScoreProgress(
-                dashboard.totalPoints,
-                if (dashboard.pointsToNextLevel < 0) 0 else dashboard.pointsToNextLevel
+                dashboard.activePlayers,
+                dashboard.allowedPlayers
             )
+            updateAttemptsProgress(dashboard.recordedAttempts, dashboard.attemptsAvailable)
             startGuideIfNecessary()
         }
     }
 
-    private fun updateScoreProgress(currentScore: Long, remainedScore: Long) {
+    private fun updateScoreProgress(currentScore: Long, maxScore: Long) {
         if (binding.vProgressCurrent.tag != currentScore) {
             binding.vProgressCurrent.tag = currentScore
 
-            val maxScore = currentScore + remainedScore
             binding.tvScoreTotal.text = maxScore.toString()
             binding.llProgressLayout.weightSum = maxScore.toFloat()
 
@@ -129,6 +126,29 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
                 })
         }
     }
+
+    private fun updateAttemptsProgress(currentScore: Long, maxScore: Long) {
+        if (binding.vAttemptProgressCurrent.tag != currentScore) {
+            binding.vAttemptProgressCurrent.tag = currentScore
+
+            binding.tvAttemptScoreTotal.text = maxScore.toString()
+            binding.llProgressAttemptLayout.weightSum = maxScore.toFloat()
+
+            binding.vAttemptProgressCurrent.animateWeightChange(
+                (binding.vAttemptProgressCurrent.layoutParams as LinearLayout.LayoutParams).weight.toInt(),
+                currentScore.toInt(),
+                duration = 1500,
+                startDelay = 200,
+                init = { interpolator = FastOutSlowInInterpolator() },
+                onValueChange = {
+                    binding.tvAttemptScoreCurrent.apply {
+                        text = it.toInt().toString()
+                        translationX = binding.vAttemptProgressCurrent.width.toFloat()
+                    }
+                })
+        }
+    }
+
 
     private fun setupCurvedLayout() {
         lifecycleScope.launch(Dispatchers.Default) {
@@ -222,7 +242,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
     private fun initDashboardGuide(): Spotlight {
         return Spotlight.Builder(activity)
             .setTargets((activity as MainActivity).bottomNavTarget(), firstTarget(), secondTarget())
-            .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
+            .setBackgroundColor(R.color.primaryColor_alpha_90)
             .setOnSpotlightListener(object : OnSpotlightListener {
                 override fun onStarted() {
                     isGuideStarted = true

@@ -7,6 +7,7 @@ import com.mobile.gympraaktis.data.db.PraaktisDatabase
 import com.mobile.gympraaktis.data.repository.UserServiceRepository
 import com.mobile.gympraaktis.domain.entities.toAnalysisEntityList
 import com.mobile.gympraaktis.domain.entities.toDashboardEntity
+import com.mobile.gympraaktis.domain.entities.toRoutineEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -23,6 +24,10 @@ class DashboardViewModel(app: Application) : BaseViewModel(app) {
         PraaktisDatabase.getInstance(getApplication()).getDashboardDao().getDashboardData()
             .asLiveData()
 
+    fun observePlayerAnalysis() =
+        PraaktisDatabase.getInstance(getApplication()).getDashboardDao().getPlayersAnalysis()
+            .asLiveData()
+
     fun fetchDashboardData() {
         userService.getDashboardData()
             .doOnSubscribe { showHideEvent.postValue(true) }
@@ -37,8 +42,10 @@ class DashboardViewModel(app: Application) : BaseViewModel(app) {
                                 analysis.first,
                                 analysis.second,
                                 analysis.third,
-                                analysis.fourth
+                                analysis.fourth,
+                                analysis.fifth,
                             )
+                            insertRoutines(it.routines.map { it.toRoutineEntity() })
                         }
                     }
                     settingsStorage.setDashboard(it)

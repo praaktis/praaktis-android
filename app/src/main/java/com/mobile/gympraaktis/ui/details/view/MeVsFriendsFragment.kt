@@ -22,7 +22,6 @@ import com.mobile.gympraaktis.domain.extension.makeToast
 import com.mobile.gympraaktis.domain.extension.show
 import com.mobile.gympraaktis.ui.details.adapter.ScoresAdapter
 import com.mobile.gympraaktis.ui.details.vm.ComparisonViewModel
-import kotlinx.android.synthetic.main.fragment_me_vs_friends.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
@@ -74,21 +73,21 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
     private fun initInfo() {
         val numberFormat = NumberFormat.getNumberInstance(Locale.ENGLISH)
         val decimalFormatter = numberFormat as DecimalFormat
-        decimalFormatter.applyPattern("##.#")
+        decimalFormatter.applyPattern("##.0")
         with(analysisDTO) {
-            tvMeHighest.text = "${decimalFormatter.format(analysisEntity.maxScore)}%"
-            tvMeAverage.text = "${decimalFormatter.format(analysisEntity.averageScore)}%"
+            binding.tvMeHighest.text = decimalFormatter.format(analysisEntity.maxScore)
+            binding.tvMeAverage.text = decimalFormatter.format(analysisEntity.averageScore)
         }
         with(meVsFriendsChallenge!!) {
-            tvMeRank.text = "${rank}"
-            tvHighestFriends.text = "${decimalFormatter.format(maxScore)}%"
-            tvAverageFriends.text = "${decimalFormatter.format(avgScore)}%"
-            tvLowestFriends.text = "${decimalFormatter.format(lowScore)}%"
+            binding.tvMeRank.text = "$rank"
+            binding.tvHighestFriends.text = decimalFormatter.format(maxScore)
+            binding.tvAverageFriends.text = decimalFormatter.format(avgScore)
+            binding.tvLowestFriends.text = decimalFormatter.format(lowScore)
         }
     }
 
     private fun initChart() {
-        with(lineChart) {
+        with(binding.lineChart) {
             val desc = Description()
             desc.text = ""
             description = desc
@@ -100,14 +99,14 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
             invalidate()
         }
 
-        with(lineChart.xAxis) {
+        with(binding.lineChart.xAxis) {
             axisMinimum = 0f
             setDrawAxisLine(false)
             setDrawGridLines(false)
             setDrawLabels(false)
         }
 
-        with(lineChart.axisLeft) {
+        with(binding.lineChart.axisLeft) {
             isInverted = false
             axisMinimum = 0f // this replaces setStartAtZero(true)
             spaceMin = requireContext().dpToPx(40).toFloat()
@@ -119,25 +118,25 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
             setDrawGridLinesBehindData(true)
         }
 
-        with(lineChart.axisRight) {
+        with(binding.lineChart.axisRight) {
             isEnabled = true
             axisLineColor = Color.BLACK
             setDrawLabels(false)
         }
 
-        with(lineChart.axisLeft) {
+        with(binding.lineChart.axisLeft) {
             textColor = Color.WHITE
         }
 
-        with(lineChart.legend) {
+        with(binding.lineChart.legend) {
             isEnabled = false
         }
 
         if (analysisDTO.chartData.series.isNotEmpty() || meVsFriendsChallenge!!.chartData.series.isNotEmpty()) {
-            lineChart.show()
+            binding.lineChart.show()
             setChartData()
         } else {
-            tvNoLineChartDataAvailable.show()
+            binding.tvNoLineChartDataAvailable.show()
         }
     }
 
@@ -183,7 +182,7 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
         // create a dataset and give it a type
         val set2 = LineDataSet(entries2, "Friends")
         with(set2) {
-            val chartLineColor = ContextCompat.getColor(requireContext(), R.color.green_500)
+            val chartLineColor = ContextCompat.getColor(requireContext(), R.color.blue_light)
 
             lineWidth = 3f
             circleRadius = 6f
@@ -198,11 +197,11 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
         val data = LineData(set1, set2)
 
         // set data
-        lineChart.data = data
+        binding.lineChart.data = data
     }
 
     private fun initFriendsScoreList() {
-        rvFriendsScore.layoutManager = LinearLayoutManager(context)
-        rvFriendsScore.adapter = ScoresAdapter(meVsFriendsChallenge!!.leaderboard)
+        binding.rvFriendsScore.layoutManager = LinearLayoutManager(context)
+        binding.rvFriendsScore.adapter = ScoresAdapter(meVsFriendsChallenge!!.leaderboard)
     }
 }

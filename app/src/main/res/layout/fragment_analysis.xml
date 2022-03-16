@@ -25,16 +25,56 @@
             app:paddingBottomSystemWindowInsets="@{true}">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_select_player"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/ShapeAppearance.AppTheme.Circle">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_select_player"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="12dp"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:endIconDrawable="@drawable/ic_dropdown"
+                    app:endIconTint="@color/primaryColor"
+                    app:shapeAppearance="@style/ShapeAppearance.AppTheme.Circle">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/et_select_player"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato_bold"
+                        android:hint="@string/select_player"
+                        android:inputType="none"
+                        android:textColorHint="@color/secondaryColor"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_best_score"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="15dp"
                 app:cardElevation="6dp"
                 app:contentPadding="10dp"
                 app:layout_constraintDimensionRatio="147:98"
                 app:layout_constraintEnd_toStartOf="@id/cv_average_score"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/cv_select_player">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -48,7 +88,7 @@
                         android:gravity="center"
                         android:text="@string/my_best_score"
                         android:textAllCaps="true"
-                        android:textColor="@color/grey_600"
+                        android:textColor="@color/primaryColor"
                         android:textSize="13sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -58,7 +98,7 @@
                         android:layout_marginTop="2dp"
                         android:gravity="center"
                         android:includeFontPadding="false"
-                        android:textColor="@color/grey_600"
+                        android:textColor="@color/secondaryColor"
                         android:textSize="24sp"
                         tools:text="90%" />
 
@@ -69,13 +109,14 @@
                 android:id="@+id/cv_average_score"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginTop="24dp"
                 app:cardElevation="6dp"
                 app:constraintSet="@id/cv_best_score"
                 app:contentPadding="10dp"
                 app:layout_constraintDimensionRatio="147:98"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cv_best_score"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/cv_select_player">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -89,7 +130,7 @@
                         android:gravity="center"
                         android:text="@string/my_average_score"
                         android:textAllCaps="true"
-                        android:textColor="@color/grey_600"
+                        android:textColor="@color/primaryColor"
                         android:textSize="13sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -99,7 +140,7 @@
                         android:layout_marginTop="2dp"
                         android:gravity="center"
                         android:includeFontPadding="false"
-                        android:textColor="@color/grey_600"
+                        android:textColor="@color/secondaryColor"
                         android:textSize="24sp"
                         tools:text="85%" />
 
@@ -128,7 +169,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/scores"
                         android:textAllCaps="true"
-                        android:textColor="@color/purple_900_1"
+                        android:textColor="@color/primaryColor"
                         android:textSize="16sp" />
 
                     <FrameLayout
@@ -139,7 +180,7 @@
                             android:id="@+id/lineChart"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:visibility="gone" />
 
                         <TextView
@@ -147,7 +188,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:gravity="center"
                             android:text="@string/no_chart_data_available"
                             android:textColor="@color/black_text"
@@ -180,7 +221,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/attempts"
                         android:textAllCaps="true"
-                        android:textColor="@color/purple_900_1"
+                        android:textColor="@color/primaryColor"
                         android:textSize="16sp" />
 
                     <FrameLayout
@@ -191,7 +232,7 @@
                             android:id="@+id/barChart"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:visibility="gone" />
 
                         <TextView
@@ -199,7 +240,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:gravity="center"
                             android:text="@string/no_chart_data_available"
                             android:textColor="@color/black_text"
@@ -216,7 +257,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/me_vs_friends"
+                android:text="@string/player_vs_club"
                 app:icon="@drawable/ic_arrow_right"
                 app:iconGravity="textEnd"
                 app:iconPadding="20dp"
@@ -224,21 +265,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cv_attempts"
-                tools:textSize="17sp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_me_vs_others"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/me_vs_others"
-                app:icon="@drawable/ic_arrow_right"
-                app:iconGravity="textEnd"
-                app:iconPadding="20dp"
-                app:iconTint="@color/blue_grey_900"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_me_vs_friends"
                 tools:textSize="17sp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

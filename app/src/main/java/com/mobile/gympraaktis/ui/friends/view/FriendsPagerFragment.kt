@@ -7,13 +7,16 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.viewModels
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.BaseViewModel
 import com.mobile.gympraaktis.base.BaseFragment
+import com.mobile.gympraaktis.base.BaseViewModel
 import com.mobile.gympraaktis.databinding.FragmentFriendsPagerBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetChallengesBinding
 import com.mobile.gympraaktis.domain.common.AppGuide
 import com.mobile.gympraaktis.domain.common.resettableLazy
-import com.mobile.gympraaktis.domain.extension.*
+import com.mobile.gympraaktis.domain.extension.doOnPreDraw
+import com.mobile.gympraaktis.domain.extension.hideInvisibleAnimWithScale
+import com.mobile.gympraaktis.domain.extension.onClick
+import com.mobile.gympraaktis.domain.extension.showAnimWithScale
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
@@ -98,7 +101,7 @@ class FriendsPagerFragment constructor(override val layoutId: Int = R.layout.fra
     private fun initGuide(): Spotlight {
         return Spotlight.Builder(activity)
             .setTargets(challengeTarget())
-            .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
+            .setBackgroundColor(R.color.primaryColor_alpha_90)
             .setOnSpotlightListener(object : OnSpotlightListener {
                 override fun onStarted() {
                     isGuideStarted = true

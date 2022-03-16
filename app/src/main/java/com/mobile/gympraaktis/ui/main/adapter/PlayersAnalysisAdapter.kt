@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.data.entities.FriendEntity
+import com.mobile.gympraaktis.data.entities.PlayerAnalysis
 import com.mobile.gympraaktis.domain.extension.listen
 import kotlinx.android.synthetic.main.item_analysis.view.*
 
-class PlayersAnalysisAdapter(private val onItemClick: (FriendEntity) -> Unit) :
-    ListAdapter<FriendEntity, PlayersAnalysisAdapter.ViewHolder>(DIFF_CALLBACK) {
+class PlayersAnalysisAdapter(private val onItemClick: (PlayerAnalysis) -> Unit) :
+    ListAdapter<PlayerAnalysis, PlayersAnalysisAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent).listen { position, _ ->
@@ -26,10 +26,8 @@ class PlayersAnalysisAdapter(private val onItemClick: (FriendEntity) -> Unit) :
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        private val context = view.context
-
-        fun bind(item: FriendEntity) {
-            view.tv_text.text = item.fullName
+        fun bind(item: PlayerAnalysis) {
+            view.tv_text.text = item.playerEntity.name
         }
 
         companion object {
@@ -44,17 +42,17 @@ class PlayersAnalysisAdapter(private val onItemClick: (FriendEntity) -> Unit) :
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FriendEntity>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PlayerAnalysis>() {
             override fun areItemsTheSame(
-                oldItem: FriendEntity,
-                newItem: FriendEntity
+                oldItem: PlayerAnalysis,
+                newItem: PlayerAnalysis
             ): Boolean {
-                return oldItem.email == newItem.email
+                return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: FriendEntity,
-                newItem: FriendEntity
+                oldItem: PlayerAnalysis,
+                newItem: PlayerAnalysis
             ): Boolean {
                 return oldItem == newItem
             }

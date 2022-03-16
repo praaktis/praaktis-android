@@ -24,6 +24,8 @@ import com.mobile.gympraaktis.domain.entities.CountryItemDTO
         TimelineEntity::class,
         AttemptEntity::class,
         FriendEntity::class,
+        PlayerEntity::class,
+        RoutineEntity::class,
     ],
     version = DATABASE_HOCKEY_VERSION,
     exportSchema = false

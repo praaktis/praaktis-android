@@ -1,6 +1,7 @@
 package com.mobile.gympraaktis.domain.common
 
 import android.content.Context
+import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -13,13 +14,14 @@ import com.mobile.gympraaktis.domain.extension.dp
 import com.mobile.gympraaktis.domain.extension.dpToPx
 import com.mobile.gympraaktis.domain.extension.updatePadding
 
-class AnalysisLineChart(
+class AnalysisLineChart @JvmOverloads constructor(
     context: Context,
+    attrs: AttributeSet? = null,
     val value: Float,
     val title: String,
     val progressBackground: Int,
     val maxValue: Float,
-) : LinearLayout(context) {
+) : LinearLayout(context, attrs) {
 
     init {
         init()
@@ -38,7 +40,7 @@ class AnalysisLineChart(
 
         val lineView = LinearLayout(context)
         lineView.setBackgroundResource(R.drawable.shape_progress_bg)
-        lineView.weightSum = if(maxValue > 0) maxValue else 100f
+        lineView.weightSum = if (maxValue > 0) maxValue else 100f
         val lineLayoutParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 15.dp)
         lineLayoutParams.setMargins(0, context.dpToPx(10), 0, 0)
         lineView.layoutParams = lineLayoutParams
@@ -97,5 +99,3 @@ val GRADIENT_PROGRESS_ARRAY = listOf<Int>(
     R.drawable.gradient_progress,
     R.drawable.gradient_progress_3
 )
-
-

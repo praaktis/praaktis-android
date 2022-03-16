@@ -139,11 +139,8 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         if (getActivity() != null) {
 //            ChallengeActivity.start(getActivity()!!, challengeItem)
             val intent = Intent(context, ExerciseEngineActivity::class.java)
-            intent.putExtra("LOGIN", mViewModel.getLogin())
-            intent.putExtra("PASSWORD", mViewModel.getPassword())
             intent.putExtra("EXERCISE", challengeItem.id)
             intent.putExtra(SINGLE_USER_MODE, mViewModel.settingsStorage.cameraMode)
-            intent.putExtra(SERVER_NAME, mViewModel.settingsStorage.praaktisServerName)
             startActivityForResult(intent, ChallengeActivity.PRAAKTIS_SDK_REQUEST_CODE)
         }
     }
@@ -259,7 +256,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
     private fun initGuide(): Spotlight {
         return Spotlight.Builder(activity)
             .setTargets(personModeTarget(), letMeGoTarget())
-            .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
+            .setBackgroundColor(R.color.primaryColor_alpha_90)
             .setOnSpotlightListener(object : OnSpotlightListener {
                 override fun onStarted() {
                     isGuideStarted = true

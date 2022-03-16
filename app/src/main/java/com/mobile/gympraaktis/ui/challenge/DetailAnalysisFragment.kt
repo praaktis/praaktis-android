@@ -133,10 +133,10 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
 
             val chart = AnalysisLineChart(
                 requireContext(),
-                detailScores[i].detailPointScore,
-                detailScores[i].detailPoint.name,
-                R.drawable.gradient_progress,
-                detailScores[i].maxValue
+                value = detailScores[i].detailPointScore,
+                title = detailScores[i].detailPoint.name,
+                progressBackground = R.drawable.gradient_progress,
+                maxValue = detailScores[i].maxValue
             )
             llAnalysisContainer.addView(chart)
         }
@@ -174,7 +174,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
     private fun initGuide(): Spotlight {
         return Spotlight.Builder(activity)
             .setTargets(detailsTarget())
-            .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
+            .setBackgroundColor(R.color.primaryColor_alpha_90)
             .setOnSpotlightListener(object : OnSpotlightListener {
                 override fun onStarted() {
                     binding.ivInfo.hideAnimWithScale()

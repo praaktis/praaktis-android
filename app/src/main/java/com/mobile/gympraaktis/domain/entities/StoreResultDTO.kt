@@ -4,14 +4,12 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class StoreResultDTO(
-    @SerializedName("userProfile_id")
+    @SerializedName("player_id")
     val userProfileId: Int,
-    @SerializedName("challenge_id")
+    @SerializedName("routine_id")
     val challengeId: Int,
     @SerializedName("time_performed")
     val timePerformed: String,
-//    @SerializedName("outcome")
-//    val outcome: String,
     @SerializedName("success")
     val success: Boolean,
     @SerializedName("points")

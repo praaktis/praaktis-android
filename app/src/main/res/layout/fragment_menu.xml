@@ -88,11 +88,11 @@
         <LinearLayout
             android:id="@+id/ll_top_menu"
             android:layout_width="0dp"
-            android:clipChildren="false"
-            android:clipToPadding="false"
             android:layout_height="wrap_content"
             android:layout_marginStart="44dp"
             android:layout_marginEnd="44dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -128,8 +128,8 @@
                 android:letterSpacing="0"
                 android:minHeight="0dp"
                 android:padding="10dp"
-                android:paddingEnd="32dp"
                 android:paddingStart="10dp"
+                android:paddingEnd="32dp"
                 android:text="@string/my_profile"
                 android:textSize="17sp"
                 app:backgroundTint="@android:color/white"
@@ -158,6 +158,21 @@
                 app:iconTintMode="src_over"
                 app:rippleColor="@color/primaryColor"
                 app:shapeAppearance="@style/ShapeAppearance.AppTheme.Circle" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/menu_logout"
+                style="@style/Widget.Material3.Button.TextButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/log_out"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:icon="@drawable/ic_logout"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                app:iconTint="@color/white" />
 
         </LinearLayout>
 

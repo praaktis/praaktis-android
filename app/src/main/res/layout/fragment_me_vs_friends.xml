@@ -27,9 +27,9 @@
                 android:id="@+id/tvMe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/me"
+                android:text="@string/player_tag"
                 android:textAllCaps="true"
-                android:textColor="@color/purple_900_1"
+                android:textColor="@color/primaryColor"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +60,7 @@
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:maxLines="1"
-                        android:text="@string/highest"
+                        android:text="@string/best"
                         android:textAllCaps="true"
                         android:textColor="@color/grey_600"
                         android:textSize="11sp" />
@@ -175,9 +175,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/friends"
+                android:text="@string/players"
                 android:textAllCaps="true"
-                android:textColor="@color/purple_900_1"
+                android:textColor="@color/primaryColor"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/llAverage" />
@@ -207,7 +207,7 @@
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:maxLines="1"
-                        android:text="@string/highest"
+                        android:text="@string/best"
                         android:textAllCaps="true"
                         android:textColor="@color/grey_600"
                         android:textSize="11sp" />
@@ -294,7 +294,7 @@
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:maxLines="1"
-                        android:text="@string/lowest"
+                        android:text="@string/players"
                         android:textAllCaps="true"
                         android:textColor="@color/grey_600"
                         android:textSize="11sp" />
@@ -336,7 +336,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/scores"
                         android:textAllCaps="true"
-                        android:textColor="@color/purple_900_1"
+                        android:textColor="@color/primaryColor"
                         android:textSize="16sp" />
 
                     <FrameLayout

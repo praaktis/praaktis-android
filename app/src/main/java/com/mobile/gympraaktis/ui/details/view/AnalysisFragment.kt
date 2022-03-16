@@ -25,7 +25,6 @@ import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
 import com.takusemba.spotlight.shape.RoundedRectangle
-import kotlinx.android.synthetic.main.fragment_analysis.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
@@ -67,9 +66,9 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
         with(analysisData) {
             val numberFormat = NumberFormat.getNumberInstance(Locale.ENGLISH)
             val decimalFormatter = numberFormat as DecimalFormat
-            decimalFormatter.applyPattern("##.#")
-            tv_average_score.text = "${decimalFormatter.format(analysisEntity.averageScore)}%"
-            tv_best_score.text = "${decimalFormatter.format(analysisEntity.maxScore)}%"
+            decimalFormatter.applyPattern("##.0")
+            binding.tvAverageScore.text = decimalFormatter.format(analysisEntity.averageScore)
+            binding.tvBestScore.text = decimalFormatter.format(analysisEntity.maxScore)
         }
     }
 
@@ -83,19 +82,19 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
                     .addToBackStack(tag)
             }
         }
-        binding.btnMeVsOthers.onClick {
-            closeSpotlight()
-
-            val tag = MeVsOthersFragment.TAG
-            activity.showOrReplaceLast(tag) {
-                add(R.id.container, MeVsOthersFragment.getInstance(analysisData), tag)
-                    .addToBackStack(tag)
-            }
-        }
+//        binding.btnMeVsOthers.onClick {
+//            closeSpotlight()
+//
+//            val tag = MeVsOthersFragment.TAG
+//            activity.showOrReplaceLast(tag) {
+//                add(R.id.container, MeVsOthersFragment.getInstance(analysisData), tag)
+//                    .addToBackStack(tag)
+//            }
+//        }
     }
 
     private fun initLineChart() {
-        with(lineChart) {
+        with(binding.lineChart) {
             val desc = Description()
             desc.text = ""
             description = desc
@@ -107,17 +106,17 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
             invalidate()
         }
 
-        with(lineChart.xAxis) {
+        with(binding.lineChart.xAxis) {
             axisMinimum = 0f
             setDrawAxisLine(false)
             setDrawGridLines(false)
             setDrawLabels(false)
         }
 
-        with(lineChart.axisLeft) {
+        with(binding.lineChart.axisLeft) {
             isInverted = false
             axisMinimum = 0f // this replaces setStartAtZero(true)
-            spaceMin = context!!.dpToPx(40).toFloat()
+            spaceMin = requireContext().dpToPx(40).toFloat()
             labelCount = 4
             mAxisRange = 20f
             setDrawGridLines(false)
@@ -126,25 +125,25 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
             setDrawGridLinesBehindData(true)
         }
 
-        with(lineChart.axisRight) {
+        with(binding.lineChart.axisRight) {
             isEnabled = true
             axisLineColor = Color.BLACK
             setDrawLabels(false)
         }
 
-        with(lineChart.axisLeft) {
+        with(binding.lineChart.axisLeft) {
             textColor = Color.WHITE
         }
 
-        with(lineChart.legend) {
+        with(binding.lineChart.legend) {
             isEnabled = false
         }
 
         if (analysisData.chartData.series.isNotEmpty()) {
-            lineChart.show()
+            binding.lineChart.show()
             setLineChartData(analysisData.chartData.series.size)
         } else {
-            tvNoLineChartDataAvailable.show()
+            binding.tvNoLineChartDataAvailable.show()
         }
     }
 
@@ -182,11 +181,11 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
         val data = LineData(set1)
 
         // set data
-        lineChart.data = data
+        binding.lineChart.data = data
     }
 
     fun initBarChart() {
-        with(barChart) {
+        with(binding.barChart) {
             setMaxVisibleValueCount(100)
             setPinchZoom(false)
             setTouchEnabled(false)
@@ -197,7 +196,7 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
             description = desc
         }
 
-        with(barChart.xAxis) {
+        with(binding.barChart.xAxis) {
             position = XAxisPosition.BOTTOM
             setDrawGridLines(false)
             granularity = 1f // only intervals of 1 day
@@ -205,7 +204,7 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
             setDrawLabels(false)
         }
 
-        with(barChart.axisLeft) {
+        with(binding.barChart.axisLeft) {
             setLabelCount(5, false)
             setPosition(YAxisLabelPosition.OUTSIDE_CHART)
             textColor = Color.WHITE
@@ -213,7 +212,7 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
             axisMinimum = 0f // this replaces setStartAtZero(true)
         }
 
-        with(barChart.axisRight) {
+        with(binding.barChart.axisRight) {
             setDrawGridLines(false)
             setLabelCount(5, false)
             spaceTop = 15f
@@ -221,15 +220,15 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
             setDrawLabels(false)
         }
 
-        with(barChart.legend) {
+        with(binding.barChart.legend) {
             isEnabled = false
         }
 
         if (analysisData.attemptChart.series.isNotEmpty()) {
-            barChart.show()
+            binding.barChart.show()
             setBarChartData(analysisData.attemptChart.series.size)
         } else {
-            tvNoBarChartDataAvailable.show()
+            binding.tvNoBarChartDataAvailable.show()
         }
     }
 
@@ -242,22 +241,22 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
 
         val set1: BarDataSet
 
-        if (barChart.data != null && barChart.data.dataSetCount > 0) {
-            set1 = barChart.data.getDataSetByIndex(0) as BarDataSet
+        if (binding.barChart.data != null && binding.barChart.data.dataSetCount > 0) {
+            set1 = binding.barChart.data.getDataSetByIndex(0) as BarDataSet
             set1.values = values
-            barChart.data.notifyDataChanged()
-            barChart.notifyDataSetChanged()
+            binding.barChart.data.notifyDataChanged()
+            binding.barChart.notifyDataSetChanged()
 
         } else {
             set1 = BarDataSet(values, "")
 
             set1.setDrawIcons(false)
 
-            val startColor1 = ContextCompat.getColor(context!!, android.R.color.holo_orange_light)
-            val startColor2 = ContextCompat.getColor(context!!, android.R.color.holo_blue_light)
-            val startColor3 = ContextCompat.getColor(context!!, android.R.color.holo_orange_light)
-            val startColor4 = ContextCompat.getColor(context!!, android.R.color.holo_green_light)
-            val startColor5 = ContextCompat.getColor(context!!, android.R.color.holo_red_light)
+            val startColor1 = ContextCompat.getColor(requireContext(), android.R.color.holo_orange_light)
+            val startColor2 = ContextCompat.getColor(requireContext(), android.R.color.holo_blue_light)
+            val startColor3 = ContextCompat.getColor(requireContext(), android.R.color.holo_orange_light)
+            val startColor4 = ContextCompat.getColor(requireContext(), android.R.color.holo_green_light)
+            val startColor5 = ContextCompat.getColor(requireContext(), android.R.color.holo_red_light)
 
             set1.colors =
                 mutableListOf(startColor1, startColor2, startColor3, startColor4, startColor5)
@@ -270,7 +269,7 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
             data.setValueTextSize(10f)
             data.barWidth = 0.5f
 
-            barChart.data = data
+            binding.barChart.data = data
         }
     }
 
@@ -325,33 +324,33 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
             .build()
     }
 
-    private fun meVsOthersTarget(): Target {
-        val target = LayoutTargetBottomBinding.inflate(layoutInflater)
-        target.closeSpotlight.setOnClickListener { closeSpotlight() }
-        target.closeTarget.setOnClickListener { nextTarget() }
-
-        target.customText.text =
-            "Get detailed information on your performance and compare to against other Users like you"
-
-        target.root.updatePadding(bottom = binding.cvAttempts.y.toInt())
-
-        return Target.Builder()
-            .setAnchor(binding.btnMeVsOthers)
-            .setOverlay(target.root)
-            .setShape(
-                RoundedRectangle(
-                    binding.btnMeVsOthers.height.toFloat() + 10.dp,
-                    binding.btnMeVsOthers.width.toFloat() + 10.dp,
-                    25.dp.toFloat()
-                )
-            )
-            .build()
-    }
+//    private fun meVsOthersTarget(): Target {
+//        val target = LayoutTargetBottomBinding.inflate(layoutInflater)
+//        target.closeSpotlight.setOnClickListener { closeSpotlight() }
+//        target.closeTarget.setOnClickListener { nextTarget() }
+//
+//        target.customText.text =
+//            "Get detailed information on your performance and compare to against other Users like you"
+//
+//        target.root.updatePadding(bottom = binding.cvAttempts.y.toInt())
+//
+//        return Target.Builder()
+//            .setAnchor(binding.btnMeVsOthers)
+//            .setOverlay(target.root)
+//            .setShape(
+//                RoundedRectangle(
+//                    binding.btnMeVsOthers.height.toFloat() + 10.dp,
+//                    binding.btnMeVsOthers.width.toFloat() + 10.dp,
+//                    25.dp.toFloat()
+//                )
+//            )
+//            .build()
+//    }
 
     private fun initAnalysisGuide(): Spotlight {
         return Spotlight.Builder(activity)
-            .setTargets(meVsFriendsTarget(), meVsOthersTarget())
-            .setBackgroundColor(R.color.deep_purple_a400_alpha_90)
+            .setTargets(meVsFriendsTarget(), /*meVsOthersTarget()*/)
+            .setBackgroundColor(R.color.primaryColor_alpha_90)
             .setOnSpotlightListener(object : OnSpotlightListener {
                 override fun onStarted() {
                     isGuideStarted = true

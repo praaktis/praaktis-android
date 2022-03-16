@@ -43,7 +43,6 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
     var login by prefString()
     var password by prefString()
     var cameraMode by prefBoolean()
-    var praaktisServerName by prefString()
 
     private companion object {
         const val SORTING = "App_Sorting_"
@@ -173,7 +172,5 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
         }
         return null
     }
-
-    override fun praaktisServerName() = praaktisServerName
 
 }

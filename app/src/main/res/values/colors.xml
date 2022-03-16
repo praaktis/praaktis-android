@@ -16,6 +16,8 @@
     <color name="deep_purple_a200_alpha_90">#E6A155FF</color>
     <color name="deep_purple_a400_alpha_90">#E6661FF5</color>
 
+    <color name="primaryColor_alpha_90">#E60A4C85</color>
+
     <color name="blue_grey_900">#282829</color>
     <color name="amber_300">#FCC22F</color>
     <color name="amber_300_alpha_90">#E6FFCE51</color>
@@ -64,6 +66,6 @@
     <color name="blue_back">#49459D</color>
     <color name="blue_back_transparent">#3249459D</color>
     <color name="yellow_detail">#C2D951</color>
-
+    <color name="blue_light">#357FFC</color>
 
 </resources>

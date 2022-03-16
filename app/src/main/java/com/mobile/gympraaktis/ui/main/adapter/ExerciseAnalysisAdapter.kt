@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.data.entities.AnalysisComplete
+import com.mobile.gympraaktis.data.entities.RoutineAnalysis
 import com.mobile.gympraaktis.domain.extension.listen
 import kotlinx.android.synthetic.main.item_analysis.view.*
 
-class ExerciseAnalysisAdapter(private val onItemClick: (AnalysisComplete) -> Unit) :
-    ListAdapter<AnalysisComplete, ExerciseAnalysisAdapter.ViewHolder>(DIFF_CALLBACK) {
+class ExerciseAnalysisAdapter(private val onItemClick: (RoutineAnalysis) -> Unit) :
+    ListAdapter<RoutineAnalysis, ExerciseAnalysisAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent).listen { position, _ ->
@@ -26,10 +26,8 @@ class ExerciseAnalysisAdapter(private val onItemClick: (AnalysisComplete) -> Uni
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        private val context = view.context
-
-        fun bind(item: AnalysisComplete) {
-            view.tv_text.text = item.analysisEntity.name
+        fun bind(item: RoutineAnalysis) {
+            view.tv_text.text = item.routineEntity.name
         }
 
         companion object {
@@ -44,17 +42,17 @@ class ExerciseAnalysisAdapter(private val onItemClick: (AnalysisComplete) -> Uni
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<AnalysisComplete>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<RoutineAnalysis>() {
             override fun areItemsTheSame(
-                oldItem: AnalysisComplete,
-                newItem: AnalysisComplete
+                oldItem: RoutineAnalysis,
+                newItem: RoutineAnalysis
             ): Boolean {
-                return oldItem.analysisEntity.name == newItem.analysisEntity.name
+                return oldItem.routineEntity.id == newItem.routineEntity.id
             }
 
             override fun areContentsTheSame(
-                oldItem: AnalysisComplete,
-                newItem: AnalysisComplete
+                oldItem: RoutineAnalysis,
+                newItem: RoutineAnalysis
             ): Boolean {
                 return oldItem == newItem
             }

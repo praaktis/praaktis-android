@@ -25,17 +25,23 @@
         <entry key="app/src/main/res/drawable/ic_user_circle.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/selector_checkbox.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/shape_popul_menu.xml" value="0.1695" />
+        <entry key="app/src/main/res/drawable/shape_table_header_bg.xml" value="0.1695" />
+        <entry key="app/src/main/res/layout/activity_details.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/fragment_accept_terms.xml" value="0.15713307698567702" />
+        <entry key="app/src/main/res/layout/fragment_analysis.xml" value="0.3002780352177943" />
         <entry key="app/src/main/res/layout/fragment_challenge_instruction.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/fragment_confirm_login.xml" value="0.30185185185185187" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.30213160333642264" />
-        <entry key="app/src/main/res/layout/fragment_detailed_analysis.xml" value="0.34843950406156476" />
+        <entry key="app/src/main/res/layout/fragment_detailed_analysis.xml" value="0.27340129749768305" />
+        <entry key="app/src/main/res/layout/fragment_exercis_analysis_details.xml" value="0.3196125907990315" />
         <entry key="app/src/main/res/layout/fragment_exercise_analysis.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.21223958333333334" />
         <entry key="app/src/main/res/layout/fragment_friends.xml" value="0.27340129749768305" />
         <entry key="app/src/main/res/layout/fragment_item_timeline.xml" value="0.211306765523633" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.30185185185185187" />
+        <entry key="app/src/main/res/layout/fragment_me_vs_friends.xml" value="0.3002780352177943" />
+        <entry key="app/src/main/res/layout/fragment_me_vs_others.xml" value="0.27340129749768305" />
         <entry key="app/src/main/res/layout/fragment_menu.xml" value="0.27340129749768305" />
         <entry key="app/src/main/res/layout/fragment_new_challenge.xml" value="0.27340129749768305" />
         <entry key="app/src/main/res/layout/fragment_new_player.xml" value="0.27340129749768305" />
@@ -48,7 +54,11 @@
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/item_analysis.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/item_challenge.xml" value="0.27685185185185185" />
+        <entry key="app/src/main/res/layout/item_friend_score.xml" value="0.34843950406156476" />
+        <entry key="app/src/main/res/layout/item_header.xml" value="0.34843950406156476" />
+        <entry key="app/src/main/res/layout/item_progress.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/item_timeline.xml" value="0.34843950406156476" />
+        <entry key="app/src/main/res/layout/item_timeline_type.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/layout_intro_fifth.xml" value="0.30185185185185187" />
         <entry key="app/src/main/res/layout/layout_intro_first.xml" value="0.30185185185185187" />
         <entry key="app/src/main/res/layout/layout_intro_fourth.xml" value="0.1" />
@@ -56,6 +66,10 @@
         <entry key="app/src/main/res/layout/layout_intro_third.xml" value="0.13583333333333333" />
         <entry key="app/src/main/res/layout/layout_logo.xml" value="0.21223958333333334" />
         <entry key="app/src/main/res/layout/layout_start_page.xml" value="0.27166666666666667" />
+        <entry key="app/src/main/res/layout/layout_target.xml" value="0.34843950406156476" />
+        <entry key="app/src/main/res/layout/layout_target_bottom.xml" value="0.34843950406156476" />
+        <entry key="app/src/main/res/layout/layout_target_challenges.xml" value="0.34843950406156476" />
+        <entry key="app/src/main/res/layout/layout_target_timeline.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1695" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1695" />

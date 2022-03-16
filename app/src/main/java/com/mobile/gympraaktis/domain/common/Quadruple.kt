@@ -15,6 +15,20 @@ data class Quadruple<out A, out B, out C, out D>(
     override fun toString(): String = "($first, $second, $third, $fourth)"
 }
 
+data class Quintuple<out A, out B, out C, out D, out E>(
+    val first: A,
+    val second: B,
+    val third: C,
+    val fourth: D,
+    val fifth: E,
+) : Serializable {
+
+    /**
+     * Returns string representation of the [Quadruple] including its [first], [second], [third] and [fourth] values.
+     */
+    override fun toString(): String = "($first, $second, $third, $fourth, $fifth)"
+}
+
 /**
  * Converts this quadruple into a list.
  */

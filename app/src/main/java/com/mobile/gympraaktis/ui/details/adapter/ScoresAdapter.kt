@@ -9,6 +9,9 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.domain.entities.Leader
 import com.mobile.gympraaktis.domain.extension.loadAvatar
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
 
 class ScoresAdapter(val list: List<Leader>) :
     RecyclerView.Adapter<ScoresAdapter.ScoresViewHolder>() {
@@ -19,11 +22,18 @@ class ScoresAdapter(val list: List<Leader>) :
         return ScoresViewHolder(v)
     }
 
+    private val numberFormat: NumberFormat = NumberFormat.getNumberInstance(Locale.ENGLISH)
+    private val decimalFormatter = numberFormat as DecimalFormat
+
+    init {
+        decimalFormatter.applyPattern("##.0")
+    }
+
     override fun onBindViewHolder(holder: ScoresViewHolder, position: Int) {
         with(holder) {
             tvPosition.text = "${position + 1}"
             tvName.text = list[position].firstName + list[position].lastName
-            tvScore.text = "${list[position].maxScore}"
+            tvScore.text = numberFormat.format(list[position].maxScore)
             ivAvatar.loadAvatar(list[position].imageUrl)
 
             // Zebra-striping color effect

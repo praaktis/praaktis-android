@@ -6,10 +6,11 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseActivity
 import com.mobile.gympraaktis.data.entities.AnalysisComplete
+import com.mobile.gympraaktis.data.entities.PlayerAnalysis
+import com.mobile.gympraaktis.data.entities.RoutineAnalysis
 import com.mobile.gympraaktis.databinding.ActivityDetailsBinding
 import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.extension.*
@@ -42,10 +43,10 @@ class DetailsActivity constructor(override val layoutId: Int = R.layout.activity
         supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener { onBackPressed() }
 
-        mViewModel?.let {
-            it.title.observe(this, Observer { title ->
+        mViewModel.let {
+            it.title.observe(this) { title ->
                 changeTitle(title)
-            })
+            }
         }
 
         supportFragmentManager.addOnBackStackChangedListener {
@@ -98,6 +99,26 @@ class DetailsActivity constructor(override val layoutId: Int = R.layout.activity
                     fragment.restartSpotlight()
                 }
                 binding.ivInfo.showAnimWithScale()
+            }
+            ExerciseAnalysisDetailsFragment.TAG -> {
+                replaceFragment(ExerciseAnalysisDetailsFragment.TAG) {
+                    replace(
+                        R.id.container,
+                        ExerciseAnalysisDetailsFragment.newInstance(
+                            intent.getSerializableExtra(ExerciseAnalysisDetailsFragment.TAG) as RoutineAnalysis
+                        )
+                    )
+                }
+            }
+            PlayerAnalysisDetailsFragment.TAG -> {
+                replaceFragment(PlayerAnalysisDetailsFragment.TAG) {
+                    replace(
+                        R.id.container,
+                        PlayerAnalysisDetailsFragment.newInstance(
+                            intent.getSerializableExtra(PlayerAnalysisDetailsFragment.TAG) as PlayerAnalysis
+                        )
+                    )
+                }
             }
             else -> throw IllegalArgumentException("Wrong fragment")
         }

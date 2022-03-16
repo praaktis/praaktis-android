@@ -22,6 +22,15 @@ interface DashboardDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertScoreAnalysis(score: List<ScoreAnalysisEntity>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertPlayers(list: List<PlayerEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertRoutines(list: List<RoutineEntity>)
+
+    @Query("DELETE FROM player")
+    fun removeAllPlayers()
+
     @Query("DELETE FROM challenge_analysis")
     fun removeAllAnalysis()
 
@@ -40,24 +49,40 @@ interface DashboardDao {
         list: List<AnalysisEntity>,
         attemptChartList: List<AttemptChartDataEntity>,
         chartDataList: List<ChartDataEntity>,
-        scoreAnalysisList: List<ScoreAnalysisEntity>
+        scoreAnalysisList: List<ScoreAnalysisEntity>,
+        players: List<PlayerEntity>
     ) {
         insertDashboard(dashboardEntity)
+        removeAllPlayers()
         removeAllAnalysis()
         removeAllAttemptChartData()
         removeAllScoreAnalysis()
+        insertPlayers(players)
         insertAnalysis(list)
         insertAttemptChart(attemptChartList)
         insertChartData(chartDataList)
         insertScoreAnalysis(scoreAnalysisList)
     }
 
+    @Query("SELECT * FROM routine")
+    fun getRoutines(): Flow<List<RoutineEntity>>
+
     @Transaction
     @Query("SELECT * FROM dashboard")
     fun getDashboardData(): Flow<DashboardWithAnalysis>
 
     @Transaction
+    @Query("SELECT * FROM player")
+    fun getPlayersAnalysis(): Flow<List<PlayerAnalysis>>
+
+    @Transaction
+    @Query("SELECT * FROM routine")
+    fun getRoutineAnalysis(): Flow<List<RoutineAnalysis>>
+
+    @Transaction
     @Query("SELECT * FROM challenge_analysis")
     fun getChallengeAnalysis(): Flow<AnalysisComplete>
+
+
 
 }
