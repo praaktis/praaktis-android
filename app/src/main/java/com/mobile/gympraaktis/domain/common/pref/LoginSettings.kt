@@ -1,6 +1,9 @@
 package com.mobile.gympraaktis.domain.common.pref
 
-import com.mobile.gympraaktis.domain.entities.*
+import com.mobile.gympraaktis.domain.entities.ChallengeDTO
+import com.mobile.gympraaktis.domain.entities.ComparisonDTO
+import com.mobile.gympraaktis.domain.entities.DetailScoreDTO
+import com.mobile.gympraaktis.domain.entities.UserDTO
 
 interface LoginSettings {
     fun isLoggedIn(): Boolean
@@ -14,14 +17,13 @@ interface LoginSettings {
     fun setProfile(userDTO: UserDTO)
     fun getChallenges(): List<ChallengeDTO>?
     fun setChallenges(challenges: List<ChallengeDTO>)
-    fun getDashboard(): DashboardDTO?
-    fun setDashboard(dashboardDTO: DashboardDTO)
-    fun setTimeline(timelineDTO: TimelineDTO)
-    fun getTimeline(): TimelineDTO?
     fun setTimelineDetails(timelineDetails: List<DetailScoreDTO>, attemptId: Int)
     fun getTimelineDetails(attemptId: Int): List<DetailScoreDTO>?
     fun setComparison(comparisonDTO: ComparisonDTO)
     fun getComparison(): ComparisonDTO?
 
     fun cameraMode(): Boolean
+
+    fun getSelectedPlayerId(): Long
+    fun setSelectedPlayerId(playerId: Long)
 }

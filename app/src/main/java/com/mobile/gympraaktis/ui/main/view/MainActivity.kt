@@ -8,8 +8,13 @@ import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.lifecycleScope
+import androidx.work.ExistingWorkPolicy
+import androidx.work.WorkManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.mobile.gympraaktis.PraaktisApp
 import com.mobile.gympraaktis.R
+import com.mobile.gympraaktis.VideoPreloadWorker
 import com.mobile.gympraaktis.base.BaseActivity
 import com.mobile.gympraaktis.databinding.ActivityMainBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBottomBinding
@@ -17,11 +22,13 @@ import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.friends.view.FriendsPagerFragment
 import com.mobile.gympraaktis.ui.main.vm.MainViewModel
 import com.mobile.gympraaktis.ui.new_player.view.NewPlayerFragment
+import com.mobile.gympraaktis.ui.new_player.view.NewPlayerProfileFragment
 import com.mobile.gympraaktis.ui.settings.view.SettingsFragment
 import com.mobile.gympraaktis.ui.timeline.view.TimelineItemFragment
 import com.takusemba.spotlight.Target
 import com.takusemba.spotlight.shape.RoundedRectangle
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity constructor(override val layoutId: Int = R.layout.activity_main) :
     BaseActivity<ActivityMainBinding>(), FragmentManager.OnBackStackChangedListener,
@@ -65,6 +72,16 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
         }
     }
 
+    fun schedulePreloadWork(videoUrl: String) {
+        val workManager = WorkManager.getInstance(PraaktisApp.getApplication())
+        val videoPreloadWorker = VideoPreloadWorker.buildWorkRequest(videoUrl)
+        workManager.enqueueUniqueWork(
+            videoUrl,
+            ExistingWorkPolicy.KEEP,
+            videoPreloadWorker
+        )
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val currentFragment = getVisibleFragment()
         if (currentFragment is DashboardFragment) {
@@ -104,6 +121,7 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is ProfileFragment
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is SettingsFragment
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is NewPlayerFragment
+                        || supportFragmentManager.findFragmentById(R.id.menu_container) is NewPlayerProfileFragment
                     ) {
                         onBackPressed()
                         return true
@@ -134,6 +152,14 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
 
     }
 
+    fun backToDashboardAndRefresh() {
+        binding.bottomNavigation.selectedItemId = R.id.menu_dashboard
+        lifecycleScope.launch {
+            delay(500)
+            mViewModel.fetchDashboardData()
+        }
+    }
+
     override fun onBackPressed() {
         val currentFragment = getVisibleFragment()
         if (supportFragmentManager.findFragmentById(R.id.menu_container) != null
@@ -145,13 +171,13 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
             )
             return when (currentFragment) {
                 is DashboardFragment -> {
-                    bottom_navigation.selectedItemId = R.id.menu_dashboard
+                    binding.bottomNavigation.selectedItemId = R.id.menu_dashboard
                 }
                 is NewChallengeFragment -> {
-                    bottom_navigation.selectedItemId = R.id.menu_new_challenge
+                    binding.bottomNavigation.selectedItemId = R.id.menu_new_challenge
                 }
                 else -> {
-                    bottom_navigation.selectedItemId = R.id.menu_timeline
+                    binding.bottomNavigation.selectedItemId = R.id.menu_timeline
                 }
             }
         }

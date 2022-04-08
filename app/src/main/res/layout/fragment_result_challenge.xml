@@ -57,7 +57,7 @@
                 android:layout_marginBottom="20dp"
                 android:text="Your score: 65%"
                 android:textAllCaps="true"
-                android:textColor="@color/purple_900_1"
+                android:textColor="@color/primaryColor"
                 android:textSize="18sp" />
 
             <com.google.android.material.card.MaterialCardView
@@ -87,6 +87,7 @@
                     android:id="@+id/cvTryAgain"
                     style="@style/AppTheme.MaterialButton.Secondary"
                     android:layout_width="0dp"
+                    app:backgroundTint="@color/primaryColor"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/try_again"

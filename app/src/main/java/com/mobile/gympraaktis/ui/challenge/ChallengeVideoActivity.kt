@@ -2,7 +2,6 @@ package com.mobile.gympraaktis.ui.challenge
 
 import android.content.Context
 import android.content.Intent
-import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -10,12 +9,24 @@ import android.view.MenuItem
 import androidx.core.app.NavUtils
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.upstream.DataSource
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
+import com.google.android.exoplayer2.upstream.HttpDataSource
+import com.google.android.exoplayer2.upstream.cache.CacheDataSource
+import com.google.android.exoplayer2.upstream.cache.SimpleCache
+import com.google.android.exoplayer2.util.Util
+import com.mobile.gympraaktis.PraaktisApp
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseActivity
+import com.mobile.gympraaktis.data.entities.PlayerEntity
 import com.mobile.gympraaktis.databinding.ActivityVideoChallengeBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBottomBinding
 import com.mobile.gympraaktis.domain.common.AppGuide
-import com.mobile.gympraaktis.domain.common.StateBroadcastingVideoView
 import com.mobile.gympraaktis.domain.common.resettableLazy
 import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.extension.*
@@ -23,10 +34,11 @@ import com.mobile.gympraaktis.ui.details.view.ChallengeInstructionFragment
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
-import kotlinx.android.synthetic.main.activity_video_challenge.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -40,14 +52,86 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
         const val TAG: String = "ChallengeVideoActivity"
 
         @JvmStatic
-        fun start(context: Context, challengeItem: ChallengeDTO) {
+        fun start(context: Context, challengeItem: ChallengeDTO, player: PlayerEntity) {
             val intent = Intent(context, ChallengeVideoActivity::class.java)
             intent.putExtra("challengeItem", challengeItem)
+            intent.putExtra("player", player)
             context.startActivity(intent)
         }
     }
 
     private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as ChallengeDTO }
+    private val player by lazy { intent.getSerializableExtra("player") as PlayerEntity }
+
+    private val mHttpDataSourceFactory: HttpDataSource.Factory by lazy {
+        DefaultHttpDataSource.Factory().setAllowCrossProtocolRedirects(true)
+    }
+
+    //    private val mDefaultDataSourceFactory: DefaultDataSource.Factory by lazy {
+//        DefaultDataSource.Factory(applicationContext, mHttpDataSourceFactory)
+//    }
+    private val mCacheDataSourceFactory: DataSource.Factory by lazy {
+        CacheDataSource.Factory()
+            .setCache(cache)
+            .setUpstreamDataSourceFactory(mHttpDataSourceFactory)
+            .setFlags(CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR)
+    }
+    private var exoPlayer: ExoPlayer? = null
+    private val cache: SimpleCache = PraaktisApp.cache
+
+    private fun initPlayer() {
+        exoPlayer = ExoPlayer.Builder(applicationContext)
+            .setMediaSourceFactory(DefaultMediaSourceFactory(mCacheDataSourceFactory))
+            .build()
+            .also { exoPlayer ->
+                binding.exoPlayer.player = exoPlayer
+
+                val videoUri = Uri.parse(challengeItem.videoUrl)
+                val mediaItem = MediaItem.fromUri(videoUri)
+                val mediaSource =
+                    ProgressiveMediaSource.Factory(mCacheDataSourceFactory)
+                        .createMediaSource(mediaItem)
+                exoPlayer.volume = 0f
+                exoPlayer.setMediaSource(mediaSource, true)
+                exoPlayer.playWhenReady = playWhenReady
+                exoPlayer.seekTo(currentWindow, playbackPosition)
+                exoPlayer.prepare()
+
+                exoPlayer.addListener(object : Player.Listener {
+                    override fun onIsPlayingChanged(isPlaying: Boolean) {
+                        super.onIsPlayingChanged(isPlaying)
+                        if (isPlaying) {
+                            binding.ivPlayReply.hide()
+                        } else {
+                            binding.ivPlayReply.show()
+                        }
+                    }
+                })
+            }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+
+        val fragments = supportFragmentManager.fragments
+        Timber.d("FRAGMENTS $fragments")
+
+        if (Util.SDK_INT >= 24 && fragments.isEmpty()) {
+            initPlayer()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val fragments = supportFragmentManager.fragments
+        Timber.d("FRAGMENTS $fragments")
+
+        if ((Util.SDK_INT < 24 || exoPlayer == null) && fragments.isEmpty()) {
+            initPlayer()
+        }
+    }
 
     override fun initUI(savedInstanceState: Bundle?) {
         transparentStatusAndNavigationBar()
@@ -59,22 +143,26 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportFragmentManager.addOnBackStackChangedListener(this)
 
-        val video = when (challengeItem.id) {
-            4 -> R.raw.handsup2
-            5 -> R.raw.squats2
-            6 -> R.raw.curl2
-            7 -> R.raw.fw_lunge2
-            8 -> R.raw.bw_lunge2
-            else -> R.raw.handsup2
-        }
+//        val video = when (challengeItem.id) {
+//            103 -> R.raw.r103
+//            104 -> R.raw.r104
+//            105 -> R.raw.r105
+//            106 -> R.raw.r106
+//            107 -> R.raw.r107
+//            108 -> R.raw.r108
+//            else -> R.raw.r103
+//        }
 
-        binding.videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + video))
-        binding.videoView.setOnPreparedListener {
-            binding.ivPlayReply.show()
-            binding.videoView.start()
-            binding.videoView.pause()
-            it.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
-        }
+        binding.exoPlayer.setShowNextButton(false)
+        binding.exoPlayer.setShowPreviousButton(false)
+
+//        binding.videoView.setVideoURI(Uri.parse(challengeItem.videoUrl/*"android.resource://" + packageName + "/" + video*/))
+//        binding.videoView.setOnPreparedListener {
+//            binding.ivPlayReply.show()
+//            binding.videoView.start()
+//            binding.videoView.pause()
+//            it.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
+//        }
         /*binding.videoView.setOnInfoListener { mp, what, extra ->
             if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
                 //first frame was bufered - do your stuff here
@@ -83,31 +171,31 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
             false
         }*/
 
-        binding.videoView.setPlayPauseListener(object :
-            StateBroadcastingVideoView.PlayPauseListener {
-            override fun onPlay() {
-                binding.ivPlayReply.invisible()
-            }
-
-            override fun onPause() {
-                binding.ivPlayReply.show()
-            }
-        })
+//        binding.videoView.setPlayPauseListener(object :
+//            StateBroadcastingVideoView.PlayPauseListener {
+//            override fun onPlay() {
+//                binding.ivPlayReply.invisible()
+//            }
+//
+//            override fun onPause() {
+//                binding.ivPlayReply.show()
+//            }
+//        })
 
         binding.ivPlayReply.onClick {
             closeSpotlight()
-            binding.videoView.start()
+            if (exoPlayer?.playbackState == Player.STATE_ENDED) {
+                exoPlayer?.seekTo(0);
+            }
+            exoPlayer?.playWhenReady = true;
             it.invisible()
-        }
-        binding.videoView.setOnCompletionListener {
-            ivPlayReply.show()
         }
 
         binding.tvCancel.onClick { finish() }
         binding.tvNext.onClick {
             closeSpotlight()
 
-            binding.videoView.pause()
+            exoPlayer?.playWhenReady = false
             binding.ivPlayReply.show()
 
             val tag = ChallengeInstructionFragment.TAG
@@ -115,7 +203,8 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
                 add(
                     R.id.container,
                     ChallengeInstructionFragment.getInstance(
-                        challengeItem
+                        challengeItem,
+                        player
                     ),
                     tag
                 ).addToBackStack(tag)
@@ -125,8 +214,47 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
         startGuideIfNecessary()
 
         supportFragmentManager.addFragmentOnAttachListener { fragmentManager, fragment ->
-            binding.videoView.pause()
+            exoPlayer?.playWhenReady = false
         }
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.fragments.isEmpty()) {
+                if (exoPlayer == null)
+                    initPlayer()
+            } else {
+                if (exoPlayer != null)
+                    releasePlayer()
+            }
+        }
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (Util.SDK_INT < 24) {
+            releasePlayer()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (Util.SDK_INT >= 24) {
+            releasePlayer()
+        }
+    }
+
+    private var playWhenReady = true
+    private var currentWindow = 0
+    private var playbackPosition = 0L
+
+    private fun releasePlayer() {
+        exoPlayer?.run {
+            playbackPosition = this.currentPosition
+            currentWindow = this.currentMediaItemIndex
+            playWhenReady = this.playWhenReady
+            release()
+        }
+        exoPlayer = null
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -158,11 +286,13 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
         } else {
             lifecycleScope.launch(Dispatchers.Main) {
                 delay(1000)
-                binding.videoView.start()
+//                binding.videoView.start()
+                exoPlayer?.playWhenReady = true
             }
         }
         binding.ivInfo.setOnClickListener {
-            binding.videoView.pause()
+//            binding.videoView.pause()
+            exoPlayer?.playWhenReady = false
             restartSpotlight()
         }
     }
@@ -184,7 +314,7 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
         target.closeTarget.hide()
 
         target.customText.text =
-            "Play the video to see how the Challenge should be completed. Then click Next to get instructions on setting yourself up for the Challenge"
+            "Play the video to see how the Routine should be completed. Then click Next to get instructions on setting yourself up for the Challenge"
 
         target.customText2.text = challengeItem.videoGuide?.joinToString(separator = "\n") {
             it

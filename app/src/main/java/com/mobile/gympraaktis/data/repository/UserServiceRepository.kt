@@ -12,9 +12,10 @@ interface UserServiceRepository {
     fun getDashboardData(): Single<DashboardDTO>
     fun getProfile(): Single<UserDTO>
     fun getTimelineData(): Single<TimelineDTO>
-    suspend fun getAttemptHistory(page: Int): AttemptHistoryResponse
+    suspend fun getAttemptHistory(page: Int, playerId: Long? = null): AttemptHistoryResponse
     fun getDetailResult(attemptId: Int): Single<List<DetailScoreDTO>>
-    fun storeResult(storeResultDTO: StoreResultDTO): Single<ResponseBody>
+    fun storeResult(storeResultModel: StoreResultModel): Single<ResponseBody>
+    suspend fun storeResultCoroutines(storeResultModel: StoreResultModel): ResponseBody
     fun getChallenges(): Single<List<ChallengeDTO>>
     fun getComparison(): Single<ComparisonDTO>
     fun inviteFriend(email: String): Single<UserMessage>
@@ -25,6 +26,12 @@ interface UserServiceRepository {
     fun refuseFriend(email: String): Single<ResponseBody>
     fun registerDevice(deviceId: String): Single<ResponseBody>
     fun logout(): Single<ResponseBody>
+    fun createPlayer(playerCreateModel: PlayerCreateModel): Single<ResponseBody>
+    fun fetchHeightOptions(): Single<List<KeyValueDTO>>
+    fun fetchWeightOptions(): Single<List<KeyValueDTO>>
+    fun fetchAbilityOptions(): Single<List<KeyValueDTO>>
+    fun fetchAgeOptions(): Single<List<KeyValueDTO>>
+    fun fetchGenderOptions(): Single<List<GenderDTO>>
 
     class UserServiceRepositoryImpl : UserServiceRepository {
 
@@ -51,8 +58,8 @@ interface UserServiceRepository {
             return userService.getTimelineData().compose(ASyncTransformer<TimelineDTO>())
         }
 
-        override suspend fun getAttemptHistory(page: Int): AttemptHistoryResponse {
-            return userService.getAttemptHistory(page)
+        override suspend fun getAttemptHistory(page: Int, playerId: Long?): AttemptHistoryResponse {
+            return userService.getAttemptHistory(page, playerId)
         }
 
         override fun getDetailResult(attemptId: Int): Single<List<DetailScoreDTO>> {
@@ -60,8 +67,12 @@ interface UserServiceRepository {
                 .compose(ASyncTransformer<List<DetailScoreDTO>>())
         }
 
-        override fun storeResult(storeResultDTO: StoreResultDTO): Single<ResponseBody> {
-            return userService.storeResult(storeResultDTO).compose(ASyncTransformer<ResponseBody>())
+        override fun storeResult(storeResultModel: StoreResultModel): Single<ResponseBody> {
+            return userService.storeResult(storeResultModel).compose(ASyncTransformer<ResponseBody>())
+        }
+
+        override suspend fun storeResultCoroutines(storeResultModel: StoreResultModel): ResponseBody {
+            return  userService.storeResultCoroutines(storeResultModel)
         }
 
         override fun getChallenges(): Single<List<ChallengeDTO>> {
@@ -108,6 +119,31 @@ interface UserServiceRepository {
 
         override fun logout(): Single<ResponseBody> {
             return userService.logout().compose(ASyncTransformer<ResponseBody>())
+        }
+
+        override fun createPlayer(playerCreateModel: PlayerCreateModel): Single<ResponseBody> {
+            return userService.createPlayer(playerCreateModel)
+                .compose(ASyncTransformer<ResponseBody>())
+        }
+
+        override fun fetchHeightOptions(): Single<List<KeyValueDTO>> {
+            return userService.fetchHeightOptions().compose(ASyncTransformer<List<KeyValueDTO>>())
+        }
+
+        override fun fetchWeightOptions(): Single<List<KeyValueDTO>> {
+            return userService.fetchWeightOptions().compose(ASyncTransformer<List<KeyValueDTO>>())
+        }
+
+        override fun fetchAbilityOptions(): Single<List<KeyValueDTO>> {
+            return userService.fetchAbilityOptions().compose(ASyncTransformer<List<KeyValueDTO>>())
+        }
+
+        override fun fetchAgeOptions(): Single<List<KeyValueDTO>> {
+            return userService.fetchAgeOptions().compose(ASyncTransformer<List<KeyValueDTO>>())
+        }
+
+        override fun fetchGenderOptions(): Single<List<GenderDTO>> {
+            return userService.fetchGenderOptions().compose(ASyncTransformer<List<GenderDTO>>())
         }
 
     }

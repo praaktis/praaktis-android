@@ -2,7 +2,9 @@ package com.mobile.gympraaktis.data.db
 
 import androidx.room.*
 import com.mobile.gympraaktis.data.entities.UserData
+import com.mobile.gympraaktis.domain.entities.StoreResultModel
 import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PraaktisDao {
@@ -23,4 +25,17 @@ interface PraaktisDao {
 
     @Query("DELETE FROM users")
     fun clear()
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun saveResult(resultModel: StoreResultModel)
+
+    @Query("SELECT * FROM offline_exercise_result")
+    fun getOfflineExerciseResults(): Flow<List<StoreResultModel>>
+
+    @Query("DELETE FROM offline_exercise_result")
+    fun clearOfflineExerciseResults()
+
+    @Delete
+    fun removeOfflineExerciseResult(storeResultModel: StoreResultModel)
+
 }

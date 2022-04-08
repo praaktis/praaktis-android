@@ -56,19 +56,73 @@
                     app:shapeAppearanceOverlay="@style/ShapeAppearance.AppTheme.Circle"
                     app:srcCompat="@drawable/ic_user_circle" />
 
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/tg_ability"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="18dp"
+                    android:elevation="6dp"
+                    app:checkedButton="@id/btn_beginner"
+                    app:layout_constraintEnd_toEndOf="@id/cv_form"
+                    app:layout_constraintStart_toStartOf="@id/cv_form"
+                    app:layout_constraintTop_toBottomOf="@id/ivAvatar"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_beginner"
+                        style="@style/Widget.MaterialComponents.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/toggle_group_item_color"
+                        android:insetRight="9dp"
+                        android:text="@string/beginner"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="12sp"
+                        app:cornerRadius="5dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_intermediate"
+                        style="@style/Widget.MaterialComponents.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/toggle_group_item_color"
+                        android:insetRight="9dp"
+                        android:text="@string/intermediate"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="12sp"
+                        app:cornerRadius="5dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_expert"
+                        style="@style/Widget.MaterialComponents.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/toggle_group_item_color"
+                        android:text="@string/expert"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="12sp"
+                        app:cornerRadius="5dp" />
+
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cv_form"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="20dp"
                     app:cardElevation="6dp"
                     app:contentPadding="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ivAvatar"
+                    app:layout_constraintTop_toBottomOf="@id/tg_ability"
                     app:layout_constraintWidth_max="370dp">
 
                     <LinearLayout
@@ -76,59 +130,8 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:baselineAligned="false"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/tilDateOfBirth"
-                                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="16dp"
-                                android:layout_weight="1"
-                                android:clickable="true"
-                                app:boxBackgroundColor="@android:color/transparent"
-                                app:errorEnabled="true"
-                                app:hintEnabled="true">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/etDateOfBirth"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:focusable="false"
-                                    android:hint="@string/date_of_birth"
-                                    android:inputType="none"
-                                    android:maxLength="40" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/til_gender"
-                                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                app:boxBackgroundColor="@android:color/transparent"
-                                app:errorEnabled="true"
-                                app:hintEnabled="true">
-
-                                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                                    android:id="@+id/et_gender"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/gender"
-                                    android:inputType="none" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                        </LinearLayout>
-
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilFirstName"
+                            android:id="@+id/tilName"
                             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -137,33 +140,13 @@
                             app:hintEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etFirstName"
+                                android:id="@+id/etName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="@string/first_name"
+                                android:hint="@string/name"
                                 android:inputType="textEmailAddress"
                                 android:maxLength="40"
                                 android:nextFocusDown="@id/etLastName" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilLastName"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:boxBackgroundColor="@android:color/transparent"
-                            app:errorEnabled="true"
-                            app:hintEnabled="true">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etLastName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/last_name"
-                                android:inputType="textPersonName"
-                                android:maxLength="40"
-                                android:nextFocusDown="@id/etUsername" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -188,29 +171,77 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilCountry"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                            android:id="@+id/til_age_range"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:clickable="true"
                             app:boxBackgroundColor="@android:color/transparent"
-                            app:endIconDrawable="@drawable/ic_arrow_drop_down"
-                            app:endIconMode="custom"
-                            app:endIconTint="@color/grey_400_1"
                             app:errorEnabled="true"
                             app:hintEnabled="true">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etCountry"
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/et_age_range"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:clickable="true"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:hint="@string/country"
+                                android:hint="@string/age_range"
                                 android:inputType="none" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_weight_range"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@android:color/transparent"
+                            app:errorEnabled="true"
+                            app:hintEnabled="true">
+
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/et_weight_range"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/weight_range"
+                                android:inputType="none" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_height_range"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@android:color/transparent"
+                            app:errorEnabled="true"
+                            app:hintEnabled="true">
+
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/et_height_range"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/height"
+                                android:inputType="none" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_gender"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@android:color/transparent"
+                            app:errorEnabled="true"
+                            app:hintEnabled="true">
+
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/et_gender"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/gender"
+                                android:inputType="none" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
 
                     </LinearLayout>
 

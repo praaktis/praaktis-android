@@ -382,6 +382,7 @@
                     <com.google.android.material.button.MaterialButtonToggleGroup
                         android:id="@+id/btg_analysis"
                         android:layout_width="0dp"
+                        android:layout_marginTop="8dp"
                         android:layout_height="wrap_content"
                         app:checkedButton="@+id/btn_exercise"
                         app:layout_constraintEnd_toEndOf="@id/guide_end"
@@ -395,7 +396,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/exercise"
+                            android:text="@string/routine"
                             android:textColor="@color/blue_grey_900"
                             app:backgroundTint="@color/toggle_group_item_color_yellow_blue" />
 

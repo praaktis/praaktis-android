@@ -14,12 +14,24 @@
         android:clickable="true"
         android:orientation="vertical">
 
-        <com.mobile.gympraaktis.domain.common.StateBroadcastingVideoView
-            android:id="@+id/videoView"
+        <!--        <com.mobile.gympraaktis.domain.common.StateBroadcastingVideoView-->
+        <!--            android:id="@+id/videoView"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/exo_player"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:controller_layout_id="@layout/exo_playback_control_view"
+            app:player_layout_id="@layout/exo_player_view"
+            app:show_buffering="when_playing"
+            app:show_shuffle_button="false"
+            app:use_controller="true" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_info"
@@ -56,6 +68,7 @@
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
             android:text="@string/cancel"
+            app:backgroundTint="@color/primaryColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tvNext"
             app:layout_constraintHorizontal_chainStyle="packed"

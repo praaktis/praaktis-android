@@ -17,7 +17,7 @@ object AppGuide {
     private const val DEVELOPER_MODE = false
 
     fun getGuideList(): HashMap<String, Boolean> {
-        return Paper.book().read<HashMap<String, Boolean>>(APP_GUIDE_MAP, defaultMap)
+        return Paper.book().read<HashMap<String, Boolean>>(APP_GUIDE_MAP, defaultMap).orEmpty() as HashMap<String, Boolean>
     }
 
     private val defaultMap: HashMap<String, Boolean> = hashMapOf(

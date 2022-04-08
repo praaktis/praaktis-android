@@ -9,4 +9,8 @@
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="RoundedDropdownView">
+        <attr name="hint" format="string" />
+    </declare-styleable>
+
 </resources>

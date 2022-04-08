@@ -75,42 +75,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-        <com.google.android.material.card.MaterialCardView
+        <com.mobile.gympraaktis.domain.common.custom_ui.RoundedDropdownView
+            android:id="@+id/dropdown_select_player"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="32dp"
             app:cardElevation="8dp"
+            app:hint="@string/select_player"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:shapeAppearance="@style/ShapeAppearance.AppTheme.Circle">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_select_player"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="12dp"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
-                app:endIconDrawable="@drawable/ic_dropdown"
-                app:endIconTint="@color/primaryColor"
-                app:shapeAppearance="@style/ShapeAppearance.AppTheme.Circle">
-
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/et_select_player"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato_bold"
-                    android:hint="@string/select_player"
-                    android:inputType="none"
-                    android:textColorHint="@color/secondaryColor"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+            app:shapeAppearance="@style/ShapeAppearance.AppTheme.Circle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

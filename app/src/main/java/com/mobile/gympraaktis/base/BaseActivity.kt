@@ -7,7 +7,6 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.domain.common.NetworkMonitorUtil
 import com.mobile.gympraaktis.domain.common.ProgressLoadingDialog
@@ -43,18 +42,18 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
         initUI(savedInstanceState)
 
         mViewModel?.let {
-            it.errorMessage.observe(this, Observer {
+            it.errorMessage.observe(this) {
                 if (it is String) makeToast(it)
                 else if (it is Int) makeToast(it)
-            })
-            it.logoutEvent.observe(this, Observer {
+            }
+            it.logoutEvent.observe(this) {
                 makeToast("" + it)
-            })
+            }
 
-            it.showHideEvent.observe(this, Observer {
+            it.showHideEvent.observe(this) {
                 if (it) showProgress()
                 else hideProgress()
-            })
+            }
         }
     }
 

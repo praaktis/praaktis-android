@@ -307,7 +307,7 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
         target.closeTarget.setOnClickListener { nextTarget() }
 
         target.customText.text =
-            "Get detailed information on your performance and compare to your Friends"
+            "Get detailed information on your performance and compare to Others"
 
         target.root.updatePadding(bottom = binding.cvAttempts.y.toInt())
 

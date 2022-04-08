@@ -2,6 +2,7 @@ package com.mobile.gympraaktis.ui.timeline.vm
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -23,12 +24,15 @@ import timber.log.Timber
 
 class TimelineFragmentViewModel(app: Application) : BaseViewModel(app) {
 
-    val userService by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
+    private val userService by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
 
     private val _pagingStateLiveData = LiveEvent<Result<Nothing>>()
     val pagingStateLiveData: LiveData<Result<Nothing>> get() = _pagingStateLiveData
 
-    fun getPagedAttemptHistory(): LiveData<PagedList<AttemptEntity>> {
+    fun observePlayers() =
+        PraaktisDatabase.getInstance(getApplication()).getDashboardDao().getPlayers().asLiveData()
+
+    fun getPagedAttemptHistory(playerId: Long? = null): LiveData<PagedList<AttemptEntity>> {
         return LivePagedListBuilder(
             PraaktisDatabase.getInstance(getApplication()).getAttemptHistoryDao()
                 .getAttempts(),
@@ -45,10 +49,10 @@ class TimelineFragmentViewModel(app: Application) : BaseViewModel(app) {
                             .insertAttempts(response.map { it.toEntity(page) })
                     },
                     onZeroLoad = {
-                        fetchData(it)
+                        fetchData(it, playerId)
                     },
                     onLoadMore = {
-                        fetchData(it)
+                        fetchData(it, playerId)
                     }
                 )
             )
@@ -56,11 +60,12 @@ class TimelineFragmentViewModel(app: Application) : BaseViewModel(app) {
     }
 
     private suspend fun fetchData(
-        page: Int
+        page: Int,
+        playerId: Long? = null
     ): List<AttemptDTO> {
         _pagingStateLiveData.postValue(Result.loading())
         return runCatching {
-            userService.getAttemptHistory(page)
+            userService.getAttemptHistory(page, if (playerId == -1L) null else playerId)
         }.onSuccess {
             if (page == 1 && it.results.isEmpty()) {
                 _pagingStateLiveData.postValue(Result.empty())

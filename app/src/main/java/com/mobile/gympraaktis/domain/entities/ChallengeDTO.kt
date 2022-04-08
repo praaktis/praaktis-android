@@ -13,5 +13,9 @@ data class ChallengeDTO(
     @SerializedName("instructions")
     val instructions: InstructionsDTO?,
     @SerializedName("video_guide")
-    val videoGuide: List<String>?
+    val videoGuide: List<String>?,
+    @SerializedName("video_url")
+    val videoUrl: String?,
+    @SerializedName("download_date")
+    val downloadDate: String?
 ) : Serializable

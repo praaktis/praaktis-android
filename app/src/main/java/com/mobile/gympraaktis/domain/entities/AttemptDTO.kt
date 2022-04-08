@@ -7,7 +7,7 @@ import java.io.Serializable
 data class AttemptDTO(
     @SerializedName("id")
     val attemptId: Int,
-    @SerializedName("challenge")
+    @SerializedName("routine")
     val challenge: ChallengeDTO,
     @SerializedName("time_performed")
     val timePerformed: String,

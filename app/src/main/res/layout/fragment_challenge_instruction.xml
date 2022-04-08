@@ -31,14 +31,18 @@
                 app:title=" " />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvtitle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginStart="52dp"
+                android:layout_marginEnd="52dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="Getting ready to video"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                tools:text="Title" />
+                android:textSize="18sp" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_info"
@@ -73,13 +77,15 @@
                 app:paddingBottomSystemWindowInsets="@{true}">
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="36dp"
                     android:gravity="center"
-                    android:text="@string/let_s_set_you_up_nicely"
+                    android:textStyle="bold"
+                    tools:text="@string/let_s_set_you_up_nicely"
                     android:textAllCaps="true"
-                    android:textColor="@color/purple_900_1"
+                    android:textColor="@color/primaryColor"
                     android:textSize="18sp"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,7 +94,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="40dp"
-                    android:layout_marginTop="22dp"
                     android:layout_marginEnd="40dp" />
 
             </LinearLayout>
@@ -155,34 +160,37 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:elevation="6dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topPanel"
-            app:layout_constraintWidth_percent=".65"
+            app:layout_constraintWidth_percent=".75"
             app:selectionRequired="true"
             app:singleSelection="true">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_single"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/toggle_group_item_color_2"
                 android:text="One person"
                 android:textColor="@color/toggle_group_item_text_color_2"
-                app:strokeColor="@color/toggle_group_item_stroke_color_2" />
+                app:elevation="0dp"
+                app:strokeColor="@color/toggle_group_item_stroke_color_2"
+                app:strokeWidth="1dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_multi"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/toggle_group_item_color_2"
                 android:text="Two people"
                 android:textColor="@color/toggle_group_item_text_color_2"
-                app:strokeColor="@color/toggle_group_item_stroke_color_2" />
+                app:elevation="0dp"
+                app:strokeColor="@color/toggle_group_item_stroke_color_2"
+                app:strokeWidth="1dp" />
 
         </com.google.android.material.button.MaterialButtonToggleGroup>
 

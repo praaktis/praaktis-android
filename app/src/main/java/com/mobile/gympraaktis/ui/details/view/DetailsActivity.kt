@@ -1,7 +1,6 @@
 package com.mobile.gympraaktis.ui.details.view
 
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -12,9 +11,9 @@ import com.mobile.gympraaktis.data.entities.AnalysisComplete
 import com.mobile.gympraaktis.data.entities.PlayerAnalysis
 import com.mobile.gympraaktis.data.entities.RoutineAnalysis
 import com.mobile.gympraaktis.databinding.ActivityDetailsBinding
-import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.details.vm.DetailsViewModel
+import com.mobile.gympraaktis.ui.subscription_plans.view.SubscriptionPlansFragment
 import kotlinx.android.synthetic.main.activity_details.*
 
 class DetailsActivity constructor(override val layoutId: Int = R.layout.activity_details) :
@@ -64,23 +63,6 @@ class DetailsActivity constructor(override val layoutId: Int = R.layout.activity
         }
 
         when (intent.getStringExtra(INITIAL_FRAGMENT_TAG)) {
-            ChallengeInstructionFragment.TAG -> {
-                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-                replaceFragment(ChallengeInstructionFragment.TAG) {
-                    replace(
-                        R.id.container,
-                        ChallengeInstructionFragment.getInstance(
-                            intent.getSerializableExtra(
-                                ChallengeInstructionFragment.TAG
-                            ) as ChallengeDTO
-                        ),
-                        ChallengeInstructionFragment.TAG
-                    )
-                }
-                changeTitle(
-                    (intent.getSerializableExtra(ChallengeInstructionFragment.TAG) as ChallengeDTO).name
-                )
-            }
             AnalysisFragment.TAG -> {
                 val fragment = AnalysisFragment.getInstance(
                     intent.getSerializableExtra(
@@ -117,6 +99,15 @@ class DetailsActivity constructor(override val layoutId: Int = R.layout.activity
                         PlayerAnalysisDetailsFragment.newInstance(
                             intent.getSerializableExtra(PlayerAnalysisDetailsFragment.TAG) as PlayerAnalysis
                         )
+                    )
+                }
+            }
+            SubscriptionPlansFragment.TAG -> {
+                replaceFragment(SubscriptionPlansFragment.TAG) {
+                    replace(
+                        R.id.container,
+                        SubscriptionPlansFragment.newInstance(),
+                        SubscriptionPlansFragment.TAG
                     )
                 }
             }

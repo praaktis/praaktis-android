@@ -1,25 +1,23 @@
 package com.mobile.gympraaktis.ui.new_player.view
 
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.afollestad.vvalidator.form
 import com.bumptech.glide.Glide
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentNewPlayerProfileBinding
-import com.mobile.gympraaktis.domain.entities.CountryItemDTO
-import com.mobile.gympraaktis.domain.entities.Gender
-import com.mobile.gympraaktis.domain.entities.UserDTO
+import com.mobile.gympraaktis.domain.entities.GenderDTO
+import com.mobile.gympraaktis.domain.entities.KeyValueDTO
+import com.mobile.gympraaktis.domain.entities.PlayerCreateModel
+import com.mobile.gympraaktis.domain.entities.UserLevel
 import com.mobile.gympraaktis.domain.extension.*
+import com.mobile.gympraaktis.ui.main.view.MainActivity
 import com.mobile.gympraaktis.ui.new_player.vm.NewPlayerProfileViewModel
-import com.mukesh.countrypicker.Country
-import com.mukesh.countrypicker.CountryPicker
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.registerImagePicker
-import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
-import kotlinx.android.synthetic.main.fragment_register_user_detail.*
-import org.threeten.bp.LocalDate
-import java.util.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class NewPlayerProfileFragment(override val layoutId: Int = R.layout.fragment_new_player_profile) :
     BaseFragment<FragmentNewPlayerProfileBinding>() {
@@ -37,83 +35,129 @@ class NewPlayerProfileFragment(override val layoutId: Int = R.layout.fragment_ne
 
     override val mViewModel: NewPlayerProfileViewModel by viewModels()
 
-    private var dateOfBirthCal: GregorianCalendar? = null
-    private lateinit var user: UserDTO
-
-    private var selectedCountry: CountryItemDTO? = null
-    private var countryPicker: CountryPicker? = null
+    private lateinit var user: PlayerCreateModel
 
     private var userImageUri: String? = null
-
 
     override fun initUI(savedInstanceState: Bundle?) {
 
         initClicks()
 
-        val genderAdapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_list_item_1,
-            context?.resources?.getStringArray(R.array.genders)!!
-        )
-        binding.etGender.setAdapter(genderAdapter)
-
+        setupAbilityField()
+        setupAgeField()
+        setupHeightField()
+        setupWeightField()
+        setupGenderField()
 
         form {
             inputLayout(binding.tilGender) {
                 isNotEmpty().description("Select your gender")
             }
-            inputLayout(binding.tilFirstName) {
-                isNotEmpty().description("Enter your First Name")
-            }
-            inputLayout(binding.tilLastName) {
-                isNotEmpty().description("Enter your Last Name")
-            }
-            inputLayout(binding.tilDateOfBirth) {
-                isNotEmpty().description("Set your date of birth")
-            }
-            inputLayout(binding.tilCountry) {
-                isNotEmpty().description("Choose country")
+            inputLayout(binding.tilName) {
+                isNotEmpty().description("Enter your Name")
             }
             inputLayout(binding.tilUsername) {
-                isNotEmpty().description("Enter your nickname")
+                isNotEmpty().description("Enter your Nickname")
+            }
+            inputLayout(binding.tilAgeRange) {
+                isNotEmpty().description("Select your age range")
+            }
+            inputLayout(binding.tilHeightRange) {
+                isNotEmpty().description("Select your height range")
+            }
+            inputLayout(binding.tilWeightRange) {
+                isNotEmpty().description("Select your weight range")
             }
             submitWith(binding.btnCreate) {
                 activity.hideKeyboard(binding.btnCreate)
-                user = UserDTO(
-                    gender = Gender.values()[resources.getStringArray(R.array.genders)
-                        .indexOf(binding.etGender.text.toString())],
-                    firstName = etFirstName.stringText(),
-                    lastName = etLastName.stringText(),
-                    nickname = etUsername.stringText(),
-                    country = selectedCountry?.key,
-                    dateOfBirth = dateOfBirthCal?.dateYYYY_MM_DD(),
-                    profileImage = userImageUri
+                user = PlayerCreateModel(
+                    gender = (binding.etGender.tag as GenderDTO?)?.key,
+                    playerName = binding.etName.stringText(),
+                    nickname = binding.etUsername.stringText(),
+                    weightRange = (binding.etWeightRange.tag as KeyValueDTO?)?.key,
+                    heightRange = (binding.etHeightRange.tag as KeyValueDTO?)?.key,
+                    ageGroup = (binding.etAgeRange.tag as KeyValueDTO?)?.key,
+                    ability = binding.tgAbility.tag as UserLevel?,
+                    udf1 = "",
+                    udf2 = ""
                 )
-
                 mViewModel.createPlayer(user)
             }
         }
 
-
-        mViewModel.countriesEvent.observe(viewLifecycleOwner) { countries ->
-            val countryArray: Array<Country> = Array(countries.size) { index ->
-                val countryMatch = CountryPicker.COUNTRIES.find { it.code == countries[index].key }
-                Country(
-                    countries[index].key,
-                    countries[index].name,
-                    countryMatch?.dialCode,
-                    countryMatch?.flag ?: R.drawable.empty_flag,
-                    countryMatch?.currency
-                )
+        mViewModel.createPlayerEvent.observe(viewLifecycleOwner) {
+            activity.makeToast(it)
+            lifecycleScope.launch {
+                delay(500)
+                (activity as MainActivity).backToDashboardAndRefresh()
             }
-            initCountryPicker(countryArray)
         }
-
-        mViewModel.getCountries()
-
-        initCountryPicker(null)
     }
 
+    private fun setupAbilityField() {
+        binding.tgAbility.tag = when (binding.tgAbility.checkedButtonId) {
+            R.id.btn_beginner -> UserLevel.B
+            R.id.btn_intermediate -> UserLevel.I
+            R.id.btn_expert -> UserLevel.E
+            else -> UserLevel.B
+        }
+        binding.tgAbility.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            binding.tgAbility.tag = when (checkedId) {
+                R.id.btn_beginner -> UserLevel.B
+                R.id.btn_intermediate -> UserLevel.I
+                R.id.btn_expert -> UserLevel.E
+                else -> UserLevel.B
+            }
+        }
+    }
+
+    private fun setupAgeField() {
+        var items = emptyList<KeyValueDTO>()
+        mViewModel.ageLiveData.observe(viewLifecycleOwner) { list ->
+            items = list
+            binding.etAgeRange.setSimpleItems(list.map { it.name }.toTypedArray())
+        }
+
+        binding.etAgeRange.setOnItemClickListener { _, _, position, _ ->
+            binding.etAgeRange.tag = items.getOrNull(position)
+        }
+    }
+
+    private fun setupHeightField() {
+        var items = emptyList<KeyValueDTO>()
+        mViewModel.heightLiveData.observe(viewLifecycleOwner) { list ->
+            items = list
+            binding.etHeightRange.setSimpleItems(list.map { it.name }.toTypedArray())
+        }
+
+        binding.etHeightRange.setOnItemClickListener { _, _, position, _ ->
+            binding.etHeightRange.tag = items.getOrNull(position)
+        }
+    }
+
+    private fun setupWeightField() {
+        var items = emptyList<KeyValueDTO>()
+        mViewModel.weightLiveData.observe(viewLifecycleOwner) { list ->
+            items = list
+            binding.etWeightRange.setSimpleItems(list.map { it.name }.toTypedArray())
+        }
+
+        binding.etWeightRange.setOnItemClickListener { _, _, position, _ ->
+            binding.etWeightRange.tag = items.getOrNull(position)
+        }
+    }
+
+    private fun setupGenderField() {
+        var items = emptyList<GenderDTO>()
+        mViewModel.genderLiveData.observe(viewLifecycleOwner) { list ->
+            items = list
+            binding.etGender.setSimpleItems(list.map { it.name }.toTypedArray())
+        }
+
+        binding.etGender.setOnItemClickListener { _, _, position, _ ->
+            binding.etGender.tag = items.getOrNull(position)
+        }
+    }
 
     private val pickerLauncher = registerImagePicker { images ->
         if (images.isNotEmpty()) {
@@ -126,57 +170,9 @@ class NewPlayerProfileFragment(override val layoutId: Int = R.layout.fragment_ne
     }
 
     private fun initClicks() {
-
-        binding.etCountry.onClick {
-            countryPicker?.showBottomSheet(activity)
-        }
-
         binding.ivAvatar.onClick {
             pickerLauncher.launch(IMAGE_PICKER_CONFIG)
         }
-
-        etDateOfBirth.onClick {
-            showBirthdayDialog()
-        }
-
     }
 
-    private fun initCountryPicker(customCountryList: Array<Country>?) {
-        val countryPickerBuilder = CountryPicker.Builder().with(requireContext()).listener {
-            selectedCountry = CountryItemDTO(it.code, it.name)
-            etCountry.setText(it.name)
-            activity.hideKeyboard(etCountry)
-            activity.hideKeyboard(tilCountry)
-        }
-        customCountryList?.let { countryPickerBuilder.setCountryList(it) }
-        countryPicker = countryPickerBuilder.build()
-    }
-
-    private fun showBirthdayDialog() {
-        if (dateOfBirthCal == null) {
-            dateOfBirthCal = GregorianCalendar()
-        }
-        SpinnerDatePickerDialogBuilder()
-            .context(requireContext())
-            .callback { view, year, monthOfYear, dayOfMonth ->
-                dateOfBirthCal?.set(year, monthOfYear, dayOfMonth)
-                etDateOfBirth.setText(
-                    LocalDate.parse(dateOfBirthCal?.dateYYYY_MM_DD()).formatMMMddYYYY()
-                )
-            }
-            .dialogTheme(R.style.MyDatePickerDialogTheme)
-            .spinnerTheme(R.style.MyDatePickerDialogTheme)
-            .showTitle(true)
-            .showDaySpinner(true)
-            .defaultDate(2017, 0, 1)
-            .maxDate(2020, 0, 1)
-            .minDate(1950, 0, 1)
-            .build()
-            .show()
-    }
-
-    override fun onDestroy() {
-        countryPicker = null
-        super.onDestroy()
-    }
 }

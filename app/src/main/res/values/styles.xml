@@ -56,6 +56,11 @@
         <item name="cornerSize">5dp</item>
     </style>
 
+    <style name="ShapeAppearance.AppTheme.Dialog" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
     <style name="ShapeAppearance.AppTheme.Circle" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%p</item>
@@ -118,6 +123,7 @@
     </style>
 
     <style name="ThemeOverlay.AppTheme.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog.Centered">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialAlertDialog.Material3</item>
         <item name="buttonBarPositiveButtonStyle">@style/AppTheme.MaterialButton</item>
         <item name="buttonBarNegativeButtonStyle">@style/AppTheme.MaterialButton.Secondary</item>
     </style>

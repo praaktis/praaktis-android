@@ -17,7 +17,10 @@ interface UserService {
     fun getTimelineData(): Single<TimelineDTO>
 
     @GET("user/getAttemptHistory/")
-    suspend fun getAttemptHistory(@Query("page") page: Int): AttemptHistoryResponse
+    suspend fun getAttemptHistory(
+        @Query("page") page: Int,
+        @Query("player_id") playerId: Long? = null
+    ): AttemptHistoryResponse
 
     @GET("user/logout/")
     fun logout(): Single<ResponseBody>
@@ -29,8 +32,13 @@ interface UserService {
 
     @POST("user/storeResults/")
     fun storeResult(
-        @Body storeResult: StoreResultDTO
+        @Body storeResult: StoreResultModel
     ): Single<ResponseBody>
+
+    @POST("user/storeResults/")
+    suspend fun storeResultCoroutines(
+        @Body storeResult: StoreResultModel
+    ): ResponseBody
 
     @GET("getRoutines/")
     fun getChallenges(): Single<List<ChallengeDTO>>
@@ -74,19 +82,19 @@ interface UserService {
         @Body playerModel: PlayerCreateModel
     ): Single<ResponseBody>
 
-    @GET("api/getHeights/")
+    @GET("getHeights/")
     fun fetchHeightOptions(): Single<List<KeyValueDTO>>
 
-    @GET("api/getWeights/")
+    @GET("getWeights/")
     fun fetchWeightOptions(): Single<List<KeyValueDTO>>
 
-    @GET("api/getAbilities/")
+    @GET("getAbilities/")
     fun fetchAbilityOptions(): Single<List<KeyValueDTO>>
 
-    @GET("api/getAgeGroups/")
+    @GET("getAgeGroups/")
     fun fetchAgeOptions(): Single<List<KeyValueDTO>>
 
-    @GET("api/getGenders/")
-    fun fetchGenderOptions(): Single<List<KeyValueDTO>>
+    @GET("getGenders/")
+    fun fetchGenderOptions(): Single<List<GenderDTO>>
 
 }

@@ -5,17 +5,17 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
-import androidx.core.view.get
+import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
+import com.mobile.gympraaktis.data.entities.DashboardEntity
 import com.mobile.gympraaktis.data.entities.DashboardWithAnalysis
 import com.mobile.gympraaktis.databinding.FragmentDashboardBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBinding
@@ -24,9 +24,11 @@ import com.mobile.gympraaktis.domain.common.AppGuide
 import com.mobile.gympraaktis.domain.common.resettableLazy
 import com.mobile.gympraaktis.domain.common.shape.CurvedEdgeTreatment
 import com.mobile.gympraaktis.domain.extension.*
+import com.mobile.gympraaktis.ui.details.view.DetailsActivity
 import com.mobile.gympraaktis.ui.main.adapter.AnalysisPagerAdapter
 import com.mobile.gympraaktis.ui.main.vm.DashboardViewModel
 import com.mobile.gympraaktis.ui.main.vm.MainViewModel
+import com.mobile.gympraaktis.ui.subscription_plans.view.SubscriptionPlansFragment
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
@@ -34,8 +36,8 @@ import com.takusemba.spotlight.shape.RoundedRectangle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import kotlin.math.abs
+import kotlin.math.max
 
 class DashboardFragment constructor(override val layoutId: Int = R.layout.fragment_dashboard) :
     BaseFragment<FragmentDashboardBinding>() {
@@ -82,11 +84,12 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
     }
 
     private fun initEvents() {
-        mViewModel.observeDashboard().observe(viewLifecycleOwner, Observer {
-            Timber.d("DASHBOARD_ENTITY $it")
+        mViewModel.observeDashboard().observe(viewLifecycleOwner) {
             if (it != null) setDashboardData(it)
-        })
+        }
     }
+
+    var subscriptionAlertDialog: AlertDialog? = null
 
     private fun setDashboardData(dashboardData: DashboardWithAnalysis) {
         with(dashboardData) {
@@ -100,8 +103,48 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
                 dashboard.activePlayers,
                 dashboard.allowedPlayers
             )
-            updateAttemptsProgress(dashboard.recordedAttempts, dashboard.attemptsAvailable)
+            updateAttemptsProgress(
+                dashboard.recordedAttempts,
+                dashboard.recordedAttempts + dashboard.attemptsAvailable
+            )
             startGuideIfNecessary()
+
+            warnUserDependingDashboardData(dashboard)
+        }
+    }
+
+    private fun warnUserDependingDashboardData(dashboard: DashboardEntity) {
+        if (subscriptionAlertDialog?.isShowing == true) return
+
+        if ((dashboard.activePlayers + 1 >= dashboard.allowedPlayers || dashboard.recordedAttempts + 1 >= dashboard.recordedAttempts + dashboard.attemptsAvailable)) {
+            val word2 = when {
+                dashboard.activePlayers + 1 >= dashboard.allowedPlayers && dashboard.recordedAttempts + 1 >= dashboard.recordedAttempts + dashboard.attemptsAvailable -> "players and attempts"
+                dashboard.activePlayers + 1 >= dashboard.allowedPlayers -> "players"
+                dashboard.recordedAttempts + 1 >= dashboard.recordedAttempts + dashboard.attemptsAvailable -> "attempts"
+                else -> "players and attempts"
+            }
+
+            val word1 = when {
+                dashboard.activePlayers >= dashboard.allowedPlayers || dashboard.recordedAttempts >= dashboard.recordedAttempts + dashboard.attemptsAvailable -> ""
+                else -> "almost"
+            }
+
+            subscriptionAlertDialog = activity.materialAlert {
+                setMessage(
+                    "You are $word1 out\n" +
+                            "of $word2.\n" +
+                            "\n" +
+                            "Please click here \n" +
+                            "to subscribe for more"
+                )
+                setPositiveButton("Subscribe") { dialog, which ->
+                    startActivity(DetailsActivity.start(activity, SubscriptionPlansFragment.TAG))
+                    dialog.dismiss()
+                }
+                setNegativeButton("Later") { dialog, which ->
+
+                }
+            }.apply { show() }
         }
     }
 
@@ -110,7 +153,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
             binding.vProgressCurrent.tag = currentScore
 
             binding.tvScoreTotal.text = maxScore.toString()
-            binding.llProgressLayout.weightSum = maxScore.toFloat()
+            binding.llProgressLayout.weightSum = max(currentScore, maxScore).toFloat()
 
             binding.vProgressCurrent.animateWeightChange(
                 (binding.vProgressCurrent.layoutParams as LinearLayout.LayoutParams).weight.toInt(),
@@ -132,7 +175,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
             binding.vAttemptProgressCurrent.tag = currentScore
 
             binding.tvAttemptScoreTotal.text = maxScore.toString()
-            binding.llProgressAttemptLayout.weightSum = maxScore.toFloat()
+            binding.llProgressAttemptLayout.weightSum = max(currentScore, maxScore).toFloat()
 
             binding.vAttemptProgressCurrent.animateWeightChange(
                 (binding.vAttemptProgressCurrent.layoutParams as LinearLayout.LayoutParams).weight.toInt(),
@@ -263,7 +306,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
         firstTarget.closeTarget.setOnClickListener { nextTarget() }
         firstTarget.closeSpotlight.setOnClickListener { closeSpotlight() }
         firstTarget.customText.text =
-            "Shows your current Level, Points and Credits. You earn Points for achieving a score better than 80% on any Challenge up to a maximum of 15 and you earn 1 Credit for each 5 attempts at Challenges"
+            "Shows your current Subscription, the number of Players you are allowed to Activate and the Number of Attempts you can video. The bars help you manage your subscription by showing how many Players you have Activated and Attempts you have used. A warning message will be displayed when you are close to your limit."
 
         val progressLocation = IntArray(2)
         binding.progressLevel.getLocationInWindow(progressLocation)
@@ -301,7 +344,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
         secondTarget.closeTarget.setOnClickListener { nextTarget() }
         secondTarget.closeSpotlight.setOnClickListener { closeSpotlight() }
         secondTarget.customText.text =
-            "Shows your scores and attempts for each Challenge and comparison with Friends and other Users at your level, age and experience"
+            "Shows your scores and attempts for each Routine and comparison with other Players at your level, age and experience"
 
         secondTarget.root.updatePadding(bottom = tvAnalysisLocation[1] - binding.tvAnalysisTitle.height)
 

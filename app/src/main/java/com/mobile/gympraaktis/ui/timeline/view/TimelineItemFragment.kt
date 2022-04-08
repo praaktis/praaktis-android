@@ -2,12 +2,13 @@ package com.mobile.gympraaktis.ui.timeline.view
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.data.Result
+import com.mobile.gympraaktis.data.entities.PlayerEntity
 import com.mobile.gympraaktis.databinding.FragmentItemTimelineBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetTimelineBinding
 import com.mobile.gympraaktis.domain.common.AppGuide
@@ -32,6 +33,8 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
     }
 
     override val mViewModel: TimelineFragmentViewModel by viewModels()
+
+    private var onRefreshListener: SwipeRefreshLayout.OnRefreshListener? = null
 
     override fun initUI(savedInstanceState: Bundle?) {
         if (activity.isConnected()) {
@@ -66,33 +69,46 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
         )
         binding.rvTimeline.adapter = adapter
 
-        var pagedListLiveData = mViewModel.getPagedAttemptHistory()
+        var pagedListLiveData =
+            mViewModel.getPagedAttemptHistory((binding.dropdownSelectPlayer.tag as? PlayerEntity)?.id)
 
         pagedListLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
 
-        binding.swipeRefresh.setOnRefreshListener {
+        onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
             mViewModel.refreshAttemptHistory()
-            if (adapter.currentList.isNullOrEmpty()) {
+//            if (adapter.currentList.isNullOrEmpty()) {
                 pagedListLiveData.removeObservers(viewLifecycleOwner)
-                pagedListLiveData = mViewModel.getPagedAttemptHistory()
+                pagedListLiveData =
+                    mViewModel.getPagedAttemptHistory((binding.dropdownSelectPlayer.tag as? PlayerEntity)?.id)
                 pagedListLiveData.observe(viewLifecycleOwner) {
                     adapter.submitList(it)
                 }
-            }
+//            }
         }
 
-        binding.etSelectPlayer.setAdapter(
-            ArrayAdapter(
-                requireContext(),
-                android.R.layout.simple_list_item_1,
-                listOf("Option 1", "Option 2", "Option 3", "Option 4")
-            )
-        )
-        binding.etSelectPlayer.setDropDownBackgroundResource(R.drawable.shape_popup_menu)
-        binding.etSelectPlayer.dropDownVerticalOffset = 8.dp
+        binding.swipeRefresh.setOnRefreshListener(onRefreshListener)
 
+        setupSelectPlayerField()
+    }
+
+    private fun setupSelectPlayerField() {
+        mViewModel.observePlayers().observe(viewLifecycleOwner) {
+            val allPlayers = PlayerEntity(-1L, getString(R.string.all_players))
+            val players = it.toMutableList().apply { add(0, allPlayers) }
+
+            binding.dropdownSelectPlayer.setDropdownValues(players.map { it.name }.toTypedArray())
+            binding.dropdownSelectPlayer.setOnItemClickListener { parent, view, position, id ->
+                players.getOrNull(position)?.let {
+                    binding.dropdownSelectPlayer.tag = it
+                }
+                binding.swipeRefresh.post {
+                    binding.swipeRefresh.isRefreshing = true
+                    onRefreshListener?.onRefresh()
+                }
+            }
+        }
     }
 
     private val spotlightDelegate = resettableLazy { initGuide() }

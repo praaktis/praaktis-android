@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object Constants {
-    const val DATABASE_HOCKEY_VERSION: Int = 14
+    const val DATABASE_HOCKEY_VERSION: Int = 15
     const val TIMELINE = "TIMELINE"
     const val TIMELINE_CHALLENGE_ITEM = "TIMELINE_CHALLENGE_ITEM"
 

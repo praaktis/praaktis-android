@@ -18,7 +18,7 @@ data class PlayerCreateModel(
     @SerializedName("nickname")
     val nickname: String? = null,
     @SerializedName("gender")
-    val gender: Gender? = null,
+    val gender: String? = null,
     @SerializedName("ability")
     val ability: UserLevel? = null,
     @SerializedName("age_group")
@@ -35,7 +35,16 @@ data class PlayerCreateModel(
 
 data class KeyValueDTO(
     @SerializedName("key")
-    val key: Any,
+    val key: Int,
     @SerializedName("name")
     val name: String,
 ) : Serializable
+
+data class GenderDTO(
+    @SerializedName("key")
+    val key: String,
+    @SerializedName("gender")
+    val name: String,
+) : Serializable
+
+

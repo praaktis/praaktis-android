@@ -1,12 +1,12 @@
 package com.mobile.gympraaktis.ui.challenge
 
 import android.content.Intent
-import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
+import com.mobile.gympraaktis.data.entities.PlayerEntity
 import com.mobile.gympraaktis.databinding.FragmentResultChallengeBinding
 import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.entities.DetailResult
@@ -20,6 +20,7 @@ import com.praaktis.exerciseengine.Engine.DetailPoint
 import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
 import com.praaktis.exerciseengine.Player.VideoReplayActivity
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
+import timber.log.Timber
 
 class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_result_challenge) :
     BaseFragment<FragmentResultChallengeBinding>() {
@@ -28,25 +29,24 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
         const val TAG = "ResultChallengeFragment"
 
         @JvmStatic
-        fun getInstance(challengeItem: ChallengeDTO): Fragment {
+        fun getInstance(challengeItem: ChallengeDTO, player: PlayerEntity): Fragment {
             val fragment = ResultChallengeFragment()
             val bundle = Bundle()
             bundle.putSerializable("challengeItem", challengeItem)
+            bundle.putSerializable("player", player)
             fragment.arguments = bundle
             return fragment
         }
     }
 
     override val mViewModel: ResultChallengeFragmentViewModel by viewModels()
-//        get() = getViewModel { ResultChallengeFragmentViewModel(activity.application) }
 
     private val challengeItem by lazy { requireArguments().getSerializable("challengeItem") as ChallengeDTO }
+    private val player by lazy { requireArguments().getSerializable("player") as PlayerEntity }
     private val result by lazy { activity.intent.getSerializableExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) as HashMap<String, Any>? }
     private val path by lazy { activity.intent.getStringExtra(ChallengeInstructionFragment.RAW_VIDEO_PATH) }
     private val pathTest by lazy { activity.intent.getStringExtra(ChallengeInstructionFragment.VIDEO_PATH) }
     private val videoId by lazy { activity.intent.getStringExtra(ChallengeInstructionFragment.VIDEO_ID) }
-
-    private var mediaPlayer2: MediaPlayer? = MediaPlayer()
 
     override fun initUI(savedInstanceState: Bundle?) {
         initToolbar()
@@ -68,11 +68,13 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
                 getOverallScore()
             tvYourScore.text =
                 "Your score: ${scoreOverAll.toInt()}"
+            Timber.d("STORE RESULTS CALLED")
             mViewModel.storeResult(
                 challengeItem,
                 score = scoreOverAll,
                 detailResults = detailResults,
-                videoId = videoId
+                videoId = videoId,
+                player = player
             )
         } else {
             tvYourScore.text = "Your score: 0"
@@ -81,7 +83,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     }
 
     private fun getOverallScore(): Float {
-        val overall = result?.get("Overall") as DetailPoint?
+        val overall = result?.get("OVERALL") as DetailPoint?
         return overall?.value ?: 0f
     }
 
@@ -130,7 +132,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     fun startExercise() {
         val intent = Intent(context, ExerciseEngineActivity::class.java)
         intent.putExtra("EXERCISE", challengeItem.id)
-        intent.putExtra("PLAYER", 1)
+        intent.putExtra("PLAYER", player.id)
         intent.putExtra(
             ChallengeInstructionFragment.SINGLE_USER_MODE,
             mViewModel.settingsStorage.cameraMode

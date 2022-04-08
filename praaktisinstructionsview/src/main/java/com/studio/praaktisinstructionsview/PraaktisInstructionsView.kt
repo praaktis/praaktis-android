@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import androidx.annotation.Dimension
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.updateLayoutParams
 import androidx.core.view.updateMargins
 import androidx.core.view.updatePadding
 import com.google.android.material.card.MaterialCardView
@@ -62,6 +63,7 @@ class PraaktisInstructionsView @JvmOverloads constructor(
             cardViewPadding.toInt().let {
                 setContentPadding(it, it, it, it)
             }
+            setCardBackgroundColor(ContextCompat.getColor(context, R.color.card_background_color))
             strokeColor = ContextCompat.getColor(context, R.color.deep_purple_a400)
             strokeWidth = cardViewStrokeWidth.toInt()
         }
@@ -71,7 +73,7 @@ class PraaktisInstructionsView @JvmOverloads constructor(
         return AppCompatTextView(context).apply {
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT
+                FrameLayout.LayoutParams.WRAP_CONTENT
             )
             gravity = Gravity.CENTER
             setText(text)
@@ -81,6 +83,9 @@ class PraaktisInstructionsView @JvmOverloads constructor(
     private fun createCardTextView(text: String): AppCompatTextView {
         return createTextView(text).apply {
             background = ContextCompat.getDrawable(context, R.drawable.gradient)
+            updateLayoutParams<FrameLayout.LayoutParams> {
+                height = FrameLayout.LayoutParams.MATCH_PARENT
+            }
             setTextColor(Color.WHITE)
             setTextSize(Dimension.SP, 23f)
         }
@@ -106,7 +111,7 @@ class PraaktisInstructionsView @JvmOverloads constructor(
             layoutParams = LayoutParams(lineWidth.toInt(), lineHeight.toInt()).apply {
                 updateMargins(top = lineMarginTop.toInt(), bottom = lineMarginTop.toInt())
             }
-            setBackgroundColor(ContextCompat.getColor(context, R.color.deep_purple_a400))
+            setBackgroundColor(ContextCompat.getColor(context, R.color.amber_300))
         }
     }
 

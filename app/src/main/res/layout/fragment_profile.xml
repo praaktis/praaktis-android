@@ -45,7 +45,7 @@
                     android:layout_marginTop="14dp"
                     android:text="@string/upload_profile_image"
                     android:textAllCaps="true"
-                    android:textColor="@color/purple_900_1"
+                    android:textColor="@color/primaryColor"
                     android:textSize="18sp" />
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -72,217 +72,158 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilFirstName"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
+                            app:boxBackgroundColor="@android:color/transparent"
+                            app:errorEnabled="true"
+                            app:hintEnabled="true">
 
-                            <LinearLayout
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etFirstName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:orientation="horizontal">
+                                android:hint="@string/first_name"
+                                android:inputType="textEmailAddress"
+                                android:maxLength="40"
+                                android:nextFocusDown="@id/etLastName" />
 
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/tilDateOfBirth"
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="16dp"
-                                    android:layout_weight="1"
-                                    android:clickable="true"
-                                    app:boxBackgroundColor="@android:color/transparent"
-                                    app:errorEnabled="true"
-                                    app:hintEnabled="true">
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/etDateOfBirth"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:editable="false"
-                                        android:focusable="false"
-                                        android:hint="@string/date_of_birth"
-                                        android:inputType="text"
-                                        android:maxLength="40" />
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilLastName"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@android:color/transparent"
+                            app:errorEnabled="true"
+                            app:hintEnabled="true">
 
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/til_gender"
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    app:boxBackgroundColor="@android:color/transparent"
-                                    app:errorEnabled="true"
-                                    app:hintEnabled="true">
-
-                                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                                        android:id="@+id/et_gender"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:editable="false"
-                                        android:hint="@string/gender"
-                                        android:inputType="none" />
-
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                            </LinearLayout>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/tilFirstName"
-                                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etLastName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                app:boxBackgroundColor="@android:color/transparent"
-                                app:errorEnabled="true"
-                                app:hintEnabled="true">
+                                android:hint="@string/last_name"
+                                android:inputType="textPersonName"
+                                android:maxLength="40"
+                                android:nextFocusDown="@id/etNickname" />
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/etFirstName"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/first_name"
-                                    android:inputType="textEmailAddress"
-                                    android:maxLength="40"
-                                    android:nextFocusDown="@id/etLastName" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                            </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilNickname"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@android:color/transparent"
+                            app:errorEnabled="true"
+                            app:hintEnabled="true">
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/tilLastName"
-                                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etNickname"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                app:boxBackgroundColor="@android:color/transparent"
-                                app:errorEnabled="true"
-                                app:hintEnabled="true">
+                                android:hint="@string/nickname"
+                                android:inputType="text"
+                                android:maxLength="40"
+                                android:nextFocusDown="@id/etCountry" />
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/etLastName"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/last_name"
-                                    android:inputType="textPersonName"
-                                    android:maxLength="40"
-                                    android:nextFocusDown="@id/etNickname" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                            </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilCountry"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            app:boxBackgroundColor="@android:color/transparent"
+                            app:endIconDrawable="@drawable/ic_arrow_drop_down"
+                            app:endIconMode="custom"
+                            app:endIconTint="@color/grey_400_1"
+                            app:errorEnabled="true"
+                            app:hintEnabled="true">
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/tilNickname"
-                                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:boxBackgroundColor="@android:color/transparent"
-                                app:errorEnabled="true"
-                                app:hintEnabled="true">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/etNickname"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/nickname"
-                                    android:inputType="text"
-                                    android:maxLength="40"
-                                    android:nextFocusDown="@id/etCountry" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/tilCountry"
-                                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etCountry"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:clickable="true"
-                                app:boxBackgroundColor="@android:color/transparent"
-                                app:endIconDrawable="@drawable/ic_arrow_drop_down"
-                                app:endIconMode="custom"
-                                app:endIconTint="@color/grey_400_1"
-                                app:errorEnabled="true"
-                                app:hintEnabled="true">
+                                android:editable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:hint="@string/country" />
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/etCountry"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:clickable="true"
-                                    android:editable="false"
-                                    android:focusable="false"
-                                    android:focusableInTouchMode="false"
-                                    android:hint="@string/country" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                            </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilEmail"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@android:color/transparent"
+                            app:errorEnabled="true"
+                            app:hintEnabled="true">
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/tilEmail"
-                                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etEmail"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                app:boxBackgroundColor="@android:color/transparent"
-                                app:errorEnabled="true"
-                                app:hintEnabled="true">
+                                android:enabled="false"
+                                android:hint="@string/your_email_phone"
+                                android:inputType="textEmailAddress"
+                                android:maxLength="40"
+                                android:textIsSelectable="true" />
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/etEmail"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:enabled="false"
-                                    android:hint="@string/your_email_phone"
-                                    android:inputType="textEmailAddress"
-                                    android:maxLength="40"
-                                    android:textIsSelectable="true" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                            </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilPassword"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@android:color/transparent"
+                            app:errorEnabled="true"
+                            app:hintEnabled="true"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="@color/grey_400_1">
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/tilPassword"
-                                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etPassword"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                app:boxBackgroundColor="@android:color/transparent"
-                                app:errorEnabled="true"
-                                app:hintEnabled="true"
-                                app:passwordToggleEnabled="true"
-                                app:passwordToggleTint="@color/grey_400_1">
+                                android:hint="@string/new_password"
+                                android:inputType="textPassword"
+                                android:maxLength="40"
+                                android:nextFocusDown="@id/etConfirmPassword" />
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/etPassword"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/new_password"
-                                    android:inputType="textPassword"
-                                    android:maxLength="40"
-                                    android:nextFocusDown="@id/etConfirmPassword" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                            </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilConfirmPassword"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@android:color/transparent"
+                            app:errorEnabled="true"
+                            app:hintEnabled="true"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="@color/grey_400_1">
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/tilConfirmPassword"
-                                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etConfirmPassword"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                app:boxBackgroundColor="@android:color/transparent"
-                                app:errorEnabled="true"
-                                app:hintEnabled="true"
-                                app:passwordToggleEnabled="true"
-                                app:passwordToggleTint="@color/grey_400_1">
+                                android:hint="@string/confirm_new_password"
+                                android:inputType="textPassword"
+                                android:maxLength="40"
+                                android:nextFocusDown="@id/tvSave" />
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/etConfirmPassword"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/confirm_new_password"
-                                    android:inputType="textPassword"
-                                    android:maxLength="40"
-                                    android:nextFocusDown="@id/tvSave" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                        </LinearLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
 

@@ -48,7 +48,6 @@ class DashboardViewModel(app: Application) : BaseViewModel(app) {
                             insertRoutines(it.routines.map { it.toRoutineEntity() })
                         }
                     }
-                    settingsStorage.setDashboard(it)
                 }
             }, ::onError)
     }

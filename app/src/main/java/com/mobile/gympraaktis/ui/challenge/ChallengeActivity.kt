@@ -10,10 +10,13 @@ import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseActivity
 import com.mobile.gympraaktis.data.entities.AttemptEntity
-import com.mobile.gympraaktis.data.entities.TimelineEntity
+import com.mobile.gympraaktis.data.entities.PlayerEntity
 import com.mobile.gympraaktis.databinding.ActivityChallengeBinding
 import com.mobile.gympraaktis.domain.entities.ChallengeDTO
-import com.mobile.gympraaktis.domain.extension.*
+import com.mobile.gympraaktis.domain.extension.materialAlert
+import com.mobile.gympraaktis.domain.extension.setLightNavigationBar
+import com.mobile.gympraaktis.domain.extension.showOrReplace
+import com.mobile.gympraaktis.domain.extension.transparentStatusAndNavigationBar
 import com.mobile.gympraaktis.ui.details.view.ChallengeInstructionFragment
 import com.mobile.gympraaktis.ui.login.view.LoginActivity
 import com.mobile.gympraaktis.ui.main.vm.MenuViewModel
@@ -32,21 +35,17 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
             result: HashMap<String, Any>?,
             path: String?,
             pathTest: String?,
-            videoId: String?
+            videoId: String?,
+            player: PlayerEntity,
         ) {
             val intent = Intent(activity, ChallengeActivity::class.java)
             intent.putExtra("challengeItem", challengeItem)
             intent.putExtra(ChallengeInstructionFragment.RAW_VIDEO_PATH, path)
             intent.putExtra(ChallengeInstructionFragment.VIDEO_PATH, pathTest)
             intent.putExtra(ChallengeInstructionFragment.VIDEO_ID, videoId)
+            intent.putExtra("player", player)
             if (result != null)
                 intent.putExtra(ChallengeInstructionFragment.CHALLENGE_RESULT, result)
-            activity.startActivity(intent)
-        }
-
-        fun start(activity: Activity, scoreDTO: TimelineEntity) {
-            val intent = Intent(activity, ChallengeActivity::class.java)
-            intent.putExtra("score", scoreDTO)
             activity.startActivity(intent)
         }
 
@@ -59,6 +58,7 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
     }
 
     private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as ChallengeDTO }
+    private val player by lazy { intent.getSerializableExtra("player") as PlayerEntity }
 
     override val mViewModel: MenuViewModel by viewModels()
 
@@ -82,7 +82,7 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
             showOrReplace(tag) {
                 replace(
                     R.id.container,
-                    ResultChallengeFragment.getInstance(challengeItem), tag
+                    ResultChallengeFragment.getInstance(challengeItem, player), tag
                 )
             }
         }
@@ -115,7 +115,8 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
                             ChallengeInstructionFragment.RAW_VIDEO_PATH
                         ),
                         data.getStringExtra(ChallengeInstructionFragment.VIDEO_PATH),
-                        data.getStringExtra(ChallengeInstructionFragment.VIDEO_ID)
+                        data.getStringExtra(ChallengeInstructionFragment.VIDEO_ID),
+                        player,
                     )
                 }
                 ExerciseEngineActivity.AUTHENTICATION_FAILED -> {

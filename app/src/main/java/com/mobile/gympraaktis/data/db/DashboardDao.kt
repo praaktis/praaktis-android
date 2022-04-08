@@ -64,6 +64,9 @@ interface DashboardDao {
         insertScoreAnalysis(scoreAnalysisList)
     }
 
+    @Query("SELECT * FROM player")
+    fun getPlayers(): Flow<List<PlayerEntity>>
+
     @Query("SELECT * FROM routine")
     fun getRoutines(): Flow<List<RoutineEntity>>
 

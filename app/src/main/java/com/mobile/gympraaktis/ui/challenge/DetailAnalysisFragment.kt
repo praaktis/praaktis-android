@@ -14,7 +14,10 @@ import com.mobile.gympraaktis.domain.common.resettableLazy
 import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.entities.DetailPoint
 import com.mobile.gympraaktis.domain.entities.DetailScoreDTO
-import com.mobile.gympraaktis.domain.extension.*
+import com.mobile.gympraaktis.domain.extension.doOnPreDraw
+import com.mobile.gympraaktis.domain.extension.hide
+import com.mobile.gympraaktis.domain.extension.hideAnimWithScale
+import com.mobile.gympraaktis.domain.extension.showAnimWithScale
 import com.mobile.gympraaktis.ui.challenge.vm.DetailAnalysisFragmentViewModel
 import com.mobile.gympraaktis.ui.details.view.ChallengeInstructionFragment
 import com.takusemba.spotlight.OnSpotlightListener
@@ -64,7 +67,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
     override fun initUI(savedInstanceState: Bundle?) {
         initToolbar()
         if (arguments?.get("score") != null) {
-            binding.cvSelectPlayer.show()
+            binding.cvSelectPlayer.hide()
             mViewModel.getDetailResult(scoreDTO.attemptId) // from remote
         } else {
             binding.cvSelectPlayer.hide()
@@ -83,7 +86,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
         result?.forEach { (key, value) ->
             when (value) {
                 is com.praaktis.exerciseengine.Engine.DetailPoint -> {
-                    if (key != "Overall") {
+                    if (key != "OVERALL") {
                         scoresMap[value.priority] = DetailScoreDTO(
                             DetailPoint(value.id, key),
                             value.value,
@@ -192,7 +195,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
         target.closeSpotlight.setOnClickListener { closeSpotlight() }
 //        target.customText.updateLayoutParams<ConstraintLayout.LayoutParams> { updateMargins(top = binding.toolbar.height + 340.dp) }
         target.customText.text =
-            "Shows your Score for each of the Key Aspects of the Challenge, as well as your Overall Score and the Count of your repetitions"
+            "Shows your score for each of the key Elements of your Routine as well as your Overall Score"
 
         val viewLocation = IntArray(2)
         binding.toolbar.getLocationOnScreen(viewLocation)

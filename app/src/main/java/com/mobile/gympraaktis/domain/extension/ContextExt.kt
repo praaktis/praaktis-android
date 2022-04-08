@@ -93,7 +93,7 @@ fun Activity.materialAlert(
         dialog.findViewById<TextView>(android.R.id.message)?.apply {
             gravity = Gravity.CENTER
             setTextSize(Dimension.SP, 18f)
-            setTextColor(ContextCompat.getColor(context, R.color.purple_900_1))
+            setTextColor(ContextCompat.getColor(context, R.color.primaryColor))
             setTypeface(ResourcesCompat.getFont(context, R.font.lato))
             updatePadding(bottom = 16.dp)
         }
@@ -130,7 +130,7 @@ fun Activity.materialAlert(
         dialog.findViewById<TextView>(android.R.id.message)?.apply {
             gravity = Gravity.CENTER
             setTextSize(Dimension.SP, 18f)
-            setTextColor(ContextCompat.getColor(context, R.color.purple_900_1))
+            setTextColor(ContextCompat.getColor(context, R.color.primaryColor))
             setTypeface(ResourcesCompat.getFont(context, R.font.lato))
             updatePadding(bottom = 16.dp)
         }

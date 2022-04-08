@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
+import com.mobile.gympraaktis.data.entities.PlayerEntity
 import com.mobile.gympraaktis.databinding.FragmentChallengeInstructionBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBottomBinding
@@ -45,23 +46,26 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         const val VIDEO_ID = "VIDEO_ID"
         private const val AUTO_START_DURATION = 20000L
 
-        fun getInstance(item: ChallengeDTO) = ChallengeInstructionFragment().apply {
-            arguments = Bundle().apply {
-                putSerializable(CHALLENGE_ITEM, item)
+        fun getInstance(item: ChallengeDTO, player: PlayerEntity) =
+            ChallengeInstructionFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(CHALLENGE_ITEM, item)
+                    putSerializable("player", player)
+                }
             }
-        }
     }
 
     override val mViewModel: MenuViewModel by viewModels()
 
     private val challengeItem by lazy { requireArguments().getSerializable(CHALLENGE_ITEM) as ChallengeDTO }
+    private val player by lazy { requireArguments().getSerializable("player") as PlayerEntity }
     private val autoStartAnimator by lazy { ValueAnimator.ofFloat(0f, 1f) }
 
     override fun initUI(savedInstanceState: Bundle?) {
         if (getActivity() is AppCompatActivity)
             (getActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { fragmentManager?.popBackStack() }
-        tvtitle.text = challengeItem.name
+        binding.tvTitle.text = challengeItem.name
 
         binding.tgMode.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (isChecked) {
@@ -137,9 +141,9 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
 
     private fun startChallengeSteps() {
         if (getActivity() != null) {
-//            ChallengeActivity.start(getActivity()!!, challengeItem)
             val intent = Intent(context, ExerciseEngineActivity::class.java)
             intent.putExtra("EXERCISE", challengeItem.id)
+            intent.putExtra("PLAYER", player.id)
             intent.putExtra(SINGLE_USER_MODE, mViewModel.settingsStorage.cameraMode)
             startActivityForResult(intent, ChallengeActivity.PRAAKTIS_SDK_REQUEST_CODE)
         }
@@ -170,7 +174,8 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
                         result,
                         data.getStringExtra(RAW_VIDEO_PATH),
                         data.getStringExtra(VIDEO_PATH),
-                        data.getStringExtra(VIDEO_ID)
+                        data.getStringExtra(VIDEO_ID),
+                        player
                     )
                 }
                 ExerciseEngineActivity.AUTHENTICATION_FAILED -> {

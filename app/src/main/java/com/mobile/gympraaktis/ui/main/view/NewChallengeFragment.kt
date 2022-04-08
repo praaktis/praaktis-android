@@ -15,15 +15,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
+import com.mobile.gympraaktis.data.entities.PlayerEntity
 import com.mobile.gympraaktis.databinding.FragmentNewChallengeBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetChallengesBinding
 import com.mobile.gympraaktis.domain.common.AppGuide
+import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
 import com.mobile.gympraaktis.domain.common.resettableLazy
 import com.mobile.gympraaktis.domain.entities.ChallengeDTO
-import com.mobile.gympraaktis.domain.extension.doOnPreDraw
-import com.mobile.gympraaktis.domain.extension.hideAnimWithScale
-import com.mobile.gympraaktis.domain.extension.materialAlert
-import com.mobile.gympraaktis.domain.extension.showAnimWithScale
+import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.challenge.ChallengeVideoActivity
 import com.mobile.gympraaktis.ui.main.adapter.ChallengesAdapter
 import com.mobile.gympraaktis.ui.main.vm.MainViewModel
@@ -53,7 +52,7 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
     private var challenge: ChallengeDTO? = null
 
     override fun initUI(savedInstanceState: Bundle?) {
-        mainViewModel = ViewModelProvider(activity).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(activity)[MainViewModel::class.java]
 
         val adapter = ChallengesAdapter {
             closeSpotlight()
@@ -69,34 +68,69 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
             }
         })
 
+        setupSelectPlayerField()
+
+    }
+
+    private fun setupSelectPlayerField() {
+        mViewModel.observePlayers().observe(viewLifecycleOwner) { players ->
+            val defaultPlayerId = SettingsStorage.instance.getSelectedPlayerId()
+            if (defaultPlayerId != -1L) {
+                players.find {
+                    it.id == defaultPlayerId
+                }?.let {
+                    binding.dropdownSelectPlayer.setText(it.name)
+                    binding.dropdownSelectPlayer.tag = it
+                }
+            }
+            binding.dropdownSelectPlayer.setDropdownValues(players.map { it.name }.toTypedArray())
+            binding.dropdownSelectPlayer.setOnItemClickListener { parent, view, position, id ->
+                players.getOrNull(position)?.let {
+                    binding.dropdownSelectPlayer.tag = it
+                    SettingsStorage.instance.setSelectedPlayerId(it.id)
+                }
+            }
+        }
     }
 
     private fun handleChallengeClick() {
-        if (ContextCompat.checkSelfPermission(
-                activity, Manifest.permission.CAMERA
-            ) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(
-                activity,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(
-                activity, Manifest.permission.RECORD_AUDIO
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestPermissions(
-                arrayOf(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.RECORD_AUDIO
-                ), PRAAKTIS_SDK_PERMISSIONS
-            )
+        if (binding.dropdownSelectPlayer.tag != null) {
+            if (ContextCompat.checkSelfPermission(
+                    activity, Manifest.permission.CAMERA
+                ) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(
+                    activity,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(
+                    activity, Manifest.permission.RECORD_AUDIO
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                requestPermissions(
+                    arrayOf(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.RECORD_AUDIO
+                    ), PRAAKTIS_SDK_PERMISSIONS
+                )
+            } else {
+                openChallengeVideo()
+            }
         } else {
-            openChallengeVideo()
+            context?.makeToast(R.string.select_player)
         }
     }
 
     private fun openChallengeVideo() {
-        challenge?.let { ChallengeVideoActivity.start(activity, it) }
+        challenge?.let {
+            it.videoUrl?.let { it1 -> (activity as MainActivity).schedulePreloadWork(it1) }
+
+            ChallengeVideoActivity.start(
+                activity,
+                it,
+                binding.dropdownSelectPlayer.tag as PlayerEntity
+            )
+        }
     }
 
     override fun onRequestPermissionsResult(

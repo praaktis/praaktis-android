@@ -32,8 +32,6 @@ object SettingsStorage {
 
 }
 
-private val SORTING_DELIMETER = " -- "
-
 class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings {
     var token by prefString()
     var fcmToken by prefString()
@@ -43,31 +41,6 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
     var login by prefString()
     var password by prefString()
     var cameraMode by prefBoolean()
-
-    private companion object {
-        const val SORTING = "App_Sorting_"
-    }
-
-    //  fun saveSorting(sorting: SortOrder) {
-//    val type = sorting.type.serialize()
-//    val direction = sorting.direction.serialize()
-//    val saveLike = "$type$SORTING_DELIMETER$direction"
-//
-//    preferences.edit().putString(SORTING, saveLike).commit()
-//  }
-//
-//  fun getSorting() : SortOrder {
-//    val type = SortOrder.Type.DATE.serialize()
-//    val direction = SortOrder.Direction.ASC.serialize()
-//    val pattern = "$type$SORTING_DELIMETER$direction"
-//
-//    val savedSorting = preferences.getString(SORTING, pattern)
-//    val list = savedSorting.split("$SORTING_DELIMETER")
-//    val exType = deserialize<SortOrder.Type>(list.first())
-//    val exDirection = deserialize<SortOrder.Direction>(list.last())
-//
-//    return SortOrder(exType!!, exDirection!!)
-//  }
 
     override fun cameraMode(): Boolean = cameraMode
 
@@ -117,29 +90,6 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
         preferences.edit().putString("challenges", Gson().toJson(challenges)).commit()
     }
 
-    override fun getDashboard(): DashboardDTO? {
-        if (preferences.getString("dashboard", null) != null)
-            return Gson().fromJson(
-                preferences.getString("dashboard", null),
-                DashboardDTO::class.java
-            )
-        return null
-    }
-
-    override fun setDashboard(dashboardDTO: DashboardDTO) {
-        preferences.edit().putString("dashboard", Gson().toJson(dashboardDTO)).commit()
-    }
-
-    override fun getTimeline(): TimelineDTO? {
-        if (preferences.getString("timeline", null) != null)
-            return Gson().fromJson(preferences.getString("timeline", null), TimelineDTO::class.java)
-        return null
-    }
-
-    override fun setTimeline(timelineDTO: TimelineDTO) {
-        preferences.edit().putString("timeline", Gson().toJson(timelineDTO)).commit()
-    }
-
     override fun setTimelineDetails(timelineDetails: List<DetailScoreDTO>, attemptId: Int) {
         preferences.edit().putString("timelineDetails_$attemptId", Gson().toJson(timelineDetails))
             .commit()
@@ -173,4 +123,12 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
         return null
     }
 
+
+    override fun getSelectedPlayerId(): Long {
+        return preferences.getLong("SELECTED_PLAYER", -1L)
+    }
+
+    override fun setSelectedPlayerId(playerId: Long) {
+        preferences.edit().putLong("SELECTED_PLAYER", playerId).commit()
+    }
 }
