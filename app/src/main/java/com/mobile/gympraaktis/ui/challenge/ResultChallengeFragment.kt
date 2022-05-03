@@ -95,7 +95,8 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
                     detailResults.add(
                         DetailResult(
                             value.id,
-                            value.value
+                            value.value,
+                            if (value.maxValue >= 0) value.maxValue else 100f
                         )
                     )
                 }

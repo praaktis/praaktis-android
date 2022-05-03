@@ -7,5 +7,7 @@ data class DetailResult(
     @SerializedName("detail_point_id")
     val detailPointId: Int,
     @SerializedName("detail_point_score")
-    val detailPointScore: Float
+    val detailPointScore: Float,
+    @SerializedName("max_value")
+    val maxValue: Float,
 ) : Serializable
