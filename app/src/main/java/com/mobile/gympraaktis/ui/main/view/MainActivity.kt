@@ -19,6 +19,7 @@ import com.mobile.gympraaktis.base.BaseActivity
 import com.mobile.gympraaktis.databinding.ActivityMainBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBottomBinding
 import com.mobile.gympraaktis.domain.extension.*
+import com.mobile.gympraaktis.ui.faqs.view.FaqsFragment
 import com.mobile.gympraaktis.ui.friends.view.FriendsPagerFragment
 import com.mobile.gympraaktis.ui.main.vm.MainViewModel
 import com.mobile.gympraaktis.ui.new_player.view.NewPlayerFragment
@@ -122,6 +123,7 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is SettingsFragment
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is NewPlayerFragment
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is NewPlayerProfileFragment
+                        || supportFragmentManager.findFragmentById(R.id.menu_container) is FaqsFragment
                     ) {
                         onBackPressed()
                         return true

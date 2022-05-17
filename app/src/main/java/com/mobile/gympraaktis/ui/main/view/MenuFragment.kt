@@ -10,6 +10,7 @@ import com.mobile.gympraaktis.databinding.FragmentMenuBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetTimelineBinding
 import com.mobile.gympraaktis.domain.common.AppGuide
 import com.mobile.gympraaktis.domain.extension.*
+import com.mobile.gympraaktis.ui.faqs.view.FaqsFragment
 import com.mobile.gympraaktis.ui.login.view.LoginActivity
 import com.mobile.gympraaktis.ui.main.vm.MenuViewModel
 import com.mobile.gympraaktis.ui.new_player.view.NewPlayerFragment
@@ -77,6 +78,19 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
                 addToBackStack(TAG)
             }
         }
+
+        binding.menuFaqs.setOnClickListener {
+            closeSpotlight()
+            activity.addFragment {
+                add(
+                    R.id.menu_container,
+                    FaqsFragment.getInstance(),
+                    FaqsFragment.TAG
+                )
+                addToBackStack(TAG)
+            }
+        }
+
         binding.menuLogout.onClick {
             closeSpotlight()
             activity.materialAlert {
