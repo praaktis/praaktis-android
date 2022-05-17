@@ -35,6 +35,7 @@
     <string name="let_me_go">Laisse moi partir</string>
     <string name="settings">Réglages</string>
     <string name="score">But</string>
+    <string name="faqs">FAQs</string>
 
     <array name="entryvalues_choose_image">
         <item>Select image</item>

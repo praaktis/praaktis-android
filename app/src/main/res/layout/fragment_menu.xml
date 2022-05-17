@@ -160,6 +160,26 @@
                 app:shapeAppearance="@style/ShapeAppearance.AppTheme.Circle" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/menu_faqs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:letterSpacing="0"
+                android:minHeight="0dp"
+                android:padding="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="32dp"
+                android:text="@string/faqs"
+                android:textSize="17sp"
+                app:backgroundTint="@android:color/white"
+                app:icon="@drawable/ic_dropdown"
+                app:iconSize="32dp"
+                app:iconTint="@color/transparent"
+                app:iconTintMode="src_over"
+                app:rippleColor="@color/primaryColor"
+                app:shapeAppearance="@style/ShapeAppearance.AppTheme.Circle" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_logout"
                 style="@style/Widget.Material3.Button.TextButton.Icon"
                 android:layout_width="match_parent"
