@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_beginner"
+        style="@style/Widget.MaterialComponents.Button"
+        android:shadowRadius="0"
+        android:layout_width="0dp"
+        android:layout_height="77dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/toggle_group_item_color"
+        android:insetLeft="5dp"
+        android:insetRight="9dp"
+        android:text="Why am I being prompted
+for a Subscription?"
+        android:textAlignment="textStart"
+        android:textColor="@color/primaryColor"
+        android:textSize="16sp"
+        android:textFontWeight="600"
+        app:cornerRadius="31dp"
+        />
+
+</LinearLayout>

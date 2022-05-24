@@ -87,6 +87,7 @@ dependencies {
     implementation "androidx.viewpager2:viewpager2:1.1.0-beta01"
 
     implementation "androidx.work:work-runtime-ktx:2.7.1"
+    implementation 'com.robertlevonyan.view:MaterialExpansionPanel:2.1.1'
 
     // praaktis sdk
     implementation project(path: ':praaktis_sdk')
