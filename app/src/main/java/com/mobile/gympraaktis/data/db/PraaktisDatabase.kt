@@ -5,10 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.mobile.gympraaktis.data.db.converter.DetailResultListConverter
-import com.mobile.gympraaktis.data.db.converter.DoubleListConverter
-import com.mobile.gympraaktis.data.db.converter.IntListConverter
-import com.mobile.gympraaktis.data.db.converter.StringListConverter
+import com.mobile.gympraaktis.data.db.converter.*
 import com.mobile.gympraaktis.data.entities.*
 import com.mobile.gympraaktis.domain.common.Constants.DATABASE_HOCKEY_VERSION
 import com.mobile.gympraaktis.domain.entities.CountryItemDTO
@@ -38,6 +35,7 @@ import com.mobile.gympraaktis.domain.entities.StoreResultModel
     DoubleListConverter::class,
     IntListConverter::class,
     DetailResultListConverter::class,
+    MeasureResultListConverter::class,
 )
 abstract class PraaktisDatabase : RoomDatabase() {
     companion object {

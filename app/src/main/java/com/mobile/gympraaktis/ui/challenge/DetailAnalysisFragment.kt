@@ -20,6 +20,7 @@ import com.mobile.gympraaktis.domain.extension.hideAnimWithScale
 import com.mobile.gympraaktis.domain.extension.showAnimWithScale
 import com.mobile.gympraaktis.ui.challenge.vm.DetailAnalysisFragmentViewModel
 import com.mobile.gympraaktis.ui.details.view.ChallengeInstructionFragment
+import com.praaktis.exerciseengine.Engine.Measurement
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
@@ -88,17 +89,16 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
                 is com.praaktis.exerciseengine.Engine.DetailPoint -> {
                     if (key != "OVERALL") {
                         scoresMap[value.priority] = DetailScoreDTO(
-                            DetailPoint(value.id, key),
+                            DetailPoint(value.id, key, value.maxValue),
                             value.value,
-                            if(value.maxValue != null) value.maxValue else 100f,
                         )
-                        /*detailScores.add(
-                            DetailScoreDTO(
-                                DetailPoint(value.id, key),
-                                value.value.toDouble()
-                            )
-                        )*/
                     }
+                }
+                is Measurement -> {
+                    scoresMap[value.id * 100] = DetailScoreDTO(
+                        DetailPoint(value.id, key, 100f,),
+                        value.value,
+                    )
                 }
             }
         }
@@ -118,7 +118,8 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
     }
 
     private fun setDetail(detailScores: List<DetailScoreDTO>) {
-        if (arguments?.getSerializable("score") != null) binding.tvExerciseName.text = scoreDTO.challengeName
+        if (arguments?.getSerializable("score") != null) binding.tvExerciseName.text =
+            scoreDTO.challengeName
         else binding.tvExerciseName.text = challengeItem.name
 
 //        var gradientIterator = GRADIENT_PROGRESS_ARRAY.listIterator()
@@ -139,7 +140,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
                 value = detailScores[i].detailPointScore,
                 title = detailScores[i].detailPoint.name,
                 progressBackground = R.drawable.gradient_progress,
-                maxValue = detailScores[i].maxValue
+                maxValue = detailScores[i].detailPoint.maxValue
             )
             llAnalysisContainer.addView(chart)
         }

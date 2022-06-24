@@ -10,7 +10,6 @@ import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentProfileBinding
 import com.mobile.gympraaktis.domain.entities.CountryItemDTO
-import com.mobile.gympraaktis.domain.entities.Gender
 import com.mobile.gympraaktis.domain.entities.UserDTO
 import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.main.vm.ProfileViewModel
@@ -154,8 +153,6 @@ class ProfileFragment(override val layoutId: Int = R.layout.fragment_profile) :
     private fun returnDiffUserDTO(): UserDTO {
         return UserDTO(
             dateOfBirth = oldUserInfo.dateOfBirth.returnDiff(newUserInfo.dateOfBirth),
-            gender = oldUserInfo.gender!!.name.returnDiff(newUserInfo.gender!!.name)
-                ?.let { Gender.valueOf(it) },
             firstName = oldUserInfo.firstName!!.returnDiff(newUserInfo.firstName),
             lastName = oldUserInfo.lastName!!.returnDiff(newUserInfo.lastName),
             nickname = oldUserInfo.nickname!!.returnDiff(newUserInfo.nickname),

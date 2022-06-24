@@ -5,16 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.android.billingclient.api.ProductDetails
 import com.mobile.gympraaktis.databinding.ItemPlanBinding
 import com.mobile.gympraaktis.domain.extension.listen
 
-class SubscriptionPlanAdapter :
+class SubscriptionPlanAdapter(private val onItemClick : (SubscriptionPlan) -> Unit) :
     ListAdapter<SubscriptionPlan, SubscriptionPlanAdapter.ViewHolder>(DIFF_CALLBACK) {
     class ViewHolder(private val binding: ItemPlanBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: SubscriptionPlan) {
             binding.tvTitle.text = item.name
-            binding.tvPrice.text =
-                "£${android.icu.text.NumberFormat.getInstance().format(item.price)}"
+            binding.tvPrice.text = item.price
+//                "£${android.icu.text.NumberFormat.getInstance().format(item.price)}"
             binding.tvDetails.text =
                 "${item.players} Player/Patient\n${if (item.attempts == -1) "Unlimited" else item.attempts} Attempts"
         }
@@ -46,7 +47,7 @@ class SubscriptionPlanAdapter :
                 false
             )
         ).listen { position, type ->
-
+            onItemClick.invoke(getItem(position))
         }
     }
 
@@ -55,20 +56,21 @@ class SubscriptionPlanAdapter :
     }
 }
 
-val mockPracticePlans = listOf(
-    SubscriptionPlan(1, "Practice Basic", 1.99f, -1, 1),
-    SubscriptionPlan(2, "Practice Premium", 4.99f, -1, 5),
-)
-
-val mockClubPlans = listOf(
-    SubscriptionPlan(3, "Club Basic", 2.99f, 100, 15),
-    SubscriptionPlan(4, "Club Premium", 6.99f, 300, 50)
-)
+//val mockPracticePlans = listOf(
+//    SubscriptionPlan(1, "Practice Basic", 1.99f, -1, 1),
+//    SubscriptionPlan(2, "Practice Premium", 4.99f, -1, 5),
+//)
+//
+//val mockClubPlans = listOf(
+//    SubscriptionPlan(3, "Club Basic", 2.99f, 100, 15),
+//    SubscriptionPlan(4, "Club Premium", 6.99f, 300, 50)
+//)
 
 data class SubscriptionPlan(
-    val id: Long,
+    val id: String,
     val name: String,
-    val price: Float,
+    val price: String,
     val attempts: Int,
     val players: Int,
+    val skuDetails: ProductDetails,
 )

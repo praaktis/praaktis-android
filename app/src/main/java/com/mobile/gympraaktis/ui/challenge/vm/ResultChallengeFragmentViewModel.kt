@@ -9,6 +9,7 @@ import com.mobile.gympraaktis.data.repository.UserServiceRepository
 import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.entities.DetailResult
 import com.mobile.gympraaktis.domain.entities.StoreResultModel
+import com.praaktis.exerciseengine.Engine.Measurement
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -28,7 +29,8 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
         credits: Float? = null,
         detailResults: List<DetailResult>,
         videoId: String? = null,
-        player: PlayerEntity
+        player: PlayerEntity,
+        measurements: List<Measurement>
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
@@ -42,7 +44,8 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
                 credits = credits,
                 challengeId = challengeItem.id,
                 detailResult = detailResults,
-                videoId = videoId
+                videoId = videoId,
+                measurements = measurements
             )
             praaktisDao.saveResult(request)
         }

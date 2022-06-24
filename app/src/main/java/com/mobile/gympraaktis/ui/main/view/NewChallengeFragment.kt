@@ -98,10 +98,10 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
             if (ContextCompat.checkSelfPermission(
                     activity, Manifest.permission.CAMERA
                 ) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(
-                    activity,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED ||
+//                ContextCompat.checkSelfPermission(
+//                    activity,
+//                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                ) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(
                     activity, Manifest.permission.RECORD_AUDIO
                 ) != PackageManager.PERMISSION_GRANTED
@@ -109,7 +109,7 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
                 requestPermissions(
                     arrayOf(
                         Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.RECORD_AUDIO
                     ), PRAAKTIS_SDK_PERMISSIONS
                 )
@@ -160,7 +160,7 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
                         }
                     }
                     materialAlert {
-                        setMessage("Sorry!!!, you can't use challenges without granting permissions")
+                        setMessage("Sorry!!!, you can't use routines without granting permissions")
                         setPositiveButton(
                             R.string.ok
                         ) { dialog, which ->
@@ -238,7 +238,7 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
         target.closeSpotlight.setOnClickListener { closeSpotlight() }
 
         target.customText.text =
-            "Discover all the Challenges and Select the one you want to try"
+            "Discover all the Routines and Select the one you want to try"
 
         val rvLocation = IntArray(2)
         binding.rvChallenges.getLocationOnScreen(rvLocation)

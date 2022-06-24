@@ -45,7 +45,7 @@
         <entry key="app/src/main/res/layout/fragment_exercise_analysis.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.21223958333333334" />
         <entry key="app/src/main/res/layout/fragment_friends.xml" value="0.27340129749768305" />
-        <entry key="app/src/main/res/layout/fragment_item_timeline.xml" value="0.211306765523633" />
+        <entry key="app/src/main/res/layout/fragment_item_timeline.xml" value="0.19093933105468752" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.30185185185185187" />
         <entry key="app/src/main/res/layout/fragment_me_vs_friends.xml" value="0.3002780352177943" />
         <entry key="app/src/main/res/layout/fragment_me_vs_others.xml" value="0.27340129749768305" />
@@ -66,7 +66,7 @@
         <entry key="app/src/main/res/layout/item_header.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/item_plan.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/item_progress.xml" value="0.2808155699721965" />
-        <entry key="app/src/main/res/layout/item_timeline.xml" value="0.34843950406156476" />
+        <entry key="app/src/main/res/layout/item_timeline.xml" value="0.3160333642261353" />
         <entry key="app/src/main/res/layout/item_timeline_type.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/layout_intro_fifth.xml" value="0.30185185185185187" />
         <entry key="app/src/main/res/layout/layout_intro_first.xml" value="0.30185185185185187" />

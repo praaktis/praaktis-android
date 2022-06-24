@@ -166,7 +166,7 @@ class TimelineItemFragment constructor(override val layoutId: Int = R.layout.fra
         target.closeSpotlight.setOnClickListener { closeSpotlight() }
 
         target.customText.text =
-            "Shows you by date and time all of your attempts at different Challenges. Click on Details to get more information"
+            "Shows you by date and time all of your attempts at different Routines. Click on Details to get more information"
 
         val rvLocation = IntArray(2)
         binding.rvTimeline.getLocationOnScreen(rvLocation)

@@ -3,6 +3,7 @@ package com.mobile.gympraaktis.domain.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
+import com.praaktis.exerciseengine.Engine.Measurement
 import java.io.Serializable
 
 @Entity(
@@ -33,5 +34,7 @@ data class StoreResultModel(
     @SerializedName("detail_result")
     val detailResult: List<DetailResult>,
     @SerializedName("video_id")
-    val videoId: String? = null
+    val videoId: String? = null,
+    @SerializedName("measurements")
+    val measurements: List<Measurement>
 ) : Serializable

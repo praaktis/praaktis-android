@@ -18,6 +18,7 @@ import com.mobile.gympraaktis.ui.challenge.vm.ResultChallengeFragmentViewModel
 import com.mobile.gympraaktis.ui.details.view.ChallengeInstructionFragment
 import com.praaktis.exerciseengine.Engine.DetailPoint
 import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
+import com.praaktis.exerciseengine.Engine.Measurement
 import com.praaktis.exerciseengine.Player.VideoReplayActivity
 import kotlinx.android.synthetic.main.fragment_result_challenge.*
 import timber.log.Timber
@@ -64,6 +65,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     private fun initVideoView() {
         if (result != null) {
             val detailResults = collectDetailResults()
+            val measurements = collectMeasurements()
             val scoreOverAll =
                 getOverallScore()
             tvYourScore.text =
@@ -74,7 +76,8 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
                 score = scoreOverAll,
                 detailResults = detailResults,
                 videoId = videoId,
-                player = player
+                player = player,
+                measurements = measurements
             )
         } else {
             tvYourScore.text = "Your score: 0"
@@ -89,6 +92,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
 
     private fun collectDetailResults(): MutableList<DetailResult> {
         val detailResults: MutableList<DetailResult> = mutableListOf()
+
         result?.forEach { (key, value) ->
             when (value) {
                 is DetailPoint -> {
@@ -103,6 +107,18 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             }
         }
         return detailResults
+    }
+
+    private fun collectMeasurements(): List<Measurement> {
+        val measurements = mutableListOf<Measurement>()
+        result?.forEach { (key, value) ->
+            when (value) {
+                is Measurement -> {
+                    measurements.add(value)
+                }
+            }
+        }
+        return measurements
     }
 
     private fun initClicks() {
