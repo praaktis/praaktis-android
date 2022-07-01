@@ -24,6 +24,7 @@ import com.mobile.gympraaktis.ui.main.vm.MainViewModel
 import com.mobile.gympraaktis.ui.new_player.view.NewPlayerFragment
 import com.mobile.gympraaktis.ui.new_player.view.NewPlayerProfileFragment
 import com.mobile.gympraaktis.ui.settings.view.SettingsFragment
+import com.mobile.gympraaktis.ui.subscription_plans.view.SubscriptionPlansFragment
 import com.mobile.gympraaktis.ui.timeline.view.TimelineItemFragment
 import com.takusemba.spotlight.Target
 import com.takusemba.spotlight.shape.RoundedRectangle
@@ -120,6 +121,7 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
                     if (supportFragmentManager.findFragmentById(R.id.menu_container) is FriendsPagerFragment
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is ProfileFragment
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is SettingsFragment
+                        || supportFragmentManager.findFragmentById(R.id.menu_container) is SubscriptionPlansFragment
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is NewPlayerFragment
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is NewPlayerProfileFragment
                     ) {

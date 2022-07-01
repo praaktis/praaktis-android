@@ -7,262 +7,258 @@
 
     </data>
 
-    <FrameLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/app_gradient"
         android:clickable="true"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:paddingBottom="50dp"
         app:paddingBottomSystemWindowInsets="@{true}"
         app:paddingTopSystemWindowInsets="@{true}"
         tools:context=".ui.new_player.view.NewPlayerProfileFragment">
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:fillViewport="true"
-            android:overScrollMode="never"
-            android:paddingBottom="50dp">
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/upload_profile_image"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="@string/upload_profile_image"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:layout_marginTop="20dp"
+                android:elevation="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.AppTheme.Circle"
+                app:srcCompat="@drawable/ic_user_circle" />
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/ivAvatar"
-                    android:layout_width="78dp"
-                    android:layout_height="78dp"
-                    android:layout_marginTop="20dp"
-                    android:elevation="6dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.AppTheme.Circle"
-                    app:srcCompat="@drawable/ic_user_circle" />
-
-                <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/tg_ability"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="18dp"
-                    android:elevation="6dp"
-                    app:checkedButton="@id/btn_beginner"
-                    app:layout_constraintEnd_toEndOf="@id/cv_form"
-                    app:layout_constraintStart_toStartOf="@id/cv_form"
-                    app:layout_constraintTop_toBottomOf="@id/ivAvatar"
-                    app:selectionRequired="true"
-                    app:singleSelection="true">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_beginner"
-                        style="@style/Widget.MaterialComponents.Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/toggle_group_item_color"
-                        android:insetRight="9dp"
-                        android:text="@string/beginner"
-                        android:textColor="@color/primaryColor"
-                        android:textSize="12sp"
-                        app:cornerRadius="5dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_intermediate"
-                        style="@style/Widget.MaterialComponents.Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/toggle_group_item_color"
-                        android:insetRight="9dp"
-                        android:text="@string/intermediate"
-                        android:textColor="@color/primaryColor"
-                        android:textSize="12sp"
-                        app:cornerRadius="5dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_expert"
-                        style="@style/Widget.MaterialComponents.Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/toggle_group_item_color"
-                        android:text="@string/expert"
-                        android:textColor="@color/primaryColor"
-                        android:textSize="12sp"
-                        app:cornerRadius="5dp" />
-
-                </com.google.android.material.button.MaterialButtonToggleGroup>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cv_form"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="20dp"
-                    app:cardElevation="6dp"
-                    app:contentPadding="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tg_ability"
-                    app:layout_constraintWidth_max="370dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilName"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:boxBackgroundColor="@android:color/transparent"
-                            app:errorEnabled="true"
-                            app:hintEnabled="true">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/name"
-                                android:inputType="textEmailAddress"
-                                android:maxLength="40"
-                                android:nextFocusDown="@id/etLastName" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilUsername"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:boxBackgroundColor="@android:color/transparent"
-                            app:errorEnabled="true"
-                            app:hintEnabled="true">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etUsername"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/nickname"
-                                android:inputType="text"
-                                android:maxLength="40"
-                                android:nextFocusDown="@id/etCountry" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_age_range"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:boxBackgroundColor="@android:color/transparent"
-                            app:errorEnabled="true"
-                            app:hintEnabled="true">
-
-                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                                android:id="@+id/et_age_range"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/age_range"
-                                android:inputType="none" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_weight_range"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:boxBackgroundColor="@android:color/transparent"
-                            app:errorEnabled="true"
-                            app:hintEnabled="true">
-
-                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                                android:id="@+id/et_weight_range"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/weight_range"
-                                android:inputType="none" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_height_range"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:boxBackgroundColor="@android:color/transparent"
-                            app:errorEnabled="true"
-                            app:hintEnabled="true">
-
-                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                                android:id="@+id/et_height_range"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/height"
-                                android:inputType="none" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_gender"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:boxBackgroundColor="@android:color/transparent"
-                            app:errorEnabled="true"
-                            app:hintEnabled="true">
-
-                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                                android:id="@+id/et_gender"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/gender"
-                                android:inputType="none" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/tg_ability"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="18dp"
+                android:elevation="6dp"
+                app:checkedButton="@id/btn_beginner"
+                app:layout_constraintEnd_toEndOf="@id/cv_form"
+                app:layout_constraintStart_toStartOf="@id/cv_form"
+                app:layout_constraintTop_toBottomOf="@id/ivAvatar"
+                app:selectionRequired="true"
+                app:singleSelection="true">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_create"
+                    android:id="@+id/btn_beginner"
+                    style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:paddingStart="70dp"
-                    android:paddingEnd="70dp"
-                    android:text="@string/create_player"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cv_form"
-                    tools:textSize="17sp" />
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/toggle_group_item_color"
+                    android:insetRight="9dp"
+                    android:text="@string/beginner"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="12sp"
+                    app:cornerRadius="5dp" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_intermediate"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/toggle_group_item_color"
+                    android:insetRight="9dp"
+                    android:text="@string/intermediate"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="12sp"
+                    app:cornerRadius="5dp" />
 
-        </androidx.core.widget.NestedScrollView>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_expert"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/toggle_group_item_color"
+                    android:text="@string/expert"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="12sp"
+                    app:cornerRadius="5dp" />
 
-    </FrameLayout>
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_form"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
+                app:cardElevation="6dp"
+                app:contentPadding="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tg_ability"
+                app:layout_constraintWidth_max="370dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilName"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@android:color/transparent"
+                        app:errorEnabled="true"
+                        app:hintEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/name"
+                            android:inputType="textEmailAddress"
+                            android:maxLength="40"
+                            android:nextFocusDown="@id/etLastName" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilUsername"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@android:color/transparent"
+                        app:errorEnabled="true"
+                        app:hintEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etUsername"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/nickname"
+                            android:inputType="text"
+                            android:maxLength="40"
+                            android:nextFocusDown="@id/etCountry" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_age_range"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@android:color/transparent"
+                        app:errorEnabled="true"
+                        app:hintEnabled="true">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/et_age_range"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/age_range"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_weight_range"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@android:color/transparent"
+                        app:errorEnabled="true"
+                        app:hintEnabled="true">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/et_weight_range"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/weight_range"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_height_range"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@android:color/transparent"
+                        app:errorEnabled="true"
+                        app:hintEnabled="true">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/et_height_range"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/height"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_gender"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@android:color/transparent"
+                        app:errorEnabled="true"
+                        app:hintEnabled="true">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/et_gender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/gender"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingStart="70dp"
+                android:paddingEnd="70dp"
+                android:text="@string/create_player"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_form"
+                tools:textSize="17sp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
 </layout>

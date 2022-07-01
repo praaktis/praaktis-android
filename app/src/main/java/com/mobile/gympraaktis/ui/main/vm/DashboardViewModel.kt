@@ -5,6 +5,7 @@ import androidx.lifecycle.asLiveData
 import com.mobile.gympraaktis.base.BaseViewModel
 import com.mobile.gympraaktis.data.db.PraaktisDatabase
 import com.mobile.gympraaktis.data.repository.UserServiceRepository
+import com.mobile.gympraaktis.domain.common.BoolLV
 import com.mobile.gympraaktis.domain.entities.toAnalysisEntityList
 import com.mobile.gympraaktis.domain.entities.toDashboardEntity
 import com.mobile.gympraaktis.domain.entities.toRoutineEntity
@@ -24,14 +25,19 @@ class DashboardViewModel(app: Application) : BaseViewModel(app) {
         PraaktisDatabase.getInstance(getApplication()).getDashboardDao().getDashboardData()
             .asLiveData()
 
+    fun observeAnalysisComplete() = PraaktisDatabase.getInstance(getApplication()).getDashboardDao().getAllAnalysisData()
+        .asLiveData()
+
     fun observePlayerAnalysis() =
         PraaktisDatabase.getInstance(getApplication()).getDashboardDao().getPlayersAnalysis()
             .asLiveData()
 
+    val showHideLoader = BoolLV()
+
     fun fetchDashboardData() {
         userService.getDashboardData()
-            .doOnSubscribe { showHideEvent.postValue(true) }
-            .doAfterTerminate { showHideEvent.postValue(false) }
+            .doOnSubscribe { showHideLoader.postValue(true) }
+            .doAfterTerminate { showHideLoader.postValue(false) }
             .subscribe({
                 if (it != null) {
                     GlobalScope.launch(Dispatchers.IO) {

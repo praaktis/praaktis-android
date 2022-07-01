@@ -9,7 +9,6 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.domain.common.ProgressLoadingDialog
 import com.mobile.gympraaktis.domain.extension.makeToast
 
@@ -51,16 +50,16 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initUI(savedInstanceState)
 
-        mViewModel.errorMessage.observe(this, Observer {
+        mViewModel.errorMessage.observe(viewLifecycleOwner) {
             if (it is String) activity.makeToast(it)
             else if (it is Int) {
                 activity.makeToast(it)
             }
-        })
-        mViewModel.showHideEvent.observe(this, Observer {
+        }
+        mViewModel.showHideEvent.observe(viewLifecycleOwner) {
             if (it) progressLoadingDialog.show()
             else progressLoadingDialog.dismiss()
-        })
+        }
     }
 
     protected abstract fun initUI(savedInstanceState: Bundle?)

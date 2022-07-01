@@ -70,9 +70,12 @@ interface DashboardDao {
     @Query("SELECT * FROM routine")
     fun getRoutines(): Flow<List<RoutineEntity>>
 
-    @Transaction
     @Query("SELECT * FROM dashboard")
-    fun getDashboardData(): Flow<DashboardWithAnalysis>
+    fun getDashboardData(): Flow<DashboardEntity>
+
+    @Transaction
+    @Query("SELECT * FROM challenge_analysis")
+    fun getAllAnalysisData(): Flow<List<AnalysisComplete>>
 
     @Transaction
     @Query("SELECT * FROM player")
@@ -85,7 +88,6 @@ interface DashboardDao {
     @Transaction
     @Query("SELECT * FROM challenge_analysis")
     fun getChallengeAnalysis(): Flow<AnalysisComplete>
-
 
 
 }

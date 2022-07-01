@@ -18,7 +18,6 @@ import com.mobile.gympraaktis.databinding.FragmentMeVsFriendsBinding
 import com.mobile.gympraaktis.domain.entities.ComparisonDTO
 import com.mobile.gympraaktis.domain.entities.MeVsOtherChallenge
 import com.mobile.gympraaktis.domain.extension.dpToPx
-import com.mobile.gympraaktis.domain.extension.makeToast
 import com.mobile.gympraaktis.domain.extension.show
 import com.mobile.gympraaktis.ui.details.adapter.ScoresAdapter
 import com.mobile.gympraaktis.ui.details.vm.ComparisonViewModel
@@ -53,21 +52,15 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
     }
 
     private fun initViewMode() {
-        mViewModel.getMeVsOthers()
-        mViewModel.meVsOthersEvent.observe(this, androidx.lifecycle.Observer {
+        mViewModel.getMeVsOthers(analysisDTO.playerEntity.id)
+        mViewModel.meVsOthersEvent.observe(viewLifecycleOwner) {
             comparisonData = it
-            if (it.friends.challenges == null) {
-                context?.makeToast("No data")
-                fragmentManager?.popBackStackImmediate()
-                progressLoadingDialog.dismiss()
-                return@Observer
-            }
             meVsFriendsChallenge =
-                it.friends.challenges.find { it.id == analysisDTO.analysisEntity.id }
+                it.routines.find { it.id == analysisDTO.analysisEntity.id }
             initInfo()
             initChart()
             initFriendsScoreList()
-        })
+        }
     }
 
     private fun initInfo() {
@@ -79,6 +72,7 @@ class MeVsFriendsFragment constructor(override val layoutId: Int = R.layout.frag
             binding.tvMeAverage.text = decimalFormatter.format(analysisEntity.averageScore)
         }
         with(meVsFriendsChallenge!!) {
+            binding.tvMe.text = analysisDTO.playerEntity.name
             binding.tvMeRank.text = "$rank"
             binding.tvHighestFriends.text = decimalFormatter.format(maxScore)
             binding.tvAverageFriends.text = decimalFormatter.format(avgScore)

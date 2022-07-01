@@ -17,7 +17,7 @@ interface UserServiceRepository {
     fun storeResult(storeResultModel: StoreResultModel): Single<ResponseBody>
     suspend fun storeResultCoroutines(storeResultModel: StoreResultModel): ResponseBody
     fun getChallenges(): Single<List<ChallengeDTO>>
-    fun getComparison(): Single<ComparisonDTO>
+    fun getComparison(playerId: Long): Single<ComparisonDTO>
     fun inviteFriend(email: String): Single<UserMessage>
     fun confirmFriend(email: String): Single<ResponseBody>
     fun getFriends(): Single<List<FriendDTO>>
@@ -79,8 +79,8 @@ interface UserServiceRepository {
             return userService.getChallenges().compose(ASyncTransformer<List<ChallengeDTO>>())
         }
 
-        override fun getComparison(): Single<ComparisonDTO> {
-            return userService.getComparison().compose(ASyncTransformer<ComparisonDTO>())
+        override fun getComparison(playerId: Long): Single<ComparisonDTO> {
+            return userService.getComparison(playerId).compose(ASyncTransformer<ComparisonDTO>())
         }
 
         override fun inviteFriend(email: String): Single<UserMessage> {

@@ -11,8 +11,8 @@ class ComparisonViewModel(application: Application) : BaseViewModel(application)
     private val userRepository : UserServiceRepository by lazy { UserServiceRepository.UserServiceRepositoryImpl.getInstance() }
     val meVsOthersEvent: LiveEvent<ComparisonDTO> = LiveEvent()
 
-    fun getMeVsOthers() {
-        userRepository.getComparison()
+    fun getMeVsOthers(playerId: Long) {
+        userRepository.getComparison(playerId)
             .doOnSubscribe { showHideEvent.postValue(true) }
             .doAfterTerminate { showHideEvent.postValue(false) }
             .subscribe({

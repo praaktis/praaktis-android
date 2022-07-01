@@ -1,30 +1,6 @@
 package com.mobile.gympraaktis.ui.details.view
 
-import android.graphics.Color
-import android.os.Bundle
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.utils.ColorTemplate
-import com.github.mikephil.charting.utils.EntryXComparator
-import com.github.mikephil.charting.utils.MPPointF
-import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.base.BaseFragment
-import com.mobile.gympraaktis.data.entities.AnalysisComplete
-import com.mobile.gympraaktis.databinding.FragmentMeVsOthersBinding
-import com.mobile.gympraaktis.domain.entities.ComparisonDTO
-import com.mobile.gympraaktis.domain.entities.MeVsOtherChallenge
-import com.mobile.gympraaktis.domain.extension.dpToPx
-import com.mobile.gympraaktis.domain.extension.hide
-import com.mobile.gympraaktis.domain.extension.show
-import com.mobile.gympraaktis.ui.details.vm.ComparisonViewModel
-import kotlinx.android.synthetic.main.fragment_me_vs_others.*
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.util.*
-
+/*
 class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragment_me_vs_others) :
     BaseFragment<FragmentMeVsOthersBinding>() {
 
@@ -52,11 +28,11 @@ class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragm
     }
 
     private fun initViewMode() {
-        mViewModel.getMeVsOthers()
+        mViewModel.getMeVsOthers(analysisDTO.playerEntity.id)
         mViewModel.meVsOthersEvent.observe(this, androidx.lifecycle.Observer {
             comparisonData = it
             meVsOtherChallenge =
-                it.others.challenges.find { it.id == analysisDTO.analysisEntity.id }
+                it.routines.find { it.id == analysisDTO.analysisEntity.id }
             initInfo()
             initChart()
             initPieChart()
@@ -78,7 +54,7 @@ class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragm
             tvLowestOthers.text = "${decimalFormatter.format(lowScore)}%"
         }
         with(comparisonData!!) {
-            tvOthersInfo.text = "$ability / $gender / $ageGroup"
+            tvOthersInfo.text = "${ability.ability} / ${gender.name} / ${ageGroup.name}"
         }
     }
 
@@ -275,8 +251,12 @@ class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragm
         val color1 = ContextCompat.getColor(requireContext(), R.color.primaryColor)
         val color2 = ContextCompat.getColor(requireContext(), R.color.green_500)
 
-        colors.add(/*Color.parseColor("#00CD14")*/color2)
-        colors.add(/*Color.parseColor("#E81DEC")*/color1)
+        colors.add(*/
+/*Color.parseColor("#00CD14")*//*
+color2)
+        colors.add(*/
+/*Color.parseColor("#E81DEC")*//*
+color1)
 
 //        for (c in ColorTemplate.VORDIPLOM_COLORS)
 //            colors.add(c)
@@ -309,4 +289,4 @@ class MeVsOthersFragment constructor(override val layoutId: Int = R.layout.fragm
 
         pieChart.invalidate()
     }
-}
+}*/

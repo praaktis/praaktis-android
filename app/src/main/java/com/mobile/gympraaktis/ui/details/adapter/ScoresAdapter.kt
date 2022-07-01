@@ -32,7 +32,7 @@ class ScoresAdapter(val list: List<Leader>) :
     override fun onBindViewHolder(holder: ScoresViewHolder, position: Int) {
         with(holder) {
             tvPosition.text = "${position + 1}"
-            tvName.text = list[position].firstName + list[position].lastName
+            tvName.text = "${list[position].nickName} ${list[position].playerName}"
             tvScore.text = numberFormat.format(list[position].maxScore)
             ivAvatar.loadAvatar(list[position].imageUrl)
 

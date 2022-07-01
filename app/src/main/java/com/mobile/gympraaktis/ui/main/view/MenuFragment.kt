@@ -9,11 +9,13 @@ import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentMenuBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetTimelineBinding
 import com.mobile.gympraaktis.domain.common.AppGuide
+import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
 import com.mobile.gympraaktis.domain.extension.*
+import com.mobile.gympraaktis.ui.details.view.DetailsActivity
 import com.mobile.gympraaktis.ui.login.view.LoginActivity
 import com.mobile.gympraaktis.ui.main.vm.MenuViewModel
 import com.mobile.gympraaktis.ui.new_player.view.NewPlayerFragment
-import com.mobile.gympraaktis.ui.settings.view.SettingsFragment
+import com.mobile.gympraaktis.ui.subscription_plans.view.SubscriptionPlansFragment
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
@@ -30,7 +32,28 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
     override val mViewModel: MenuViewModel by viewModels()
 
     override fun initUI(savedInstanceState: Bundle?) {
-        binding.menuSettings.onClick {
+
+        mViewModel.observePlayers().observe(viewLifecycleOwner) { players ->
+            val defaultPlayerId = SettingsStorage.instance.getSelectedPlayerId()
+            if (defaultPlayerId != -1L) {
+                players.find {
+                    it.id == defaultPlayerId
+                }?.let {
+                    binding.dropdownSelectPlayer.setText(it.name)
+                    binding.dropdownSelectPlayer.tag = it
+                }
+            }
+            binding.dropdownSelectPlayer.setDropdownValues(players.map { it.name }.toTypedArray())
+            binding.dropdownSelectPlayer.setOnItemClickListener { parent, view, position, id ->
+                players.getOrNull(position)?.let {
+                    binding.dropdownSelectPlayer.tag = it
+                    SettingsStorage.instance.setSelectedPlayerId(it.id)
+                }
+            }
+        }
+
+
+        /*binding.menuSettings.onClick {
             closeSpotlight()
             activity.addFragment {
                 add(
@@ -40,7 +63,7 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
                 )
                 addToBackStack(SettingsFragment.TAG)
             }
-        }
+        }*/
 
         /*binding.menuFriends.onClick {
             closeSpotlight()
@@ -53,6 +76,20 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
                 addToBackStack(FriendsPagerFragment.TAG)
             }
         }*/
+
+        binding.menuSubscriptions.setOnClickListener {
+            closeSpotlight()
+            startActivity(DetailsActivity.start(activity, SubscriptionPlansFragment.TAG))
+
+//            activity.addFragment {
+//                add(
+//                    R.id.menu_container,
+//                    SubscriptionPlansFragment.newInstance(),
+//                    SubscriptionPlansFragment.TAG
+//                )
+//                addToBackStack(SubscriptionPlansFragment.TAG)
+//            }
+        }
 
         binding.menuActivateNewPlayer.setOnClickListener {
             closeSpotlight()

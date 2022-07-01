@@ -32,14 +32,14 @@ data class AttemptChart(
 ) : Serializable
 
 data class Leader(
-    @SerializedName("userid")
+    @SerializedName("playerid")
     val userId: Int,
-    @SerializedName("lastname")
-    val lastName: String,
-    @SerializedName("firstname")
-    val firstName: String,
+    @SerializedName("playername")
+    val playerName: String,
+    @SerializedName("nickname")
+    val nickName: String,
     @SerializedName("max_score")
     val maxScore: Double,
     @SerializedName("image_url")
-    val imageUrl: String
+    val imageUrl: String?
 ) : Serializable

@@ -25,6 +25,7 @@ import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
 import com.takusemba.spotlight.shape.RoundedRectangle
+import timber.log.Timber
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
@@ -138,6 +139,8 @@ class AnalysisFragment constructor(override val layoutId: Int = R.layout.fragmen
         with(binding.lineChart.legend) {
             isEnabled = false
         }
+
+        Timber.d(analysisData.chartData.series.toString())
 
         if (analysisData.chartData.series.isNotEmpty()) {
             binding.lineChart.show()

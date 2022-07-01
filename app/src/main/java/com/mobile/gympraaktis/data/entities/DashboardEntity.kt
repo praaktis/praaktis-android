@@ -17,17 +17,6 @@ data class DashboardEntity(
     val recordedAttempts: Long,
 ) : Serializable
 
-data class DashboardWithAnalysis(
-    @Embedded
-    val dashboard: DashboardEntity,
-    @Relation(
-        entity = AnalysisEntity::class,
-        parentColumn = "id",
-        entityColumn = "dashboardId"
-    )
-    val analysis: List<AnalysisComplete>
-) : Serializable
-
 data class DashboardWithPlayers(
     @Embedded
     val dashboard: PlayerAnalysis,

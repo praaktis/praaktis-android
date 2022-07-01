@@ -16,7 +16,6 @@ import com.google.android.material.shape.ShapeAppearanceModel
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.data.entities.DashboardEntity
-import com.mobile.gympraaktis.data.entities.DashboardWithAnalysis
 import com.mobile.gympraaktis.databinding.FragmentDashboardBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBottomBinding
@@ -36,6 +35,7 @@ import com.takusemba.spotlight.shape.RoundedRectangle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -49,9 +49,15 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
     override val mViewModel: DashboardViewModel by viewModels()
 
     private lateinit var mainViewModel: MainViewModel
-//    private lateinit var exerciseAnalysisAdapter: ExerciseAnalysisAdapter
 
     override fun initUI(savedInstanceState: Bundle?) {
+        mViewModel.showHideLoader.observe(viewLifecycleOwner) {
+            binding.swipeRefresh.isRefreshing = it
+        }
+        binding.swipeRefresh.setOnRefreshListener {
+            mViewModel.fetchDashboardData()
+        }
+
         mViewModel.fetchDashboardData()
 
         mainViewModel = ViewModelProvider(activity)[MainViewModel::class.java]
@@ -87,13 +93,15 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
         mViewModel.observeDashboard().observe(viewLifecycleOwner) {
             if (it != null) setDashboardData(it)
         }
+
+        mViewModel.observePlayerAnalysis().observe(viewLifecycleOwner) {
+            Timber.d(it.toString())
+        }
     }
 
     var subscriptionAlertDialog: AlertDialog? = null
 
-    private fun setDashboardData(dashboardData: DashboardWithAnalysis) {
-        with(dashboardData) {
-//            exerciseAnalysisAdapter.submitList(dashboardData.analysis)
+    private fun setDashboardData(dashboard: DashboardEntity) {
             binding.apply {
                 tvLevel.text = "${dashboard.level}"
                 tvPlayers.text = "${dashboard.activePlayers}"
@@ -110,7 +118,6 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
             startGuideIfNecessary()
 
             warnUserDependingDashboardData(dashboard)
-        }
     }
 
     private fun warnUserDependingDashboardData(dashboard: DashboardEntity) {

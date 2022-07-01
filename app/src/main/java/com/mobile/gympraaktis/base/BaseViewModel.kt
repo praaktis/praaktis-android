@@ -2,8 +2,10 @@ package com.mobile.gympraaktis.base
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.asLiveData
 import com.google.gson.JsonParseException
 import com.mobile.gympraaktis.R
+import com.mobile.gympraaktis.data.db.PraaktisDatabase
 import com.mobile.gympraaktis.data.repository.CommonsServiceRepository
 import com.mobile.gympraaktis.data.repository.UserServiceRepository
 import com.mobile.gympraaktis.domain.common.AnyLV
@@ -30,6 +32,8 @@ open class BaseViewModel(app: Application) : AndroidViewModel(app) {
         UserServiceRepository.UserServiceRepositoryImpl.INSTANCE = null
         logoutEvent.postValue(false)
     }
+
+    fun observePlayers() = PraaktisDatabase.getInstance(getApplication()).getDashboardDao().getPlayers().asLiveData()
 
     val commonsRepo by lazy { CommonsServiceRepository.CommonsServiceRepositoryImpl.getInstance(app) }
     val settingsStorage by lazy { SettingsStorage.instance }

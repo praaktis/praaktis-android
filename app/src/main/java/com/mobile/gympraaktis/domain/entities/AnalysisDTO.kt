@@ -33,9 +33,11 @@ data class AttemptChartData(
 ) : Serializable
 
 fun AnalysisDTO.toAttemptChartDataEntity(playerId: Long) =
-    AttemptChartDataEntity(id, attemptChart.keys, attemptChart.series, playerId)
+    AttemptChartDataEntity(id, attemptChart.keys, attemptChart.series, playerId, "${id}_${playerId}")
 
-fun AnalysisDTO.toChartDataEntity(playerId: Long) = ChartDataEntity(id, chartData.series, chartData.keys, playerId)
+fun AnalysisDTO.toChartDataEntity(playerId: Long) =
+    ChartDataEntity(id, chartData.series, chartData.keys, playerId, "${id}_${playerId}")
 
-fun AnalysisDTO.toAnalysisEntity(playerId: Long) = AnalysisEntity(id, playerId, name, 1, maxScore, averageScore, noAttempts)
+fun AnalysisDTO.toAnalysisEntity(playerId: Long) =
+    AnalysisEntity(id, playerId, name, 1, maxScore, averageScore, noAttempts, "${id}_${playerId}")
 

@@ -43,8 +43,10 @@ interface UserService {
     @GET("getRoutines/")
     fun getChallenges(): Single<List<ChallengeDTO>>
 
-    @GET("user/getComparison")
-    fun getComparison(): Single<ComparisonDTO>
+    @GET("user/getComparison/{player_id}")
+    fun getComparison(
+        @Path("player_id") playerId: Long,
+    ): Single<ComparisonDTO>
 
     @POST("user/inviteFriend/")
     fun inviteFriend(

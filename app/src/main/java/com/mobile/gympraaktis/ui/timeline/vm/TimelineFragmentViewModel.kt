@@ -2,7 +2,6 @@ package com.mobile.gympraaktis.ui.timeline.vm
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -28,9 +27,6 @@ class TimelineFragmentViewModel(app: Application) : BaseViewModel(app) {
 
     private val _pagingStateLiveData = LiveEvent<Result<Nothing>>()
     val pagingStateLiveData: LiveData<Result<Nothing>> get() = _pagingStateLiveData
-
-    fun observePlayers() =
-        PraaktisDatabase.getInstance(getApplication()).getDashboardDao().getPlayers().asLiveData()
 
     fun getPagedAttemptHistory(playerId: Long? = null): LiveData<PagedList<AttemptEntity>> {
         return LivePagedListBuilder(

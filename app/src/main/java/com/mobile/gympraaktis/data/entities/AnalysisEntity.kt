@@ -14,7 +14,8 @@ data class AnalysisEntity(
     val dashboardId: Int,
     val maxScore: Double,
     val averageScore: Double,
-    val noAttempts: Double
+    val noAttempts: Double,
+    val challengeAndPlayerId: String,
 ) : Serializable
 
 @Entity(tableName = "attempt_chartData", primaryKeys = ["challenge_id", "playerId"])
@@ -24,6 +25,7 @@ data class AttemptChartDataEntity(
     val keys: List<String>,
     val series: List<Double>,
     val playerId: Long,
+    val challengeAndPlayerId: String,
 ) : Serializable
 
 @Entity(tableName = "chartData", primaryKeys = ["challenge_id", "playerId"])
@@ -33,6 +35,7 @@ data class ChartDataEntity(
     val series: List<Double>,
     val keys: List<Int>,
     val playerId: Long,
+    val challengeAndPlayerId: String,
 ) : Serializable
 
 @Entity(tableName = "score_analysis", primaryKeys = ["attempt_id", "playerId"])
@@ -45,16 +48,35 @@ data class ScoreAnalysisEntity(
     @ColumnInfo(name = "time_performed")
     val timePerformed: String?,
     val playerId: Long,
+    val challengeAndPlayerId: String,
 ) : Serializable
 
-data class AnalysisComplete(
+@Entity(primaryKeys = ["playerId", "challenge_id"])
+data class AnalysisCrossRef(
+    val playerId: Long,
+    @ColumnInfo(name = "challenge_id")
+    val challengeId: Long,
+) : Serializable
+
+data class PlayerAnalysisAll(
     @Embedded
-    val analysisEntity: AnalysisEntity,
+    val playerEntity: PlayerEntity,
     @Relation(parentColumn = "id", entityColumn = "challenge_id")
     val attemptChart: AttemptChartDataEntity,
     @Relation(parentColumn = "id", entityColumn = "challenge_id")
     val chartData: ChartDataEntity,
     @Relation(parentColumn = "id", entityColumn = "challenge_id")
+    val score: List<ScoreAnalysisEntity>,
+)
+
+data class AnalysisComplete(
+    @Embedded
+    val analysisEntity: AnalysisEntity,
+    @Relation(parentColumn = "challengeAndPlayerId", entityColumn = "challengeAndPlayerId")
+    val attemptChart: AttemptChartDataEntity,
+    @Relation(parentColumn = "challengeAndPlayerId", entityColumn = "challengeAndPlayerId")
+    val chartData: ChartDataEntity,
+    @Relation(parentColumn = "challengeAndPlayerId", entityColumn = "challengeAndPlayerId")
     val score: List<ScoreAnalysisEntity>,
     @Relation(parentColumn = "playerId", entityColumn = "id")
     val playerEntity: PlayerEntity,
@@ -76,4 +98,4 @@ data class RoutineAnalysis(
         entityColumn = "id",
     )
     val analysis: List<AnalysisComplete>
-): Serializable
+) : Serializable

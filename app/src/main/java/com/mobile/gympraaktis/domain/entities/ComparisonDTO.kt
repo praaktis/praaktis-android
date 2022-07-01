@@ -5,13 +5,11 @@ import java.io.Serializable
 
 data class ComparisonDTO(
     @SerializedName("gender")
-    val gender: String,
+    val gender: GenderDTO,
     @SerializedName("age_group")
-    val ageGroup: String,
+    val ageGroup: KeyValueDTO,
     @SerializedName("ability")
-    val ability: String,
-    @SerializedName("others")
-    val others: MeVsOthersDTO,
-    @SerializedName("friends")
-    val friends: MeVsOthersDTO
+    val ability: AbilityDTO,
+    @SerializedName("routines")
+    val routines: List<MeVsOtherChallenge>,
 ) : Serializable

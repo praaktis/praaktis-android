@@ -55,7 +55,7 @@ class ExerciseAnalysisDetailsFragment(override val layoutId: Int = R.layout.frag
 
         adapter.submitList(analysis.analysis.map {
             AnalysisItem(
-                it.playerEntity.name    ,
+                it.playerEntity.name,
                 it.analysisEntity.averageScore.toFloat(),
                 it.analysisEntity.maxScore.toFloat(),
                 returnItem = it

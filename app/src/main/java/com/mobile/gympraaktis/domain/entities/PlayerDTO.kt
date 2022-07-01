@@ -10,7 +10,7 @@ class PlayerAnalysisDTO(
     val playerName: String,
     @SerializedName("routines")
     val analysis: List<AnalysisDTO>
-)
+) : Serializable
 
 data class PlayerCreateModel(
     @SerializedName("player_name")
@@ -47,4 +47,9 @@ data class GenderDTO(
     val name: String,
 ) : Serializable
 
-
+data class AbilityDTO(
+    @SerializedName("key")
+    val key: String,
+    @SerializedName("ability")
+    val ability: String,
+) : Serializable

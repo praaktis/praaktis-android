@@ -6,8 +6,10 @@ import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.databinding.FragmentNewPlayerBinding
 import com.mobile.gympraaktis.domain.extension.addFragment
+import com.mobile.gympraaktis.ui.details.view.DetailsActivity
 import com.mobile.gympraaktis.ui.new_player.vm.NewPlayerViewModel
 import com.mobile.gympraaktis.ui.settings.view.SettingsFragment
+import com.mobile.gympraaktis.ui.subscription_plans.view.SubscriptionPlansFragment
 
 class NewPlayerFragment(override val layoutId: Int = R.layout.fragment_new_player) :
     BaseFragment<FragmentNewPlayerBinding>() {
@@ -30,9 +32,17 @@ class NewPlayerFragment(override val layoutId: Int = R.layout.fragment_new_playe
             activity.onBackPressed()
         }
 
+        binding.btnSubscribe.setOnClickListener {
+            startActivity(DetailsActivity.start(activity, SubscriptionPlansFragment.TAG))
+        }
+
         binding.btnActivateNewPlayer.setOnClickListener {
             activity.addFragment {
-                add(R.id.menu_container, NewPlayerProfileFragment.newInstance(), NewPlayerProfileFragment.TAG)
+                add(
+                    R.id.menu_container,
+                    NewPlayerProfileFragment.newInstance(),
+                    NewPlayerProfileFragment.TAG
+                )
                 addToBackStack(SettingsFragment.TAG)
             }
         }
