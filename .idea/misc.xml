@@ -51,7 +51,7 @@
         <entry key="app/src/main/res/layout/fragment_exercise_analysis.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.21223958333333334" />
         <entry key="app/src/main/res/layout/fragment_friends.xml" value="0.27340129749768305" />
-        <entry key="app/src/main/res/layout/fragment_item_timeline.xml" value="0.19093933105468752" />
+        <entry key="app/src/main/res/layout/fragment_item_timeline.xml" value="1.0" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.30185185185185187" />
         <entry key="app/src/main/res/layout/fragment_me_vs_friends.xml" value="0.3002780352177943" />
         <entry key="app/src/main/res/layout/fragment_me_vs_others.xml" value="0.27340129749768305" />

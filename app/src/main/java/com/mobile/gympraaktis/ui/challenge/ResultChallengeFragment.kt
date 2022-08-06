@@ -20,7 +20,6 @@ import com.praaktis.exerciseengine.Engine.DetailPoint
 import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
 import com.praaktis.exerciseengine.Engine.Measurement
 import com.praaktis.exerciseengine.Player.VideoReplayActivity
-import kotlinx.android.synthetic.main.fragment_result_challenge.*
 import timber.log.Timber
 
 class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.fragment_result_challenge) :
@@ -56,10 +55,10 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     }
 
     private fun initToolbar() {
-        activity.setSupportActionBar(toolbar)
+        activity.setSupportActionBar(binding.toolbar)
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         activity.supportActionBar?.setDisplayShowTitleEnabled(false)
-        toolbar.setNavigationOnClickListener { activity.finish() }
+        binding.toolbar.setNavigationOnClickListener { activity.finish() }
     }
 
     private fun initVideoView() {
@@ -68,7 +67,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             val measurements = collectMeasurements()
             val scoreOverAll =
                 getOverallScore()
-            tvYourScore.text =
+            binding.tvYourScore.text =
                 "Your score: ${scoreOverAll.toInt()}"
             Timber.d("STORE RESULTS CALLED")
             mViewModel.storeResult(
@@ -80,7 +79,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
                 measurements = measurements
             )
         } else {
-            tvYourScore.text = "Your score: 0"
+            binding.tvYourScore.text = "Your score: 0"
         }
 
     }
@@ -129,9 +128,9 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
             startActivity(intent)
         }
 
-        cvDetailAnalysis.onClick {
+        binding.cvDetailAnalysis.setOnClickListener {
             if (result != null) {
-                ivPlay.show()
+                binding.ivPlay.show()
                 val tag = DetailAnalysisFragment.TAG
                 activity.showOrReplace(tag) {
                     add(R.id.container, DetailAnalysisFragment.getInstance(challengeItem), tag)
@@ -141,7 +140,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
                 activity.makeToast("Failed exercise")
             }
         }
-        cvTryAgain.onClick {
+        binding.cvTryAgain.onClick {
             startExercise()
         }
     }
