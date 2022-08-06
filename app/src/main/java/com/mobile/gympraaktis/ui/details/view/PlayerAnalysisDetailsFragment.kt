@@ -13,6 +13,7 @@ import com.mobile.gympraaktis.domain.extension.addFragment
 import com.mobile.gympraaktis.ui.details.adapter.AnalysisAdapter
 import com.mobile.gympraaktis.ui.details.adapter.AnalysisItem
 import com.mobile.gympraaktis.ui.details.adapter.HeaderAdapter
+import com.mobile.gympraaktis.ui.details.adapter.toAnalysisItem
 import com.mobile.gympraaktis.ui.details.vm.DetailsViewModel
 import com.mobile.gympraaktis.ui.details.vm.ExerciseAnalysisDetailsViewModel
 
@@ -55,12 +56,7 @@ class PlayerAnalysisDetailsFragment(override val layoutId: Int = R.layout.fragme
 
 
         adapter.submitList(analysis.analysisComplete.map {
-            AnalysisItem(
-                it.analysisEntity.name,
-                it.analysisEntity.averageScore.toFloat(),
-                it.analysisEntity.maxScore.toFloat(),
-                returnItem = it
-            )
+            it.toAnalysisItem(it.analysisEntity.name)
         })
 
 

@@ -3,8 +3,25 @@ package com.mobile.gympraaktis.data.billing
 import android.app.Activity
 import com.android.billingclient.api.*
 import com.mobile.gympraaktis.PraaktisApp
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import timber.log.Timber
 
 object BillingClientWrapper : PurchasesUpdatedListener {
+
+    val trialPlan = SubscriptionPlanKey(1, "trial")
+    val practiceBasicPlan = SubscriptionPlanKey(2, "practice_basic_monthly")
+    val practicePremiumPlan = SubscriptionPlanKey(3, "practice_premium_monthly")
+    val clubBasicPlan = SubscriptionPlanKey(4, "club_basic_monthly")
+    val clubPremium = SubscriptionPlanKey(5, "club_premium_monthly")
+
+    val plans = listOf(
+        trialPlan,
+        practiceBasicPlan,
+        practicePremiumPlan,
+        clubBasicPlan,
+        clubPremium
+    )
 
     interface OnQueryProductsListener {
         fun onSuccess(products: List<ProductDetails>)
@@ -13,6 +30,7 @@ object BillingClientWrapper : PurchasesUpdatedListener {
 
     class Error(val responseCode: Int, val debugMessage: String)
 
+    // Initialize the BillingClient.
     private val billingClient by lazy {
         BillingClient
             .newBuilder(PraaktisApp.getApplication())
@@ -21,14 +39,75 @@ object BillingClientWrapper : PurchasesUpdatedListener {
             .build()
     }
 
-    override fun onPurchasesUpdated(p0: BillingResult, p1: MutableList<Purchase>?) {
+    // New Subscription ProductDetails
+    private val _clubProductWithProductDetails =
+        MutableStateFlow<List<ProductDetails>>(emptyList())
+    val clubProductWithProductDetails = _clubProductWithProductDetails.asStateFlow()
 
+    private val _practiceProductWithProductDetails =
+        MutableStateFlow<List<ProductDetails>>(emptyList())
+    val practiceProductWithProductDetails = _practiceProductWithProductDetails.asStateFlow()
+
+    // Current Purchases
+    private val _purchases = MutableStateFlow<List<Purchase>>(listOf())
+    val purchases = _purchases.asStateFlow()
+
+    // Tracks new purchases acknowledgement state.
+    // Set to true when a purchase is acknowledged and false when not.
+    private val _isNewPurchaseAcknowledged = MutableStateFlow(value = false)
+    val isNewPurchaseAcknowledged = _isNewPurchaseAcknowledged.asStateFlow()
+
+
+    override fun onPurchasesUpdated(
+        billingResult: BillingResult,
+        purchases: List<Purchase>?
+    ) {
+        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK
+            && !purchases.isNullOrEmpty()
+        ) {
+            // Post new purchase List to _purchases
+            _purchases.value = purchases
+
+            // Then, handle the purchases
+            for (purchase in purchases) {
+                acknowledgePurchases(purchase)
+            }
+        } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
+            // Handle an error caused by a user cancelling the purchase flow.
+            Timber.e("User has cancelled")
+        } else {
+            // Handle any other error codes.
+        }
+    }
+
+    // Perform new subscription purchases' acknowledgement client side.
+    private fun acknowledgePurchases(purchase: Purchase?) {
+        purchase?.let {
+            if (!it.isAcknowledged) {
+                val params = AcknowledgePurchaseParams.newBuilder()
+                    .setPurchaseToken(it.purchaseToken)
+                    .build()
+
+                billingClient.acknowledgePurchase(
+                    params
+                ) { billingResult ->
+                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK &&
+                        it.purchaseState == Purchase.PurchaseState.PURCHASED
+                    ) {
+                        _isNewPurchaseAcknowledged.value = true
+                    } else {
+                        Timber.e(billingResult.debugMessage)
+                    }
+                }
+            }
+        }
     }
 
     private fun onConnected(block: () -> Unit) {
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
                 block()
+                queryPurchases()
             }
 
             override fun onBillingServiceDisconnected() {
@@ -40,8 +119,8 @@ object BillingClientWrapper : PurchasesUpdatedListener {
 
     fun queryPracticeProducts(listener: OnQueryProductsListener) {
         val skusList = listOf(
-            "practice_basic_monthly",
-            "practice_premium_monthly",
+            practiceBasicPlan.iapKey,
+            practicePremiumPlan.iapKey,
         )
 
         queryProductsForType(
@@ -50,19 +129,8 @@ object BillingClientWrapper : PurchasesUpdatedListener {
         ) { billingResult, skuDetailsList ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                 val products = skuDetailsList.toMutableList()
-                queryProductsForType(
-                    skusList,
-                    BillingClient.ProductType.INAPP
-                ) { billingResult, productDetailsList ->
-                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                        products.addAll(productDetailsList)
-                        listener.onSuccess(products)
-                    } else {
-                        listener.onFailure(
-                            Error(billingResult.responseCode, billingResult.debugMessage)
-                        )
-                    }
-                }
+                _practiceProductWithProductDetails.value = products
+                listener.onSuccess(products)
             } else {
                 listener.onFailure(
                     Error(billingResult.responseCode, billingResult.debugMessage)
@@ -73,8 +141,8 @@ object BillingClientWrapper : PurchasesUpdatedListener {
 
     fun queryClubProducts(listener: OnQueryProductsListener) {
         val skusList = listOf(
-            "club_basic_monthly",
-            "club_premium_monthly"
+            clubBasicPlan.iapKey,
+            clubPremium.iapKey
         )
 
         queryProductsForType(
@@ -83,19 +151,8 @@ object BillingClientWrapper : PurchasesUpdatedListener {
         ) { billingResult, skuDetailsList ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                 val products = skuDetailsList.toMutableList()
-                queryProductsForType(
-                    skusList,
-                    BillingClient.ProductType.INAPP
-                ) { billingResult, productDetailsList ->
-                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                        products.addAll(productDetailsList)
-                        listener.onSuccess(products)
-                    } else {
-                        listener.onFailure(
-                            Error(billingResult.responseCode, billingResult.debugMessage)
-                        )
-                    }
-                }
+                _clubProductWithProductDetails.value = products
+                listener.onSuccess(products)
             } else {
                 listener.onFailure(
                     Error(billingResult.responseCode, billingResult.debugMessage)
@@ -104,7 +161,15 @@ object BillingClientWrapper : PurchasesUpdatedListener {
         }
     }
 
-    fun purchase(activity: Activity, product: ProductDetails) {
+    fun purchase(activity: Activity, billingParams: BillingFlowParams, profileId: String) {
+        onConnected {
+            activity.runOnUiThread {
+                billingClient.launchBillingFlow(activity, billingParams)
+            }
+        }
+    }
+
+    fun purchase(activity: Activity, product: ProductDetails, profileId: String) {
 
         val token = product.subscriptionOfferDetails?.first()?.offerToken
 
@@ -119,6 +184,8 @@ object BillingClientWrapper : PurchasesUpdatedListener {
             val billingFlowParams =
                 BillingFlowParams.newBuilder()
                     .setProductDetailsParamsList(productDetailsParamsList)
+                    .setObfuscatedProfileId(profileId)
+                    .setObfuscatedAccountId(profileId)
                     .build()
 
             onConnected {
@@ -127,15 +194,32 @@ object BillingClientWrapper : PurchasesUpdatedListener {
                 }
             }
         }
-//        onConnected {
-//            activity.runOnUiThread {
-//                billingClient.launchBillingFlow(
-//                    activity,
-//                    BillingFlowParams.newBuilder().setSkuDetails(product).build()
-//                )
-//            }
-//        }
     }
+
+    // Query Google Play Billing for existing purchases.
+    // New purchases will be provided to PurchasesUpdatedListener.onPurchasesUpdated().
+    fun queryPurchases() {
+        if (!billingClient.isReady) {
+            Timber.e("queryPurchases: BillingClient is not ready")
+        }
+
+        // Query for existing subscription products that have been purchased.
+        billingClient.queryPurchasesAsync(
+            QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.SUBS).build()
+        ) { billingResult, purchaseList ->
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                if (purchaseList.isNotEmpty()) {
+                    _purchases.value = purchaseList
+                } else {
+                    _purchases.value = emptyList()
+                }
+
+            } else {
+                Timber.e(billingResult.debugMessage)
+            }
+        }
+    }
+
 
     private fun queryProductsForType(
         skusList: List<String>,
@@ -162,3 +246,7 @@ object BillingClientWrapper : PurchasesUpdatedListener {
 
 }
 
+data class SubscriptionPlanKey(
+    val praaktisKey: Int,
+    val iapKey: String,
+)

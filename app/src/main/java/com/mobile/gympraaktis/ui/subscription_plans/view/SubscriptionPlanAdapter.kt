@@ -6,18 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.billingclient.api.ProductDetails
+import com.mobile.gympraaktis.data.billing.BillingClientWrapper
 import com.mobile.gympraaktis.databinding.ItemPlanBinding
 import com.mobile.gympraaktis.domain.extension.listen
 
-class SubscriptionPlanAdapter(private val onItemClick : (SubscriptionPlan) -> Unit) :
+class SubscriptionPlanAdapter(private val onItemClick: (SubscriptionPlan) -> Unit) :
     ListAdapter<SubscriptionPlan, SubscriptionPlanAdapter.ViewHolder>(DIFF_CALLBACK) {
     class ViewHolder(private val binding: ItemPlanBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: SubscriptionPlan) {
-            binding.tvTitle.text = item.name
+            binding.tvTitle.text = item.name + if (item.isActive) " (active)" else ""
             binding.tvPrice.text = item.price
-//                "£${android.icu.text.NumberFormat.getInstance().format(item.price)}"
-            binding.tvDetails.text =
-                "${item.players} Player/Patient\n${if (item.attempts == -1) "Unlimited" else item.attempts} Attempts"
+            binding.tvDetails.text = item.benefits.joinToString("\n")
         }
     }
 
@@ -56,21 +55,12 @@ class SubscriptionPlanAdapter(private val onItemClick : (SubscriptionPlan) -> Un
     }
 }
 
-//val mockPracticePlans = listOf(
-//    SubscriptionPlan(1, "Practice Basic", 1.99f, -1, 1),
-//    SubscriptionPlan(2, "Practice Premium", 4.99f, -1, 5),
-//)
-//
-//val mockClubPlans = listOf(
-//    SubscriptionPlan(3, "Club Basic", 2.99f, 100, 15),
-//    SubscriptionPlan(4, "Club Premium", 6.99f, 300, 50)
-//)
-
 data class SubscriptionPlan(
     val id: String,
     val name: String,
     val price: String,
-    val attempts: Int,
-    val players: Int,
-    val skuDetails: ProductDetails,
+    val benefits: List<String>,
+    val skuDetails: ProductDetails?,
+    val isActive: Boolean,
+    val praaktisKey: Int = BillingClientWrapper.trialPlan.praaktisKey,
 )

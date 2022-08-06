@@ -18,4 +18,12 @@ data class AttemptDTO(
 ) : Serializable
 
 fun AttemptDTO.toEntity(page: Int): AttemptEntity =
-    AttemptEntity(attemptId, timePerformed, score, points, challenge.name, challenge.id, page)
+    AttemptEntity(
+        attemptId,
+        timePerformed,
+        score,
+        points,
+        challenge.name,
+        challenge.id.toInt(),
+        page
+    )

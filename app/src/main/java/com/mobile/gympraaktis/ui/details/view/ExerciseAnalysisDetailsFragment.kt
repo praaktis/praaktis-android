@@ -6,13 +6,12 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
-import com.mobile.gympraaktis.data.entities.AnalysisComplete
 import com.mobile.gympraaktis.data.entities.RoutineAnalysis
 import com.mobile.gympraaktis.databinding.FragmentExercisAnalysisDetailsBinding
 import com.mobile.gympraaktis.domain.extension.addFragment
 import com.mobile.gympraaktis.ui.details.adapter.AnalysisAdapter
-import com.mobile.gympraaktis.ui.details.adapter.AnalysisItem
 import com.mobile.gympraaktis.ui.details.adapter.HeaderAdapter
+import com.mobile.gympraaktis.ui.details.adapter.toAnalysisItem
 import com.mobile.gympraaktis.ui.details.vm.DetailsViewModel
 import com.mobile.gympraaktis.ui.details.vm.ExerciseAnalysisDetailsViewModel
 
@@ -39,7 +38,7 @@ class ExerciseAnalysisDetailsFragment(override val layoutId: Int = R.layout.frag
     override fun initUI(savedInstanceState: Bundle?) {
         detailsViewModel.changeTitle(getString(R.string.exercise_analysis))
 
-        val adapter = AnalysisAdapter<AnalysisComplete> {
+        val adapter = AnalysisAdapter {
             activity.addFragment {
                 add(
                     R.id.container,
@@ -54,12 +53,7 @@ class ExerciseAnalysisDetailsFragment(override val layoutId: Int = R.layout.frag
             ConcatAdapter(HeaderAdapter(analysis.routineEntity.name), adapter)
 
         adapter.submitList(analysis.analysis.map {
-            AnalysisItem(
-                it.playerEntity.name,
-                it.analysisEntity.averageScore.toFloat(),
-                it.analysisEntity.maxScore.toFloat(),
-                returnItem = it
-            )
+            it.toAnalysisItem(it.playerEntity.name)
         })
 
     }

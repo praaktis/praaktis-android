@@ -15,6 +15,7 @@ import com.mobile.gympraaktis.ui.details.view.DetailsActivity
 import com.mobile.gympraaktis.ui.login.view.LoginActivity
 import com.mobile.gympraaktis.ui.main.vm.MenuViewModel
 import com.mobile.gympraaktis.ui.new_player.view.NewPlayerFragment
+import com.mobile.gympraaktis.ui.players.MyPlayersFragment
 import com.mobile.gympraaktis.ui.subscription_plans.view.SubscriptionPlansFragment
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
@@ -98,6 +99,18 @@ class MenuFragment constructor(override val layoutId: Int = R.layout.fragment_me
                     R.id.menu_container,
                     NewPlayerFragment.newInstance(),
                     NewPlayerFragment.TAG
+                )
+                addToBackStack(TAG)
+            }
+        }
+
+        binding.menuPlayers.onClick {
+            closeSpotlight()
+            activity.addFragment {
+                add(
+                    R.id.menu_container,
+                    MyPlayersFragment.newInstance(),
+                    MyPlayersFragment.TAG
                 )
                 addToBackStack(TAG)
             }

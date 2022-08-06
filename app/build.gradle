@@ -13,13 +13,13 @@ android {
             keyPassword 'T&mGKc)w2]FB9NW#QBjH'
         }
     }
-    compileSdkVersion 32
+    compileSdkVersion 33
     defaultConfig {
         applicationId "com.praaktis.faast"
         minSdkVersion 24
-        targetSdkVersion 32
-        versionCode 3
-        versionName "0.9.91.17"
+        targetSdkVersion 33
+        versionCode 7
+        versionName "0.9.92.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptSupportModeEnabled true
         signingConfig signingConfigs.relese_signing_config
@@ -81,9 +81,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    implementation 'com.google.android.material:material:1.7.0-alpha02'
+    implementation 'com.google.android.material:material:1.7.0-alpha03'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation "androidx.fragment:fragment-ktx:1.4.1"
+    implementation "androidx.fragment:fragment-ktx:1.5.1"
     implementation "androidx.viewpager2:viewpager2:1.1.0-beta01"
 
     implementation "androidx.work:work-runtime-ktx:2.7.1"
@@ -96,7 +96,7 @@ dependencies {
     implementation "com.android.billingclient:billing-ktx:5.0.0"
 
 
-    def lifecycle_version = "2.4.1"
+    def lifecycle_version = "2.5.1"
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     // LiveData
@@ -115,14 +115,14 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
 
     // coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2'
 
     // room
-    implementation 'androidx.room:room-runtime:2.4.2'
-    kapt 'androidx.room:room-compiler:2.4.2'
-    implementation "androidx.room:room-ktx:2.4.2"
-    implementation 'androidx.room:room-rxjava2:2.4.2'
+    implementation 'androidx.room:room-runtime:2.4.3'
+    kapt 'androidx.room:room-compiler:2.4.3'
+    implementation "androidx.room:room-ktx:2.4.3"
+    implementation 'androidx.room:room-rxjava2:2.4.3'
 
     // paging
     implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
@@ -145,9 +145,9 @@ dependencies {
     implementation 'com.github.androidbroadcast:SvgGlidePlugins:1.2.1'
 
     // firebase
-    implementation 'com.google.firebase:firebase-analytics-ktx:21.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.11'
-    implementation 'com.google.firebase:firebase-messaging:23.0.5'
+    implementation 'com.google.firebase:firebase-analytics-ktx:21.1.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.12'
+    implementation 'com.google.firebase:firebase-messaging:23.0.7'
 
     // chart lib
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
@@ -174,6 +174,9 @@ dependencies {
 
     implementation 'io.github.pilgr:paperdb:2.7.2'
 
+//    implementation 'com.robertlevonyan.view:MaterialExpansionPanel:2.1.6'
+    implementation 'com.github.cachapa:ExpandableLayout:2.9.2'
+
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
@@ -181,10 +184,10 @@ dependencies {
     implementation 'com.github.marcinmoskala:VideoPlayView:0.0.2'
     implementation 'com.danikula:videocache:2.7.1'
 
-    implementation "com.google.android.exoplayer:exoplayer:2.18.0"
-    implementation "com.google.android.exoplayer:exoplayer-ui:2.18.0"
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.0'
-    implementation 'com.google.android.exoplayer:exoplayer-dash:2.18.0'
+    implementation "com.google.android.exoplayer:exoplayer:2.18.1"
+    implementation "com.google.android.exoplayer:exoplayer-ui:2.18.1"
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.1'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.18.1'
 
     debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"

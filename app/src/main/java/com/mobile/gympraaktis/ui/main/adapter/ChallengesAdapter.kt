@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.mobile.gympraaktis.data.entities.RoutineEntity
 import com.mobile.gympraaktis.databinding.ItemChallengeBinding
-import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.extension.loadUrl
 import com.mobile.gympraaktis.domain.extension.onClick
 
-class ChallengesAdapter(private val itemClick: (ChallengeDTO) -> Unit) :
-    ListAdapter<ChallengeDTO, ChallengesAdapter.ViewHolder>(DIFF_CALLBACK) {
+class ChallengesAdapter(private val itemClick: (RoutineEntity) -> Unit) :
+    ListAdapter<RoutineEntity, ChallengesAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -39,8 +39,8 @@ class ChallengesAdapter(private val itemClick: (ChallengeDTO) -> Unit) :
 
     class ViewHolder(val binding: ItemChallengeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ChallengeDTO) {
-            binding.ivImage.loadUrl(item.iconUrl)
+        fun bind(item: RoutineEntity) {
+            binding.ivImage.loadUrl(item.imageUrl)
             binding.tvTitle.text = item.name
 
             binding.vGradient.setOnTouchListener { _, event ->
@@ -89,12 +89,12 @@ class ChallengesAdapter(private val itemClick: (ChallengeDTO) -> Unit) :
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ChallengeDTO>() {
-            override fun areItemsTheSame(oldItem: ChallengeDTO, newItem: ChallengeDTO): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<RoutineEntity>() {
+            override fun areItemsTheSame(oldItem: RoutineEntity, newItem: RoutineEntity): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: ChallengeDTO, newItem: ChallengeDTO): Boolean {
+            override fun areContentsTheSame(oldItem: RoutineEntity, newItem: RoutineEntity): Boolean {
                 return oldItem == newItem
             }
         }

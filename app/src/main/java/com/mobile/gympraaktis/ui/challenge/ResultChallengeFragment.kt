@@ -7,8 +7,8 @@ import androidx.fragment.app.viewModels
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.data.entities.PlayerEntity
+import com.mobile.gympraaktis.data.entities.RoutineEntity
 import com.mobile.gympraaktis.databinding.FragmentResultChallengeBinding
-import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.entities.DetailResult
 import com.mobile.gympraaktis.domain.extension.makeToast
 import com.mobile.gympraaktis.domain.extension.onClick
@@ -30,7 +30,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
         const val TAG = "ResultChallengeFragment"
 
         @JvmStatic
-        fun getInstance(challengeItem: ChallengeDTO, player: PlayerEntity): Fragment {
+        fun getInstance(challengeItem: RoutineEntity, player: PlayerEntity): Fragment {
             val fragment = ResultChallengeFragment()
             val bundle = Bundle()
             bundle.putSerializable("challengeItem", challengeItem)
@@ -42,7 +42,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
 
     override val mViewModel: ResultChallengeFragmentViewModel by viewModels()
 
-    private val challengeItem by lazy { requireArguments().getSerializable("challengeItem") as ChallengeDTO }
+    private val challengeItem by lazy { requireArguments().getSerializable("challengeItem") as RoutineEntity }
     private val player by lazy { requireArguments().getSerializable("player") as PlayerEntity }
     private val result by lazy { activity.intent.getSerializableExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) as HashMap<String, Any>? }
     private val path by lazy { activity.intent.getStringExtra(ChallengeInstructionFragment.RAW_VIDEO_PATH) }

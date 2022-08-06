@@ -56,6 +56,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
         }
         binding.swipeRefresh.setOnRefreshListener {
             mViewModel.fetchDashboardData()
+            mainViewModel.getChallenges()
         }
 
         mViewModel.fetchDashboardData()
@@ -102,22 +103,22 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
     var subscriptionAlertDialog: AlertDialog? = null
 
     private fun setDashboardData(dashboard: DashboardEntity) {
-            binding.apply {
-                tvLevel.text = "${dashboard.level}"
-                tvPlayers.text = "${dashboard.activePlayers}"
-                tvAttempts.text = "${dashboard.recordedAttempts}"
-            }
-            updateScoreProgress(
-                dashboard.activePlayers,
-                dashboard.allowedPlayers
-            )
-            updateAttemptsProgress(
-                dashboard.recordedAttempts,
-                dashboard.recordedAttempts + dashboard.attemptsAvailable
-            )
-            startGuideIfNecessary()
+        binding.apply {
+            tvLevel.text = "${dashboard.level}"
+            tvPlayers.text = "${dashboard.activePlayers}"
+            tvAttempts.text = "${dashboard.recordedAttempts}"
+        }
+        updateScoreProgress(
+            dashboard.activePlayers,
+            dashboard.allowedPlayers
+        )
+        updateAttemptsProgress(
+            dashboard.recordedAttempts,
+            dashboard.attemptsAvailable
+        )
+        startGuideIfNecessary()
 
-            warnUserDependingDashboardData(dashboard)
+        warnUserDependingDashboardData(dashboard)
     }
 
     private fun warnUserDependingDashboardData(dashboard: DashboardEntity) {
@@ -156,47 +157,46 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
     }
 
     private fun updateScoreProgress(currentScore: Long, maxScore: Long) {
-        if (binding.vProgressCurrent.tag != currentScore) {
-            binding.vProgressCurrent.tag = currentScore
 
-            binding.tvScoreTotal.text = maxScore.toString()
-            binding.llProgressLayout.weightSum = max(currentScore, maxScore).toFloat()
+        binding.vProgressCurrent.tag = currentScore
 
-            binding.vProgressCurrent.animateWeightChange(
-                (binding.vProgressCurrent.layoutParams as LinearLayout.LayoutParams).weight.toInt(),
-                currentScore.toInt(),
-                duration = 1500,
-                startDelay = 200,
-                init = { interpolator = FastOutSlowInInterpolator() },
-                onValueChange = {
-                    binding.tvScoreCurrent.apply {
-                        text = it.toInt().toString()
-                        translationX = binding.vProgressCurrent.width.toFloat()
-                    }
-                })
-        }
+        binding.tvScoreTotal.text = maxScore.toString()
+        binding.llProgressLayout.weightSum = max(currentScore, maxScore).toFloat()
+
+        binding.vProgressCurrent.animateWeightChange(
+            (binding.vProgressCurrent.layoutParams as LinearLayout.LayoutParams).weight.toInt(),
+            currentScore.toInt(),
+            duration = 1500,
+            startDelay = 200,
+            init = { interpolator = FastOutSlowInInterpolator() },
+            onValueChange = {
+                binding.tvScoreCurrent.apply {
+                    text = it.toInt().toString()
+                    translationX = binding.vProgressCurrent.width.toFloat()
+                }
+            })
+
     }
 
     private fun updateAttemptsProgress(currentScore: Long, maxScore: Long) {
-        if (binding.vAttemptProgressCurrent.tag != currentScore) {
-            binding.vAttemptProgressCurrent.tag = currentScore
+        binding.vAttemptProgressCurrent.tag = currentScore
 
-            binding.tvAttemptScoreTotal.text = maxScore.toString()
-            binding.llProgressAttemptLayout.weightSum = max(currentScore, maxScore).toFloat()
+        binding.tvAttemptScoreTotal.text = maxScore.toString()
+        binding.llProgressAttemptLayout.weightSum = max(currentScore, maxScore).toFloat()
 
-            binding.vAttemptProgressCurrent.animateWeightChange(
-                (binding.vAttemptProgressCurrent.layoutParams as LinearLayout.LayoutParams).weight.toInt(),
-                currentScore.toInt(),
-                duration = 1500,
-                startDelay = 200,
-                init = { interpolator = FastOutSlowInInterpolator() },
-                onValueChange = {
-                    binding.tvAttemptScoreCurrent.apply {
-                        text = it.toInt().toString()
-                        translationX = binding.vAttemptProgressCurrent.width.toFloat()
-                    }
-                })
-        }
+        binding.vAttemptProgressCurrent.animateWeightChange(
+            (binding.vAttemptProgressCurrent.layoutParams as LinearLayout.LayoutParams).weight.toInt(),
+            currentScore.toInt(),
+            duration = 1500,
+            startDelay = 200,
+            init = { interpolator = FastOutSlowInInterpolator() },
+            onValueChange = {
+                binding.tvAttemptScoreCurrent.apply {
+                    text = it.toInt().toString()
+                    translationX = binding.vAttemptProgressCurrent.width.toFloat()
+                }
+            })
+
     }
 
 
@@ -351,7 +351,7 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
         secondTarget.closeTarget.setOnClickListener { nextTarget() }
         secondTarget.closeSpotlight.setOnClickListener { closeSpotlight() }
         secondTarget.customText.text =
-            "Shows your scores and attempts for each Routine and comparison with other Players at your level, age and experience"
+            "Shows your scores and attempts for each Routine"
 
         secondTarget.root.updatePadding(bottom = tvAnalysisLocation[1] - binding.tvAnalysisTitle.height)
 

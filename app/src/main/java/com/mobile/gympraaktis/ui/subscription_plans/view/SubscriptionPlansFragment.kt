@@ -4,15 +4,23 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ConcatAdapter
 import com.android.billingclient.api.ProductDetails
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.data.billing.BillingClientWrapper
 import com.mobile.gympraaktis.databinding.FragmentSubscriptionPlansBinding
+import com.mobile.gympraaktis.domain.common.md5
+import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
+import com.mobile.gympraaktis.domain.extension.makeToast
 import com.mobile.gympraaktis.ui.details.adapter.HeaderAdapter
 import com.mobile.gympraaktis.ui.details.vm.DetailsViewModel
 import com.mobile.gympraaktis.ui.subscription_plans.vm.SubscriptionPlansViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class SubscriptionPlansFragment(override val layoutId: Int = R.layout.fragment_subscription_plans) :
@@ -37,34 +45,61 @@ class SubscriptionPlansFragment(override val layoutId: Int = R.layout.fragment_s
     override fun initUI(savedInstanceState: Bundle?) {
         detailsViewModel.changeTitle("Plans")
 
+        val userIdHash = SettingsStorage.instance.getProfile()!!.id.toString().md5()
+        Timber.d("USER ID HASH ${SettingsStorage.instance.getProfile()!!.id} $userIdHash")
+
         val clubProductsAdapter = SubscriptionPlanAdapter {
-            BillingClientWrapper.purchase(activity, it.skuDetails)
+            mViewModel.purchase(it, activity, userIdHash)
         }
 
         val practiceProductsAdapter = SubscriptionPlanAdapter {
-            BillingClientWrapper.purchase(activity, it.skuDetails)
+            mViewModel.purchase(it, activity, userIdHash)
         }
 
-        binding.rvSubscriptionPlans.adapter = ConcatAdapter(
+        val concatAdapter = ConcatAdapter(
             HeaderAdapter("Practice Subscription", 20f, Color.WHITE),
             practiceProductsAdapter,
             HeaderAdapter("Club Subscription", 20f, Color.WHITE),
             clubProductsAdapter,
         )
 
+        binding.rvSubscriptionPlans.adapter = concatAdapter
+
+        val activePlanHeader = HeaderAdapter("Active Subscription", 20f, Color.WHITE)
+        val activePlanAdapter = SubscriptionPlanAdapter {
+
+        }
+
+        lifecycleScope.launch {
+            mViewModel.subscriptionDataFlows.collectLatest {
+                lifecycleScope.launch(Dispatchers.Main) {
+                    practiceProductsAdapter.submitList(it.practiceProducts)
+                    clubProductsAdapter.submitList(it.clubProducts)
+                    if (it.activeProducts.isNotEmpty()) {
+                        activePlanAdapter.submitList(it.activeProducts)
+                        concatAdapter.addAdapter(0, activePlanHeader)
+                        concatAdapter.addAdapter(1, activePlanAdapter)
+                        binding.rvSubscriptionPlans.scrollToPosition(0)
+
+//                        mViewModel.updatePlan(it.activeProducts.first())
+                    } else {
+                        concatAdapter.removeAdapter(activePlanHeader)
+                        concatAdapter.removeAdapter(activePlanAdapter)
+                    }
+                }
+            }
+        }
+
+        mViewModel.updatePurchaseEvent.observe(viewLifecycleOwner) {
+            activity.makeToast(it)
+            detailsViewModel.fetchDashboardData()
+        }
+
         BillingClientWrapper.queryPracticeProducts(object :
             BillingClientWrapper.OnQueryProductsListener {
             override fun onSuccess(products: List<ProductDetails>) {
                 Timber.d("PRODUCTS")
                 Timber.d(products.toString())
-
-                val list = mutableListOf<SubscriptionPlan>()
-
-                products.forEach {
-                    list.add(SubscriptionPlan(it.productId, it.title, it.subscriptionOfferDetails?.first()?.pricingPhases?.pricingPhaseList?.first()?.formattedPrice ?: "0", 0, 0, it))
-                }
-
-                practiceProductsAdapter.submitList(list)
             }
 
             override fun onFailure(error: BillingClientWrapper.Error) {
@@ -74,27 +109,22 @@ class SubscriptionPlansFragment(override val layoutId: Int = R.layout.fragment_s
 
         })
 
-        BillingClientWrapper.queryClubProducts(object :
-            BillingClientWrapper.OnQueryProductsListener {
-            override fun onSuccess(products: List<ProductDetails>) {
-                Timber.d("PRODUCTS")
-                Timber.d(products.toString())
-
-                val list = mutableListOf<SubscriptionPlan>()
-
-                products.forEach {
-                    list.add(SubscriptionPlan(it.productId, it.title, it.subscriptionOfferDetails?.first()?.pricingPhases?.pricingPhaseList?.first()?.formattedPrice ?: "0", 0, 0, it))
+        lifecycleScope.launch {
+            delay(300)
+            BillingClientWrapper.queryClubProducts(object :
+                BillingClientWrapper.OnQueryProductsListener {
+                override fun onSuccess(products: List<ProductDetails>) {
+                    Timber.d("PRODUCTS")
+                    Timber.d(products.toString())
                 }
 
-                clubProductsAdapter.submitList(list)
-            }
+                override fun onFailure(error: BillingClientWrapper.Error) {
+                    Timber.d(error.debugMessage)
+                    Timber.d(error.responseCode.toString())
+                }
 
-            override fun onFailure(error: BillingClientWrapper.Error) {
-                Timber.d(error.debugMessage)
-                Timber.d(error.responseCode.toString())
-            }
-
-        })
+            })
+        }
 
 
     }

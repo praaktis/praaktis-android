@@ -24,11 +24,11 @@ import com.mobile.gympraaktis.PraaktisApp
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseActivity
 import com.mobile.gympraaktis.data.entities.PlayerEntity
+import com.mobile.gympraaktis.data.entities.RoutineEntity
 import com.mobile.gympraaktis.databinding.ActivityVideoChallengeBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBottomBinding
 import com.mobile.gympraaktis.domain.common.AppGuide
 import com.mobile.gympraaktis.domain.common.resettableLazy
-import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.details.view.ChallengeInstructionFragment
 import com.takusemba.spotlight.OnSpotlightListener
@@ -52,7 +52,7 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
         const val TAG: String = "ChallengeVideoActivity"
 
         @JvmStatic
-        fun start(context: Context, challengeItem: ChallengeDTO, player: PlayerEntity) {
+        fun start(context: Context, challengeItem: RoutineEntity, player: PlayerEntity) {
             val intent = Intent(context, ChallengeVideoActivity::class.java)
             intent.putExtra("challengeItem", challengeItem)
             intent.putExtra("player", player)
@@ -60,7 +60,7 @@ class ChallengeVideoActivity(override val layoutId: Int = R.layout.activity_vide
         }
     }
 
-    private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as ChallengeDTO }
+    private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as RoutineEntity }
     private val player by lazy { intent.getSerializableExtra("player") as PlayerEntity }
 
     private val mHttpDataSourceFactory: HttpDataSource.Factory by lazy {

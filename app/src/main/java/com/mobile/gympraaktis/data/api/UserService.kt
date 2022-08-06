@@ -1,6 +1,7 @@
 package com.mobile.gympraaktis.data.api
 
 import com.mobile.gympraaktis.domain.entities.*
+import com.mobile.gympraaktis.ui.subscription_plans.vm.UpdatePurchaseBody
 import io.reactivex.Single
 import okhttp3.ResponseBody
 import retrofit2.http.*
@@ -98,5 +99,14 @@ interface UserService {
 
     @GET("getGenders/")
     fun fetchGenderOptions(): Single<List<GenderDTO>>
+
+    @GET("user/getPlayerProfile/{player_id}")
+    fun fetchPlayerProfile(@Path("player_id") playerId: Long): Single<PlayerDTO>
+
+    @POST("user/updatePlayer/")
+    fun updatePlayer(@Body updateModel: PlayerUpdateModel): Single<ResponseBody>
+
+    @POST("user/updatePurchase/")
+    fun updatePurchase(@Body updatePurchaseBody: UpdatePurchaseBody): Single<ResponseBody>
 
 }

@@ -6,7 +6,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
-import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.text.TextUtils
@@ -311,7 +310,6 @@ fun View.showAnimWithScaleIf(show: Boolean, duration: Long = 200, interpolator: 
     else hideAnimWithScale(duration, if (interpolator) AnticipateInterpolator() else AccelerateDecelerateInterpolator())
 }
 
-@TargetApi(21)
 fun View.showAnimWithReveal(duration: Long = 200, endAction: () -> Unit = {}, x: Int = -1, y: Int = -1) {
     if (isNotVisible()) {
         this.doOnPreDraw {
@@ -324,7 +322,7 @@ fun View.showAnimWithReveal(duration: Long = 200, endAction: () -> Unit = {}, x:
 
             val revealAnim = ViewAnimationUtils.createCircularReveal(this, centerX, centerY, 0f, finalRadius.toFloat())
             revealAnim.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(p0: Animator?) {
+                override fun onAnimationEnd(animation: Animator) {
                     endAction()
                 }
             })
@@ -337,7 +335,6 @@ fun View.showAnimWithReveal(duration: Long = 200, endAction: () -> Unit = {}, x:
     }
 }
 
-@TargetApi(21)
 fun View.hideAnimWithReveal(duration: Long = 200, endAction: () -> Unit = {}, x: Int = -1, y: Int = -1) {
     if (isVisible()) {
         val cx = if (x >= 0) x else width / 2
@@ -346,7 +343,7 @@ fun View.hideAnimWithReveal(duration: Long = 200, endAction: () -> Unit = {}, x:
 
         val revealAnim = ViewAnimationUtils.createCircularReveal(this, cx, cy, initialRadius.toFloat(), 0f)
         revealAnim.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 hide()
                 endAction()
             }
@@ -471,7 +468,7 @@ inline fun <reified T : ViewGroup.LayoutParams> View.updateLayoutParams(block: T
 
 fun <T : RecyclerView.ViewHolder> T.listen(event: (position: Int, type: Int) -> Unit): T {
     itemView.setOnClickListener {
-        event.invoke(getAdapterPosition(), getItemViewType())
+        event.invoke(getAdapterPosition(), itemViewType)
     }
     return this
 }

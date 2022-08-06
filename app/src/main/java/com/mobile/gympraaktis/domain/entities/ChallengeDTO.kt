@@ -7,7 +7,7 @@ data class ChallengeDTO(
     @SerializedName("name")
     val name: String,
     @SerializedName("id")
-    val id: Int,
+    val id: Long,
     @SerializedName("image_url")
     val iconUrl: String?,
     @SerializedName("instructions")
@@ -17,5 +17,7 @@ data class ChallengeDTO(
     @SerializedName("video_url")
     val videoUrl: String?,
     @SerializedName("download_date")
-    val downloadDate: String?
+    val downloadDate: String?,
+    @SerializedName("detail_points")
+    val detailPoints: List<DetailPoint>
 ) : Serializable

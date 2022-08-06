@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.mobile.gympraaktis.base.BaseViewModel
 import com.mobile.gympraaktis.data.db.PraaktisDatabase
 import com.mobile.gympraaktis.data.entities.PlayerEntity
+import com.mobile.gympraaktis.data.entities.RoutineEntity
 import com.mobile.gympraaktis.data.repository.UserServiceRepository
-import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.entities.DetailResult
 import com.mobile.gympraaktis.domain.entities.StoreResultModel
 import com.praaktis.exerciseengine.Engine.Measurement
@@ -23,7 +23,7 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
     }
 
     fun storeResult(
-        challengeItem: ChallengeDTO,
+        challengeItem: RoutineEntity,
         points: Int? = null,
         score: Float,
         credits: Float? = null,
@@ -42,7 +42,7 @@ class ResultChallengeFragmentViewModel(application: Application) : BaseViewModel
                 points = points,
                 score = score,
                 credits = credits,
-                challengeId = challengeItem.id,
+                challengeId = challengeItem.id.toInt(),
                 detailResult = detailResults,
                 videoId = videoId,
                 measurements = measurements

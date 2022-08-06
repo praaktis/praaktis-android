@@ -8,7 +8,6 @@ import com.mobile.gympraaktis.data.repository.UserServiceRepository
 import com.mobile.gympraaktis.domain.common.BoolLV
 import com.mobile.gympraaktis.domain.entities.toAnalysisEntityList
 import com.mobile.gympraaktis.domain.entities.toDashboardEntity
-import com.mobile.gympraaktis.domain.entities.toRoutineEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -21,9 +20,7 @@ class DashboardViewModel(app: Application) : BaseViewModel(app) {
 //        fetchDashboardData()
     }
 
-    fun observeDashboard() =
-        PraaktisDatabase.getInstance(getApplication()).getDashboardDao().getDashboardData()
-            .asLiveData()
+    fun observeDashboard() = PraaktisDatabase.getInstance(getApplication()).getDashboardDao().getDashboardData()
 
     fun observeAnalysisComplete() = PraaktisDatabase.getInstance(getApplication()).getDashboardDao().getAllAnalysisData()
         .asLiveData()
@@ -51,7 +48,7 @@ class DashboardViewModel(app: Application) : BaseViewModel(app) {
                                 analysis.fourth,
                                 analysis.fifth,
                             )
-                            insertRoutines(it.routines.map { it.toRoutineEntity() })
+//                            insertRoutines(it.routines.map { it.toRoutineEntity() })
                         }
                     }
                 }

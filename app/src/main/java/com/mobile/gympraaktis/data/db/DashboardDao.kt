@@ -1,5 +1,6 @@
 package com.mobile.gympraaktis.data.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.mobile.gympraaktis.data.entities.*
 import kotlinx.coroutines.flow.Flow
@@ -24,6 +25,12 @@ interface DashboardDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPlayers(list: List<PlayerEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertPlayer(list: PlayerEntity)
+
+    @Update
+    fun updatePlayer(list: PlayerEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRoutines(list: List<RoutineEntity>)
@@ -70,8 +77,11 @@ interface DashboardDao {
     @Query("SELECT * FROM routine")
     fun getRoutines(): Flow<List<RoutineEntity>>
 
+    @Query("SELECT * FROM routine")
+    fun getRoutinesLiveData(): LiveData<List<RoutineEntity>>
+
     @Query("SELECT * FROM dashboard")
-    fun getDashboardData(): Flow<DashboardEntity>
+    fun getDashboardData(): LiveData<DashboardEntity>
 
     @Transaction
     @Query("SELECT * FROM challenge_analysis")

@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.data.entities.PlayerEntity
+import com.mobile.gympraaktis.data.entities.RoutineEntity
 import com.mobile.gympraaktis.databinding.FragmentChallengeInstructionBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBottomBinding
@@ -46,7 +47,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         const val VIDEO_ID = "VIDEO_ID"
         private const val AUTO_START_DURATION = 20000L
 
-        fun getInstance(item: ChallengeDTO, player: PlayerEntity) =
+        fun getInstance(item: RoutineEntity, player: PlayerEntity) =
             ChallengeInstructionFragment().apply {
                 arguments = Bundle().apply {
                     putSerializable(CHALLENGE_ITEM, item)
@@ -57,7 +58,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
 
     override val mViewModel: MenuViewModel by viewModels()
 
-    private val challengeItem by lazy { requireArguments().getSerializable(CHALLENGE_ITEM) as ChallengeDTO }
+    private val challengeItem by lazy { requireArguments().getSerializable(CHALLENGE_ITEM) as RoutineEntity }
     private val player by lazy { requireArguments().getSerializable("player") as PlayerEntity }
     private val autoStartAnimator by lazy { ValueAnimator.ofFloat(0f, 1f) }
 
@@ -102,14 +103,14 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
                 mViewModel.settingsStorage.cameraMode = true
                 Timber.i("SINGLE")
                 binding.viewInstructions.setInstructions(
-                    challengeItem.instructions?.single ?: emptyList()
+                    challengeItem.instructionsSingle ?: emptyList()
                 )
             }
             R.id.btn_multi -> {
                 mViewModel.settingsStorage.cameraMode = false
                 Timber.i("MULTI")
                 binding.viewInstructions.setInstructions(
-                    challengeItem.instructions?.multiple ?: emptyList()
+                    challengeItem.instructionsMultiple ?: emptyList()
                 )
             }
         }
@@ -127,15 +128,15 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
                 }
         }
         autoStartAnimator.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(animation: Animator?) {}
+            override fun onAnimationRepeat(animation: Animator) {}
 
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 startChallengeSteps()
             }
 
-            override fun onAnimationCancel(animation: Animator?) {}
+            override fun onAnimationCancel(animation: Animator) {}
 
-            override fun onAnimationStart(animation: Animator?) {}
+            override fun onAnimationStart(animation: Animator) {}
         })
     }
 
@@ -159,6 +160,7 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
         autoStartAnimator.pause()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == ChallengeActivity.PRAAKTIS_SDK_REQUEST_CODE) {

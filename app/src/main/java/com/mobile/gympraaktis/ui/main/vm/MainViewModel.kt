@@ -3,20 +3,29 @@ package com.mobile.gympraaktis.ui.main.vm
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.mobile.gympraaktis.base.BaseViewModel
+import com.mobile.gympraaktis.data.billing.BillingClientWrapper
 import com.mobile.gympraaktis.data.db.PraaktisDatabase
+import com.mobile.gympraaktis.data.entities.RoutineEntity
 import com.mobile.gympraaktis.data.repository.AuthSeriviceRepository
 import com.mobile.gympraaktis.data.repository.UserServiceRepository
-import com.mobile.gympraaktis.domain.entities.*
+import com.mobile.gympraaktis.domain.common.LiveEvent
+import com.mobile.gympraaktis.domain.entities.StoreResultModel
+import com.mobile.gympraaktis.domain.entities.toAnalysisEntityList
+import com.mobile.gympraaktis.domain.entities.toDashboardEntity
+import com.mobile.gympraaktis.domain.entities.toRoutineEntity
+import com.mobile.gympraaktis.ui.subscription_plans.view.SubscriptionPlan
+import com.mobile.gympraaktis.ui.subscription_plans.vm.SubscriptionData
 import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class MainViewModel(app: Application) : BaseViewModel(app) {
 
@@ -25,9 +34,11 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
     private val praaktisDao by lazy {
         PraaktisDatabase.getInstance(getApplication()).getPraaktisDao()
     }
+    private val dashboardDao by lazy {
+        PraaktisDatabase.getInstance(getApplication()).getDashboardDao()
+    }
 
-    private val _challengesLiveData = MutableLiveData<List<ChallengeDTO>>()
-    val challengesEvent: LiveData<List<ChallengeDTO>> get() = _challengesLiveData/*LiveEvent<List<ChallengeDTO>> = LiveEvent()*/
+    val challengesEvent: LiveData<List<RoutineEntity>> get() = dashboardDao.getRoutinesLiveData()
     private var challengesDisposable: Disposable? = null
     private var fcmDisposable: Disposable? = null
 
@@ -36,8 +47,12 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
             .doOnSubscribe { showHideEvent.postValue(true) }
             .doAfterTerminate { showHideEvent.postValue(false) }
             .subscribe({
-                this._challengesLiveData.postValue(it)
-                settingsStorage.setChallenges(it)
+                viewModelScope.launch(Dispatchers.IO) {
+                    settingsStorage.setChallenges(it)
+                    dashboardDao.insertRoutines(it.map {
+                        it.toRoutineEntity()
+                    })
+                }
             }, ::onError)
         addDisposable(challengesDisposable!!)
     }
@@ -49,7 +64,7 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
             .subscribe({
                 if (it != null) {
                     GlobalScope.launch(Dispatchers.IO) {
-                        PraaktisDatabase.getInstance(getApplication()).getDashboardDao().apply {
+                        dashboardDao.apply {
                             val analysis = it.toAnalysisEntityList()
                             setDashboardData(
                                 it.toDashboardEntity(),
@@ -59,7 +74,7 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
                                 analysis.fourth,
                                 analysis.fifth,
                             )
-                            insertRoutines(it.routines.map { it.toRoutineEntity() })
+//                            insertRoutines(it.routines.map { it.toRoutineEntity() })
                         }
                     }
                 }
@@ -75,12 +90,6 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
                     settingsStorage.isSentFcmToken = true
                 }, ::onError)
         }
-    }
-
-    override fun onError(throwable: Throwable) {
-        super.onError(throwable)
-        if (settingsStorage.getChallenges() != null)
-            _challengesLiveData.postValue(settingsStorage.getChallenges())
     }
 
     init {
@@ -108,6 +117,90 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
             PraaktisDatabase.getInstance(getApplication()).getAttemptHistoryDao()
                 .removeAttemptHistory()
         }
+    }
+
+    val updatePurchaseEvent: LiveEvent<String> = LiveEvent()
+
+    fun updatePlan(plan: SubscriptionPlan) {
+        userRepository.updatePurchase(plan.praaktisKey)
+            .doOnSubscribe { showHideEvent.postValue(true) }
+            .doAfterTerminate { showHideEvent.postValue(false) }
+            .subscribe({
+
+                val json = JSONObject(it.string())
+                val message = json.optString("message")
+                updatePurchaseEvent.postValue(message)
+            }, ::onError)
+
+    }
+
+
+    val subscriptionDataFlows = combine(
+        BillingClientWrapper.practiceProductWithProductDetails,
+        BillingClientWrapper.clubProductWithProductDetails,
+        BillingClientWrapper.purchases,
+    ) { practiceProducts, clubProducts, purchases ->
+        val activePlans = mutableListOf<SubscriptionPlan>()
+
+        val practicePlans = practiceProducts.map {
+            SubscriptionPlan(
+                it.productId,
+                it.name,
+                it.subscriptionOfferDetails?.first()?.pricingPhases?.pricingPhaseList?.first()?.formattedPrice
+                    ?: "0",
+                it.description.split("\\R".toRegex()),
+                it,
+                purchases.find { purchase ->
+                    purchase.products.contains(it.productId)
+                } != null,
+                BillingClientWrapper.plans.find { plans ->
+                    plans.iapKey == it.productId
+                }?.praaktisKey ?: BillingClientWrapper.trialPlan.praaktisKey
+            ).apply {
+                if (isActive) activePlans.add(this)
+            }
+        }
+
+        val clubPlans = clubProducts.map {
+            SubscriptionPlan(
+                it.productId,
+                it.name,
+                it.subscriptionOfferDetails?.first()?.pricingPhases?.pricingPhaseList?.first()?.formattedPrice
+                    ?: "0",
+                it.description.split("\\R".toRegex()),
+                it,
+                purchases.find { purchase ->
+                    purchase.products.contains(it.productId)
+                } != null,
+                BillingClientWrapper.plans.find { plans ->
+                    plans.iapKey == it.productId
+                }?.praaktisKey ?: BillingClientWrapper.trialPlan.praaktisKey
+            ).apply {
+                if (isActive) activePlans.add(this)
+            }
+        }
+
+        if ((practicePlans.isNotEmpty() || clubPlans.isNotEmpty()) && activePlans.isEmpty()) {
+            activePlans.add(
+                SubscriptionPlan(
+                    BillingClientWrapper.trialPlan.iapKey,
+                    "Trial",
+                    "0.00",
+                    listOf("5 Player/Patient\n100 Attempts"),
+                    null,
+                    true,
+                    BillingClientWrapper.trialPlan.praaktisKey
+                )
+            )
+        }
+
+
+        SubscriptionData(
+            practicePlans,
+            clubPlans,
+            activePlans,
+            purchases,
+        )
     }
 
 

@@ -4,6 +4,7 @@ import com.mobile.gympraaktis.data.api.UserService
 import com.mobile.gympraaktis.domain.common.ASyncTransformer
 import com.mobile.gympraaktis.domain.common.Constants.createService
 import com.mobile.gympraaktis.domain.entities.*
+import com.mobile.gympraaktis.ui.subscription_plans.vm.UpdatePurchaseBody
 import io.reactivex.Single
 import okhttp3.ResponseBody
 
@@ -11,6 +12,7 @@ interface UserServiceRepository {
 
     fun getDashboardData(): Single<DashboardDTO>
     fun getProfile(): Single<UserDTO>
+    fun getPlayerProfile(playerId: Long): Single<PlayerDTO>
     fun getTimelineData(): Single<TimelineDTO>
     suspend fun getAttemptHistory(page: Int, playerId: Long? = null): AttemptHistoryResponse
     fun getDetailResult(attemptId: Int): Single<List<DetailScoreDTO>>
@@ -27,11 +29,13 @@ interface UserServiceRepository {
     fun registerDevice(deviceId: String): Single<ResponseBody>
     fun logout(): Single<ResponseBody>
     fun createPlayer(playerCreateModel: PlayerCreateModel): Single<ResponseBody>
+    fun updatePlayer(playerCreateModel: PlayerUpdateModel): Single<ResponseBody>
     fun fetchHeightOptions(): Single<List<KeyValueDTO>>
     fun fetchWeightOptions(): Single<List<KeyValueDTO>>
     fun fetchAbilityOptions(): Single<List<KeyValueDTO>>
     fun fetchAgeOptions(): Single<List<KeyValueDTO>>
     fun fetchGenderOptions(): Single<List<GenderDTO>>
+    fun updatePurchase(planId: Int): Single<ResponseBody>
 
     class UserServiceRepositoryImpl : UserServiceRepository {
 
@@ -54,6 +58,10 @@ interface UserServiceRepository {
             return userService.getProfile().compose(ASyncTransformer<UserDTO>())
         }
 
+        override fun getPlayerProfile(playerId: Long): Single<PlayerDTO> {
+            return userService.fetchPlayerProfile(playerId);
+        }
+
         override fun getTimelineData(): Single<TimelineDTO> {
             return userService.getTimelineData().compose(ASyncTransformer<TimelineDTO>())
         }
@@ -68,11 +76,12 @@ interface UserServiceRepository {
         }
 
         override fun storeResult(storeResultModel: StoreResultModel): Single<ResponseBody> {
-            return userService.storeResult(storeResultModel).compose(ASyncTransformer<ResponseBody>())
+            return userService.storeResult(storeResultModel)
+                .compose(ASyncTransformer<ResponseBody>())
         }
 
         override suspend fun storeResultCoroutines(storeResultModel: StoreResultModel): ResponseBody {
-            return  userService.storeResultCoroutines(storeResultModel)
+            return userService.storeResultCoroutines(storeResultModel)
         }
 
         override fun getChallenges(): Single<List<ChallengeDTO>> {
@@ -126,6 +135,11 @@ interface UserServiceRepository {
                 .compose(ASyncTransformer<ResponseBody>())
         }
 
+        override fun updatePlayer(playerCreateModel: PlayerUpdateModel): Single<ResponseBody> {
+            return userService.updatePlayer(playerCreateModel)
+                .compose(ASyncTransformer<ResponseBody>())
+        }
+
         override fun fetchHeightOptions(): Single<List<KeyValueDTO>> {
             return userService.fetchHeightOptions().compose(ASyncTransformer<List<KeyValueDTO>>())
         }
@@ -144,6 +158,11 @@ interface UserServiceRepository {
 
         override fun fetchGenderOptions(): Single<List<GenderDTO>> {
             return userService.fetchGenderOptions().compose(ASyncTransformer<List<GenderDTO>>())
+        }
+
+        override fun updatePurchase(planId: Int): Single<ResponseBody> {
+            return userService.updatePurchase(UpdatePurchaseBody(planId))
+                .compose(ASyncTransformer<ResponseBody>())
         }
 
     }

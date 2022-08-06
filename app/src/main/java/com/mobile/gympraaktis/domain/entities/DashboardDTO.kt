@@ -26,7 +26,17 @@ data class DashboardDTO(
 fun DashboardDTO.toDashboardEntity() =
     DashboardEntity(1, allowedPlayers, activatedPlayers, level, videosAvailable, videosRecorded)
 
-fun RoutineDTO.toRoutineEntity() = RoutineEntity(id, name, null)
+fun ChallengeDTO.toRoutineEntity() = RoutineEntity(
+    id,
+    name,
+    iconUrl,
+    instructions?.multiple,
+    instructions?.single,
+    videoGuide,
+    videoUrl,
+    downloadDate,
+    detailPoints,
+)
 
 fun DashboardDTO.toAnalysisEntityList(): Quintuple<List<AnalysisEntity>, List<AttemptChartDataEntity>, List<ChartDataEntity>, List<ScoreAnalysisEntity>, List<PlayerEntity>> {
     val analysisEntityList: MutableList<AnalysisEntity> = mutableListOf()

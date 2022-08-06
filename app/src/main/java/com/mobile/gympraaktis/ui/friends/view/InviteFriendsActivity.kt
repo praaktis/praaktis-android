@@ -68,8 +68,8 @@ class InviteFriendsActivity constructor(override val layoutId: Int = R.layout.ac
         toolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_back)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menu?.add(0, 0, 0, "Share")
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menu.add(0, 0, 0, "Share")
             ?.setIcon(R.drawable.ic_share)
             ?.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS)
         return super.onCreateOptionsMenu(menu)

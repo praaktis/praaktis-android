@@ -11,8 +11,8 @@ import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseActivity
 import com.mobile.gympraaktis.data.entities.AttemptEntity
 import com.mobile.gympraaktis.data.entities.PlayerEntity
+import com.mobile.gympraaktis.data.entities.RoutineEntity
 import com.mobile.gympraaktis.databinding.ActivityChallengeBinding
-import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.extension.materialAlert
 import com.mobile.gympraaktis.domain.extension.setLightNavigationBar
 import com.mobile.gympraaktis.domain.extension.showOrReplace
@@ -31,7 +31,7 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
 
         fun start(
             activity: Activity,
-            challengeItem: ChallengeDTO,
+            challengeItem: RoutineEntity,
             result: HashMap<String, Any>?,
             path: String?,
             pathTest: String?,
@@ -57,7 +57,7 @@ class ChallengeActivity constructor(override val layoutId: Int = R.layout.activi
 
     }
 
-    private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as ChallengeDTO }
+    private val challengeItem by lazy { intent.getSerializableExtra("challengeItem") as RoutineEntity }
     private val player by lazy { intent.getSerializableExtra("player") as PlayerEntity }
 
     override val mViewModel: MenuViewModel by viewModels()

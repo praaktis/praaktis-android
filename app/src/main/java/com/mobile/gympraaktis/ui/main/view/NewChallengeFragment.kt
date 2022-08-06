@@ -11,17 +11,16 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.data.entities.PlayerEntity
+import com.mobile.gympraaktis.data.entities.RoutineEntity
 import com.mobile.gympraaktis.databinding.FragmentNewChallengeBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetChallengesBinding
 import com.mobile.gympraaktis.domain.common.AppGuide
 import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
 import com.mobile.gympraaktis.domain.common.resettableLazy
-import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.challenge.ChallengeVideoActivity
 import com.mobile.gympraaktis.ui.main.adapter.ChallengesAdapter
@@ -49,7 +48,7 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
 
     private lateinit var mainViewModel: MainViewModel
 
-    private var challenge: ChallengeDTO? = null
+    private var challenge: RoutineEntity? = null
 
     override fun initUI(savedInstanceState: Bundle?) {
         mainViewModel = ViewModelProvider(activity)[MainViewModel::class.java]
@@ -62,11 +61,11 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
         }
         rv_challenges.adapter = adapter
 
-        mainViewModel.challengesEvent.observe(viewLifecycleOwner, Observer {
+        mainViewModel.challengesEvent.observe(viewLifecycleOwner) {
             adapter.submitList(it) {
                 startGuideIfNecessary()
             }
-        })
+        }
 
         setupSelectPlayerField()
 
@@ -82,6 +81,15 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
                     binding.dropdownSelectPlayer.setText(it.name)
                     binding.dropdownSelectPlayer.tag = it
                 }
+            } else {
+                if(players.size == 1) {
+                    players.firstOrNull()?.let {
+                        SettingsStorage.instance.setSelectedPlayerId(it.id)
+                        binding.dropdownSelectPlayer.setText(it.name)
+                        binding.dropdownSelectPlayer.tag = it
+                    }
+                }
+
             }
             binding.dropdownSelectPlayer.setDropdownValues(players.map { it.name }.toTypedArray())
             binding.dropdownSelectPlayer.setOnItemClickListener { parent, view, position, id ->
@@ -133,6 +141,7 @@ class NewChallengeFragment constructor(override val layoutId: Int = R.layout.fra
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

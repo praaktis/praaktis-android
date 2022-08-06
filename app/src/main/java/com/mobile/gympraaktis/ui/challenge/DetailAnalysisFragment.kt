@@ -6,12 +6,11 @@ import androidx.fragment.app.viewModels
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
 import com.mobile.gympraaktis.data.entities.AttemptEntity
+import com.mobile.gympraaktis.data.entities.RoutineEntity
 import com.mobile.gympraaktis.databinding.FragmentDetailedAnalysisBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetTimelineBinding
-import com.mobile.gympraaktis.domain.common.AnalysisLineChart
 import com.mobile.gympraaktis.domain.common.AppGuide
 import com.mobile.gympraaktis.domain.common.resettableLazy
-import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.entities.DetailPoint
 import com.mobile.gympraaktis.domain.entities.DetailScoreDTO
 import com.mobile.gympraaktis.domain.extension.doOnPreDraw
@@ -19,13 +18,14 @@ import com.mobile.gympraaktis.domain.extension.hide
 import com.mobile.gympraaktis.domain.extension.hideAnimWithScale
 import com.mobile.gympraaktis.domain.extension.showAnimWithScale
 import com.mobile.gympraaktis.ui.challenge.vm.DetailAnalysisFragmentViewModel
+import com.mobile.gympraaktis.ui.details.adapter.AnalysisExpandableAdapter
+import com.mobile.gympraaktis.ui.details.adapter.toAnalysisItem
 import com.mobile.gympraaktis.ui.details.view.ChallengeInstructionFragment
 import com.praaktis.exerciseengine.Engine.Measurement
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
 import kotlinx.android.synthetic.main.fragment_detailed_analysis.*
-import timber.log.Timber
 import java.util.*
 import kotlin.collections.component1
 import kotlin.collections.component2
@@ -38,9 +38,6 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
         const val TAG = "DetailAnalysisFragment"
 
         @JvmStatic
-        fun getInstance(): Fragment = DetailAnalysisFragment()
-
-        @JvmStatic
         fun getInstance(score: AttemptEntity): Fragment {
             val fragment = DetailAnalysisFragment()
             val bundle = Bundle()
@@ -50,7 +47,7 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
         }
 
         @JvmStatic
-        fun getInstance(challengeItem: ChallengeDTO): Fragment {
+        fun getInstance(challengeItem: RoutineEntity): Fragment {
             val fragment = DetailAnalysisFragment()
             val bundle = Bundle()
             bundle.putSerializable("challengeItem", challengeItem)
@@ -62,11 +59,12 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
     override val mViewModel: DetailAnalysisFragmentViewModel by viewModels()
 
     private val scoreDTO by lazy { arguments?.getSerializable("score") as AttemptEntity }
-    private val challengeItem by lazy { arguments?.getSerializable("challengeItem") as ChallengeDTO }
+    private val challengeItem by lazy { arguments?.getSerializable("challengeItem") as RoutineEntity }
     private val result by lazy { activity.intent.getSerializableExtra(ChallengeInstructionFragment.CHALLENGE_RESULT) as HashMap<String, Any>? }
 
     override fun initUI(savedInstanceState: Bundle?) {
         initToolbar()
+
         if (arguments?.get("score") != null) {
             binding.cvSelectPlayer.hide()
             mViewModel.getDetailResult(scoreDTO.attemptId) // from remote
@@ -89,14 +87,14 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
                 is com.praaktis.exerciseengine.Engine.DetailPoint -> {
                     if (key != "OVERALL") {
                         scoresMap[value.priority] = DetailScoreDTO(
-                            DetailPoint(value.id, key, value.maxValue),
+                            DetailPoint(value.id, key, value.maxValue, null),
                             value.value,
                         )
                     }
                 }
                 is Measurement -> {
                     scoresMap[value.id * 100] = DetailScoreDTO(
-                        DetailPoint(value.id, key, 100f,),
+                        DetailPoint(value.id, key, 100f, null),
                         value.value,
                     )
                 }
@@ -124,26 +122,26 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
 
 //        var gradientIterator = GRADIENT_PROGRESS_ARRAY.listIterator()
 
-        for (i in detailScores.indices) {
-//            val progressBackground =
-//                if (gradientIterator.hasNext())
-//                    gradientIterator.next()
-//                else {
-//                    gradientIterator = GRADIENT_PROGRESS_ARRAY.listIterator()
-//                    gradientIterator.next()
-//                }
+        val adapter = AnalysisExpandableAdapter<DetailScoreDTO> {
 
-            Timber.d(detailScores.toString())
-
-            val chart = AnalysisLineChart(
-                requireContext(),
-                value = detailScores[i].detailPointScore,
-                title = detailScores[i].detailPoint.name,
-                progressBackground = R.drawable.gradient_progress,
-                maxValue = detailScores[i].detailPoint.maxValue
-            )
-            llAnalysisContainer.addView(chart)
         }
+
+        binding.rvAnalysis.adapter = adapter
+
+        adapter.submitList(detailScores.map {
+            it.toAnalysisItem()
+        })
+
+//        for (i in detailScores.indices) {
+//            val chart = AnalysisLineChart(
+//                requireContext(),
+//                value = detailScores[i].detailPointScore,
+//                title = detailScores[i].detailPoint.name,
+//                progressBackground = R.drawable.gradient_progress,
+//                maxValue = detailScores[i].detailPoint.maxValue
+//            )
+//            llAnalysisContainer.addView(chart)
+//        }
 
         startGuideIfNecessary(detailScores.size)
     }

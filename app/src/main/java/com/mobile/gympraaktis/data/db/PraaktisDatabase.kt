@@ -36,6 +36,7 @@ import com.mobile.gympraaktis.domain.entities.StoreResultModel
     IntListConverter::class,
     DetailResultListConverter::class,
     MeasureResultListConverter::class,
+    DetailPointListConverter::class,
 )
 abstract class PraaktisDatabase : RoomDatabase() {
     companion object {

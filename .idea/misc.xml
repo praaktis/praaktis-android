@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/drawable/bg_selected_nav.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/bg_unselected_nav.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/bottomnav_item_background.xml" value="0.185" />
+        <entry key="app/src/main/res/drawable/empty_drawable.xml" value="0.148" />
         <entry key="app/src/main/res/drawable/gradient_challenge.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/gradient_progress.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/gradient_progress_2.xml" value="0.1695" />
@@ -19,6 +20,7 @@
         <entry key="app/src/main/res/drawable/ic_arrow_drop_down.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/ic_checkbox_checked.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/ic_dropdown.xml" value="0.136" />
+        <entry key="app/src/main/res/drawable/ic_help_outline.xml" value="0.153" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.136" />
         <entry key="app/src/main/res/drawable/ic_login.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/ic_logo.xml" value="0.136" />
@@ -30,7 +32,10 @@
         <entry key="app/src/main/res/drawable/ic_user_circle.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/selector_checkbox.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/shape_popul_menu.xml" value="0.1695" />
+        <entry key="app/src/main/res/drawable/shape_popup_menu.xml" value="0.148" />
+        <entry key="app/src/main/res/drawable/shape_progress_bg.xml" value="0.148" />
         <entry key="app/src/main/res/drawable/shape_table_header_bg.xml" value="0.1695" />
+        <entry key="app/src/main/res/layout/activity_challenge.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/activity_details.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/activity_video_challenge.xml" value="0.2809815950920245" />
@@ -51,6 +56,7 @@
         <entry key="app/src/main/res/layout/fragment_me_vs_friends.xml" value="0.3002780352177943" />
         <entry key="app/src/main/res/layout/fragment_me_vs_others.xml" value="0.27340129749768305" />
         <entry key="app/src/main/res/layout/fragment_menu.xml" value="0.27340129749768305" />
+        <entry key="app/src/main/res/layout/fragment_my_players.xml" value="0.28266913809082483" />
         <entry key="app/src/main/res/layout/fragment_new_challenge.xml" value="0.27340129749768305" />
         <entry key="app/src/main/res/layout/fragment_new_player.xml" value="0.27340129749768305" />
         <entry key="app/src/main/res/layout/fragment_new_player_profile.xml" value="0.27340129749768305" />
@@ -63,6 +69,9 @@
         <entry key="app/src/main/res/layout/fragment_subscription_plans.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/item_analysis.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/item_challenge.xml" value="0.27685185185185185" />
+        <entry key="app/src/main/res/layout/item_expandable_content.xml" value="0.34843950406156476" />
+        <entry key="app/src/main/res/layout/item_expandable_header.xml" value="0.1715458883389085" />
+        <entry key="app/src/main/res/layout/item_expandable_progress.xml" value="0.23354958294717332" />
         <entry key="app/src/main/res/layout/item_friend_score.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/item_header.xml" value="0.34843950406156476" />
         <entry key="app/src/main/res/layout/item_plan.xml" value="0.34843950406156476" />

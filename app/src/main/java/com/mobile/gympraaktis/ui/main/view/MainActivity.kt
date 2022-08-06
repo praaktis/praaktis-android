@@ -11,11 +11,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
+import com.android.billingclient.api.ProductDetails
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.gympraaktis.PraaktisApp
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.VideoPreloadWorker
 import com.mobile.gympraaktis.base.BaseActivity
+import com.mobile.gympraaktis.data.billing.BillingClientWrapper
 import com.mobile.gympraaktis.databinding.ActivityMainBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBottomBinding
 import com.mobile.gympraaktis.domain.extension.*
@@ -23,13 +25,17 @@ import com.mobile.gympraaktis.ui.friends.view.FriendsPagerFragment
 import com.mobile.gympraaktis.ui.main.vm.MainViewModel
 import com.mobile.gympraaktis.ui.new_player.view.NewPlayerFragment
 import com.mobile.gympraaktis.ui.new_player.view.NewPlayerProfileFragment
+import com.mobile.gympraaktis.ui.players.MyPlayersFragment
 import com.mobile.gympraaktis.ui.settings.view.SettingsFragment
 import com.mobile.gympraaktis.ui.subscription_plans.view.SubscriptionPlansFragment
 import com.mobile.gympraaktis.ui.timeline.view.TimelineItemFragment
 import com.takusemba.spotlight.Target
 import com.takusemba.spotlight.shape.RoundedRectangle
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class MainActivity constructor(override val layoutId: Int = R.layout.activity_main) :
     BaseActivity<ActivityMainBinding>(), FragmentManager.OnBackStackChangedListener,
@@ -71,6 +77,51 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
                 selectedItemId = R.id.menu_dashboard
             }
         }
+
+
+        lifecycleScope.launch {
+            mViewModel.subscriptionDataFlows.collectLatest {
+                lifecycleScope.launch(Dispatchers.Main) {
+                    if (it.activeProducts.isNotEmpty())
+                        mViewModel.updatePlan(it.activeProducts.first())
+                }
+            }
+        }
+
+        BillingClientWrapper.queryPracticeProducts(object :
+            BillingClientWrapper.OnQueryProductsListener {
+            override fun onSuccess(products: List<ProductDetails>) {
+                Timber.d("PRODUCTS")
+                Timber.d(products.toString())
+            }
+
+            override fun onFailure(error: BillingClientWrapper.Error) {
+                Timber.d(error.debugMessage)
+                Timber.d(error.responseCode.toString())
+            }
+
+        })
+
+        BillingClientWrapper.queryClubProducts(object :
+            BillingClientWrapper.OnQueryProductsListener {
+            override fun onSuccess(products: List<ProductDetails>) {
+                Timber.d("PRODUCTS")
+                Timber.d(products.toString())
+            }
+
+            override fun onFailure(error: BillingClientWrapper.Error) {
+                Timber.d(error.debugMessage)
+                Timber.d(error.responseCode.toString())
+            }
+
+        })
+
+
+        mViewModel.updatePurchaseEvent.observe(this) {
+            mViewModel.fetchDashboardData()
+        }
+
+
     }
 
     fun schedulePreloadWork(videoUrl: String) {
@@ -120,6 +171,7 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
                 if (supportFragmentManager.findFragmentById(R.id.menu_container) !is MenuFragment) {
                     if (supportFragmentManager.findFragmentById(R.id.menu_container) is FriendsPagerFragment
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is ProfileFragment
+                        || supportFragmentManager.findFragmentById(R.id.menu_container) is MyPlayersFragment
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is SettingsFragment
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is SubscriptionPlansFragment
                         || supportFragmentManager.findFragmentById(R.id.menu_container) is NewPlayerFragment
