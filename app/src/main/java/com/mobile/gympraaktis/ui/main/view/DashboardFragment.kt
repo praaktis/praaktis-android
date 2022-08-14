@@ -12,9 +12,11 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
+import com.android.billingclient.api.ProductDetails
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.base.BaseFragment
+import com.mobile.gympraaktis.data.billing.BillingClientWrapper
 import com.mobile.gympraaktis.data.entities.DashboardEntity
 import com.mobile.gympraaktis.databinding.FragmentDashboardBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBinding
@@ -57,6 +59,19 @@ class DashboardFragment constructor(override val layoutId: Int = R.layout.fragme
         binding.swipeRefresh.setOnRefreshListener {
             mViewModel.fetchDashboardData()
             mainViewModel.getChallenges()
+            BillingClientWrapper.queryAllProducts(object :
+                BillingClientWrapper.OnQueryProductsListener {
+                override fun onSuccess(products: List<ProductDetails>) {
+                    Timber.d("PRODUCTS")
+                    Timber.d(products.toString())
+                }
+
+                override fun onFailure(error: BillingClientWrapper.Error) {
+                    Timber.d(error.debugMessage)
+                    Timber.d(error.responseCode.toString())
+                }
+
+            })
         }
 
         mViewModel.fetchDashboardData()

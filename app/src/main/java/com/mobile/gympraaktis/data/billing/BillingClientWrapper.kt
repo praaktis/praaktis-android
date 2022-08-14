@@ -51,8 +51,11 @@ object BillingClientWrapper : PurchasesUpdatedListener {
     val practiceProductWithProductDetails = _practiceProductWithProductDetails.asStateFlow()
 
     // Current Purchases
-    private val _purchases = MutableStateFlow<List<Purchase>>(listOf())
-    val purchases = _purchases.asStateFlow()
+    private val _userPurchases = MutableStateFlow<List<Purchase>>(listOf())
+    val userPurchases = _userPurchases.asStateFlow()
+
+    private val _allPurchases = MutableStateFlow<List<Purchase>>(listOf())
+    val allPurchases = _allPurchases.asStateFlow()
 
     // Tracks new purchases acknowledgement state.
     // Set to true when a purchase is acknowledged and false when not.
@@ -75,7 +78,8 @@ object BillingClientWrapper : PurchasesUpdatedListener {
 
 
             // Post new purchase List to _purchases
-            _purchases.value = userPurchases
+            _userPurchases.value = userPurchases
+            _allPurchases.value = purchases
 
             // Then, handle the purchases
             for (purchase in userPurchases) {
@@ -141,7 +145,10 @@ object BillingClientWrapper : PurchasesUpdatedListener {
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                 val products = skuDetailsList.toMutableList()
                 val practiceProducts = products.filter {
-                    listOf(practiceBasicPlan.iapKey, practicePremiumPlan.iapKey).contains(it.productId)
+                    listOf(
+                        practiceBasicPlan.iapKey,
+                        practicePremiumPlan.iapKey
+                    ).contains(it.productId)
                 }
 
                 val clubProducts = products.filter {
@@ -256,9 +263,11 @@ object BillingClientWrapper : PurchasesUpdatedListener {
                         userIdHash == it.accountIdentifiers?.obfuscatedProfileId
                     }
 
-                    _purchases.value = userPurchases
+                    _userPurchases.value = userPurchases
+                    _allPurchases.value = purchaseList
                 } else {
-                    _purchases.value = emptyList()
+                    _userPurchases.value = emptyList()
+                    _allPurchases.value = emptyList()
                 }
 
             } else {

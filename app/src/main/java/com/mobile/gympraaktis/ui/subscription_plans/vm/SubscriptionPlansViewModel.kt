@@ -29,7 +29,7 @@ class SubscriptionPlansViewModel(app: Application) : BaseViewModel(app) {
     val subscriptionDataFlows = combine(
         BillingClientWrapper.practiceProductWithProductDetails,
         BillingClientWrapper.clubProductWithProductDetails,
-        BillingClientWrapper.purchases,
+        BillingClientWrapper.userPurchases,
     ) { practiceProducts, clubProducts, purchases ->
         val activePlans = mutableListOf<SubscriptionPlan>()
 
@@ -104,7 +104,7 @@ class SubscriptionPlansViewModel(app: Application) : BaseViewModel(app) {
             val offerToken =
                 subscriptionPlan.skuDetails?.subscriptionOfferDetails?.first()?.offerToken
 
-            val currentPurchases = BillingClientWrapper.purchases.value
+            val currentPurchases = BillingClientWrapper.userPurchases.value
 
             // Get current purchase. In this app, a user can only have one current purchase at
             // any given time.
@@ -199,7 +199,7 @@ class SubscriptionPlansViewModel(app: Application) : BaseViewModel(app) {
 
     }
 
-    val purchases: Flow<List<Purchase>> = BillingClientWrapper.purchases
+    val purchases: Flow<List<Purchase>> = BillingClientWrapper.userPurchases
 
 }
 

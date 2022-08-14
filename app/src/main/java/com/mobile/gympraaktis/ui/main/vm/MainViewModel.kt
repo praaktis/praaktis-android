@@ -138,7 +138,7 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
     val subscriptionDataFlows = combine(
         BillingClientWrapper.practiceProductWithProductDetails,
         BillingClientWrapper.clubProductWithProductDetails,
-        BillingClientWrapper.purchases,
+        BillingClientWrapper.userPurchases,
     ) { practiceProducts, clubProducts, purchases ->
         val activePlans = mutableListOf<SubscriptionPlan>()
 

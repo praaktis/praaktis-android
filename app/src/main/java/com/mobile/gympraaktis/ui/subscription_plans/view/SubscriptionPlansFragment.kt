@@ -14,6 +14,7 @@ import com.mobile.gympraaktis.databinding.FragmentSubscriptionPlansBinding
 import com.mobile.gympraaktis.domain.common.md5
 import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
 import com.mobile.gympraaktis.domain.extension.makeToast
+import com.mobile.gympraaktis.domain.extension.materialAlert
 import com.mobile.gympraaktis.ui.details.adapter.HeaderAdapter
 import com.mobile.gympraaktis.ui.details.vm.DetailsViewModel
 import com.mobile.gympraaktis.ui.subscription_plans.vm.SubscriptionPlansViewModel
@@ -48,11 +49,53 @@ class SubscriptionPlansFragment(override val layoutId: Int = R.layout.fragment_s
         Timber.d("USER ID HASH ${SettingsStorage.instance.getProfile()!!.id} $userIdHash")
 
         val clubProductsAdapter = SubscriptionPlanAdapter {
-            mViewModel.purchase(it, activity, userIdHash)
+            val productId = it.skuDetails?.productId
+
+            val purchasedProduct = BillingClientWrapper.allPurchases.value.filter {
+                it.products.contains(productId)
+            }
+
+            if (purchasedProduct.isNotEmpty()) {
+                val userPurchased = purchasedProduct.filter {
+                    it.accountIdentifiers?.obfuscatedProfileId == userIdHash
+                }
+                if (userPurchased.isNotEmpty()) {
+                    mViewModel.purchase(it, activity, userIdHash)
+                } else {
+                    activity.materialAlert {
+                        setMessage("This plan was purchased from another user, please sign in with a different Google account.")
+                        setPositiveButton("OK") { _, _ -> }
+                    }.show()
+//                    activity.makeToast("Purchased from another user")
+                }
+            } else {
+                mViewModel.purchase(it, activity, userIdHash)
+            }
         }
 
         val practiceProductsAdapter = SubscriptionPlanAdapter {
-            mViewModel.purchase(it, activity, userIdHash)
+            val productId = it.skuDetails?.productId
+
+            val purchasedProduct = BillingClientWrapper.allPurchases.value.filter {
+                it.products.contains(productId)
+            }
+
+            if (purchasedProduct.isNotEmpty()) {
+                val userPurchased = purchasedProduct.filter {
+                    it.accountIdentifiers?.obfuscatedProfileId == userIdHash
+                }
+                if (userPurchased.isNotEmpty()) {
+                    mViewModel.purchase(it, activity, userIdHash)
+                } else {
+                    activity.materialAlert {
+                        setMessage("This plan was purchased from another user, please sign in with a different Google account.")
+                        setPositiveButton("OK") { _, _ -> }
+                    }.show()
+//                    activity.makeToast("Purchased from another user")
+                }
+            } else {
+                mViewModel.purchase(it, activity, userIdHash)
+            }
         }
 
         val concatAdapter = ConcatAdapter(
