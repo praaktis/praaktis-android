@@ -88,7 +88,7 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
             }
         }
 
-        BillingClientWrapper.queryPracticeProducts(object :
+        BillingClientWrapper.queryAllProducts(object :
             BillingClientWrapper.OnQueryProductsListener {
             override fun onSuccess(products: List<ProductDetails>) {
                 Timber.d("PRODUCTS")
@@ -101,21 +101,6 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
             }
 
         })
-
-        BillingClientWrapper.queryClubProducts(object :
-            BillingClientWrapper.OnQueryProductsListener {
-            override fun onSuccess(products: List<ProductDetails>) {
-                Timber.d("PRODUCTS")
-                Timber.d(products.toString())
-            }
-
-            override fun onFailure(error: BillingClientWrapper.Error) {
-                Timber.d(error.debugMessage)
-                Timber.d(error.responseCode.toString())
-            }
-
-        })
-
 
         mViewModel.updatePurchaseEvent.observe(this) {
             mViewModel.fetchDashboardData()

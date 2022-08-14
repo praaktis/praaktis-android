@@ -135,7 +135,6 @@ class SubscriptionPlansViewModel(app: Application) : BaseViewModel(app) {
                     BillingClientWrapper.purchase(
                         activity,
                         billingParams,
-                        userIdHash,
                     )
                 }
             } else if (currentPurchases.isEmpty()) {

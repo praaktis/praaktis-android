@@ -18,7 +18,6 @@ import com.mobile.gympraaktis.ui.details.adapter.HeaderAdapter
 import com.mobile.gympraaktis.ui.details.vm.DetailsViewModel
 import com.mobile.gympraaktis.ui.subscription_plans.vm.SubscriptionPlansViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -95,7 +94,7 @@ class SubscriptionPlansFragment(override val layoutId: Int = R.layout.fragment_s
             detailsViewModel.fetchDashboardData()
         }
 
-        BillingClientWrapper.queryPracticeProducts(object :
+        BillingClientWrapper.queryAllProducts(object :
             BillingClientWrapper.OnQueryProductsListener {
             override fun onSuccess(products: List<ProductDetails>) {
                 Timber.d("PRODUCTS")
@@ -108,24 +107,6 @@ class SubscriptionPlansFragment(override val layoutId: Int = R.layout.fragment_s
             }
 
         })
-
-        lifecycleScope.launch {
-            delay(300)
-            BillingClientWrapper.queryClubProducts(object :
-                BillingClientWrapper.OnQueryProductsListener {
-                override fun onSuccess(products: List<ProductDetails>) {
-                    Timber.d("PRODUCTS")
-                    Timber.d(products.toString())
-                }
-
-                override fun onFailure(error: BillingClientWrapper.Error) {
-                    Timber.d(error.debugMessage)
-                    Timber.d(error.responseCode.toString())
-                }
-
-            })
-        }
-
 
     }
 }

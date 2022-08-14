@@ -3,6 +3,8 @@ package com.mobile.gympraaktis.data.billing
 import android.app.Activity
 import com.android.billingclient.api.*
 import com.mobile.gympraaktis.PraaktisApp
+import com.mobile.gympraaktis.domain.common.md5
+import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import timber.log.Timber
@@ -62,14 +64,21 @@ object BillingClientWrapper : PurchasesUpdatedListener {
         billingResult: BillingResult,
         purchases: List<Purchase>?
     ) {
+        val userIdHash = SettingsStorage.instance.getProfile()!!.id.toString().md5()
+
         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK
             && !purchases.isNullOrEmpty()
         ) {
+            val userPurchases = purchases.filter {
+                it.accountIdentifiers?.obfuscatedProfileId == userIdHash
+            }
+
+
             // Post new purchase List to _purchases
-            _purchases.value = purchases
+            _purchases.value = userPurchases
 
             // Then, handle the purchases
-            for (purchase in purchases) {
+            for (purchase in userPurchases) {
                 acknowledgePurchases(purchase)
             }
         } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
@@ -117,6 +126,39 @@ object BillingClientWrapper : PurchasesUpdatedListener {
         })
     }
 
+    fun queryAllProducts(listener: OnQueryProductsListener) {
+        val skusList = listOf(
+            practiceBasicPlan.iapKey,
+            practicePremiumPlan.iapKey,
+            clubBasicPlan.iapKey,
+            clubPremium.iapKey
+        )
+
+        queryProductsForType(
+            skusList,
+            BillingClient.ProductType.SUBS
+        ) { billingResult, skuDetailsList ->
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                val products = skuDetailsList.toMutableList()
+                val practiceProducts = products.filter {
+                    listOf(practiceBasicPlan.iapKey, practicePremiumPlan.iapKey).contains(it.productId)
+                }
+
+                val clubProducts = products.filter {
+                    listOf(clubBasicPlan.iapKey, clubPremium.iapKey).contains(it.productId)
+                }
+
+                _practiceProductWithProductDetails.value = practiceProducts
+                _clubProductWithProductDetails.value = clubProducts
+                listener.onSuccess(products)
+            } else {
+                listener.onFailure(
+                    Error(billingResult.responseCode, billingResult.debugMessage)
+                )
+            }
+        }
+    }
+
     fun queryPracticeProducts(listener: OnQueryProductsListener) {
         val skusList = listOf(
             practiceBasicPlan.iapKey,
@@ -161,7 +203,7 @@ object BillingClientWrapper : PurchasesUpdatedListener {
         }
     }
 
-    fun purchase(activity: Activity, billingParams: BillingFlowParams, profileId: String) {
+    fun purchase(activity: Activity, billingParams: BillingFlowParams) {
         onConnected {
             activity.runOnUiThread {
                 billingClient.launchBillingFlow(activity, billingParams)
@@ -209,7 +251,12 @@ object BillingClientWrapper : PurchasesUpdatedListener {
         ) { billingResult, purchaseList ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                 if (purchaseList.isNotEmpty()) {
-                    _purchases.value = purchaseList
+                    val userIdHash = SettingsStorage.instance.getProfile()!!.id.toString().md5()
+                    val userPurchases = purchaseList.filter {
+                        userIdHash == it.accountIdentifiers?.obfuscatedProfileId
+                    }
+
+                    _purchases.value = userPurchases
                 } else {
                     _purchases.value = emptyList()
                 }
