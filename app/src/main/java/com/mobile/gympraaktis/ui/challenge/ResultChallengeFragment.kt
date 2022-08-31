@@ -2,6 +2,7 @@ package com.mobile.gympraaktis.ui.challenge
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.mobile.gympraaktis.R
@@ -146,9 +147,12 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
     }
 
     fun startExercise() {
+        Log.d("CHALLENGE_INFO", "ROUTINE_ID " + challengeItem.id.toString())
+        Log.d("CHALLENGE_INFO", "PLAYER_ID " + player.id.toString())
+
         val intent = Intent(context, ExerciseEngineActivity::class.java)
-        intent.putExtra("EXERCISE", challengeItem.id)
-        intent.putExtra("PLAYER", player.id)
+        intent.putExtra("EXERCISE", challengeItem.id.toInt())
+        intent.putExtra("PLAYER", player.id.toInt())
         intent.putExtra(
             ChallengeInstructionFragment.SINGLE_USER_MODE,
             mViewModel.settingsStorage.cameraMode

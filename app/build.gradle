@@ -18,8 +18,8 @@ android {
         applicationId "com.praaktis.faast"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 8
-        versionName "0.9.92.6"
+        versionCode 9
+        versionName "0.9.93"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptSupportModeEnabled true
         signingConfig signingConfigs.relese_signing_config

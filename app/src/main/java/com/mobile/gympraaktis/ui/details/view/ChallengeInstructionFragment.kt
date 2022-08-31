@@ -20,7 +20,6 @@ import com.mobile.gympraaktis.databinding.LayoutTargetBinding
 import com.mobile.gympraaktis.databinding.LayoutTargetBottomBinding
 import com.mobile.gympraaktis.domain.common.AppGuide
 import com.mobile.gympraaktis.domain.common.resettableLazy
-import com.mobile.gympraaktis.domain.entities.ChallengeDTO
 import com.mobile.gympraaktis.domain.extension.*
 import com.mobile.gympraaktis.ui.challenge.ChallengeActivity
 import com.mobile.gympraaktis.ui.login.view.LoginActivity
@@ -142,9 +141,11 @@ class ChallengeInstructionFragment(override val layoutId: Int = R.layout.fragmen
 
     private fun startChallengeSteps() {
         if (getActivity() != null) {
+            Log.d("CHALLENGE_INFO", "ROUTINE_ID " + challengeItem.id.toString())
+            Log.d("CHALLENGE_INFO", "PLAYER_ID " + player.id.toString())
             val intent = Intent(context, ExerciseEngineActivity::class.java)
-            intent.putExtra("EXERCISE", challengeItem.id)
-            intent.putExtra("PLAYER", player.id)
+            intent.putExtra("EXERCISE", challengeItem.id.toInt())
+            intent.putExtra("PLAYER", player.id.toInt())
             intent.putExtra(SINGLE_USER_MODE, mViewModel.settingsStorage.cameraMode)
             startActivityForResult(intent, ChallengeActivity.PRAAKTIS_SDK_REQUEST_CODE)
         }
