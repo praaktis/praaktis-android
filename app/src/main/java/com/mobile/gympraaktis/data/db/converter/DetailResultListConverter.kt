@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.mobile.gympraaktis.domain.entities.DetailPoint
 import com.mobile.gympraaktis.domain.entities.DetailResult
-import com.praaktis.exerciseengine.Engine.Measurement
+import com.praaktis.exerciseengine.Engine.Outputs.Measurement
 
 class DetailResultListConverter {
 

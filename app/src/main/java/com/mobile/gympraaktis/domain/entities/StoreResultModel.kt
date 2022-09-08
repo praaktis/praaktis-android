@@ -3,7 +3,7 @@ package com.mobile.gympraaktis.domain.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
-import com.praaktis.exerciseengine.Engine.Measurement
+import com.praaktis.exerciseengine.Engine.Outputs.Measurement
 import java.io.Serializable
 
 @Entity(

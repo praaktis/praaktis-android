@@ -17,9 +17,10 @@ import com.mobile.gympraaktis.domain.extension.show
 import com.mobile.gympraaktis.domain.extension.showOrReplace
 import com.mobile.gympraaktis.ui.challenge.vm.ResultChallengeFragmentViewModel
 import com.mobile.gympraaktis.ui.details.view.ChallengeInstructionFragment
-import com.praaktis.exerciseengine.Engine.DetailPoint
+
 import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
-import com.praaktis.exerciseengine.Engine.Measurement
+import com.praaktis.exerciseengine.Engine.Outputs.DetailPoint
+import com.praaktis.exerciseengine.Engine.Outputs.Measurement
 import com.praaktis.exerciseengine.Player.VideoReplayActivity
 import timber.log.Timber
 

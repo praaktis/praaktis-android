@@ -9,7 +9,8 @@ import com.mobile.gympraaktis.data.entities.RoutineEntity
 import com.mobile.gympraaktis.data.repository.UserServiceRepository
 import com.mobile.gympraaktis.domain.entities.DetailResult
 import com.mobile.gympraaktis.domain.entities.StoreResultModel
-import com.praaktis.exerciseengine.Engine.Measurement
+import com.praaktis.exerciseengine.Engine.Outputs.Measurement
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat

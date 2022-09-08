@@ -21,7 +21,6 @@ import com.mobile.gympraaktis.ui.challenge.vm.DetailAnalysisFragmentViewModel
 import com.mobile.gympraaktis.ui.details.adapter.AnalysisExpandableAdapter
 import com.mobile.gympraaktis.ui.details.adapter.toAnalysisItem
 import com.mobile.gympraaktis.ui.details.view.ChallengeInstructionFragment
-import com.praaktis.exerciseengine.Engine.Measurement
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
@@ -84,20 +83,20 @@ class DetailAnalysisFragment constructor(override val layoutId: Int = R.layout.f
 
         result?.forEach { (key, value) ->
             when (value) {
-                is com.praaktis.exerciseengine.Engine.DetailPoint -> {
+                is com.praaktis.exerciseengine.Engine.Outputs.DetailPoint -> {
                     if (key != "OVERALL") {
                         scoresMap[value.priority] = DetailScoreDTO(
-                            DetailPoint(value.id, key, value.maxValue, null),
+                            DetailPoint(value.id, key, value.maxValue, challengeItem.detailPoint?.find { it.id == value.id }?.helpText ?: "none"),
                             value.value,
                         )
                     }
                 }
-                is Measurement -> {
-                    scoresMap[value.id * 100] = DetailScoreDTO(
-                        DetailPoint(value.id, key, 100f, null),
-                        value.value,
-                    )
-                }
+//                is Measurement -> {
+//                    scoresMap[value.id * 100] = DetailScoreDTO(
+//                        DetailPoint(value.id, key, 100f, null),
+//                        value.value,
+//                    )
+//                }
             }
         }
 
