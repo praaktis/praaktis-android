@@ -1,6 +1,5 @@
 package com.mobile.gympraaktis.base
 
-import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.annotation.LayoutRes
@@ -8,9 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.domain.common.NetworkMonitorUtil
 import com.mobile.gympraaktis.domain.common.ProgressLoadingDialog
-import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
 import com.mobile.gympraaktis.domain.extension.isTablet
 import com.mobile.gympraaktis.domain.extension.makeToast
 
@@ -24,16 +21,9 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
     protected open val mViewModel: BaseViewModel? = null
     val progressLoadingDialog by lazy { ProgressLoadingDialog(this) }
 
-    override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(SettingsStorage.setLocale(newBase))
-    }
-
-    private val networkMonitor by lazy { NetworkMonitorUtil(this) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         requestCorrectOrientation()
         super.onCreate(savedInstanceState)
-        observeNetworkConnection()
 
         if (shouldOverridePendingTransition()) {
             enterPendingTransition()
@@ -61,12 +51,6 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
 
     fun isConnected() = isConnected
 
-    private fun observeNetworkConnection() {
-        networkMonitor.result = { isAvailable, type ->
-            isConnected = isAvailable
-        }
-    }
-
     abstract fun initUI(savedInstanceState: Bundle?)
 
     open fun shouldOverridePendingTransition() = true
@@ -89,25 +73,10 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        networkMonitor.register()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        networkMonitor.unregister()
-    }
-
     override fun finish() {
         super.finish()
         if (shouldOverridePendingTransition()) {
             exitPendingTransition()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mViewModel?.onDestroy()
     }
 }

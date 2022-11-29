@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.mobile.gympraaktis">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-<!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+    <!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
     <uses-permission android:name="android.permission.CAMERA" />
-<!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
+    <!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -24,28 +23,10 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup">
 
-        <!--
- Set custom default icon. This is used when no icon is set for incoming notification messages.
-             See README(https://goo.gl/l4GJaQ) for more.
-        -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@mipmap/ic_launcher_round" />
-        <!--
- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more.
-        -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/red" />
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/default_notification_channel_id" />
-
         <activity
             android:name="com.mobile.gympraaktis.ui.SplashScreenActivity"
-            android:theme="@style/SplashScreenTheme"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,36 +34,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mobile.gympraaktis.ui.login.view.LoginActivity"
-            android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name="com.mobile.gympraaktis.ui.main.view.MainActivity"
             android:theme="@style/MainTheme"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name="com.mobile.gympraaktis.ui.details.view.DetailsActivity"
-            android:theme="@style/MainTheme" />
-        <activity
-            android:name="com.mobile.gympraaktis.ui.challenge.ChallengeActivity"
-            android:theme="@style/MainTheme" />
-        <activity
-            android:name="com.mobile.gympraaktis.ui.friends.view.InviteFriendsActivity"
-            android:theme="@style/MainTheme" />
         <activity android:name="com.praaktis.exerciseengine.Engine.ExerciseEngineActivity" />
-        <activity
-            android:name="com.mobile.gympraaktis.ui.challenge.ChallengeVideoActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/FullscreenTheme" />
 
-        <service
-            android:name="com.mobile.gympraaktis.domain.common.firebase.PraaktisFCMService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
     </application>
 
 </manifest>

@@ -2,116 +2,13 @@ package com.mobile.gympraaktis.base
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.asLiveData
-import com.google.gson.JsonParseException
-import com.mobile.gympraaktis.R
-import com.mobile.gympraaktis.data.db.PraaktisDatabase
-import com.mobile.gympraaktis.data.repository.CommonsServiceRepository
-import com.mobile.gympraaktis.data.repository.UserServiceRepository
 import com.mobile.gympraaktis.domain.common.AnyLV
 import com.mobile.gympraaktis.domain.common.BoolLV
-import com.mobile.gympraaktis.domain.common.LiveEvent
-import com.mobile.gympraaktis.domain.common.pref.SettingsStorage
-import com.mobile.gympraaktis.domain.entities.CountryItemDTO
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import org.json.JSONObject
-import retrofit2.HttpException
-import java.io.InterruptedIOException
 
 open class BaseViewModel(app: Application) : AndroidViewModel(app) {
 
     val errorMessage = AnyLV()
     val showHideEvent = BoolLV()
     val logoutEvent = BoolLV()
-
-    fun getLogin(): String = settingsStorage.login
-    fun getPassword(): String = settingsStorage.password
-
-    fun onLogoutSuccess() {
-        UserServiceRepository.UserServiceRepositoryImpl.INSTANCE = null
-        logoutEvent.postValue(false)
-    }
-
-    fun observePlayers() = PraaktisDatabase.getInstance(getApplication()).getDashboardDao().getPlayers().asLiveData()
-
-    val commonsRepo by lazy { CommonsServiceRepository.CommonsServiceRepositoryImpl.getInstance(app) }
-    val settingsStorage by lazy { SettingsStorage.instance }
-
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-
-    protected fun addDisposable(disposable: Disposable) {
-        compositeDisposable.add(disposable)
-    }
-
-    private fun clearDisposables() {
-        compositeDisposable.clear()
-    }
-
-    override fun onCleared() {
-        clearDisposables()
-    }
-
-    fun onDestroy() {
-        compositeDisposable.clear()
-    }
-
-    // analyzing error
-    protected open fun onError(throwable: Throwable) {
-        throwable.printStackTrace()
-        if (throwable is HttpException) {
-            val message: String = when (throwable.code()) {
-                500 -> "Internal sever error!"
-                401 -> {
-                    logoutEvent.postValue(true)
-                    val temp = throwable.response()?.errorBody()?.string()
-                    if (temp != null) {
-                        val messages: MutableList<String> = mutableListOf()
-                        try {
-                            val json = JSONObject(temp)
-
-                            json.keys().forEach {
-                                messages.add(json.getString(it))
-                            }
-                        } catch (ex: Exception) {
-                            temp.toString()
-                        }
-                        messages.joinToString()
-                    }
-                    temp.toString()
-                }
-                else -> {
-                    val temp = throwable.response()?.errorBody()?.string()
-                    if (temp != null)
-                        try {
-                            val json = JSONObject(temp)
-
-                            val messages: MutableList<String> = mutableListOf()
-                            json.keys().forEach {
-                                messages.add(json.getString(it))
-                            }
-                            messages.joinToString()
-                        } catch (ex: JsonParseException) {
-                            temp.toString()
-                        }
-                    else
-                        "Error"
-//                    json.getString("error_message")
-                }
-            }
-            errorMessage.postValue(message)
-        } else if (throwable !is InterruptedIOException) {
-            errorMessage.postValue(R.string.error)
-        }
-    }
-
-
-    val countriesEvent: LiveEvent<List<CountryItemDTO>> = LiveEvent()
-
-    fun getCountries() {
-        commonsRepo.getCountries().subscribe({
-            countriesEvent.postValue(it)
-        }, ::onError)
-    }
 
 }

@@ -21,7 +21,7 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
 
     abstract val mViewModel: BaseViewModel
 
-    val progressLoadingDialog by lazy { ProgressLoadingDialog(context!!) }
+    val progressLoadingDialog by lazy { ProgressLoadingDialog(requireContext()) }
 
     val activity by lazy { getActivity() as BaseActivity<*> }
 
@@ -64,8 +64,4 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
 
     protected abstract fun initUI(savedInstanceState: Bundle?)
 
-    override fun onDestroy() {
-        super.onDestroy()
-        mViewModel.onDestroy()
-    }
 }

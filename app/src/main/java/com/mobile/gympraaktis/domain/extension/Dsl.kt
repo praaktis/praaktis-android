@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.asynclayoutinflater.view.AsyncLayoutInflater
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 
@@ -85,7 +86,7 @@ fun AppCompatActivity.showOrReplace(
     }
 }
 
-fun AppCompatActivity.replaceFragment(tag: String, replaceFunc: FragmentTransaction.() -> Unit) {
+fun FragmentActivity.replaceFragment(tag: String, replaceFunc: FragmentTransaction.() -> Unit) {
     val manager = supportFragmentManager
     manager.popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     if (!isFinishing) {

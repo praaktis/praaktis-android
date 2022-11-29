@@ -94,7 +94,7 @@ fun Activity.materialAlert(
             gravity = Gravity.CENTER
             setTextSize(Dimension.SP, 18f)
             setTextColor(ContextCompat.getColor(context, R.color.primaryColor))
-            setTypeface(ResourcesCompat.getFont(context, R.font.lato))
+            setTypeface(ResourcesCompat.getFont(context, R.font.sf_pro_text_regular))
             updatePadding(bottom = 16.dp)
         }
         (dialog.getButton(AlertDialog.BUTTON_POSITIVE).parent as ButtonBarLayout).updatePadding(
@@ -131,7 +131,7 @@ fun Activity.materialAlert(
             gravity = Gravity.CENTER
             setTextSize(Dimension.SP, 18f)
             setTextColor(ContextCompat.getColor(context, R.color.primaryColor))
-            setTypeface(ResourcesCompat.getFont(context, R.font.lato))
+            setTypeface(ResourcesCompat.getFont(context, R.font.sf_pro_text_regular))
             updatePadding(bottom = 16.dp)
         }
         (dialog.getButton(AlertDialog.BUTTON_POSITIVE).parent as ButtonBarLayout).updatePadding(

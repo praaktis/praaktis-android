@@ -1,2 +1,1 @@
-include ':spotlight'
-include ':app', ':countrypicker', ':praaktisinstructionsview', ':praaktis_sdk'
+include ':app', ':praaktis_sdk'

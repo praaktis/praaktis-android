@@ -93,9 +93,3 @@ class AnalysisLineChart @JvmOverloads constructor(
 
     }
 }
-
-val GRADIENT_PROGRESS_ARRAY = listOf<Int>(
-    R.drawable.gradient_progress_2,
-    R.drawable.gradient_progress,
-    R.drawable.gradient_progress_3
-)

@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -19,8 +19,8 @@
 
         <item name="android:statusBarColor">@color/primaryDarkColor</item>
 
-        <item name="android:fontFamily">@font/lato</item>
-        <item name="fontFamily">@font/lato</item>
+        <item name="android:fontFamily">@font/sf_pro_text_regular</item>
+        <item name="fontFamily">@font/sf_pro_text_regular</item>
 
         <!-- Cards, dialogs, date picker container -->
         <item name="shapeAppearanceMediumComponent">
@@ -36,15 +36,15 @@
     </style>
 
     <style name="SplashScreenTheme" parent="AppTheme.TransparentStatusBarNavigationBar">
-        <item name="android:windowBackground">@drawable/app_gradient</item>
+        <item name="android:windowBackground">@android:color/black</item>
     </style>
 
     <style name="LoginTheme" parent="AppTheme.TransparentStatusBarNavigationBar">
-
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <style name="MainTheme" parent="AppTheme.TransparentStatusBarNavigationBar">
-        <item name="android:windowBackground">@drawable/app_gradient</item>
+
     </style>
 
     <style name="AppTheme.TransparentStatusBarNavigationBar" parent="AppTheme">
@@ -123,7 +123,9 @@
     </style>
 
     <style name="ThemeOverlay.AppTheme.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog.Centered">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialAlertDialog.Material3</item>
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearanceOverlay.MaterialAlertDialog.Material3
+        </item>
         <item name="buttonBarPositiveButtonStyle">@style/AppTheme.MaterialButton</item>
         <item name="buttonBarNegativeButtonStyle">@style/AppTheme.MaterialButton.Secondary</item>
     </style>
@@ -164,11 +166,6 @@
         <item name="colorAccent">@android:color/white</item>
         <item name="colorPrimary">@android:color/white</item>
         <item name="android:progress">@android:color/white</item>
-    </style>
-
-    <style name="Widget.App.PopupMenu" parent="Widget.MaterialComponents.PopupMenu">
-        <item name="android:popupBackground">@drawable/shape_popup_menu</item>
-        <item name="popupMenuBackground">@drawable/shape_popup_menu</item>
     </style>
 
 </resources>

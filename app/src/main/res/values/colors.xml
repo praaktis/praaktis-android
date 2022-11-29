@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#0A4C85</color>
+    <color name="primaryColor">#5200FF</color>
     <color name="primaryLightColor">#a155ff</color>
     <color name="primaryDarkColor">#1300c1</color>
     <color name="secondaryColor">#000C22</color>
@@ -9,6 +9,14 @@
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
     <color name="surfaceColor">#ffffff</color>
+
+    <color name="primaryColor_A20">#335200FF</color>
+    <color name="titleColor">#28303F</color>
+    <color name="regularTextColor">#515151</color>
+    <color name="secondaryButtonColor">#14000000</color>
+    <color name="secondaryButtonTextColor">#61000000</color>
+    <color name="resultWindowColor">#F7F7F7</color>
+    <color name="dividerColor">#0000001F</color>
 
     <color name="grey_600">#868686</color>
     <color name="red_500">#F44336</color>

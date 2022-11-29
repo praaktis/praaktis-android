@@ -182,4 +182,18 @@
     <string name="all_players">All players</string>
     <string name="routine">Routine</string>
     <string name="subscriptions">Subscriptions</string>
+
+    <string name="powered_by">powered by</string>
+    <string name="exercise_name">Squats</string>
+    <string name="exercise">Exercise</string>
+    <string name="engine">Engine</string>
+    <string name="description">Description</string>
+    <string name="description_text">The Routine is designed to validate squats technique. We measure the stability of - Shoulders\n - Hips\n - Knees\n - Trunk\n - Stance\n to ensure that joints and muscles are moving correctly together.</string>
+
+    <string name="instruction_text">Now place your smartphone on a tripod 1 meter above the ground. Press Next. Walk 4 metres from the camera and [face the camera]/[turn your side to the camera]. When the text at the bottom of the screen changes from calibration to exercise, begin the Routine.</string>
+    <string name="replay">Replay</string>
+    <string name="back_to_home">Back to Home</string>
+    <string name="rate_your_attempt">Rate your attempt</string>
+
+    <string name="previous">Previous</string>
 </resources>

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Build
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.FragmentActivity
 
 fun Activity.hideSystemUI() {
     // Set the IMMERSIVE flag.
@@ -37,14 +38,12 @@ fun Activity.transparentStatusAndNavigationBar() {
     window.decorView.systemUiVisibility = flags
 }
 
-@RequiresApi(Build.VERSION_CODES.M)
-fun Activity.setLightStatusBar() {
+fun FragmentActivity.setLightStatusBar() {
     var flags: Int = window.decorView.systemUiVisibility
     flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     window.decorView.systemUiVisibility = flags
 }
 
-@RequiresApi(Build.VERSION_CODES.M)
 fun Activity.clearLightStatusBar() {
     var flags: Int = window.decorView.systemUiVisibility
     flags = flags xor View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR

@@ -9,12 +9,7 @@
     </style>
 
     <style name="SplashScreenTheme" parent="AppTheme.TransparentStatusBarNavigationBar">
-        <item name="android:windowBackground">@drawable/app_gradient</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-    </style>
-
-    <style name="LoginTheme" parent="AppTheme.TransparentStatusBarNavigationBar">
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/black</item>
     </style>
 
 </resources>
