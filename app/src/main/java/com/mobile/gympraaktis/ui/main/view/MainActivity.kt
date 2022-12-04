@@ -67,5 +67,4 @@ class MainActivity constructor(override val layoutId: Int = R.layout.activity_ma
         }
     }
 
-
 }

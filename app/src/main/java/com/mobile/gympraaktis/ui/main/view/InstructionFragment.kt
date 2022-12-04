@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.databinding.FragmentInstructionBinding
+import com.mobile.gympraaktis.domain.Constants
 import com.mobile.gympraaktis.domain.extension.replaceFragment
 import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
 import timber.log.Timber
@@ -22,15 +23,6 @@ class InstructionFragment : Fragment() {
                 arguments = Bundle().apply {
                 }
             }
-
-        const val SDK_REQUEST_CODE = 333
-        const val CHALLENGE_ITEM = "ANALYSIS_ITEM"
-        const val CHALLENGE_RESULT = "CHALLENGE_RESULT"
-        const val RAW_VIDEO_PATH = "RAW_VIDEO_PATH"
-        const val VIDEO_PATH = "VIDEO_PATH"
-        const val SINGLE_USER_MODE = "SINGLE_USER_MODE"
-        const val SERVER_NAME = "SERVER_NAME"
-        const val VIDEO_ID = "VIDEO_ID"
     }
 
     private lateinit var binding: FragmentInstructionBinding
@@ -57,29 +49,22 @@ class InstructionFragment : Fragment() {
 
     private fun startExercise() {
         val intent = Intent(context, ExerciseEngineActivity::class.java)
-        intent.putExtra("EXERCISE", 103)
-        intent.putExtra("PLAYER", 8)
-        intent.putExtra("SINGLE_USER_MODE", false)
-        startActivityForResult(intent, SDK_REQUEST_CODE)
+        intent.putExtra("EXERCISE", Constants.ROUTINE_ID)
+        intent.putExtra("PLAYER", 1)
+        intent.putExtra("SINGLE_USER_MODE", Constants.SINGLE_USER_MODE)
+        startActivityForResult(intent, Constants.SDK_REQUEST_CODE)
     }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == SDK_REQUEST_CODE) {
+        if (requestCode == Constants.SDK_REQUEST_CODE) {
             when (resultCode) {
                 Activity.RESULT_OK -> {
                     @Suppress("UNCHECKED_CAST")
                     val result =
                         data?.getSerializableExtra("result") as HashMap<String, Any>? ?: hashMapOf()
                     Timber.d("Result: $result")
-                    val rawVideo = data?.getStringExtra(RAW_VIDEO_PATH)
-                    val video = data?.getStringExtra(VIDEO_PATH)
-                    val videoId = data?.getStringExtra(VIDEO_ID)
-
-                    Timber.d("rawVideo: $rawVideo")
-                    Timber.d("video: $video")
-                    Timber.d("videoId: $videoId")
 
                     activity?.replaceFragment(ExerciseResultFragment.TAG) {
                         replace(

@@ -196,4 +196,6 @@
     <string name="rate_your_attempt">Rate your attempt</string>
 
     <string name="previous">Previous</string>
+    <string name="rate_dialog_title">How well do you think you performed the Routine?</string>
+    <string name="feedback_hint">Explain the reasons for your score</string>
 </resources>

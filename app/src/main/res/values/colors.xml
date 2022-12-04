@@ -16,7 +16,7 @@
     <color name="secondaryButtonColor">#14000000</color>
     <color name="secondaryButtonTextColor">#61000000</color>
     <color name="resultWindowColor">#F7F7F7</color>
-    <color name="dividerColor">#0000001F</color>
+    <color name="dividerColor">#1F000000</color>
 
     <color name="grey_600">#868686</color>
     <color name="red_500">#F44336</color>

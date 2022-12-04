@@ -16,11 +16,11 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            app:paddingTopSystemWindowInsets="@{true}"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:elevation="0dp"
-            app:elevation="0dp">
+            app:elevation="0dp"
+            app:paddingTopSystemWindowInsets="@{true}">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
@@ -28,6 +28,7 @@
                 app:title="@string/detailed_analysis">
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_replay"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

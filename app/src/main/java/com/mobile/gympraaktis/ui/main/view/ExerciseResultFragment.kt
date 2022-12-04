@@ -1,5 +1,6 @@
 package com.mobile.gympraaktis.ui.main.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +8,16 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.gson.Gson
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.databinding.FragmentSecondBinding
+import com.mobile.gympraaktis.domain.Constants
 import com.mobile.gympraaktis.domain.extension.setLightStatusBar
+import com.mobile.gympraaktis.domain.model.RoutinesList
 import com.mobile.gympraaktis.ui.main.adapter.AnalysisExpandableAdapter
 import com.mobile.gympraaktis.ui.main.adapter.AnalysisItem
 import com.praaktis.exerciseengine.Engine.Outputs.DetailPoint
+import com.praaktis.exerciseengine.Player.VideoReplayActivity
 import java.util.*
 
 class ExerciseResultFragment : Fragment() {
@@ -52,8 +57,24 @@ class ExerciseResultFragment : Fragment() {
         activity?.setLightStatusBar()
 
         binding.btnBackHome.setOnClickListener {
-
+            activity?.onBackPressed()
         }
+
+        binding.btnReplay.setOnClickListener {
+            val intent = Intent(activity, VideoReplayActivity::class.java)
+            intent.putExtra("PLAYER", 1)
+            intent.putExtra("EXERCISE", Constants.ROUTINE_ID)
+            startActivity(intent)
+        }
+
+        val routines = Gson().fromJson(
+            resources.openRawResource(R.raw.routines).bufferedReader(),
+            RoutinesList::class.java
+        )
+        val routine = routines.find {
+            it.id == Constants.ROUTINE_ID
+        }
+        val detailPoints = routine?.detailPoints.orEmpty()
 
         binding.rvAnalysis.addItemDecoration(
             DividerItemDecoration(
@@ -65,12 +86,13 @@ class ExerciseResultFragment : Fragment() {
             }
         )
 
-        val adapter = AnalysisExpandableAdapter<DetailPoint> {
+        val adapter =
+            AnalysisExpandableAdapter<DetailPoint> {
 
-        }
+            }
         binding.rvAnalysis.adapter = adapter
 
-        adapter.submitList(collectDetailScores())
+        adapter.submitList(collectDetailScores(detailPoints))
     }
 
     override fun onDestroyView() {
@@ -78,23 +100,27 @@ class ExerciseResultFragment : Fragment() {
         _binding = null
     }
 
-    private fun collectDetailScores(): List<AnalysisItem<DetailPoint>> {
-        val scoresMap = TreeMap<Int, AnalysisItem<DetailPoint>>()
+    private fun collectDetailScores(detailPoints: List<RoutinesList.Routine.DetailPoint>): List<AnalysisItem<DetailPoint>> {
+        val scoresMap =
+            TreeMap<Int, AnalysisItem<DetailPoint>>()
         result.forEach { (key, value) ->
             when (value) {
                 is DetailPoint -> {
                     scoresMap[value.priority] = AnalysisItem(
+                        value.id,
                         key.lowercase()
                             .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
                         value.value,
                         value.maxValue,
-                        additionalText = "",
+                        additionalText = detailPoints.find { value.id == it.id }?.helpText.orEmpty(),
                         returnItem = value,
                     )
                 }
             }
         }
-        return scoresMap.map { it.value }
+        return scoresMap.map {
+            it.value
+        }
     }
 
 }

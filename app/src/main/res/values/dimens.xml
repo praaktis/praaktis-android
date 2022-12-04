@@ -17,4 +17,6 @@
     <dimen name="text_size_9xl">36sp</dimen>
 
     <dimen name="design_bottom_navigation_height" tools:override="true">60dp</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
 </resources>

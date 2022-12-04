@@ -1,0 +1,522 @@
+[
+  {
+    "id": 101,
+    "name": "One-legged Squat - Front",
+    "image_url": "https://s3.eu-west-2.amazonaws.com/image.praaktis.com/singlelegsquat.svg",
+    "detail_points": [
+      {
+        "id": 4,
+        "max_value": 3.0,
+        "help_text": "The overall score for the routine",
+        "label": "OVERALL"
+      },
+      {
+        "id": 1,
+        "max_value": 1.0,
+        "help_text": "The line across the shoulders is horizontal:    Variance of less than 5º is within tolerance",
+        "label": "SHOULDER STABILITY"
+      },
+      {
+        "id": 2,
+        "max_value": 1.0,
+        "help_text": "The line across the hips is horizontal:    Variance of less than 5º is within tolerance",
+        "label": "HIP STABILITY"
+      },
+      {
+        "id": 3,
+        "max_value": 1.0,
+        "help_text": "Throughout the Routine the trunk is vertical:    Variance of less than 5º is within tolerance",
+        "label": "LATERAL TRUNK DISPLACEMENT"
+      }
+    ],
+    "instructions": {
+      "single": [
+        "WITH 1 PERSON THE CAMERA SET UP IS AS FOLLOWS, SET CAMERA ABOUT 120 CMS OFF THE GROUND, MARK A POINT 4 METRES FROM CAMERA, POINT CAMERA SCREEN FACING PERFORMER.  THE CAMERA WILL OPERATE IN SELFIE MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE MARK. PERFORMER SHOULD FACE THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "WHEN THE CALIBRATION IS FINISHED THE RED CORNER MARKERS WILL TURN GREEN.  5 SECONDS LATER THE RED CIRCLE WILL BECOME A GREY SQUARE",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE COMPLETING A SQUAT AND RETURN TO STANDING. REPEAT THREE TIMES",
+        "ONCE THE ROUTINE IS COMPLETED THE PERFORMER MOVES OUT OF THE RECORDING AREA. THIS AUTOMATICALLY STOPS THE RECORDING"
+      ],
+      "multiple": [
+        "WITH TWO PEOPLE THE CAMERA SET UP IS AS FOLLOWS: ONE PERSON PERFORMS THE ROUTINE (THE PERFORMER), ONE PERSON RECORDS THE VIDEO (THE USER). MARK A STANDING POINT APPROXIMATELY 4 METRES FROM THE USER. THE CAMERA OPERATES IN NORMAL MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE MARK. PERFORMER SHOULD FACE THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "WHEN THE CALIBRATION IS FINISHED THE RED CORNER MARKERS WILL TURN GREEN.  5 SECONDS LATER THE RED CIRCLE WILL BECOME A GREY SQUARE",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE COMPLETING A SQUAT AND RETURN TO STANDING. REPEAT THREE TIMES",
+        "ONCE THE ROUTINE IS COMPLETED THE USER SHOULD PRESS THE GREY BUTTON TO STOP THE RECORDING"
+      ]
+    },
+    "video_guide": [],
+    "download_date": "2022-06-04T16:13:00Z",
+    "video_url": "https://s3.eu-west-1.amazonaws.com/site.praaktis.com/videos/OneLeggedSquat_Front2.mp4"
+  },
+  {
+    "id": 102,
+    "name": "One-legged Squat - Side",
+    "image_url": "https://s3.eu-west-2.amazonaws.com/image.praaktis.com/singlelegsquat.svg",
+    "detail_points": [
+      {
+        "id": 9,
+        "max_value": 4.0,
+        "help_text": "The overall score for the routine",
+        "label": "OVERALL"
+      },
+      {
+        "id": 5,
+        "max_value": 1.0,
+        "help_text": "At the lowest sitting point the trunk is leaning forward:    More than 30º from the vertical is within tolerance",
+        "label": "TRUNK TO VERTICAL A"
+      },
+      {
+        "id": 6,
+        "max_value": 1.0,
+        "help_text": "At the lowest sitting point the shin is leaning forward:    More than 30º from the vertical is within tolerance",
+        "label": "SHIN TO VERTICAL B"
+      },
+      {
+        "id": 7,
+        "max_value": 1.0,
+        "help_text": "At the lowest sitting point the thigh is below the horizontal:    More than 10º below the horizontal is within tolerance",
+        "label": "THIGH TO HORIZONTAL C"
+      },
+      {
+        "id": 8,
+        "max_value": 1.0,
+        "help_text": "Throughout the Routine the trunk and shin are parallel:    The trunk and shin are always within 5º is within tolerance",
+        "label": "POSITION STABILITY"
+      }
+    ],
+    "instructions": {
+      "single": [
+        "WITH 1 PERSON THE CAMERA SET UP IS AS FOLLOWS, SET CAMERA ABOUT 120 CMS OFF THE GROUND, MARK A POINT 4 METRES FROM CAMERA, POINT CAMERA SCREEN FACING PERFORMER.  THE CAMERA WILL OPERATE IN SELFIE MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE MARK. PERFORMER SHOULD HAVE SIDE FACING THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "WHEN THE CALIBRATION IS FINISHED THE RED CORNER MARKERS WILL TURN GREEN.  5 SECONDS LATER THE RED CIRCLE WILL BECOME A GREY SQUARE",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE COMPLETING A SQUAT AND RETURN TO STANDING. REPEAT THREE TIMES",
+        "ONCE THE ROUTINE IS COMPLETED THE PERFORMER MOVES OUT OF THE RECORDING AREA. THIS AUTOMATICALLY STOPS THE RECORDING"
+      ],
+      "multiple": [
+        "WITH TWO PEOPLE THE CAMERA SET UP IS AS FOLLOWS: ONE PERSON PERFORMS THE ROUTINE (THE PERFORMER), ONE PERSON RECORDS THE VIDEO (THE USER). MARK A STANDING POINT APPROXIMATELY 4 METRES FROM THE USER. THE CAMERA OPERATES IN NORMAL MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE MARK. PERFORMER SHOULD HAVE SIDE FACING THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "WHEN THE CALIBRATION IS FINISHED THE RED CORNER MARKERS WILL TURN GREEN.  5 SECONDS LATER THE RED CIRCLE WILL BECOME A GREY SQUARE",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE COMPLETING A SQUAT AND RETURN TO STANDING. REPEAT THREE TIMES",
+        "ONCE THE ROUTINE IS COMPLETED THE USER SHOULD PRESS THE GREY BUTTON TO STOP THE RECORDING"
+      ]
+    },
+    "video_guide": [],
+    "download_date": "2022-06-04T16:13:00Z",
+    "video_url": "https://s3.eu-west-1.amazonaws.com/site.praaktis.com/videos/OneLeggedSquat_Side2.mp4"
+  },
+  {
+    "id": 103,
+    "name": "Two-legged Squat - Front",
+    "image_url": "https://s3.eu-west-2.amazonaws.com/image.praaktis.com/squat.svg",
+    "detail_points": [
+      {
+        "id": 11,
+        "max_value": 1.0,
+        "help_text": "The line across the shoulders is horizontal:    Variance of less than 5º is within tolerance",
+        "label": "SHOULDER STABILITY"
+      },
+      {
+        "id": 12,
+        "max_value": 1.0,
+        "help_text": "The line across the hips is horizontal:    Variance of less than 5º is within tolerance",
+        "label": "HIP STABILITY"
+      },
+      {
+        "id": 13,
+        "max_value": 1.0,
+        "help_text": "Throughout the Routine the trunk is vertical:    Variance of less than 5º is within tolerance",
+        "label": "LATERAL TRUNK DISPLACEMENT"
+      },
+      {
+        "id": 14,
+        "max_value": 1.0,
+        "help_text": "The feet are positioned directly below the shoulders:    Variance of less than 5º from vertical is within tolerance",
+        "label": "STANCE WIDTH WIDE"
+      },
+      {
+        "id": 15,
+        "max_value": 1.0,
+        "help_text": "The feet are positioned directly below the shoulders:    Variance of less than 5º from vertical is within tolerance",
+        "label": "STANCE WIDTH NARROW"
+      },
+      {
+        "id": 17,
+        "max_value": 7.0,
+        "help_text": "The overall score for the routine",
+        "label": "OVERALL"
+      },
+      {
+        "id": 10,
+        "max_value": 1.0,
+        "help_text": "At the commencement the centre of the patella is directly above the mid foot:    Variance of less than 5º is within tolerance",
+        "label": "KNEE VALGUS"
+      },
+      {
+        "id": 16,
+        "max_value": 1.0,
+        "help_text": "Throughout the Routine the centre of the patella remains directly above the mid foot:    Variance of less than 5º from vertical is within tolerance",
+        "label": "KNEE VALGUS DISPLACEMENT"
+      }
+    ],
+    "instructions": {
+      "single": [
+        "WITH 1 PERSON THE CAMERA SET UP IS AS FOLLOWS, SET CAMERA ABOUT 120 CMS OFF THE GROUND, MARK A POINT 4 METRES FROM CAMERA, POINT CAMERA SCREEN FACING PERFORMER.  THE CAMERA WILL OPERATE IN SELFIE MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE MARK. PERFORMER SHOULD FACE THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "WHEN THE CALIBRATION IS FINISHED THE RED CORNER MARKERS WILL TURN GREEN.  5 SECONDS LATER THE RED CIRCLE WILL BECOME A GREY SQUARE",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE COMPLETING A SQUAT AND RETURN TO STANDING. REPEAT THREE TIMES",
+        "ONCE THE ROUTINE IS COMPLETED THE PERFORMER MOVES OUT OF THE RECORDING AREA. THIS AUTOMATICALLY STOPS THE RECORDING"
+      ],
+      "multiple": [
+        "WITH TWO PEOPLE THE CAMERA SET UP IS AS FOLLOWS: ONE PERSON PERFORMS THE ROUTINE (THE PERFORMER), ONE PERSON RECORDS THE VIDEO (THE USER). MARK A STANDING POINT APPROXIMATELY 4 METRES FROM THE USER. THE CAMERA OPERATES IN NORMAL MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE MARK. PERFORMER SHOULD FACE THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "WHEN THE CALIBRATION IS FINISHED THE RED CORNER MARKERS WILL TURN GREEN.  5 SECONDS LATER THE RED CIRCLE WILL BECOME A GREY SQUARE",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE COMPLETING A SQUAT AND RETURN TO STANDING. REPEAT THREE TIMES",
+        "ONCE THE ROUTINE IS COMPLETED THE USER SHOULD PRESS THE GREY BUTTON TO STOP THE RECORDING"
+      ]
+    },
+    "video_guide": [],
+    "download_date": "2022-06-04T16:13:00Z",
+    "video_url": "https://s3.eu-west-1.amazonaws.com/site.praaktis.com/videos/TwoLeggedSquat_Front2.mp4"
+  },
+  {
+    "id": 104,
+    "name": "Two-legged Squat - Side",
+    "image_url": "https://s3.eu-west-2.amazonaws.com/image.praaktis.com/squat.svg",
+    "detail_points": [
+      {
+        "id": 20,
+        "max_value": 1.0,
+        "help_text": "At the lowest sitting point the thigh is below the horizontal:    More than 10º below the horizontal is within tolerance",
+        "label": "THIGH TO HORIZONTAL C"
+      },
+      {
+        "id": 18,
+        "max_value": 1.0,
+        "help_text": "At the lowest sitting point the trunk is leaning forward:    More than 30º from the vertical is within tolerance",
+        "label": "TRUNK TO VERTICAL A"
+      },
+      {
+        "id": 19,
+        "max_value": 1.0,
+        "help_text": "At the lowest sitting point the shin is leaning forward:    More than 30º from the vertical is within tolerance",
+        "label": "SHIN TO VERTICAL B"
+      },
+      {
+        "id": 21,
+        "max_value": 1.0,
+        "help_text": "Throughout the Routine the trunk and shin are parallel:    The trunk and shin are always within 5º is within tolerance",
+        "label": "POSITION STABILITY"
+      },
+      {
+        "id": 22,
+        "max_value": 4.0,
+        "help_text": "The overall score for the routine",
+        "label": "OVERALL"
+      }
+    ],
+    "instructions": {
+      "single": [
+        "WITH 1 PERSON THE CAMERA SET UP IS AS FOLLOWS, SET CAMERA ABOUT 120 CMS OFF THE GROUND, MARK A POINT 4 METRES FROM CAMERA, POINT CAMERA SCREEN FACING PERFORMER.  THE CAMERA WILL OPERATE IN SELFIE MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE MARK. PERFORMER SHOULD HAVE SIDE FACING THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "WHEN THE CALIBRATION IS FINISHED THE RED CORNER MARKERS WILL TURN GREEN.  5 SECONDS LATER THE RED CIRCLE WILL BECOME A GREY SQUARE",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE COMPLETING A SQUAT AND RETURN TO STANDING. REPEAT THREE TIMES",
+        "ONCE THE ROUTINE IS COMPLETED THE PERFORMER MOVES OUT OF THE RECORDING AREA. THIS AUTOMATICALLY STOPS THE RECORDING"
+      ],
+      "multiple": [
+        "WITH TWO PEOPLE THE CAMERA SET UP IS AS FOLLOWS: ONE PERSON PERFORMS THE ROUTINE (THE PERFORMER), ONE PERSON RECORDS THE VIDEO (THE USER). MARK A STANDING POINT APPROXIMATELY 4 METRES FROM THE USER. THE CAMERA OPERATES IN NORMAL MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE MARK. PERFORMER SHOULD HAVE SIDE FACING THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "WHEN THE CALIBRATION IS FINISHED THE RED CORNER MARKERS WILL TURN GREEN.  5 SECONDS LATER THE RED CIRCLE WILL BECOME A GREY SQUARE",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE COMPLETING A SQUAT AND RETURN TO STANDING. REPEAT THREE TIMES",
+        "ONCE THE ROUTINE IS COMPLETED THE USER SHOULD PRESS THE GREY BUTTON TO STOP THE RECORDING"
+      ]
+    },
+    "video_guide": [],
+    "download_date": "2022-06-04T16:13:00Z",
+    "video_url": "https://s3.eu-west-1.amazonaws.com/site.praaktis.com/videos/TwoLeggedSquat_Side2.mp4"
+  },
+  {
+    "id": 105,
+    "name": "Jump from Stool - Front",
+    "image_url": "https://s3.eu-west-2.amazonaws.com/image.praaktis.com/jumpfromstool.svg",
+    "detail_points": [
+      {
+        "id": 23,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the centre of the patella is directly above the mid foot:    Variance of less than 5º is within tolerance",
+        "label": "KNEE VALGUS"
+      },
+      {
+        "id": 24,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the trunk is vertical:    Variance of less than 5º is within tolerance",
+        "label": "LATERAL TRUNK FLEXION"
+      },
+      {
+        "id": 25,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the feet are positioned directly below the shoulders:    Variance of less than 5º from vertical is within tolerance",
+        "label": "STANCE WIDTH WIDE"
+      },
+      {
+        "id": 26,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the feet are positioned directly below the shoulders:    Variance of less than 5º from vertical is within tolerance",
+        "label": "STANCE WIDTH NARROW"
+      },
+      {
+        "id": 28,
+        "max_value": 1.0,
+        "help_text": "At the point of maximum knee flexion the centre of the patella is directly above the mid foot:    An angle of more than 5º is within tolerance",
+        "label": "KNEE VALGUS DISPLACEMENT"
+      },
+      {
+        "id": 27,
+        "max_value": 1.0,
+        "help_text": "The feet land at the same time:    0.1 seconds is within tolerance",
+        "label": "SYMMETRICAL INITIAL CONTACT"
+      },
+      {
+        "id": 29,
+        "max_value": 6.0,
+        "help_text": "The overall score for the routine",
+        "label": "OVERALL"
+      }
+    ],
+    "instructions": {
+      "single": [
+        "WITH 1 PERSON THE CAMERA SET UP IS AS FOLLOWS, SET CAMERA ABOUT 120 CMS OFF THE GROUND, PLACE THE STOOL APPROXIMATELY 4 METRES FROM CAMERA, POINT CAMERA SCREEN FACING PERFORMER.  THE CAMERA WILL OPERATE IN SELFIE MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE STOOL. PERFORMER SHOULD FACE THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "WHEN THE CALIBRATION IS FINISHED THE RED CORNER MARKERS WILL TURN GREEN.  5 SECONDS LATER THE RED CIRCLE WILL BECOME A GREY SQUARE",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE: JUMP FORWARD 1 METRE, LAND ON BOTH FEET, THEN JUMP STRAIGHT UP.",
+        "ONCE THE ROUTINE IS COMPLETED THE PERFORMER MOVES OUT OF THE RECORDING AREA. THIS AUTOMATICALLY STOPS THE RECORDING"
+      ],
+      "multiple": [
+        "WITH TWO PEOPLE THE CAMERA SET UP IS AS FOLLOWS: ONE PERSON PERFORMS THE ROUTINE (THE PERFORMER), ONE PERSON RECORDS THE VIDEO (THE USER). PLACE THE STOOL APPROXIMATELY 4 METRES FROM THE USER. THE CAMERA OPERATES IN NORMAL MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE STOOL. PERFORMER SHOULD FACE THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "WHEN THE CALIBRATION IS FINISHED THE RED CORNER MARKERS WILL TURN GREEN.  5 SECONDS LATER THE RED CIRCLE WILL BECOME A GREY SQUARE",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE: JUMP FORWARD 1 METRE, LAND ON BOTH FEET, THEN JUMP STRAIGHT UP.",
+        "ONCE THE ROUTINE IS COMPLETED THE USER SHOULD PRESS THE GREY BUTTON TO STOP THE RECORDING"
+      ]
+    },
+    "video_guide": [],
+    "download_date": "2022-12-04T15:13:00Z",
+    "video_url": "https://s3.eu-west-1.amazonaws.com/site.praaktis.com/videos/JumpFromStool_Front2.mp4"
+  },
+  {
+    "id": 106,
+    "name": "Jump from Stool - Side",
+    "image_url": "https://s3.eu-west-2.amazonaws.com/image.praaktis.com/jumpfromstool.svg",
+    "detail_points": [
+      {
+        "id": 30,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the leg is bent at the knee:    A bend of more than 30º is within tolerance",
+        "label": "KNEE FLEXION"
+      },
+      {
+        "id": 31,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the body is bent at the hip/waist:    A bend of more than 30º is within tolerance",
+        "label": "HIP FLEXION"
+      },
+      {
+        "id": 32,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the trunk is leaning forward:    An angle of more than 5º is within tolerance",
+        "label": "TRUNK FLEXION"
+      },
+      {
+        "id": 33,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the feet land on the toe or flat:    An angle of less than 5º is within tolerance",
+        "label": "ANKLE PLANTAR FLEXION"
+      },
+      {
+        "id": 34,
+        "max_value": 1.0,
+        "help_text": "The change in the angle at the knee from point of landing to maximum knee flexion:    An increase of less than 45º is within tolerance",
+        "label": "KNEE FLEXION DISPLACEMENT"
+      },
+      {
+        "id": 37,
+        "max_value": 7.0,
+        "help_text": "The overall score for the routine",
+        "label": "OVERALL"
+      },
+      {
+        "id": 35,
+        "max_value": 1.0,
+        "help_text": "The angle of the thigh to the trunk does not change from the point of landing to the maximum knee flexion:    An increase/decrease of 5º is within tolerance",
+        "label": "HIP FLEXION DISPLACEMENT"
+      },
+      {
+        "id": 36,
+        "max_value": 1.0,
+        "help_text": "The angle of the trunk to the vertical does not change from the point of landing to the maximum knee flexion:    An increase/decrease of 5º is within tolerance",
+        "label": "TRUNK FLEXION DISPLACEMENT"
+      }
+    ],
+    "instructions": {
+      "single": [
+        "WITH 1 PERSON THE CAMERA SET UP IS AS FOLLOWS, SET CAMERA ABOUT 120 CMS OFF THE GROUND, PLACE THE STOOL APPROXIMATELY 4 METRES FROM CAMERA, POINT CAMERA SCREEN FACING PERFORMER.  THE CAMERA WILL OPERATE IN SELFIE MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE STOOL. PERFORMER SHOULD HAVE SIDE FACING THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "WHEN THE CALIBRATION IS FINISHED THE RED CORNER MARKERS WILL TURN GREEN.  5 SECONDS LATER THE RED CIRCLE WILL BECOME A GREY SQUARE",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE: JUMP FORWARD 1 METRE, LAND ON BOTH FEET, THEN JUMP STRAIGHT UP.",
+        "ONCE THE ROUTINE IS COMPLETED THE PERFORMER MOVES OUT OF THE RECORDING AREA. THIS AUTOMATICALLY STOPS THE RECORDING"
+      ],
+      "multiple": [
+        "WITH TWO PEOPLE THE CAMERA SET UP IS AS FOLLOWS: ONE PERSON PERFORMS THE ROUTINE (THE PERFORMER), ONE PERSON RECORDS THE VIDEO (THE USER). PLACE THE STOOL APPROXIMATELY 4 METRES FROM THE USER. THE CAMERA OPERATES IN NORMAL MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE MARK. PERFORMER SHOULD HAVE SIDE FACING THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "WHEN THE CALIBRATION IS FINISHED THE RED CORNER MARKERS WILL TURN GREEN.  5 SECONDS LATER THE RED CIRCLE WILL BECOME A GREY SQUARE",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE: JUMP FORWARD 1 METRE, LAND ON BOTH FEET, THEN JUMP STRAIGHT UP.",
+        "ONCE THE ROUTINE IS COMPLETED THE USER SHOULD PRESS THE GREY BUTTON TO STOP THE RECORDING"
+      ]
+    },
+    "video_guide": [],
+    "download_date": "2022-12-04T15:13:00Z",
+    "video_url": "https://s3.eu-west-1.amazonaws.com/site.praaktis.com/videos/JumpFromStool_Side2.mp4"
+  },
+  {
+    "id": 107,
+    "name": "Standing Jump - Front",
+    "image_url": "https://s3.eu-west-2.amazonaws.com/image.praaktis.com/jump.svg",
+    "detail_points": [
+      {
+        "id": 38,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the centre of the patella is directly above the mid foot:    Variance of less than 5º is within tolerance",
+        "label": "KNEE VALGUS"
+      },
+      {
+        "id": 40,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the feet are positioned directly below the shoulders:    Variance of less than 5º from vertical is within tolerance",
+        "label": "STANCE WIDTH WIDE"
+      },
+      {
+        "id": 42,
+        "max_value": 1.0,
+        "help_text": "The feet land at the same time:    0.1 seconds is within tolerance",
+        "label": "SYMMETRICAL INITIAL CONTACT"
+      },
+      {
+        "id": 44,
+        "max_value": 6.0,
+        "help_text": "The overall score for the routine",
+        "label": "OVERALL"
+      },
+      {
+        "id": 39,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the trunk is vertical:    Variance of less than 5º is within tolerance",
+        "label": "LATERAL TRUNK FLEXION"
+      },
+      {
+        "id": 41,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the feet are positioned directly below the shoulders:    Variance of less than 5º from vertical is within tolerance",
+        "label": "STANCE WIDTH NARROW"
+      },
+      {
+        "id": 43,
+        "max_value": 1.0,
+        "help_text": "At the point of maximum knee flexion the centre of the patella is directly above the mid foot:    An angle of more than 5º is within tolerance",
+        "label": "KNEE VALGUS DISPLACEMENT"
+      }
+    ],
+    "instructions": {
+      "single": [
+        "WITH 1 PERSON THE CAMERA SET UP IS AS FOLLOWS, SET CAMERA ABOUT 120 CMS OFF THE GROUND, MARK A JUMPING POINT APPROXIMATELY 4 METRES FROM CAMERA, POINT CAMERA SCREEN FACING PERFORMER.  THE CAMERA WILL OPERATE IN SELFIE MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE MARK. PERFORMER SHOULD FACE THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "WHEN THE CALIBRATION IS FINISHED THE RED CORNER MARKERS WILL TURN GREEN.  5 SECONDS LATER THE RED CIRCLE WILL BECOME A GREY SQUARE",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE: JUMP FORWARD 1 METRE, LAND ON BOTH FEET, THEN JUMP STRAIGHT UP.",
+        "ONCE THE ROUTINE IS COMPLETED THE PERFORMER MOVES OUT OF THE RECORDING AREA. THIS AUTOMATICALLY STOPS THE RECORDING"
+      ],
+      "multiple": [
+        "WITH TWO PEOPLE THE CAMERA SET UP IS AS FOLLOWS: ONE PERSON PERFORMS THE ROUTINE (THE PERFORMER), ONE PERSON RECORDS THE VIDEO (THE USER). MARK A JUMPING POINT APPROXIMATELY 4 METRES FROM THE USER. THE CAMERA OPERATES IN NORMAL MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE MARK. PERFORMER SHOULD FACE THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "USER SHOULD LINE UP THE CAMERA SO THAT THE PERFORMER IS ENTIRELY WITHIN THE 4 RED CORNER MARKERS.",
+        "WITHIN 5 SECONDS THE RED CORNER MARKERS WILL TURN GREEN. THE RED CIRCLE WILL BECOME A GREY SQUARE.",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE: JUMP FORWARD 1 METRE, LAND ON BOTH FEET, THEN JUMP STRAIGHT UP. WHEN FINISHED THE USER SHOULD PRESS THE GREY BUTTON TO STOP THE RECORDING"
+      ]
+    },
+    "video_guide": [],
+    "download_date": "2022-12-04T15:13:00Z",
+    "video_url": "https://s3.eu-west-1.amazonaws.com/site.praaktis.com/videos/StandingJump_Front2.mp4"
+  },
+  {
+    "id": 108,
+    "name": "Standing Jump - Side",
+    "image_url": "https://s3.eu-west-2.amazonaws.com/image.praaktis.com/jump.svg",
+    "detail_points": [
+      {
+        "id": 52,
+        "max_value": 7.0,
+        "help_text": "The overall score for the routine",
+        "label": "OVERALL"
+      },
+      {
+        "id": 45,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the leg is bent at the knee:    A bend of more than 30º is within tolerance",
+        "label": "KNEE FLEXION"
+      },
+      {
+        "id": 46,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the body is bent at the hip/waist:    A bend of more than 30º is within tolerance",
+        "label": "HIP FLEXION"
+      },
+      {
+        "id": 47,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the trunk is leaning forward:    An angle of more than 5º is within tolerance",
+        "label": "TRUNK FLEXION"
+      },
+      {
+        "id": 48,
+        "max_value": 1.0,
+        "help_text": "At the point of landing the feet land on the toe or flat:    An angle of less than 5º is within tolerance",
+        "label": "ANKLE PLANTAR FLEXION"
+      },
+      {
+        "id": 49,
+        "max_value": 1.0,
+        "help_text": "The change in the angle at the knee from point of landing to maximum knee flexion:    An increase of less than 45º is within tolerance",
+        "label": "KNEE FLEXION DISPLACEMENT"
+      },
+      {
+        "id": 50,
+        "max_value": 1.0,
+        "help_text": "The angle of the thigh to the trunk does not change from the point of landing to the maximum knee flexion:    An increase/decrease of 5º is within tolerance",
+        "label": "HIP FLEXION DISPLACEMENT"
+      },
+      {
+        "id": 51,
+        "max_value": 1.0,
+        "help_text": "The angle of the trunk to the vertical does not change from the point of landing to the maximum knee flexion:    An increase/decrease of 5º is within tolerance",
+        "label": "TRUNK FLEXION DISPLACEMENT"
+      }
+    ],
+    "instructions": {
+      "single": [
+        "WITH 1 PERSON THE CAMERA SET UP IS AS FOLLOWS, SET CAMERA ABOUT 120 CMS OFF THE GROUND, MARK A JUMPING POINT 4 METRES FROM CAMERA, POINT CAMERA SCREEN FACING PERFORMER.  THE CAMERA WILL OPERATE IN SELFIE MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE MARK. PERFORMER SHOULD HAVE SIDE FACING THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "WHEN THE CALIBRATION IS FINISHED THE RED CORNER MARKERS WILL TURN GREEN.  5 SECONDS LATER THE RED CIRCLE WILL BECOME A GREY SQUARE",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE: JUMP FORWARD 1 METRE, LAND ON BOTH FEET, THEN JUMP STRAIGHT UP.",
+        "ONCE THE ROUTINE IS COMPLETED THE PERFORMER MOVES OUT OF THE RECORDING AREA. THIS AUTOMATICALLY STOPS THE RECORDING"
+      ],
+      "multiple": [
+        "WITH TWO PEOPLE THE CAMERA SET UP IS AS FOLLOWS: ONE PERSON PERFORMS THE ROUTINE (THE PERFORMER), ONE PERSON RECORDS THE VIDEO (THE USER). MARK A JUMPING POINT 4 METRES FROM THE USER. THE CAMERA OPERATES IN NORMAL MODE",
+        "WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE MARK. PERFORMER SHOULD HAVE SIDE FACING THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
+        "USER SHOULD LINE UP THE CAMERA SO THAT THE PERFORMER IS ENTIRELY WITHIN THE 4 RED CORNER MARKERS.",
+        "WITHIN 5 SECONDS THE RED CORNER MARKERS WILL TURN GREEN. THE RED CIRCLE WILL BECOME A GREY SQUARE.",
+        "THEN THE PERFORMER SHOULD BEGIN THE ROUTINE: JUMP FORWARD 1 METRE, LAND ON BOTH FEET, THEN JUMP STRAIGHT UP. WHEN FINISHED THE USER SHOULD PRESS THE GREY BUTTON TO STOP THE RECORDING"
+      ]
+    },
+    "video_guide": [],
+    "download_date": "2022-12-04T15:13:00Z",
+    "video_url": "https://s3.eu-west-1.amazonaws.com/site.praaktis.com/videos/StandingJump_Side2.mp4"
+  }
+]

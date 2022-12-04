@@ -87,6 +87,7 @@ class AnalysisItemItemCallback<T> : DiffUtil.ItemCallback<AnalysisItem<T>>() {
 }
 
 data class AnalysisItem<T>(
+    val id: Int,
     val title: String,
     val value: Float,
     val maxValue: Float,
