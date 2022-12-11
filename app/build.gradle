@@ -73,7 +73,7 @@ dependencies {
 
     // praaktis sdk
     implementation project(path: ':praaktis_sdk')
-    implementation 'com.google.mlkit:pose-detection:18.0.0-beta2'
+    implementation 'com.google.mlkit:pose-detection:18.0.0-beta3'
 
     def lifecycle_version = "2.5.1"
     // ViewModel
@@ -112,10 +112,10 @@ dependencies {
 
     implementation 'com.jakewharton.timber:timber:5.0.1'
 
-    implementation "com.google.android.exoplayer:exoplayer:2.18.1"
-    implementation "com.google.android.exoplayer:exoplayer-ui:2.18.1"
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.1'
-    implementation 'com.google.android.exoplayer:exoplayer-dash:2.18.1'
+    implementation "com.google.android.exoplayer:exoplayer:2.18.2"
+    implementation "com.google.android.exoplayer:exoplayer-ui:2.18.2"
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.2'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.18.2'
 
     implementation 'com.github.ome450901:SimpleRatingBar:1.5.1'
 
