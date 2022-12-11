@@ -60,6 +60,11 @@ class ExerciseResultFragment : Fragment() {
             activity?.onBackPressed()
         }
 
+        binding.btnRate.setOnClickListener {
+            RateRoutineDialogFragment.newInstance()
+                .show(requireActivity().supportFragmentManager, "dialog")
+        }
+
         binding.btnReplay.setOnClickListener {
             val intent = Intent(activity, VideoReplayActivity::class.java)
             intent.putExtra("PLAYER", 1)

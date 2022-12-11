@@ -32,9 +32,9 @@ class DescriptionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnNext.setOnClickListener {
-//            (parentFragment as StartupFragment).nextPage()
-            RateRoutineDialogFragment.newInstance()
-                .show(requireActivity().supportFragmentManager, "dialog")
+            (parentFragment as StartupFragment).nextPage()
+//            RateRoutineDialogFragment.newInstance()
+//                .show(requireActivity().supportFragmentManager, "dialog")
         }
     }
 

@@ -35,18 +35,22 @@
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatRatingBar
+        <com.willy.ratingbar.ScaleRatingBar
             android:id="@+id/ratingbar"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="22dp"
             android:layout_marginBottom="16dp"
-            android:isIndicator="true"
-            android:max="5"
-            android:numStars="5"
-            android:rating="1.0"
-            android:stepSize="1.0" />
+            app:srb_clearRatingEnabled="false"
+            app:srb_clickable="true"
+            app:srb_drawableEmpty="@drawable/ic_star_empty"
+            app:srb_drawableFilled="@drawable/ic_star_filled"
+            app:srb_isIndicator="false"
+            app:srb_minimumStars="1"
+            app:srb_numStars="5"
+            app:srb_scrollable="true"
+            app:srb_stepSize="1" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

@@ -117,6 +117,8 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-core:2.18.1'
     implementation 'com.google.android.exoplayer:exoplayer-dash:2.18.1'
 
+    implementation 'com.github.ome450901:SimpleRatingBar:1.5.1'
+
     testImplementation 'junit:junit:4.13.2'
 }
 
