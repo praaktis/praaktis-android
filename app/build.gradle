@@ -38,19 +38,19 @@ android {
 
         finalProd {
             dimension "default"
-            resValue "string", "app_name", "FAAST"
+            resValue "string", "app_name", "Praaktis.SQUATS"
         }
 
         demoProd {
             dimension "default"
             applicationIdSuffix ".demo"
-            resValue "string", "app_name", "FAAST.Demo"
+            resValue "string", "app_name", "Praaktis.SQUATS.demo"
         }
 
         dev {
             dimension "default"
             applicationIdSuffix ".dev"
-            resValue "string", "app_name", "FAAST.Dev"
+            resValue "string", "app_name", "Praaktis.SQUATS.dev"
         }
 
     }
