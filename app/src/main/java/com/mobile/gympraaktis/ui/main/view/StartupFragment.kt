@@ -30,7 +30,7 @@ class StartupFragment : Fragment() {
 
     private fun initPlayer() {
         val path =
-            "android.resource://" + requireActivity().packageName + "/" + R.raw.two_legged_squat_front
+            "android.resource://" + requireActivity().packageName + "/" + R.raw.demo_video
 
         binding.videoView.setOnPreparedListener {
             val playbackParams = PlaybackParams()
