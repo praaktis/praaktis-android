@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.databinding.FragmentInstructionBinding
 import com.mobile.gympraaktis.domain.Constants
+import com.mobile.gympraaktis.domain.extension.materialAlert
 import com.mobile.gympraaktis.domain.extension.replaceFragment
 import com.praaktis.exerciseengine.Engine.ExerciseEngineActivity
 import timber.log.Timber
@@ -18,18 +19,15 @@ class InstructionFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() =
-            InstructionFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
+        fun newInstance() = InstructionFragment().apply {
+            arguments = Bundle().apply {}
+        }
     }
 
     private lateinit var binding: FragmentInstructionBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentInstructionBinding.inflate(inflater, container, false)
         return binding.root
@@ -61,8 +59,7 @@ class InstructionFragment : Fragment() {
         if (requestCode == Constants.SDK_REQUEST_CODE) {
             when (resultCode) {
                 Activity.RESULT_OK -> {
-                    @Suppress("UNCHECKED_CAST")
-                    val result =
+                    @Suppress("UNCHECKED_CAST") val result =
                         data?.getSerializableExtra("result") as HashMap<String, Any>? ?: hashMapOf()
                     Timber.d("Result: $result")
 
@@ -76,35 +73,46 @@ class InstructionFragment : Fragment() {
                     }
                 }
                 ExerciseEngineActivity.AUTHENTICATION_FAILED -> {
-                    Timber.d("LOGOUT EVENT : AUTHENTICATION_FAILED")
+                    showErrorDialog("LOGOUT EVENT : AUTHENTICATION_FAILED")
                 }
                 ExerciseEngineActivity.CALIBRATION_FAILED -> {
-                    Timber.d("Calibration failed, please try again!")
+                    showErrorDialog("Calibration failed, please try again!")
                     Timber.d("ERROR EVENT : $resultCode")
                     Timber.d("Result NOT OK " + data?.getSerializableExtra("result"))
                 }
                 ExerciseEngineActivity.POOR_CONNECTION -> {
-                    Timber.d("Poor connection, please try again!")
+                    showErrorDialog("Poor connection, please try again!")
                     Timber.d("ERROR EVENT : $resultCode")
                     Timber.d("Result NOT OK " + data?.getSerializableExtra("result"))
                 }
                 ExerciseEngineActivity.CANNOT_REACH_SERVER -> {
-                    Timber.d("Cannot reach server, please try again!")
+                    showErrorDialog("Cannot reach server, please try again!")
                     Timber.d("ERROR EVENT : $resultCode")
                     Timber.d("Result NOT OK " + data?.getSerializableExtra("result"))
                 }
                 ExerciseEngineActivity.SMTH_WENT_WRONG -> {
-                    Timber.d("Something went wrong, please try again!")
+                    showErrorDialog("Something went wrong, please try again!")
                 }
                 Activity.RESULT_CANCELED -> {
 
                 }
                 else -> {
-                    Timber.d("Something went wrong, please try again!")
+                    showErrorDialog("Something went wrong, please try again!")
                 }
             }
         }
     }
 
-
+    private fun showErrorDialog(message: String) {
+        materialAlert {
+            setCancelable(true)
+            setMessage(message)
+            setPositiveButton(R.string.try_again) { dialog, which ->
+                startExercise()
+            }
+            setNegativeButton(R.string.cancel) { dialog, which ->
+                (parentFragment as StartupFragment).previousPage()
+            }
+        }?.show()
+    }
 }
