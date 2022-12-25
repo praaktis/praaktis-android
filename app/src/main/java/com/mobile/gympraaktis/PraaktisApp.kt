@@ -2,6 +2,7 @@ package com.mobile.gympraaktis
 
 import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
+import com.mobile.gympraaktis.domain.getCurrentRoutine
 import timber.log.Timber
 
 class PraaktisApp : Application() {
@@ -19,5 +20,11 @@ class PraaktisApp : Application() {
 
         @JvmStatic
         fun getApplication(): Application = app!!
+
+        val routine by lazy {
+            getApplication().getCurrentRoutine()
+        }
     }
+
+
 }

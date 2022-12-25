@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.google.gson.Gson
+import com.mobile.gympraaktis.PraaktisApp
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.databinding.FragmentSecondBinding
 import com.mobile.gympraaktis.domain.Constants
@@ -72,13 +72,7 @@ class ExerciseResultFragment : Fragment() {
             startActivity(intent)
         }
 
-        val routines = Gson().fromJson(
-            resources.openRawResource(R.raw.routines).bufferedReader(),
-            RoutinesList::class.java
-        )
-        val routine = routines.find {
-            it.id == Constants.ROUTINE_ID
-        }
+        val routine = PraaktisApp.routine
         val detailPoints = routine?.detailPoints.orEmpty()
 
         binding.rvAnalysis.addItemDecoration(

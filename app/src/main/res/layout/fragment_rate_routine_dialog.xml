@@ -47,12 +47,13 @@
             app:srb_drawableEmpty="@drawable/ic_star_empty"
             app:srb_drawableFilled="@drawable/ic_star_filled"
             app:srb_isIndicator="false"
-            app:srb_minimumStars="1"
+            app:srb_minimumStars="0"
             app:srb_numStars="5"
             app:srb_scrollable="true"
             app:srb_stepSize="1" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_feedback"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,18 +74,35 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:letterSpacing="0"
-            android:padding="16dp"
-            android:text="@string/submit"
-            android:textAllCaps="false"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:cornerRadius="8dp" />
+            android:layout_marginTop="50dp">
+
+            <ProgressBar
+                android:id="@+id/progress_circular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/primaryColor"
+                android:indeterminateTintMode="src_atop"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_submit"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0"
+                android:padding="16dp"
+                android:text="@string/submit"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp" />
+
+        </FrameLayout>
 
     </LinearLayout>
 </layout>
