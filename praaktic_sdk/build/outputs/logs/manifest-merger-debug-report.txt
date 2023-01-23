@@ -1,0 +1,63 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:1:1-20:12
+INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:1:1-20:12
+INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:1:1-20:12
+INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:1:1-20:12
+INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:1:1-20:12
+INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:1:1-20:12
+INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:1:1-20:12
+	package
+		ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:2:5-42
+		INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml
+		INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml
+		ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:1:1-20:12
+		INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml
+		ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:1:1-20:12
+		INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:4:5-66
+	android:name
+		ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:4:22-64
+uses-permission#android.permission.CAMERA
+ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:6:5-64
+	android:name
+		ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:6:22-62
+application
+ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:8:5-18:19
+	android:supportsRtl
+		ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:11:9-35
+	android:label
+		ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:10:9-41
+	android:hardwareAccelerated
+		ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:13:9-43
+	android:allowBackup
+		ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:9:9-35
+	android:theme
+		ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:12:9-40
+activity#com.praaktis.exerciseengine.ExerciseEngineActivity
+ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:15:9-17:20
+	android:screenOrientation
+		ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:16:13-49
+	android:name
+		ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml:15:19-57
+uses-sdk
+INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml
+INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml
+INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml
+INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml
+		ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml
+		INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml
+		ADDED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml
+		INJECTED from /Users/user/AndroidStudioProjects/praaktis-android/praaktic_sdk/src/main/AndroidManifest.xml

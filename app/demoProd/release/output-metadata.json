@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.praaktis.squats.demo",
+  "variantName": "demoProdRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 11,
+      "versionName": "0.9.94",
+      "outputFile": "app-demoProd-release.apk"
+    }
+  ],
+  "elementType": "File"
+}
