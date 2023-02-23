@@ -525,84 +525,78 @@
     "image_url": "https://s3.eu-west-2.amazonaws.com/image.praaktis.com/jump.svg",
     "detail_points": [
       {
-        "id": 1001,
+        "id": 58,
         "max_value": 180.0,
         "help_text": "The angle between the thighs, so a proxy as to how far apart the feet are, the smaller the angle the more straight/rigid the stance, so less power available from the legs to put behind the punch",
-        "label": "START: THIGH ANGLE"
-      },
-      {
-        "id": 1002,
-        "max_value": 180.0,
-        "help_text": "The angle at the elbow - this should be close to 180 degrees at the second measure as the arm should be fully extended",
-        "label": "START: ELBOW ANGLE"
-      },
-      {
-        "id": 1003,
-        "max_value": 180.0,
-        "help_text": "The angle at the left knee",
-        "label": "START: LEFT KNEE ANGLE"
-      },
-      {
-        "id": 1004,
-        "max_value": 180.0,
-        "help_text": "The angle at the right knee - these show how upright or low the body is so the lower the body the smaller the angle and the lower the jab will actually connect with the opponent",
-        "label": "START: RIGHT KNEE ANGLE"
-      },
-      {
-        "id": 1005,
-        "max_value": 1.0,
-        "help_text": "Rear heel raised - this is a bit temperamental at present so I would not emphasise it if possible. It should register 1 if the heel is raised and 0 otherwise",
-        "label": "START: REAR HEEL UP"
-      },
-      {
-        "id": 1006,
-        "max_value": 180.0,
-        "help_text": "the angle between the thighs, so a proxy as to how far apart the feet are, the smaller the angle the more straight/rigid the stance, so less power available from the legs to put behind the punch",
         "label": "END: THIGH ANGLE"
       },
       {
-        "id": 1007,
+        "id": 59,
         "max_value": 180.0,
         "help_text": "The angle at the elbow - this should be close to 180 degrees at the second measure as the arm should be fully extended",
         "label": "END: ELBOW ANGLE"
       },
       {
-        "id": 1008,
+        "id": 60,
         "max_value": 180.0,
         "help_text": "The angle at the left knee",
         "label": "END: LEFT KNEE ANGLE"
       },
       {
-        "id": 1009,
+        "id": 61,
         "max_value": 180.0,
         "help_text": "The angle at the right knee - these show how upright or low the body is so the lower the body the smaller the angle and the lower the jab will actually connect with the opponent",
         "label": "END: RIGHT KNEE ANGLE"
       },
       {
-        "id": 1010,
+        "id": 62,
         "max_value": 1.0,
         "help_text": "Rear heel raised - this is a bit temperamental at present so I would not emphasise it if possible. It should register 1 if the heel is raised and 0 otherwise",
         "label": "END: REAR HEEL UP"
+      },
+      {
+        "id": 53,
+        "max_value": 180.0,
+        "help_text": "The angle between the thighs, so a proxy as to how far apart the feet are, the smaller the angle the more straight/rigid the stance, so less power available from the legs to put behind the punch",
+        "label": "START: THIGH ANGLE"
+      },
+      {
+        "id": 54,
+        "max_value": 180.0,
+        "help_text": "The angle at the elbow - this should be close to 180 degrees at the second measure as the arm should be fully extended",
+        "label": "START: ELBOW ANGLE"
+      },
+      {
+        "id": 55,
+        "max_value": 180.0,
+        "help_text": "The angle at the left knee",
+        "label": "START: LEFT KNEE ANGLE"
+      },
+      {
+        "id": 56,
+        "max_value": 180.0,
+        "help_text": "The angle at the right knee - these show how upright or low the body is so the lower the body the smaller the angle and the lower the jab will actually connect with the opponent",
+        "label": "START: RIGHT KNEE ANGLE"
+      },
+      {
+        "id": 57,
+        "max_value": 1.0,
+        "help_text": "Rear heel raised - this is a bit temperamental at present so I would not emphasise it if possible. It should register 1 if the heel is raised and 0 otherwise",
+        "label": "START: REAR HEEL UP"
+      },
+      {
+        "id": 63,
+        "max_value": 10.0,
+        "help_text": "The overall score for the routine ",
+        "label": "OVERALL"
       }
     ],
     "instructions": {
-      "single": [
-        "-WITH 1 PERSON THE CAMERA SET UP IS AS FOLLOWS, SET CAMERA ABOUT 120 CMS OFF THE GROUND, MARK A JUMPING POINT 4 METRES FROM CAMERA, POINT CAMERA SCREEN FACING PERFORMER.  THE CAMERA WILL OPERATE IN SELFIE MODE",
-        "-WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE MARK. PERFORMER SHOULD HAVE SIDE FACING THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
-        "-WHEN THE CALIBRATION IS FINISHED THE RED CORNER MARKERS WILL TURN GREEN.  5 SECONDS LATER THE RED CIRCLE WILL BECOME A GREY SQUARE",
-        "-THEN THE PERFORMER SHOULD BEGIN THE ROUTINE: JUMP FORWARD 1 METRE, LAND ON BOTH FEET, THEN JUMP STRAIGHT UP.",
-        "-ONCE THE ROUTINE IS COMPLETED THE PERFORMER MOVES OUT OF THE RECORDING AREA. THIS AUTOMATICALLY STOPS THE RECORDING"
-      ],
-      "multiple": [
-        "-WITH TWO PEOPLE THE CAMERA SET UP IS AS FOLLOWS: ONE PERSON PERFORMS THE ROUTINE (THE PERFORMER), ONE PERSON RECORDS THE VIDEO (THE USER). MARK A JUMPING POINT 4 METRES FROM THE USER. THE CAMERA OPERATES IN NORMAL MODE",
-        "-WHILE THE TIMING BAR ON THIS PAGE IS SCROLLING THE PERFORMER SHOULD MOVE AND STAND ON THE MARK. PERFORMER SHOULD HAVE SIDE FACING THE CAMERA, ARMS ACROSS CHEST OR ON HIPS",
-        "-USER SHOULD LINE UP THE CAMERA SO THAT THE PERFORMER IS ENTIRELY WITHIN THE 4 RED CORNER MARKERS.",
-        "-WITHIN 5 SECONDS THE RED CORNER MARKERS WILL TURN GREEN. THE RED CIRCLE WILL BECOME A GREY SQUARE.",
-        "-THEN THE PERFORMER SHOULD BEGIN THE ROUTINE: JUMP FORWARD 1 METRE, LAND ON BOTH FEET, THEN JUMP STRAIGHT UP. WHEN FINISHED THE USER SHOULD PRESS THE GREY BUTTON TO STOP THE RECORDING"
-      ]
+      "single": [],
+      "multiple": []
     },
     "video_guide": [],
-    "download_date": "2022-12-04T15:13:00Z",
-    "video_url": "https://s3.eu-west-1.amazonaws.com/site.praaktis.com/videos/StandingJump_Side2.mp4"
+    "download_date": "2023-02-09T15:57:46Z",
+    "video_url": "https://s3.eu-west-1.amazonaws.com/site.praaktis.com/videos/BoxingJab_Side.mp4"
   }
 ]
