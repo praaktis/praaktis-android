@@ -598,5 +598,91 @@
     "video_guide": [],
     "download_date": "2023-02-09T15:57:46Z",
     "video_url": "https://s3.eu-west-1.amazonaws.com/site.praaktis.com/videos/BoxingJab_Side.mp4"
+  },
+  {
+    "id": 110,
+    "name": "Wall slide",
+    "image_url": "https://s3.eu-west-2.amazonaws.com/image.praaktis.com/jump.svg",
+    "detail_points": [
+      {
+        "id": 64,
+        "max_value": 180.0,
+        "help_text": "Angle at knee nearest to the camera at the start of the action",
+        "label": "INITIAL MAIN KNEE"
+      },
+      {
+        "id": 65,
+        "max_value": 180.0,
+        "help_text": "Angle at elbow nearest to the camera at the start of the action",
+        "label": "INITIAL MAIN ELBOW"
+      },
+      {
+        "id": 66,
+        "max_value": 180.0,
+        "help_text": "Head above feet – angle from vertical at the start of the action",
+        "label": "INITIAL HEAD AND VERTICAL"
+      },
+      {
+        "id": 67,
+        "max_value": 180.0,
+        "help_text": "Angle at knee nearest to the camera at high point of the ball",
+        "label": "MAX MAIN KNEE ANGLE"
+      },
+      {
+        "id": 68,
+        "max_value": 180.0,
+        "help_text": "Angle at knee further from the camera at high point of the ball",
+        "label": "MAX SECONDARY KNEE ANGLE"
+      },
+      {
+        "id": 69,
+        "max_value": 180.0,
+        "help_text": "Angle of thigh further from the camera – angle from horizontal at high point of the ball",
+        "label": "MAX SECONDARY THIGH ANGLE"
+      },
+      {
+        "id": 70,
+        "max_value": 180.0,
+        "help_text": "Ball to head – angle from vertical at high point of the ball",
+        "label": "MAX MAIN ARM AND VERTICAL"
+      },
+      {
+        "id": 71,
+        "max_value": 180.0,
+        "help_text": "Angle of elbow further from the camera at high point of the ball",
+        "label": "MAX SECONDARY ELBOW"
+      },
+      {
+        "id": 72,
+        "max_value": 180.0,
+        "help_text": "Thigh nearest to the camera – angle from vertical at high point of the ball",
+        "label": "MAX MAIN THIGH AND VERTICAL"
+      },
+      {
+        "id": 73,
+        "max_value": 1.0,
+        "help_text": "Heel off the ground at high point of the ball",
+        "label": "HEEL OFF THE GROUND"
+      },
+      {
+        "id": 74,
+        "max_value": 20.0,
+        "help_text": "Time that the position with the ball at maximum height is held",
+        "label": "TIME OF HIGHEST BALL LIFT"
+      },
+      {
+        "id": 75,
+        "max_value": 10.0,
+        "help_text": "The overall score for the routine ",
+        "label": "OVERALL"
+      }
+    ],
+    "instructions": {
+      "single": [],
+      "multiple": []
+    },
+    "video_guide": [],
+    "download_date": null,
+    "video_url": "https://s3.eu-west-1.amazonaws.com/site.praaktis.com/videos/WallSlide.mp4"
   }
 ]
