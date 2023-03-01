@@ -3,13 +3,21 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
+    signingConfigs {
+        'finalProd-release' {
+            storeFile file('/Users/user/AndroidStudioProjects/Praaktis.BOXING')
+            storePassword '111111'
+            keyAlias '111111'
+            keyPassword '111111'
+        }
+    }
     compileSdkVersion 33
     defaultConfig {
         applicationId "com.praaktis.boxing"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 14
-        versionName "Boxing_v1.2"
+        versionCode 15
+        versionName "Boxing_v1.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptSupportModeEnabled true
     }
