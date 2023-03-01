@@ -8,8 +8,8 @@ android {
         applicationId "com.praaktis.boxing"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 13
-        versionName "Boxing_v1.1"
+        versionCode 14
+        versionName "Boxing_v1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptSupportModeEnabled true
     }
