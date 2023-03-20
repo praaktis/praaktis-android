@@ -8,8 +8,8 @@ android {
         applicationId "com.praaktis.wallslides"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 13
-        versionName "Wall_slides_v1.1"
+        versionCode 15
+        versionName "Wall_slides_v1.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptSupportModeEnabled true
     }

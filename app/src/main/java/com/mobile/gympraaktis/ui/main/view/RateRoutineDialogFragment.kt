@@ -18,6 +18,7 @@ import com.mobile.gympraaktis.domain.network.ApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.HashMap
 
 /**
  *
@@ -35,6 +36,10 @@ class RateRoutineDialogFragment : BottomSheetDialogFragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private val result by lazy {
+        requireArguments().getSerializable(ExerciseResultFragment.RESULT) as HashMap<String, Any>
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,7 +69,8 @@ class RateRoutineDialogFragment : BottomSheetDialogFragment() {
                     FeedbackModel(
                         Constants.ROUTINE_ID,
                         PraaktisApp.routine?.name.orEmpty(),
-                        binding.etFeedback.text.toString(),
+//                        binding.etFeedback.text.toString(),
+                        result.getOrDefault("pose", "") as String,
                         binding.ratingbar.rating.toInt()
                     )
                 )
@@ -86,10 +92,12 @@ class RateRoutineDialogFragment : BottomSheetDialogFragment() {
     }
 
     companion object {
-        fun newInstance(): RateRoutineDialogFragment =
+        const val RESULT = "RESULT"
+
+        fun newInstance(result: HashMap<String, Any>): RateRoutineDialogFragment =
             RateRoutineDialogFragment().apply {
                 arguments = Bundle().apply {
-
+                    putSerializable(RESULT, result)
                 }
             }
     }
