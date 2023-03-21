@@ -1,5 +1,6 @@
 package com.mobile.gympraaktis.data.repository
 
+import com.mobile.gympraaktis.BuildConfig
 import com.mobile.gympraaktis.data.api.UserService
 import com.mobile.gympraaktis.domain.common.ASyncTransformer
 import com.mobile.gympraaktis.domain.common.Constants.createService
@@ -85,7 +86,7 @@ interface UserServiceRepository {
         }
 
         override fun getChallenges(): Single<List<ChallengeDTO>> {
-            return userService.getChallenges().compose(ASyncTransformer<List<ChallengeDTO>>())
+            return userService.getChallenges(appId = BuildConfig.APPLICATION_ID).compose(ASyncTransformer<List<ChallengeDTO>>())
         }
 
         override fun getComparison(playerId: Long): Single<ComparisonDTO> {

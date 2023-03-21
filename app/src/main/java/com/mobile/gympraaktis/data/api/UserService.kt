@@ -41,8 +41,8 @@ interface UserService {
         @Body storeResult: StoreResultModel
     ): ResponseBody
 
-    @GET("getRoutines/")
-    fun getChallenges(): Single<List<ChallengeDTO>>
+    @GET("getRoutines/{app_id}")
+    fun getChallenges(@Path("app_id") appId: String? = null): Single<List<ChallengeDTO>>
 
     @GET("user/getComparison/{player_id}")
     fun getComparison(
