@@ -126,7 +126,7 @@ class ResultChallengeFragment constructor(override val layoutId: Int = R.layout.
         binding.ivPlay.setOnClickListener {
             val intent = Intent(activity, VideoReplayActivity::class.java)
             intent.putExtra("PLAYER", 1)
-            intent.putExtra("EXERCISE", challengeItem.id)
+            intent.putExtra("EXERCISE", challengeItem.id.toInt())
             startActivity(intent)
         }
 
