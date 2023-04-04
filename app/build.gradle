@@ -18,7 +18,7 @@ android {
         applicationId "com.praaktis.faast"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 10
+        versionCode 11
         versionName "0.9.94"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptSupportModeEnabled true
