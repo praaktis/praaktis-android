@@ -184,12 +184,12 @@
     <string name="subscriptions">Subscriptions</string>
 
     <string name="powered_by">powered by</string>
-    <string name="exercise_name">Wall Slides</string>
+    <string name="exercise_name">Squats Side</string>
     <string name="exercise">Exercise</string>
     <string name="engine">Engine</string>
     <string name="description">Description</string>
-    <string name="description_text">The Routine is designed to show the correct technique for the Wall Slide using the PTP Pilates ball. Various measures are calculated at the start of the Routine and at the point of maximum extension.\n At the start of the action\n- angle at knee and angle at elbow nearer camera\n- angle from vertical – head compared to feet\n At high point of the ball\n- angle at knee both nearer to and further from camera\n- angle of thigh further from camera - angle from horizontal\n- angle of thigh nearer to the camera – angle from vertical\n- hand holding ball to head - angle from vertical\n- angle of elbow further from the camera\n- whether heel is off the ground\n- time that the position with the ball at maximum height is held\n\n\n</string>
-    <string name="instruction_text">1. Place your smartphone on a tripod approximately \n\t\t one metre above the ground\n2. Press Next\n3. Walk approximately four metres away from the \n\t\t camera\n4. Turn your side to the camera\n5. When the text at the bottom of the screen changes\n\t\t from Calibration to Exercise begin Routine\n4. Complete a series of wall slides \n</string>
+    <string name="description_text">Data Collection App for Squats</string>
+    <string name="instruction_text">1. Place your smartphone on a tripod approximately \n\t\t one metre above the ground\n2. Press Next\n3. Walk approximately three metres away from the \n\t\t camera\n4. Turn your side to the camera\n5. When the text at the bottom of the screen changes\n\t\t from Calibration to Exercise begin Routine\n4. Complete a full squat \n</string>
     <string name="replay">Replay</string>
     <string name="back_to_home">Back to Home</string>
     <string name="rate_your_attempt">Rate your attempt</string>
@@ -197,4 +197,5 @@
     <string name="previous">Previous</string>
     <string name="rate_dialog_title">How well do you think you performed the Routine?</string>
     <string name="feedback_hint">Explain the reasons for your score</string>
+    <string name="save_your_attempt">Save Your Attempt</string>
 </resources>

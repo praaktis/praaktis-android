@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.praaktis.squats_data",
+  "variantName": "finalProdRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 15,
+      "versionName": "squats_data_v1.0",
+      "outputFile": "app-finalProd-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

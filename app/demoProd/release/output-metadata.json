@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.praaktis.squats.demo",
+  "applicationId": "com.praaktis.squats_data.demo",
   "variantName": "demoProdRelease",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 11,
-      "versionName": "0.9.94",
+      "versionCode": 15,
+      "versionName": "squats_data_v1.0",
       "outputFile": "app-demoProd-release.apk"
     }
   ],

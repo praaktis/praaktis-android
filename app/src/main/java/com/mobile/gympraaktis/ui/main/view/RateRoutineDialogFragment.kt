@@ -15,6 +15,7 @@ import com.mobile.gympraaktis.domain.extension.makeToast
 import com.mobile.gympraaktis.domain.extension.show
 import com.mobile.gympraaktis.domain.model.FeedbackModel
 import com.mobile.gympraaktis.domain.network.ApiClient
+import com.praaktis.exerciseengine.Engine.Outputs.DetailPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -37,7 +38,7 @@ class RateRoutineDialogFragment : BottomSheetDialogFragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val result by lazy {
+    private val routineData by lazy {
         requireArguments().getSerializable(ExerciseResultFragment.RESULT) as HashMap<String, Any>
     }
 
@@ -70,8 +71,9 @@ class RateRoutineDialogFragment : BottomSheetDialogFragment() {
                         Constants.ROUTINE_ID,
                         PraaktisApp.routine?.name.orEmpty(),
 //                        binding.etFeedback.text.toString(),
-                        result.getOrDefault("pose", "") as String,
-                        binding.ratingbar.rating.toInt()
+                        routineData.getOrDefault("pose", "") as String,
+//                        binding.ratingbar.rating.toInt()
+                        (routineData["OVERALL"] as DetailPoint).value.toInt()
                     )
                 )
                 withContext(Dispatchers.Main) {
