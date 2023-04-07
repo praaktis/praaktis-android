@@ -1,0 +1,19 @@
+R_DEF: Internal format may change without notice
+local
+color amber_300
+color card_background_color
+color deep_purple_a400
+dimen cardview_padding
+dimen cardview_size
+dimen cardview_stroke_width
+dimen instruction_text_top_padding
+dimen line_divider_height
+dimen line_divider_top_margin
+dimen line_divider_width
+drawable gradient
+drawable line_divider
+id cv_circle
+id tv_instruction
+id tv_number
+layout instruction_view
+layout line_divider

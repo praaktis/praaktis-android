@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#E6000000</color>
+    <string name="app_name">Spotlight</string>
+</resources>
