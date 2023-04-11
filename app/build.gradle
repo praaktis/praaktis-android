@@ -73,7 +73,7 @@ dependencies {
 
     // praaktis sdk
     implementation project(path: ':praaktis_sdk')
-    implementation 'com.google.mlkit:pose-detection:18.0.0-beta3'
+    implementation 'com.google.mlkit:pose-detection-accurate:18.0.0-beta3'
 
     def lifecycle_version = "2.5.1"
     // ViewModel
