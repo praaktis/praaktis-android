@@ -15,11 +15,9 @@ import com.mobile.gympraaktis.domain.extension.makeToast
 import com.mobile.gympraaktis.domain.extension.show
 import com.mobile.gympraaktis.domain.model.FeedbackModel
 import com.mobile.gympraaktis.domain.network.ApiClient
-import com.praaktis.exerciseengine.Engine.Outputs.DetailPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.HashMap
 
 /**
  *
@@ -37,10 +35,6 @@ class RateRoutineDialogFragment : BottomSheetDialogFragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
-    private val routineData by lazy {
-        requireArguments().getSerializable(ExerciseResultFragment.RESULT) as HashMap<String, Any>
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,11 +64,8 @@ class RateRoutineDialogFragment : BottomSheetDialogFragment() {
                     FeedbackModel(
                         Constants.ROUTINE_ID,
                         PraaktisApp.routine?.name.orEmpty(),
-//                        binding.etFeedback.text.toString(),
-                        routineData.getOrDefault("pose", "") as String,
-//                        binding.ratingbar.rating.toInt()
-//                        (routineData["OVERALL"] as DetailPoint).value.toInt()
-                        0
+                        binding.etFeedback.text.toString(),
+                        binding.ratingbar.rating.toInt()
                     )
                 )
                 withContext(Dispatchers.Main) {
@@ -95,12 +86,10 @@ class RateRoutineDialogFragment : BottomSheetDialogFragment() {
     }
 
     companion object {
-        const val RESULT = "RESULT"
-
-        fun newInstance(result: HashMap<String, Any>): RateRoutineDialogFragment =
+        fun newInstance(): RateRoutineDialogFragment =
             RateRoutineDialogFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(RESULT, result)
+
                 }
             }
     }
