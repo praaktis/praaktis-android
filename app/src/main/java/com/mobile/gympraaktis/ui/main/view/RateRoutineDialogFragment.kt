@@ -96,10 +96,9 @@ class RateRoutineDialogFragment : BottomSheetDialogFragment() {
     companion object {
         const val RESULT = "RESULT"
 
-        fun newInstance(result: HashMap<String, Any>): RateRoutineDialogFragment =
+        fun newInstance(): RateRoutineDialogFragment =
             RateRoutineDialogFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(RESULT, result)
                 }
             }
     }

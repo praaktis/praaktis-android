@@ -7,23 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.mobile.gympraaktis.PraaktisApp
 import com.mobile.gympraaktis.R
 import com.mobile.gympraaktis.databinding.FragmentSecondBinding
 import com.mobile.gympraaktis.domain.Constants
-import com.mobile.gympraaktis.domain.extension.*
-import com.mobile.gympraaktis.domain.model.FeedbackModel
+import com.mobile.gympraaktis.domain.extension.setLightStatusBar
 import com.mobile.gympraaktis.domain.model.RoutinesList
-import com.mobile.gympraaktis.domain.network.ApiClient
 import com.mobile.gympraaktis.ui.main.adapter.AnalysisExpandableAdapter
 import com.mobile.gympraaktis.ui.main.adapter.AnalysisItem
 import com.praaktis.exerciseengine.Engine.Outputs.DetailPoint
 import com.praaktis.exerciseengine.Player.VideoReplayActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.*
 
 class ExerciseResultFragment : Fragment() {
@@ -49,8 +43,6 @@ class ExerciseResultFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private var sent = false
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,39 +60,9 @@ class ExerciseResultFragment : Fragment() {
             activity?.onBackPressed()
         }
 
-
         binding.btnRate.setOnClickListener {
-//            RateRoutineDialogFragment.newInstance(result)
-//                .show(requireActivity().supportFragmentManager, "dialog")
-            if (!sent) {
-                lifecycleScope.launch(Dispatchers.IO) {
-
-                    val result = ApiClient.service.storeFeedback(
-                        FeedbackModel(
-                            Constants.ROUTINE_ID,
-                            PraaktisApp.routine?.name.orEmpty(),
-//                        binding.etFeedback.text.toString(),
-                            result.getOrDefault("pose", "") as String,
-//                        binding.ratingbar.rating.toInt()
-                            (result["OVERALL"] as DetailPoint).value.toInt()
-                        )
-                    )
-                    withContext(Dispatchers.Main) {
-
-                        if (result.isSuccessful) {
-                            val message =
-                                (result.body() as Map<String, Any>)["message"].toString()
-                            context?.makeToast(message)
-//                        dismiss()
-                            sent = true
-                        } else {
-                            context?.makeToast("Error")
-//                        binding.progressCircular.hide()
-//                        binding.btnSubmit.show()
-                        }
-                    }
-                }
-            }
+            RateRoutineDialogFragment.newInstance()
+                .show(requireActivity().supportFragmentManager, "dialog")
         }
 
         binding.btnReplay.setOnClickListener {
@@ -159,5 +121,4 @@ class ExerciseResultFragment : Fragment() {
             it.value
         }
     }
-
 }
