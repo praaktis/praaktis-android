@@ -61,7 +61,7 @@ class ExerciseResultFragment : Fragment() {
         }
 
         binding.btnRate.setOnClickListener {
-            RateRoutineDialogFragment.newInstance(result)
+            RateRoutineDialogFragment.newInstance()
                 .show(requireActivity().supportFragmentManager, "dialog")
         }
 
@@ -121,4 +121,5 @@ class ExerciseResultFragment : Fragment() {
             it.value
         }
     }
+
 }
