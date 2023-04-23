@@ -73,7 +73,8 @@ class RateRoutineDialogFragment : BottomSheetDialogFragment() {
 //                        binding.etFeedback.text.toString(),
                         routineData.getOrDefault("pose", "") as String,
 //                        binding.ratingbar.rating.toInt()
-                        (routineData["OVERALL"] as DetailPoint).value.toInt()
+//                        (routineData["OVERALL"] as DetailPoint).value.toInt()
+                        0
                     )
                 )
                 withContext(Dispatchers.Main) {
@@ -96,9 +97,10 @@ class RateRoutineDialogFragment : BottomSheetDialogFragment() {
     companion object {
         const val RESULT = "RESULT"
 
-        fun newInstance(): RateRoutineDialogFragment =
+        fun newInstance(result: HashMap<String, Any>): RateRoutineDialogFragment =
             RateRoutineDialogFragment().apply {
                 arguments = Bundle().apply {
+                    putSerializable(RESULT, result)
                 }
             }
     }
