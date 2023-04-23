@@ -684,5 +684,45 @@
     "video_guide": [],
     "download_date": null,
     "video_url": "https://s3.eu-west-1.amazonaws.com/site.praaktis.com/videos/WallSlide.mp4"
+  },
+  {
+    "id": 112,
+    "name": "Grand Plie",
+    "image_url": "https://s3.eu-west-2.amazonaws.com/image.praaktis.com/jump.svg",
+    "detail_points": [
+      {
+        "id": 76,
+        "max_value": 180.0,
+        "help_text": "Angle at left knee when the heels are up",
+        "label": "LEFT KNEE WHEN HEELS UP"
+      },
+      {
+        "id": 77,
+        "max_value": 180.0,
+        "help_text": "Angle at right knee when the heels are up",
+        "label": "RIGHT KNEE WHEN HEELS UP"
+      },
+      {
+        "id": 78,
+        "max_value": 100.0,
+        "help_text": "The percentage of the time when knees are in line",
+        "label": "KNEE SYMMETRY"
+      },
+      {
+        "id": 79,
+        "max_value": 100.0,
+        "help_text": "The percentage of the time when hips are in line",
+        "label": "HIP SYMMETRY"
+      }
+    ],
+    "instructions": {
+      "single": [],
+      "multiple": []
+    },
+    "video_guide": [],
+    "download_date": null,
+    "video_url": "https://s3.eu-west-1.amazonaws.com/site.praaktis.com/videos/GrandPlie.mp4"
   }
+
+
 ]

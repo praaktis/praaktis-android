@@ -25,6 +25,4 @@ class PraaktisApp : Application() {
             getApplication().getCurrentRoutine()
         }
     }
-
-
 }

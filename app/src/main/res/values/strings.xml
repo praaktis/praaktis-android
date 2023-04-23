@@ -184,12 +184,12 @@
     <string name="subscriptions">Subscriptions</string>
 
     <string name="powered_by">powered by</string>
-    <string name="exercise_name">Squats Side</string>
+    <string name="exercise_name">Grand Plie</string>
     <string name="exercise">Exercise</string>
     <string name="engine">Engine</string>
     <string name="description">Description</string>
-    <string name="description_text">Data Collection App for Squats</string>
-    <string name="instruction_text">1. Place your smartphone on a tripod approximately \n\t\t one metre above the ground\n2. Press Next\n3. Walk approximately three metres away from the \n\t\t camera\n4. Turn your side to the camera\n5. When the text at the bottom of the screen changes\n\t\t from Calibration to Exercise begin Routine\n4. Complete a full squat \n</string>
+    <string name="description_text">Ballet Gradn Plie</string>
+    <string name="instruction_text">1. Place your smartphone on a tripod approximately \n\t\t one metre above the ground\n2. Press Next\n3. Walk approximately three metres away from the \n\t\t camera\n4. When the text at the bottom of the screen changes\n\t\t from Calibration to Exercise begin Routine\n4. Complete a full Grand Plie \n</string>
     <string name="replay">Replay</string>
     <string name="back_to_home">Back to Home</string>
     <string name="rate_your_attempt">Rate your attempt</string>
