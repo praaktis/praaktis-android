@@ -8,8 +8,8 @@ android {
         applicationId "com.praaktis.ballet"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 15
-        versionName "squats_data_v1.0"
+        versionCode 18
+        versionName "ballet_gp_v1.2_closed"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptSupportModeEnabled true
     }
@@ -38,19 +38,19 @@ android {
 
         finalProd {
             dimension "default"
-            resValue "string", "app_name", "Praaktis Squats Data"
+            resValue "string", "app_name", "Praaktis Ballet GP"
         }
 
         demoProd {
             dimension "default"
             applicationIdSuffix ".demo"
-            resValue "string", "app_name", "Praaktis Squats Data.demo"
+            resValue "string", "app_name", "Praaktis Ballet GP.demo"
         }
 
         dev {
             dimension "default"
             applicationIdSuffix ".dev"
-            resValue "string", "app_name", "Praaktis Squats Data.dev"
+            resValue "string", "app_name", "Praaktis Ballet GP.dev"
         }
 
     }
