@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.praaktis.faast",
+  "variantName": "finalProdRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 10,
+      "versionName": "0.9.94",
+      "outputFile": "app-finalProd-release.apk"
+    }
+  ],
+  "elementType": "File"
+}
