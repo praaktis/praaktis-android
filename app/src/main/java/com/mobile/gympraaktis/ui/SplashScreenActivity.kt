@@ -51,6 +51,8 @@ class SplashScreenActivity constructor(override val layoutId: Int = R.layout.lay
         val localeKey = when (language.key) {
             1 -> "en"
             2 -> "fr"
+            3 -> "uz"
+            4 -> "ru"
             else -> "en"
         }
         SettingsStorage.instance.lang = localeKey

@@ -24,6 +24,9 @@ android {
         renderscriptSupportModeEnabled true
         signingConfig signingConfigs.relese_signing_config
 
+        // set locale
+        resConfigs "en", "uz", "ru"
+
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [

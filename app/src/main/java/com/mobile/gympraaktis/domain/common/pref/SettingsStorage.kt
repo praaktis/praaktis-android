@@ -27,7 +27,9 @@ object SettingsStorage {
 
     val supportLanguages: List<LanguageItem> = listOf(
         LanguageItem(1, "English", "en"),
-        LanguageItem(2, "French", "fr")
+        LanguageItem(2, "French", "fr"),
+        LanguageItem(3, "Uzbek", "uz"),
+        LanguageItem(4, "Russian", "ru")
     )
 
 }
@@ -60,8 +62,8 @@ class LoginPreferences(context: Context) : BaseSettings(context), LoginSettings 
 
     override fun getLanguage(): String {
         if (lang.isNotEmpty()) return lang
-        lang = "en"
-        return "en"
+        lang = "uz"
+        return "uz"
     }
 
     override fun getProfile(): UserDTO? {
